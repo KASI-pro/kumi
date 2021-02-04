@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <!-- Latest compiled and minified CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <script>
+    window.addEventListener("beforeunload", function (event) {
+      var confirmationMessage = "入力内容を破棄します。";
+
+      event.returnValue = confirmationMessage;
+      return confirmationMessage;
+    });
+  </script>
+</head>
+<body>
+  <div class="container">
+    <div class="navbar">
+      <h1>組合員の声フォーム</h1>
+    </div>
+    <form action="mailto:dossy@yahoo.co.jp" method="post" enctype="text/plain">
+     <div class="form-row">
+      <label class="col-sm-3 col-form-label">①回答：</label>
+       <div class="col-sm-9">
+        <p>
+          <select class="custom-select w-25" title="回答" name="回答" autocomplete="回答">
+              <option selected="要">要</option>
+              <option value="不要">不要</option>
+          </select>
+        </p>
+       </div>
+      </div>
+     <div class="form-row">
+      <label class="col-sm-3 col-form-label">②支所：</label>
+       <div class="col-sm-9">
+        <p>
+          <select class="custom-select w-25" title="②支所：" name="branch" autocomplete="branch">
+              <option selected="303">港個配センター</option>
+              <option value="301">港支所</option>
+          </select>
+        </p>
+       </div>
+      </div>
+        <div class="form-row">
+        <label class="col-sm-3 col-form-label">③組合員コード：</label>
+        <div class="col-sm-9">
+          <p>
+            <input type="text" name="kcode" autocomplete="kcode" class="form-control" placeholder="組合員コード">
+          </p>
+        </div>
+      </div>
+      <div class="form-row">
+        <label class="col-sm-3 col-form-label">④組合員名：</label>
+        <div class="col-sm-9">
+          <p>
+            <input type="text" name="kname" autocomplete="kname" class="form-control" placeholder="組合員名">
+          </p>
+        </div>
+      </div>
+      <div class="form-row">
+        <label class="col-sm-3 col-form-label">⑤担当者コード：</label>
+        <div class="col-sm-9">
+          <p>
+            <input type="tel" name="tcode" autocomplete="tcode" class="form-control" placeholder="担当者コード">
+          </p>
+        </div>
+      </div>
+        <div class="form-row">
+        <label class="col-sm-3 col-form-label">⑥担当者名：</label>
+        <div class="col-sm-9">
+          <p>
+            <input type="text" name="tname" autocomplete="tname" class="form-control" placeholder="担当者名">
+          </p>
+        </div>
+      </div>
+        <div class="form-row">
+        <label class="col-sm-3 col-form-label">⑦商品名：</label>
+        <div class="col-sm-9">
+          <p>
+            <input type="text" name="pname" autocomplete="pname" class="form-control" placeholder="商品名">
+          </p>
+        </div>
+      </div>
+     <div class="form-row">
+        <label class="col-sm-3 col-form-label">⑧お申し出内容：</label>
+        <div class="col-sm-9">
+          <p>
+              <textarea type="textarea" name="offer" autocomplete="offer" rows="4" cols="40" placeholder="お申し出内容"></textarea>
+          </p>
+        </div>
+      </div>
+        <div class="form-row">
+        <label class="col-sm-3 col-form-label">⑨担当者のコメント：</label>
+        <div class="col-sm-9">
+          <p>
+              <textarea type="textarea" name="comment" autocomplete="comment" rows="4" cols="40" placeholder="担当者のコメント"></textarea>
+          </p>
+        </div>
+      </div>
+      <div class="text-center my-5">
+        <button type="submit" class="btn btn-primary">メール送信</button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
