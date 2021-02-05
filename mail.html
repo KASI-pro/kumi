@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="Shift-JIS" />
+  <meta charset="UTF-8" />
   <meta name="viewport"
     content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <!-- Latest compiled and minified CSS -->
@@ -21,7 +21,7 @@
     <div class="navbar">
       <h1>組合員の声フォーム</h1>
     </div>
-    <form action="mailto:dossy@yahoo.co.jp" method="post" enctype="text/plain">
+    <form>
      <div class="form-row">
       <label class="col-sm-3 col-form-label">①回答：</label>
        <div class="col-sm-9">
@@ -48,7 +48,7 @@
         <label class="col-sm-3 col-form-label">③組合員コード：</label>
         <div class="col-sm-9">
           <p>
-            <input type="text" name="kcode" autocomplete="kcode" class="form-control" placeholder="組合員コード">
+            <input type="tel" name="kcode" autocomplete="kcode" class="form-control" placeholder="組合員コード">
           </p>
         </div>
       </div>
@@ -101,8 +101,8 @@
         </div>
       </div>
       <div class="text-center my-5">
-
-<input type="submit" value="送信" onclick="document.charset= 'Shift-JIS';" class="btn btn-primary">
+<input type=hidden" name="tomail" value="dossyfor@yahoo.co.jp">
+<input type="submit" value="送信" onclick="document.charset='Shift-JIS';" class="btn btn-primary">
 
         <button type="submit" class="btn btn-primary">メール送信</button>
       </div>
