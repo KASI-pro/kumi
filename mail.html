@@ -11,10 +11,10 @@ window.onload = function() {
 	var address, subject, body;
 	var sendmail = document.getElementById('sendFrom');
 	sendmail.onclick = function() {
-	        txtData[] = document.getElementsByName('content').value;
+	        txtData = document.getElementsByName('content').value;
         	address = 'dossygt@gmail.com';
         	subject = '組合員の声';
-        	body = メール本文 + '%0D%0A' + txtData[]; 
+        	body = メール本文 + '%0D%0A' + txtData; 
         location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
     };
 };
