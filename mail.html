@@ -12,7 +12,7 @@ window.onload = function() {
 	var sendmail = document.getElementById('sendFrom');
 	sendmail.onclick = function() {
 	        txtData = document.content;
-		console.log(txtData[0])
+		console.log(txtData[0].value)
 		txtData = txtData.replace(/\r\n|\n/g,"%0d%0a");
         	address = 'dossygt@gmail.com';
         	subject = '組合員の声';
