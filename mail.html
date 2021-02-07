@@ -36,6 +36,22 @@ window.onload = function() {
     };
 };
 </script>
+<style>
+.sendButton{
+  font-size:0.75em;
+  display:block;
+  width:100px;
+  padding-top:10px;
+  padding-bottom:10px;
+  text-align:center;
+  border:2px solid;
+  border-color:#aaaaaa #444444 #444444 #aaaaaa;
+  background:#cccccc;
+}
+.sendButton:hover{
+  background:#777777;
+}
+</style>
 </head>
 <body>
   <div class="container">
@@ -121,7 +137,7 @@ window.onload = function() {
           </p>
         </div>
       </div>
-      <div class="text-center my-5" id="sendFrom">
+      <div class="text-center my-5 sendButton" id="sendFrom">
         メール送信
       </div>
     </form>
