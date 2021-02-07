@@ -10,7 +10,7 @@
 window.onload = function() {
 	var address, subject, body;
 	var sendmail = document.getElementById('sendFrom');
-	console.log(document.content.value)
+	console.log(document.content.toSource())
 	sendmail.onclick = function() {
 		
 	        txtData = document.content;
