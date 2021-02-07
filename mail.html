@@ -12,11 +12,20 @@ window.onload = function() {
 	var sendmail = document.getElementById('sendFrom');
 	sendmail.onclick = function() {
 	        txtData = document.content;
-		console.log(txtData[0].value)
-		txtData = txtData.replace(/\r\n|\n/g,"%0d%0a");
+		answer = txtData[0].value;
+		branch = txtData[1].value;
+		kcode = txtData[2].value;
+		kname = txtData[3].value;
+		tcode = txtData[4].value;
+		tname = txtData[5].value;
+		pname = txtData[6].value;
+		offer = txtData[7].value;
+		comment = txtData[8].value;
         	address = 'dossygt@gmail.com';
         	subject = '組合員の声';
-        	body = 'メール本文' + '%0D%0A' + txtData; 
+        	body = '回答：　' + answer + \n + '支所：　' + branch + \n +
+			'組合員コード：　' + kcode + \n + '組合員名：　' + kname + \n + '担当者コード：　' + tcode + \n +
+			'担当者名：　' + tname + \n + '商品名：　' + pname + \n + 'お問い合わせ内容：　' + offer + \n + '担当者のコメント：　' + comment ; 
         location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
     };
 };
