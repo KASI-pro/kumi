@@ -13,7 +13,7 @@ window.onload = function() {
 	console.log(document.content.value)
 	sendmail.onclick = function() {
 		
-	        txtData = document.getElementsByName('content').value;
+	        txtData = document.content;
         	address = 'dossygt@gmail.com';
         	subject = '組合員の声';
         	body = 'メール本文' + '%0D%0A' + txtData; 
