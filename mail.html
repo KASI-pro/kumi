@@ -7,12 +7,17 @@
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
  <script type="text/javascript" charset="utf-8" >
-function sendFrom() {
-	const mailbody = document.content.toString();
-	mailbody.action="mailto:dossygt@gmail.com";
-	mailbody.method="post";
-	mailbody.submit();
-}
+window.onload = function() {
+	var address, subject, body, hiddenData;
+	var sendmail = document.getElementById('sendFrom');
+	sendmail.onclick = function() {
+	        txtData = document.getElementById('content').value;
+        	address = 'dossygt@gmail.com';
+        	subject = '組合員の声';
+        	body = '%0D%0A' + txtData; 
+        location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
+    };
+};
 </script>
 </head>
 <body>
