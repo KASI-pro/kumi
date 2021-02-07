@@ -11,8 +11,8 @@ window.onload = function() {
 	var address, subject, body;
 	var sendmail = document.getElementById('sendFrom');
 	sendmail.onclick = function() {
-		console.log(JSON.stringify(document.content))
 	        txtData = document.content;
+		txtData = txtData.replace(/\r\n|\n/g,"%0d%0a");
         	address = 'dossygt@gmail.com';
         	subject = '組合員の声';
         	body = 'メール本文' + '%0D%0A' + txtData; 
