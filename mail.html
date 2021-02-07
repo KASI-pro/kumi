@@ -8,10 +8,10 @@
     integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
  <script type="text/javascript" charset="utf-8" >
 window.onload = function() {
-	var address, subject, body, hiddenData;
+	var address, subject, body;
 	var sendmail = document.getElementById('sendFrom');
 	sendmail.onclick = function() {
-	        txtData = document.getElementById('content').value;
+	        txtData = document.getElementsByName('content').value;
         	address = 'dossygt@gmail.com';
         	subject = '組合員の声';
         	body = '%0D%0A' + txtData; 
@@ -104,9 +104,8 @@ window.onload = function() {
           </p>
         </div>
       </div>
-      <div class="text-center my-5">
-        <a href="mailto:dossygt@gmail.com?body=content">メールソフト起動リンク</a>
-        <button type="button" class="btn btn-primary" onclick="sendFrom()">メール送信</button>
+      <div class="text-center my-5" id="sendFrom">
+        メール送信
       </div>
     </form>
   </div>
