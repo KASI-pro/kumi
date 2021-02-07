@@ -23,14 +23,14 @@ window.onload = function() {
 		comment = txtData[8].value;
         	address = 'dossygt@gmail.com';
         	subject = '組合員の声';
-        	body = '回答：　' + answer + `\n
-			支所：　` + branch + `\n
-			組合員コード：　` + kcode + `\n
-			組合員名：　` + kname + `\n
-			担当者コード：　` + tcode + `\n
-			担当者名：　` + tname + `\n
-			商品名：　` + pname + `\n
-			お問い合わせ内容：　` + offer + `<br>
+        	body = '回答：　' + answer + `%0D%0A
+			支所：　` + branch + `%0D%0A
+			組合員コード：　` + kcode + `%0D%0A
+			組合員名：　` + kname + `%0D%0A
+			担当者コード：　` + tcode + `%0D%0A
+			担当者名：　` + tname + `%0D%0A
+			商品名：　` + pname + `%0D%0A
+			お問い合わせ内容：　` + offer + `%0D%0A
 			担当者のコメント：　` + comment ; 
         location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
     };
