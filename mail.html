@@ -14,7 +14,7 @@
     <div class="navbar">
       <h1>組合員の声フォーム</h1>
     </div>
-    <form action="mailto:dossygt@gmail.com" method="post" enctype="text/plain">
+    <form name="content">
      <div class="form-row">
       <label class="col-sm-3 col-form-label">①回答：</label>
        <div class="col-sm-9">
@@ -94,6 +94,7 @@
         </div>
       </div>
       <div class="text-center my-5">
+        <a href="mailto:dossygt@gmail.com?body="content">メールソフト起動リンク</a>
         <button type="submit" class="btn btn-primary">メール送信</button>
       </div>
     </form>
