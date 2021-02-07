@@ -14,7 +14,7 @@ window.onload = function() {
 	        txtData[] = document.getElementsByName('content').value;
         	address = 'dossygt@gmail.com';
         	subject = '組合員の声';
-        	body =メール本文+ '%0D%0A' + txtData[]; 
+        	body = メール本文 + '%0D%0A' + txtData[]; 
         location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
     };
 };
