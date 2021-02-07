@@ -11,7 +11,7 @@ window.onload = function() {
 	var address, subject, body;
 	var sendmail = document.getElementById('sendFrom');
 	sendmail.onclick = function() {
-		console.log(document.getElementsByName('content').value)
+		console.log(document.getElementsByName('content').value.toString())
 	        txtData = document.getElementsByName('content').value;
         	address = 'dossygt@gmail.com';
         	subject = '組合員の声';
