@@ -6,7 +6,7 @@
   <!-- Latest compiled and minified CSS -->
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
- <script type="text/javascript" charset="utf-8" >
+<!--  <script type="text/javascript" charset="utf-8" >
 window.onload = function() {
 	var address, subject, body;
 	var sendmail = document.getElementById('sendFrom');
@@ -35,6 +35,50 @@ window.onload = function() {
         location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
     };
 };
+</script> -->
+<script type="text/javascript">
+    $(function(){
+    	var $isScrolling = 0 ;
+        var $timeoutId ;
+        $(document).on( "scroll", function () {
+        	$isScrolling = 1 ;
+            clearTimeout( $timeoutId );
+            $timeoutId = setTimeout( function () {
+            	$isScrolling = 0 ;
+            }, 200 );
+       });
+    });
+    var clickEventType = (( window.ontouchstart!==null ) ? 'click':'touchend');
+    $(document).on(clickEventType,'sendFrom',function(){
+    	if ($isScrolling === 0) {
+    		var address, subject, body;
+		var sendmail = document.getElementById('sendFrom');
+		sendmail.onclick = function() {
+	        	txtData = document.content;
+			answer = txtData[0].value;
+			branch = txtData[1].value;
+			kcode = txtData[2].value;
+			kname = txtData[3].value;
+			tcode = txtData[4].value;
+			tname = txtData[5].value;
+			pname = txtData[6].value;
+			offer = txtData[7].value;
+			comment = txtData[8].value;
+        		address = '';
+        		subject = '組合員の声';
+        		body = '回答：　' + answer + `%0D%0A
+				支所：　` + branch + `%0D%0A
+				組合員コード：　` + kcode + `%0D%0A
+				組合員名：　` + kname + `%0D%0A
+				担当者コード：　` + tcode + `%0D%0A
+				担当者名：　` + tname + `%0D%0A
+				商品名：　` + pname + `%0D%0A
+				お問い合わせ内容：　` + offer + `%0D%0A
+				担当者のコメント：　` + comment ; 
+       		 location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
+    		};
+    	   }
+    	});
 </script>
 <style>
 .sendButton{
@@ -51,6 +95,9 @@ window.onload = function() {
 }
 .sendButton:hover{
   background:#00FFFF;
+}
+.button {
+ cursor: pointer;
 }
 </style>
 </head>
