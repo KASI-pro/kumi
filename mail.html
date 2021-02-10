@@ -9,6 +9,7 @@
  <script type="text/javascript" charset="utf-8" >
 	 const touchArea = document.getElementById("sendFrom")
 	 touchArea.addEventListener("touchstart", () => {
+		 displayArea1.innerHTML = " touchstart"
          var address, subject, body;
 // 	var sendmail = document.getElementById('sendFrom');
 	function() {
@@ -233,6 +234,7 @@
         メール送信
       </div><br><br>
     </form>
+	  <div id="display-area1"></div><br><br>
   </div>
 </body>
 </html>
