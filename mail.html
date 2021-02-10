@@ -48,7 +48,7 @@ window.onload = function() {
             }, 200 );
        });
     });
-    var clickEventType = (( window.ontouchstart!==null ) ? 'click':'touchend');
+    var clickEventType = (( window.ontouchstart!==null ) ? 'click':'sendFrom');
     $(document).on(clickEventType,'sendFrom',function(){
     	if ($isScrolling === 0) {
     		var address, subject, body;
@@ -199,7 +199,7 @@ window.onload = function() {
           </p>
         </div>
       </div>
-      <div class="sendButton" id="sendFrom">
+      <div class="sendButton" name="sendFrom">
         メール送信
       </div><br><br>
     </form>
