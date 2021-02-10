@@ -7,10 +7,19 @@
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
  <script type="text/javascript" charset="utf-8" >
+	 function getTimeStamp(){
+            const date = new Date()
+            return ('0' + date.getHours()).slice(-2)
+                + ':' + ('0' + date.getMinutes()).slice(-2)
+                + ':' + ('0' + date.getSeconds()).slice(-2)
+                + ':' + ('0' + date.getMilliseconds()).slice(-3)
+        }
 	 const touchArea = document.getElementById("sendFrom")
 	 const displayArea1 = document.getElementById("display-area1")
 	 touchArea.addEventListener("touchstart", () => {
-		 displayArea1.innerHTML = " touchstart"
+            displayArea1.innerHTML = getTimeStamp() + " touchstart"
+        })
+	 </script>
 //          var address, subject, body;
 // // 	var sendmail = document.getElementById('sendFrom');
 // 	function() {
@@ -37,7 +46,7 @@
 // 			担当者のコメント：　` + comment ; 
 //         location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
 //     };
-    })
+//     })
 // window.onload = function() {
 // // function process_touchmove() {
 // 	var address, subject, body;
@@ -67,7 +76,7 @@
 //         location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
 //     };
 // };
-</script>
+<!-- </script> -->
 <!-- <script type="text/javascript">
     $(function(){
     	var $isScrolling = 0 ;
