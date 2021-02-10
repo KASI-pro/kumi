@@ -7,43 +7,9 @@
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
  <script>
-	 const displayArea1 = document.getElementById("display-area1")
-	 document.addEventListener("touchstart", function() {
-  alert("ok");
-		 displayArea1.innerHTML = getTimeStamp() + " touchstart"
-}, false);
-  
-    const touchArea1 = document.getElementById("sendFrom")
-
-    // touchstartイベント
-    touchArea1.addEventListener("touchstart", () => {
-        displayArea1.innerHTML = getTimeStamp() + " touchstart"
-    })
-
-    // touchendイベント
-    touchArea1.addEventListener("touchend", () => {
-        displayArea1.innerHTML = getTimeStamp() + " touchend"
-    })
-
-    // touchmoveイベント
-    touchArea1.addEventListener("touchmove", () => {
-        event.preventDefault();  // 画面スクロールを防止
-        displayArea1.innerHTML = getTimeStamp() + " touchmove"
-    })
-
-    // touchcancelイベント
-    touchArea1.addEventListener("touchcancel", () => {
-        displayArea1.innerHTML = getTimeStamp() + " touchcacel"
-    })
-
-    // タイムスタンプ取得
-    function getTimeStamp(){
-        const date = new Date()
-        return ('0' + date.getHours()).slice(-2)
-            + ':' + ('0' + date.getMinutes()).slice(-2)
-            + ':' + ('0' + date.getSeconds()).slice(-2)
-            + ':' + ('0' + date.getMilliseconds()).slice(-3)
-    }
+	document.addEventListener("touchstart", function() {
+  		alert("ok");
+	}, false);
 </script>
 <style>
 .sendButton{
@@ -64,15 +30,15 @@
 /* .button {
  cursor: pointer;
 } */
-	#sendFrom,#display-area1 {
-            margin: 15px auto;
-            width: 100%;
-            height: 100px;
-            border: solid 1px black;
-            background-color: #ddd;
-            line-height: 100px;
-            text-align: center;   
-        }
+#sendFrom {
+  margin: 15px auto;
+  width: 100%;
+  height: 100px;
+  border: solid 1px black;
+  background-color: #ddd;
+  line-height: 100px;
+  text-align: center;   
+}
 </style>
 </head>
 <body>
@@ -173,10 +139,8 @@
           </p>
         </div>
       </div>
-	    </form>
-      <div id="sendFrom"></div><br><br>
-    
-	  <div id="display-area1"></div><br><br>
+　　　<div id="sendFrom">メール送信</div><br><br>
+    </form>
   </div>
 </body>
 </html>
