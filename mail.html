@@ -13,6 +13,20 @@
 	 touchArea.addEventListener("touchstart", () => {
             displayArea1.innerHTML = getTimeStamp() + " touchstart"
         })
+	  touchArea.addEventListener("touchend", () => {
+        displayArea1.innerHTML = getTimeStamp() + " touchend"
+    })
+
+    // touchmoveイベント
+    touchArea.addEventListener("touchmove", () => {
+        event.preventDefault();  // 画面スクロールを防止
+        displayArea1.innerHTML = getTimeStamp() + " touchmove"
+    })
+
+    // touchcancelイベント
+    touchArea.addEventListener("touchcancel", () => {
+        displayArea1.innerHTML = getTimeStamp() + " touchcacel"
+    })
 	  function getTimeStamp(){
             const date = new Date()
             return ('0' + date.getHours()).slice(-2)
