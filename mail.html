@@ -8,7 +8,7 @@
     integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
  <script>
 	var btn = document.getElementById("sendFrom");
-	btn.addEventListener("onTouchEnd", function(e) {
+	btn.addEventListener("touchstart", function(e) {
   		alert("ok");
 	}, false);
 </script>
@@ -133,14 +133,14 @@
         </div>
       </div>
         <div class="form-row">
-        <label class="col-sm-3 col-form-label">⑨担当者のコメント：4</label>
+        <label class="col-sm-3 col-form-label">⑨担当者のコメント：5</label>
         <div class="col-sm-9">
           <p>
               <textarea type="textarea" name="comment" autocomplete="comment" rows="4" cols="37" placeholder="担当者のコメント"></textarea>
           </p>
         </div>
       </div>
-　　　<button id="sendFrom">メール送信</button><br><br>
+　　　<button type="submit" id="sendFrom">メール送信</button><br><br>
     </form>
   </div>
 </body>
