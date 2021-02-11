@@ -9,8 +9,31 @@
  <script>
 	 function mailOver() {
 	var btn = document.getElementById("sendFrom");
-	btn.addEventListener("touchstart", function(e) { alert("ok"); }, false);
-	 }
+	btn.addEventListener("touchstart", function(e) {
+	 txtData = document.content;
+		answer = txtData[0].value;
+		branch = txtData[1].value;
+		kcode = txtData[2].value;
+		kname = txtData[3].value;
+		tcode = txtData[4].value;
+		tname = txtData[5].value;
+		pname = txtData[6].value;
+		offer = txtData[7].value;
+		comment = txtData[8].value;
+        	address = '';
+        	subject = '組合員の声';
+        	body = '回答：　' + answer + `%0D%0A
+			支所：　` + branch + `%0D%0A
+			組合員コード：　` + kcode + `%0D%0A
+			組合員名：　` + kname + `%0D%0A
+			担当者コード：　` + tcode + `%0D%0A
+			担当者名：　` + tname + `%0D%0A
+			商品名：　` + pname + `%0D%0A
+			お問い合わせ内容：　` + offer + `%0D%0A
+			担当者のコメント：　` + comment ; 
+        location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
+	}, false);
+      }
 	 document.addEventListener("DOMContentLoaded", mailOver);
 </script>
 <style>
@@ -134,7 +157,7 @@
         </div>
       </div>
         <div class="form-row">
-        <label class="col-sm-3 col-form-label">⑨担当者のコメント：6</label>
+        <label class="col-sm-3 col-form-label">⑨担当者のコメント：7</label>
         <div class="col-sm-9">
           <p>
               <textarea type="textarea" name="comment" autocomplete="comment" rows="4" cols="37" placeholder="担当者のコメント"></textarea>
