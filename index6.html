@@ -137,9 +137,7 @@ function mailOver() {
 	var btn = document.getElementById("sendFrom");
 	btn.addEventListener("touchstart", function(e) {
 
-	var btn = document.getElementById("sendFrom");
-	btn.onclick = function() {
-	 txtData = document.content;
+	txtData = document.content;
 	answer = txtData[0].value;
 	branch = txtData[1].value;
 	kcode = txtData[2].value;
@@ -159,9 +157,8 @@ function mailOver() {
 			'","comment":"'+comment+
 			'"}}';
   location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
-	}
 	}, false);
-      
+      }
 	 document.addEventListener("DOMContentLoaded", mailOver);
 	
 </script>
