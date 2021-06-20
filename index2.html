@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <!-- Latest compiled and minified CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+ <script>
+	 function mailOver() {
+	var btn = document.getElementById("sendFrom");
+	btn.addEventListener("touchstart", function(e) {
+	 txtData = document.content;
+		answer = txtData[0].value;
+		branch = txtData[1].value;
+		kcode = txtData[2].value;
+		kname = txtData[3].value;
+		tcode = txtData[4].value;
+		tname = txtData[5].value;
+		pname = txtData[6].value;
+		offer = txtData[7].value;
+		comment = txtData[8].value;
+        	address = '';
+        	subject = '組合員の声';
+        	body = '{"body":{"answer":"`+answer+`","branch":"`+branch+`","kcode":"`+kcode+`","kname":"`+kname+`","kcode":"`+kcode+`","procd":"`+procd+`",pname":"`+pname+`","offer":"`+offer+`","comment":"`+comment+`"}};
+  location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
+	}, false);
+      }
+	 document.addEventListener("DOMContentLoaded", mailOver);
+</script>
+<style>
+.sendButton{
+  font-size:0.75em;
+  display:block;
+  width:100px;
+  padding-top:10px;
+  padding-bottom:10px;
+  text-align:center;
+  margin:0 auto;
+  border:2px solid;
+  border-color:#99FFFF #33FFFF #33FFFF #99FFFF;
+  background:#66FFFF;
+}
+.sendButton:hover{
+  background:#00FFFF;
+}
+/* .button {
+ cursor: pointer;
+} */
+#sendFrom {
+  margin: 15px auto;
+  width: 100%;
+  height: 100px;
+  border: solid 1px black;
+  background-color: #ddd;
+  line-height: 100px;
+  text-align: center;   
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="navbar">
+      <h1>組合員の声フォーム</h1>
+    </div>
+    <form name="content">
+     <div class="form-row">
+      <label class="col-sm-3 col-form-label">①回答：</label>
+       <div class="col-sm-9">
+        <p>
+          <select class="custom-select w-25" name="answer" autocomplete="①answer">
+              <option value="0">要</option>
+              <option value="1">不要</option>
+          </select>
+        </p>
+       </div>
+      </div>
+     <div class="form-row">
+      <label class="col-sm-3 col-form-label">②支所：</label>
+       <div class="col-sm-9">
+        <p>
+          <select class="custom-select w-50"  name="branch" autocomplete="②branch">
+		<option value="101">枚方支所</option>
+		<option value="102">南寝屋川支所</option>
+		<option value="103">南寝屋川個配センター</option>
+		<option value="104">南枚方支所</option>
+		<option value="105">北枚方支所</option>
+		<option value="106">寝屋川支所</option>
+		<option value="107">門真支所</option>
+		<option value="301">港支所</option>
+		<option value="302">西成支所</option>
+		<option value="303">港個配センター</option>
+		<option value="304">生野支所</option>
+		<option value="305">南津守支所</option>
+		<option value="307">平野支所</option>
+		<option value="401">鶴見支所</option>
+		<option value="402">都島個配センター</option>
+		<option value="405">都島支所</option>
+          </select>
+        </p>
+       </div>
+      </div>
+      <div class="form-row">
+        <label class="col-sm-3 col-form-label">③コースコード：</label>
+        <div class="col-sm-9">
+          <p>
+            <input type="tel" name="kcode" autocomplete="tcode" class="form-control" placeholder="コースコード">
+          </p>
+        </div>
+      </div>
+        <div class="form-row">
+        <label class="col-sm-3 col-form-label">④組合員コード：</label>
+        <div class="col-sm-9">
+          <p>
+            <input type="tel" name="kcode" autocomplete="kcode" class="form-control" placeholder="組合員コード">
+          </p>
+        </div>
+      </div>
+      <div class="form-row">
+        <label class="col-sm-3 col-form-label">⑤商品番号：</label>
+        <div class="col-sm-9">
+          <p>
+            <input type="text" name="kname" autocomplete="procd" class="form-control" placeholder="商品番号">
+          </p>
+        </div>
+      </div>
+       <div class="form-row">
+        <label class="col-sm-3 col-form-label">⑥商品名：</label>
+        <div class="col-sm-9">
+          <p>
+            <input type="text" name="pname" autocomplete="pname" class="form-control" placeholder="商品名">
+          </p>
+        </div>
+      </div>
+     <div class="form-row">
+        <label class="col-sm-3 col-form-label">⑦お申し出内容：</label>
+        <div class="col-sm-9">
+          <p>
+              <textarea type="textarea" name="offer" autocomplete="offer" rows="4" cols="37" placeholder="お申し出内容"></textarea>
+          </p>
+        </div>
+      </div>
+        <div class="form-row">
+        <label class="col-sm-3 col-form-label">⑧担当者のコメント：</label>
+        <div class="col-sm-9">
+          <p>
+              <textarea type="textarea" name="comment" autocomplete="comment" rows="4" cols="37" placeholder="担当者のコメント"></textarea>
+          </p>
+        </div>
+      </div>
+　　　<button type="submit" id="sendFrom">メール送信</button><br><br>
+    </form>
+  </div>
+</body>
+</html>
