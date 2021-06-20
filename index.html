@@ -141,12 +141,16 @@ function mailOver() {
 		let str5= document.getElementById("offer").value;
 			if(str1.length !== 4){
 				alert("コースコードは4文字必要です")
+				return;
 				}else if(str2.length !==8){
 					alert("組合員コードは8文字必要です")
+					return;
 					}else if(str3.length ==0 && str4.length == 0){
 						alert("商品番号か商品名のどちらかは必要です")
+						return;
 						}else if(str5.length==0){
 							alert("内容は必須です\nお書きください")
+							return;
 							}else{
 						txtData = document.content;
 						answer = txtData[0].value;
