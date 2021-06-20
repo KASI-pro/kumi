@@ -114,7 +114,7 @@
         <label class="col-sm-3 col-form-label">⑦お申し出内容：</label>
         <div class="col-sm-9">
           <p>
-              <textarea type="textarea" id="offer" rows="4" cols="37" placeholder="お申し出内容"></textarea>
+              <textarea type="textarea" id="offer" rows="4" cols="37" placeholder="お申し出内容" required></textarea>
           </p>
         </div>
       </div>
@@ -135,58 +135,47 @@ function mailOver() {
 	var btn = document.getElementById("sendFrom");
 	btn.addEventListener("touchstart", function(e) {
 		let str1= document.getElementById("kcode").value;
+		if(str1.length !== 4){
+			alert("コースコードは4文字です")
+		}else{
 		let str2= document.getElementById("kmcode").value;
+		if(str2.length !==8){
+				alert("組合員コードは8文字です")
+		}else{
 		let str3= document.getElementById("pcode").value;
 		let str4= document.getElementById("pname").value;
-		let str5= document.getElementById("offer").value;
-		let flug = 0;
-			if(str1.length !== 4){
-				flug = 1;
-			}else if(str2.length !==8){
-				flug = 2;
-			}else if(str3.length ==0 && str4.length == 0){
-				flug = 3;
-			}else if(str5.length==0){
-				flug = 4;
-			}else{
-				flug = 0;
-			}
-			switch(flug){
-			case 1:
-				alert("コースコードは4文字です")
-				break;
-			case 2:
-				alert("組合員コードは8文字です")
-				break;
-			case 3:
-				alert("商品番号か商品名のどちらかは必要です")
-				break;
-			case 4:
-				alert("内容は必須です\nお書きください")
-				break;
-			default:
-						txtData = document.content;
-						answer = txtData[0].value;
-						branch = txtData[1].value;
-						kcode = txtData[2].value;
-						kmcode = txtData[3].value;
-						pcode = txtData[4].value;
-						pname = txtData[5].value;
-						offer = txtData[6].value;
-						comment = txtData[7].value;
-			         address = 'dossygt@gmail.com';
-			         subject = '組合員の声';
-			         body = '{"body":{"answer":"'+answer+'","branch":"'+branch+
-						'","kcode":"'+kcode+
-						'","kmcode":"'+kmcode+
-						'","pcode":"'+pcode+
-						'","pname":"'+pname+
-						'","offer":"'+offer+
-						'","comment":"'+comment+
-						'"}}';
-			  location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
-			}
-	}, false);
+		if(str3.length ==0 && str4.length == 0){
+						alert("商品番号か商品名のどちらかは必要です")
+					}else{
+				let str5= document.getElementById("offer").value;
+		if(str5.length==0){
+						alert("内容は必須です\nお書きください")
+					}else{
+								txtData = document.content;
+								answer = txtData[0].value;
+								branch = txtData[1].value;
+								kcode = txtData[2].value;
+								kmcode = txtData[3].value;
+								pcode = txtData[4].value;
+								pname = txtData[5].value;
+								offer = txtData[6].value;
+								comment = txtData[7].value;
+					         address = 'dossygt@gmail.com';
+					         subject = '組合員の声';
+					         body = '{"body":{"answer":"'+answer+'","branch":"'+branch+
+								'","kcode":"'+kcode+
+								'","kmcode":"'+kmcode+
+								'","pcode":"'+pcode+
+								'","pname":"'+pname+
+								'","offer":"'+offer+
+								'","comment":"'+comment+
+								'"}}';
+					  location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
+					}
+		}
+		}
+		}
+			}, false);
 }
 document.addEventListener("DOMContentLoaded", mailOver);
 </script>
