@@ -41,6 +41,8 @@
     <div class="navbar">
       <h1>組合員の声フォーム</h1>
     </div>
+
+
     <form name="content" method="post">
      <div class="form-row">
       <label class="col-sm-3 col-form-label">①回答：</label>
@@ -82,7 +84,7 @@
         <label class="col-sm-3 col-form-label">③コースコード：</label>
         <div class="col-sm-9">
           <p>
-            <input type="tel" id="kcode" class="form-control" placeholder="コースコード">
+            <input type="tel" id="kcode" class="form-control" minlength='4' maxlength='4' placeholder="コースコード" required>
           </p>
         </div>
       </div>
@@ -90,7 +92,7 @@
         <label class="col-sm-3 col-form-label">④組合員コード：</label>
         <div class="col-sm-9">
           <p>
-            <input type="tel" id="kmcode" class="form-control" placeholder="組合員コード">
+            <input type="tel" id="kmcode" class="form-control" minlength='8' maxlength='8' placeholder="組合員コード" required>
           </p>
         </div>
       </div>
@@ -98,7 +100,7 @@
         <label class="col-sm-3 col-form-label">⑤商品番号：</label>
         <div class="col-sm-9">
           <p>
-            <input type="tel" id="pcode" class="form-control" placeholder="商品番号">
+            <input type="tel" id="pcode" class="form-control" minlength='1' maxlength='6' placeholder="商品番号">
           </p>
         </div>
       </div>
@@ -114,7 +116,7 @@
         <label class="col-sm-3 col-form-label">⑦お申し出内容：</label>
         <div class="col-sm-9">
           <p>
-              <textarea type="textarea" id="offer" rows="4" cols="37" placeholder="お申し出内容"></textarea>
+              <textarea type="textarea" id="offer" rows="4" cols="37" minlength='3' placeholder="お申し出内容" required></textarea>
           </p>
         </div>
       </div>
@@ -126,7 +128,7 @@
           </p>
         </div>
       </div>
-　　　<button type="submit" id="sendFrom">メール送信</button><br><br>
+	<button type="submit" id="sendFrom">メール送信</button><br><br>
     </form>
   </div>
 </body>
@@ -146,8 +148,7 @@ function mailOver() {
 	comment = txtData[7].value;
          address = 'dossygt@gmail.com';
          subject = '組合員の声';
-         body = '{"body":{"answer":"'+answer+
-		 	'","branch":"'+branch+
+         body = '{"body":{"answer":"'+answer+'","branch":"'+branch+
 			'","kcode":"'+kcode+
 			'","kmcode":"'+kmcode+
 			'","pcode":"'+pcode+
