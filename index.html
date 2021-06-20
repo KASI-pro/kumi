@@ -139,19 +139,32 @@ function mailOver() {
 		let str3= document.getElementById("pcode").value;
 		let str4= document.getElementById("pname").value;
 		let str5= document.getElementById("offer").value;
+		let flug = 0;
 			if(str1.length !== 4){
-				alert("コースコードは4文字必要です")
-				return;
-				}else if(str2.length !==8){
-					alert("組合員コードは8文字必要です")
-					return;
-					}else if(str3.length ==0 && str4.length == 0){
-						alert("商品番号か商品名のどちらかは必要です")
-						return;
-						}else if(str5.length==0){
-							alert("内容は必須です\nお書きください")
-							return;
-							}else{
+				flug = 1;
+			}else if(str2.length !==8){
+				flug = 2;
+			}else if(str3.length ==0 && str4.length == 0){
+				flug = 3;
+			}else if(str5.length==0){
+				flug = 4;
+			}else{
+				flug = 0;
+			}
+			switch(flug){
+			case 1:
+				alert("コースコードは4文字です")
+				break;
+			case 2:
+				alert("組合員コードは8文字です")
+				break;
+			case 3:
+				alert("商品番号か商品名のどちらかは必要です")
+				break;
+			case 4:
+				alert("内容は必須です\nお書きください")
+				break;
+			default:
 						txtData = document.content;
 						answer = txtData[0].value;
 						branch = txtData[1].value;
