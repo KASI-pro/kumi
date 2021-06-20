@@ -137,6 +137,7 @@ function mailOver() {
 		let str1= document.getElementById("kcode").value;
 		if(str1.length !== 4){
 			alert("コースコードは4文字です")
+			cancelEvent();
 		}else{
 		let str2= document.getElementById("kmcode").value;
 		if(str2.length !==8){
