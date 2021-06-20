@@ -32,7 +32,7 @@
   border: solid 1px black;
   background-color: #ddd;
   line-height: 100px;
-  text-align: center;   
+  text-align: center;
 }
 </style>
 </head>
@@ -82,7 +82,7 @@
         <label class="col-sm-3 col-form-label">③コースコード：</label>
         <div class="col-sm-9">
           <p>
-            <input type="tel" id="kcode" class="form-control" minlength='4' maxlength='4' placeholder="コースコード" required>
+            <input type="tel" id="kcode" class="form-control" maxlength='4' placeholder="コースコード" required>
           </p>
         </div>
       </div>
@@ -90,7 +90,7 @@
         <label class="col-sm-3 col-form-label">④組合員コード：</label>
         <div class="col-sm-9">
           <p>
-            <input type="tel" id="kmcode" class="form-control" minlength='8' maxlength='8' placeholder="組合員コード" required>
+            <input type="tel" id="kmcode" class="form-control" maxlength='8' placeholder="組合員コード" required>
           </p>
         </div>
       </div>
@@ -98,7 +98,7 @@
         <label class="col-sm-3 col-form-label">⑤商品番号：</label>
         <div class="col-sm-9">
           <p>
-            <input type="tel" id="pcode" class="form-control" minlength='1' maxlength='6' placeholder="商品番号">
+            <input type="tel" id="pcode" class="form-control" maxlength='6' placeholder="商品番号">
           </p>
         </div>
       </div>
@@ -114,7 +114,7 @@
         <label class="col-sm-3 col-form-label">⑦お申し出内容：</label>
         <div class="col-sm-9">
           <p>
-              <textarea type="textarea" id="offer" rows="4" cols="37" minlength='3' placeholder="お申し出内容" required></textarea>
+              <textarea type="textarea" id="offer" rows="4" cols="37" placeholder="お申し出内容" required></textarea>
           </p>
         </div>
       </div>
@@ -134,30 +134,43 @@
 function mailOver() {
 	var btn = document.getElementById("sendFrom");
 	btn.addEventListener("touchstart", function(e) {
-
-	txtData = document.content;
-	answer = txtData[0].value;
-	branch = txtData[1].value;
-	kcode = txtData[2].value;
-	kmcode = txtData[3].value;
-	pcode = txtData[4].value;
-	pname = txtData[5].value;
-	offer = txtData[6].value;
-	comment = txtData[7].value;
-         address = 'dossygt@gmail.com';
-         subject = '組合員の声';
-         body = '{"body":{"answer":"'+answer+'","branch":"'+branch+
-			'","kcode":"'+kcode+
-			'","kmcode":"'+kmcode+
-			'","pcode":"'+pcode+
-			'","pname":"'+pname+
-			'","offer":"'+offer+
-			'","comment":"'+comment+
-			'"}}';
-  location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
+		let str1= document.getElementById("kcode").value;
+		let str2= document.getElementById("kmcode").value;
+		let str3= document.getElementById("pcode").value;
+		let str4= document.getElementById("pname").value;
+		let str5= document.getElementById("offer").value;
+			if(str1.length !== 4){
+				alert("コースコードは4文字です")
+				}else if(str2.length !==8){
+					alert("組合員コードは8文字です")
+					}else if(str3.length ==0 && str4.length == 0){
+						alert("商品番号か商品名のどちらかは必要です")
+						}else if(str5.length==0){
+							alert("内容は必須です\nお書きください")
+							}else{
+						txtData = document.content;
+						answer = txtData[0].value;
+						branch = txtData[1].value;
+						kcode = txtData[2].value;
+						kmcode = txtData[3].value;
+						pcode = txtData[4].value;
+						pname = txtData[5].value;
+						offer = txtData[6].value;
+						comment = txtData[7].value;
+			         address = 'dossygt@gmail.com';
+			         subject = '組合員の声';
+			         body = '{"body":{"answer":"'+answer+'","branch":"'+branch+
+						'","kcode":"'+kcode+
+						'","kmcode":"'+kmcode+
+						'","pcode":"'+pcode+
+						'","pname":"'+pname+
+						'","offer":"'+offer+
+						'","comment":"'+comment+
+						'"}}';
+			  location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
+			}
 	}, false);
-      }
-	 document.addEventListener("DOMContentLoaded", mailOver);
-	
+}
+document.addEventListener("DOMContentLoaded", mailOver);
 </script>
 </html>
