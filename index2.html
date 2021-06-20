@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +8,8 @@
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
  <script>
-	 function mailOver() {
+
+
 	var btn = document.getElementById("sendFrom");
 	btn.addEventListener("touchstart", function(e) {
 	 txtData = document.content;
@@ -15,18 +17,18 @@
 		branch = txtData[1].value;
 		kcode = txtData[2].value;
 		kname = txtData[3].value;
-		tcode = txtData[4].value;
-		tname = txtData[5].value;
+		kcode = txtData[4].value;
+		kname = txtData[5].value;
 		pname = txtData[6].value;
 		offer = txtData[7].value;
 		comment = txtData[8].value;
-        	address = '';
+        	address = 'dossygt@gmail.com';
         	subject = '組合員の声';
-        	body = '{"body":{"answer":"`+answer+`","branch":"`+branch+`","kcode":"`+kcode+`","kname":"`+kname+`","kcode":"`+kcode+`","procd":"`+procd+`",pname":"`+pname+`","offer":"`+offer+`","comment":"`+comment+`"}};
+        	body = '{"body":{"answer":"`+answer+`","branch":"`+branch+`","kcode":"`+kcode+`","kname":"`+kname+`","kcode":"`+kcode+`","procd":"`+procd+`",pname":"`+pname+`","offer":"`+offer+`","comment":"`+comment+`"}}';
   location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
 	}, false);
-      }
-	 document.addEventListener("DOMContentLoaded", mailOver);
+      
+	
 </script>
 <style>
 .sendButton{
@@ -63,7 +65,9 @@
     <div class="navbar">
       <h1>組合員の声フォーム</h1>
     </div>
-    <form name="content">
+
+
+    <form name="content" method="post">
      <div class="form-row">
       <label class="col-sm-3 col-form-label">①回答：</label>
        <div class="col-sm-9">
