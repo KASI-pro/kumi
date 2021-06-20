@@ -41,8 +41,6 @@
     <div class="navbar">
       <h1>組合員の声フォーム</h1>
     </div>
-
-
     <form name="content" method="post">
      <div class="form-row">
       <label class="col-sm-3 col-form-label">①回答：</label>
@@ -134,7 +132,6 @@
 </body>
  <script>
 window.onload = function() {
-
 	var btn = document.getElementById("sendFrom");
 	btn.onclick = function() {
 	 txtData = document.content;
@@ -159,6 +156,5 @@ window.onload = function() {
   location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
 	};
       };
-	
 </script>
 </html>
