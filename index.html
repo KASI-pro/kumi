@@ -41,7 +41,7 @@
     <div class="navbar">
       <h1>組合員の声フォーム</h1>
     </div>
-    <form name="content">
+    <form id="FM" name="content">
      <div class="form-row">
       <label class="col-sm-3 col-form-label">①回答：</label>
        <div class="col-sm-9">
@@ -131,6 +131,13 @@
   </div>
 </body>
  <script>
+$(function(){
+	$( "#FM" ).sisyphus( {
+		locationBased: false,
+		excludeFields: $('input[type="hidden"]'),
+		autoRelease: false
+	} );
+});
 function mailOver() {
 	var btn = document.getElementById("sendFrom");
 	btn.addEventListener("touchstart", function(e) {
