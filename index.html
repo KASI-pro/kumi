@@ -126,7 +126,7 @@
           </p>
         </div>
       </div>
-	<button type="submit" id="sendFrom">メール送信</button><br><br>
+	<input type="button" id="sendFrom" value="メール送信"><br><br>
     </form>
   </div>
 </body>
@@ -140,38 +140,38 @@ function mailOver() {
 		}else{
 		let str2= document.getElementById("kmcode").value;
 		if(str2.length !==8){
-				alert("組合員コードは8文字です")
+			alert("組合員コードは8文字です")
 		}else{
 		let str3= document.getElementById("pcode").value;
 		let str4= document.getElementById("pname").value;
 		if(str3.length ==0 && str4.length == 0){
-						alert("商品番号か商品名のどちらかは必要です")
+			alert("商品番号か商品名のどちらかは必要です")
 					}else{
 				let str5= document.getElementById("offer").value;
 		if(str5.length==0){
-						alert("内容は必須です\nお書きください")
+			alert("内容は必須です\nお書きください")
 					}else{
-								txtData = document.content;
-								answer = txtData[0].value;
-								branch = txtData[1].value;
-								kcode = txtData[2].value;
-								kmcode = txtData[3].value;
-								pcode = txtData[4].value;
-								pname = txtData[5].value;
-								offer = txtData[6].value;
-								comment = txtData[7].value;
-					         address = 'dossygt@gmail.com';
-					         subject = '組合員の声';
-					         body = '{"body":{"answer":"'+answer+'","branch":"'+branch+
-								'","kcode":"'+kcode+
-								'","kmcode":"'+kmcode+
-								'","pcode":"'+pcode+
-								'","pname":"'+pname+
-								'","offer":"'+offer+
-								'","comment":"'+comment+
-								'"}}';
-					  location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
-					}
+				txtData = document.content;
+				answer = txtData[0].value;
+				branch = txtData[1].value;
+				kcode = txtData[2].value;
+				kmcode = txtData[3].value;
+				pcode = txtData[4].value;
+				pname = txtData[5].value;
+				offer = txtData[6].value;
+				comment = txtData[7].value;
+				address = 'dossygt@gmail.com';
+				subject = '組合員の声';
+				body = '{"body":{"answer":"'+answer+'","branch":"'+branch+
+						'","kcode":"'+kcode+
+						'","kmcode":"'+kmcode+
+						'","pcode":"'+pcode+
+						'","pname":"'+pname+
+						'","offer":"'+offer+
+						'","comment":"'+comment+
+						'"}}';
+				location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
+		   }
 		}
 		}
 		}
