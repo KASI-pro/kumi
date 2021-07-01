@@ -94,6 +94,14 @@
           </p>
         </div>
       </div>
+　　　<div class="form-row">
+        <label class="col-sm-3 col-form-label">企画回：</label>
+        <div class="col-sm-9">
+          <p>
+            <input type="tel" id="" class="form-control" maxlength='8' placeholder="組合員コード">
+          </p>
+        </div>
+      </div>
       <div class="form-row">
         <label class="col-sm-3 col-form-label">⑤商品番号：</label>
         <div class="col-sm-9">
@@ -156,15 +164,17 @@ function mailOver() {
 				branch = txtData[1].value;
 				kcode = txtData[2].value;
 				kmcode = txtData[3].value;
-				pcode = txtData[4].value;
-				pname = txtData[5].value;
-				offer = txtData[6].value;
-				comment = txtData[7].value;
+				kikakai = txtData[4].value;
+				pcode = txtData[5].value;
+				pname = txtData[6].value;
+				offer = txtData[7].value;
+				comment = txtData[8].value;
 				address = 'tos_oka2@palcoop.or.jp';
 				subject = '組合員の声';
 				body = '{"body":{"answer":"'+answer+'","branch":"'+branch+
 						'","kcode":"'+kcode+
 						'","kmcode":"'+kmcode+
+						'","kikakai":"'+kikakai+
 						'","pcode":"'+pcode+
 						'","pname":"'+pname+
 						'","offer":"'+offer+
