@@ -98,7 +98,7 @@
         <label class="col-sm-3 col-form-label">⑤企画回：</label>
         <div class="col-sm-9">
           <p>
-            <input type="tel" id="" class="form-control" maxlength='8' placeholder="企画回">
+            <input type="tel" id="kikakai" class="form-control" maxlength='8' placeholder="企画回">
           </p>
         </div>
       </div>
@@ -150,10 +150,9 @@ function mailOver() {
 		if(str2.length !==8){
 			alert("組合員コードは8文字です")
 		}else{
-		let str3= document.getElementById("pcode").value;
-		let str4= document.getElementById("pname").value;
-		if(str3.length ==0 && str4.length == 0){
-			alert("商品番号か商品名のどちらかは必要です")
+		let str3= document.getElementById("kikakai").value;
+		if(str3.length !== 8){
+			alert("企画回は8文字必要です。\n 例：2021年11月1日 → 20211101")
 					}else{
 				let str5= document.getElementById("offer").value;
 		if(str5.length==0){
