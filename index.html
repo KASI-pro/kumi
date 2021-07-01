@@ -34,6 +34,22 @@
   line-height: 100px;
   text-align: center;
 }
+.nontext{
+  border:none;
+  width:200px;
+  background:white;
+}
+.reset{
+  color:darkgray;
+  width:80px;
+  height:80px;
+  margin-left: auto;
+  font-weight: bolder;
+  font-family: "Hiragino Maru Gothic ProN";
+  background:lavender;
+  border-color:aliceblue;
+  border-radius:100%;
+}
 </style>
 </head>
 <body>
@@ -50,6 +66,8 @@
               <option value="0">要</option>
               <option value="1">不要</option>
           </select>
+	  <span><input type="text" class="nontext" disabled></span>
+          <span><input type="reset" class="reset" value="リセット"></span>
         </p>
        </div>
       </div>
