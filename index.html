@@ -162,50 +162,51 @@
 function mailOver() {
 	var btn = document.getElementById("sendFrom");
 	btn.addEventListener("touchstart", function(e) {
-		let str1= document.getElementById("kcode").value;
-		if(str1.length !== 4){
-			alert("コースコードは4文字です")
-		}else{
-		let str2= document.getElementById("kmcode").value;
-		if(str2.length !==8){
-			alert("組合員コードは8文字です")
-		}else{
 		let str3= document.getElementById("kikakai").value;
-		if(str3.length !== 7){
-			alert("企画回は7文字必要です。\n 例：2021年11月1回 → 2021111")
+		if(str3 !== null){
+			if(str3.length !== 7){
+				alert("\n 企画回は7文字必要です。\n\n 例：2021年11月1回 → 2021111")
+			}
+		}
+		let str1= document.getElementById("kcode").value;
+			if(str1.length !== 4){
+				alert("コースコードは4文字です")
+			}else{
+				let str2= document.getElementById("kmcode").value;
+					if(str2.length !==8){
+						alert("組合員コードは8文字です")
 					}else{
-				let str5= document.getElementById("offer").value;
-		if(str5.length==0){
-			alert("内容は必須です\nお書きください")
-					}else{
-				txtData = document.content;
-				answer = txtData[0].value;
-				branch = txtData[1].value;
-				kcode = txtData[2].value;
-				kmcode = txtData[3].value;
-				kikakai = txtData[4].value;
-				pcode = txtData[5].value;
-				pname = txtData[6].value;
-				offer = txtData[7].value;
-				comment = txtData[8].value;
-				address = 'tos_oka2@palcoop.or.jp';
-				subject = '組合員の声';
-				body = '{"body":{"answer":"'+answer+
-						'","branch":"'+branch+
-						'","kcode":"'+kcode+
-						'","kmcode":"'+kmcode+
-						'","kikakai":"'+kikakai+
-						'","pcode":"'+pcode+
-						'","pname":"'+pname+
-						'","offer":"'+offer+
-						'","comment":"'+comment+
-						'"}}';
-				location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
-		   }
-		}
-		}
-		}
-			}, false);
+						let str5= document.getElementById("offer").value;
+							if(str5.length==0){
+								alert("内容は必須です\nお書きください")
+							}else{
+								txtData = document.content;
+								answer = txtData[0].value;
+								branch = txtData[1].value;
+								kcode = txtData[2].value;
+								kmcode = txtData[3].value;
+								kikakai = txtData[4].value;
+								pcode = txtData[5].value;
+								pname = txtData[6].value;
+								offer = txtData[7].value;
+								comment = txtData[8].value;
+								address = 'tos_oka2@palcoop.or.jp';
+								subject = '組合員の声';
+								body = '{"body":{"answer":"'+answer+
+										'","branch":"'+branch+
+										'","kcode":"'+kcode+
+										'","kmcode":"'+kmcode+
+										'","kikakai":"'+kikakai+
+										'","pcode":"'+pcode+
+										'","pname":"'+pname+
+										'","offer":"'+offer+
+										'","comment":"'+comment+
+										'"}}';
+							location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
+				   			}
+					}
+			}
+	}, false);
 }
 document.addEventListener("DOMContentLoaded", mailOver);
 </script>
