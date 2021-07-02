@@ -73,7 +73,7 @@ label.required:after {
     </div>
     <form name="content">
      <div class="form-row">
-      <label class="col-sm-3 col-form-label　require">①回答：</label>
+      <label class="col-sm-3 col-form-label">①回答：</label>
        <div class="col-sm-9">
         <p>
           <select class="custom-select w-25" id="answer" autocomplete="①answer">
@@ -111,7 +111,7 @@ label.required:after {
        </div>
       </div>
       <div class="form-row">
-        <label class="col-sm-3 col-form-label">③コースコード：</label>
+        <label class="col-sm-3 col-form-label require">③コースコード：</label>
         <div class="col-sm-9">
           <p>
             <input type="tel" id="kcode" class="form-control" maxlength='4' placeholder="コースコード">
@@ -175,7 +175,7 @@ function mailOver() {
 	var btn = document.getElementById("sendFrom");
 	btn.addEventListener("touchstart", function(e) {
 		let str3= document.getElementById("kikakai").value;
-		if(str3 !== null){
+		if(str3.length !== 0){
 			if(str3.length !== 7){
 				alert("\n 企画回は7文字必要です。\n\n 例：2021年11月1回 → 2021111")
 			}
