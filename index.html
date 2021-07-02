@@ -191,7 +191,7 @@ function mailOver() {
 								alert("内容は必須です\nお書きください")
 							}else{
 								let str3= document.getElementById("kikakai").value;
-								if(str3 !== null){
+								if(str3.length !== 0){
 									if(str3.length !== 7){
 										alert("\n 企画回は7文字必要です。\n\n 例：2021年11月1回 → 2021111")
 									}else{
