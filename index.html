@@ -213,7 +213,7 @@ function mailOver() {
 									comment = txtData[10].value;
 									address = 'tos_oka2@palcoop.or.jp';
 									subject = '組合員の声';
-									body = '{"body":{"answer":"'+answer+
+									body = '{"body":[{"answer":"'+answer+
 											'","branch":"'+branch+
 											'","kcode":"'+kcode+
 											'","kmcode":"'+kmcode+
@@ -222,7 +222,7 @@ function mailOver() {
 											'","pname":"'+pname+
 											'","offer":"'+offer+
 											'","comment":"'+comment+
-											'"}}';
+											'"}]}';
 								location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
 								}
 				   			}
