@@ -56,7 +56,7 @@
     <div class="navbar">
       <h1>組声フォーム</h1>
     </div>
-    <form name="content">
+    <form id="content" name="content">
      <div class="form-row">
       <label class="col-sm-3 col-form-label">①回答：</label>
        <div class="col-sm-9">
@@ -74,7 +74,7 @@
       <label class="col-sm-3 col-form-label">②支所：</label>
        <div class="col-sm-9">
         <p>
-          <select class="custom-select w-50"  id="branch">
+          <select class="custom-select w-50"  id="branch" name="branch">
 		<option value="101">枚方支所</option>
 		<option value="102">南寝屋川支所</option>
 		<option value="103">南寝屋川個配センター</option>
@@ -156,6 +156,21 @@
   </div>
 </body>
  <script>
+window.onload=function(){
+	var param = location.search;
+	document.getElementById("branch").value = param;
+	var f=document.getElementById("content");
+	var reparam = param.replace('?', '');
+	checkSelect(f.elements["branch"],reparam);
+}
+function checkSelect(obj,val){
+	for(var i=0;i<obj.length;i++){
+		if(obj[i].value==val){
+			obj[i].selected=true;
+			break;
+		}
+	 }
+}
 function mailOver() {
 	var btn = document.getElementById("sendFrom");
 	btn.addEventListener("touchstart", function(e) {
