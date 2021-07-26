@@ -49,6 +49,10 @@
   border-radius: 10px;
   display: inline-block;
 }
+label + input[type="radio"],
+label + label {
+    margin-right: 8em;
+}
 </style>
 </head>
 <body>
@@ -113,9 +117,9 @@
         </div>
 	  <div>
 		<p>＜対応＞<br>
-			<label><input type="radio" name="corres" value="0" checked>通常  </label>
-			<label><input type="radio" name="corres" value="00000000">匿名  </label>
-			<label><input type="radio" name="corres" value="99999999">地域の声  </label>
+			<input type="radio" name="corres" value="0" checked><label>通常</label>
+			<label><input type="radio" name="corres" value="00000000"><label>匿名</label>
+			<label><input type="radio" name="corres" value="99999999"><label>地域の声</label>
 		</p>
 	  </div>	
       </div>
