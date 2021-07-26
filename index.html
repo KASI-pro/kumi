@@ -200,14 +200,13 @@ function mailOver() {
 										alert("\n 企画回は7文字必要です。\n\n 例：2021年11月1回 → 2021111")
 									}else{
 										var elements = document.getElementsByName('corres');
-	var len = elements.length;
-	var checkValue = '';
-
-	for (let i = 0; i < len; i++){
-    		if (elements.item(i).checked){
-        		checkValue = elements.item(i).value;
-    		}
-	}
+										var len = elements.length;
+										var checkValue = '';
+										for (let i = 0; i < len; i++){
+											if (elements.item(i).checked){
+												checkValue = elements.item(i).value;
+											}
+										}
 										txtData = document.content;
 										answer = txtData[0].value;
 										branch = txtData[3].value;
@@ -235,14 +234,13 @@ function mailOver() {
 									}
 								}else{
 									var elements = document.getElementsByName('corres');
-	var len = elements.length;
-	var checkValue = '';
-
-	for (let i = 0; i < len; i++){
-    		if (elements.item(i).checked){
-        		checkValue = elements.item(i).value;
-    		}
-	}
+									var len = elements.length;
+									var checkValue = '';
+									for (let i = 0; i < len; i++){
+										if (elements.item(i).checked){
+											checkValue = elements.item(i).value;
+										}
+									}
 									txtData = document.content;
 									answer = txtData[0].value;
 									branch = txtData[3].value;
