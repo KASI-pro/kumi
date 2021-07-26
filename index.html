@@ -113,9 +113,9 @@
         </div>
 	  <div>
 		<p>＜対応＞<br>
-			<input type="radio" name="corres" value="0" checked>通常
-			<input type="radio" name="corres" value="00000000">匿名
-			<input type="radio" name="corres" value="99999999">地域の声
+			<label><input type="radio" name="corres" value="0" checked>通常  </label>
+			<label><input type="radio" name="corres" value="00000000">匿名  </label>
+			<label><input type="radio" name="corres" value="99999999">地域の声  </label>
 		</p>
 	  </div>	
       </div>
@@ -181,9 +181,9 @@ function checkSelect(obj,val){
 }
 function mailOver() {
 	var btn = document.getElementById("sendFrom");
-	let elements = document.getElementsByName('corres');
-	let len = elements.length;
-	let checkValue = '';
+	var elements = document.getElementsByName('corres');
+	var len = elements.length;
+	var checkValue = '';
 
 	for (let i = 0; i < len; i++){
     		if (elements.item(i).checked){
