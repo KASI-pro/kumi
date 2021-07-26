@@ -105,16 +105,19 @@
       </div>
         <div class="form-row">
         <label class="col-sm-3 col-form-label required">④組合員コード：</label>
-		<p>特別対応<br>
-			<input type="radio" name="q1" value="0" checked>通常
-<input type="radio" name="q1" value="00000000">匿名
-<input type="radio" name="q1" value="99999999">地域の声
-</p>
+		
         <div class="col-sm-9">
           <p>
             <input type="tel" id="kmcode" class="form-control" maxlength='8' placeholder="組合員コード">
           </p>
         </div>
+	  <div>
+		<p>対応<br>
+			<input type="radio" name="corres" value="0" checked>通常
+			<input type="radio" name="corres" value="00000000">匿名
+			<input type="radio" name="corres" value="99999999">地域の声
+		</p>
+	  </div>	
       </div>
 　　　<div class="form-row">
         <label class="col-sm-3 col-form-label">⑤企画回：</label>
@@ -212,6 +215,7 @@ function mailOver() {
 												'","branch":"'+branch+
 												'","kcode":"'+kcode+
 												'","kmcode":"'+kmcode+
+												'","corres":"'+corres+
 												'","kikakai":"'+kikakai+
 												'","pcode":"'+pcode+
 												'","pname":"'+pname+
@@ -226,11 +230,12 @@ function mailOver() {
 									branch = txtData[3].value;
 									kcode = txtData[4].value;
 									kmcode = txtData[5].value;
-									kikakai = txtData[6].value;
-									pcode = txtData[7].value;
-									pname = txtData[8].value;
-									offer = txtData[9].value;
-									comment = txtData[10].value;
+									corres = txtData[6].value;
+									kikakai = txtData[7].value;
+									pcode = txtData[8].value;
+									pname = txtData[9].value;
+									offer = txtData[10].value;
+									comment = txtData[11].value;
 									address = 'tos_oka2@palcoop.or.jp';
 									subject = '組合員の声';
 									body = '{"body":{"answer":"'+answer+
