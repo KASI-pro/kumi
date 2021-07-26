@@ -113,9 +113,9 @@
         </div>
 	  <div>
 		<p>＜対応＞<br>
-			<input type="radio" id="corres" name="corres" value="0" checked>通常
-			<input type="radio" id="corres" name="corres" value="00000000">匿名
-			<input type="radio" id="corres" name="corres" value="99999999">地域の声
+			<input type="radio" name="corres" value="0" checked>通常
+			<input type="radio" name="corres" value="00000000">匿名
+			<input type="radio" name="corres" value="99999999">地域の声
 		</p>
 	  </div>	
       </div>
@@ -181,6 +181,15 @@ function checkSelect(obj,val){
 }
 function mailOver() {
 	var btn = document.getElementById("sendFrom");
+	let elements = document.getElementsByName('corres');
+	let len = elements.length;
+	let checkValue = '';
+
+	for (let i = 0; i < len; i++){
+    		if (elements.item(i).checked){
+        		checkValue = elements.item(i).value;
+    		}
+	}
 	btn.addEventListener("touchstart", function(e) {
 		let str1= document.getElementById("kcode").value;
 			if(str1.length !== 4){
@@ -205,18 +214,18 @@ function mailOver() {
 										kcode = txtData[4].value;
 										kmcode = txtData[5].value;
 										corres = txtData[6].value;
-										kikakai = txtData[7].value;
-										pcode = txtData[8].value;
-										pname = txtData[9].value;
-										offer = txtData[10].value;
-										comment = txtData[11].value;
+										kikakai = txtData[6].value;
+										pcode = txtData[7].value;
+										pname = txtData[8].value;
+										offer = txtData[9].value;
+										comment = txtData[10].value;
 										address = 'tos_oka2@palcoop.or.jp';
 										subject = '組合員の声';
 										body = '{"body":{"answer":"'+answer+
 												'","branch":"'+branch+
 												'","kcode":"'+kcode+
 												'","kmcode":"'+kmcode+
-												'","corres":"'+corres+
+												'","corres":"'+checkValue+
 												'","kikakai":"'+kikakai+
 												'","pcode":"'+pcode+
 												'","pname":"'+pname+
@@ -232,18 +241,18 @@ function mailOver() {
 									kcode = txtData[4].value;
 									kmcode = txtData[5].value;
 									corres = txtData[6].value;
-									kikakai = txtData[7].value;
-									pcode = txtData[8].value;
-									pname = txtData[9].value;
-									offer = txtData[10].value;
-									comment = txtData[11].value;
+									kikakai = txtData[6].value;
+									pcode = txtData[7].value;
+									pname = txtData[8].value;
+									offer = txtData[9].value;
+									comment = txtData[10].value;
 									address = 'tos_oka2@palcoop.or.jp';
 									subject = '組合員の声';
 									body = '{"body":{"answer":"'+answer+
 											'","branch":"'+branch+
 											'","kcode":"'+kcode+
 											'","kmcode":"'+kmcode+
-											'","corres":"'+corres+
+											'","corres":"'+checkValue+
 											'","kikakai":"'+kikakai+
 											'","pcode":"'+pcode+
 											'","pname":"'+pname+
