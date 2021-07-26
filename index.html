@@ -181,15 +181,6 @@ function checkSelect(obj,val){
 }
 function mailOver() {
 	var btn = document.getElementById("sendFrom");
-	var elements = document.getElementsByName('corres');
-	var len = elements.length;
-	var checkValue = '';
-
-	for (let i = 0; i < len; i++){
-    		if (elements.item(i).checked){
-        		checkValue = elements.item(i).value;
-    		}
-	}
 	btn.addEventListener("touchstart", function(e) {
 		let str1= document.getElementById("kcode").value;
 			if(str1.length !== 4){
@@ -208,6 +199,15 @@ function mailOver() {
 									if(str3.length !== 7){
 										alert("\n 企画回は7文字必要です。\n\n 例：2021年11月1回 → 2021111")
 									}else{
+										var elements = document.getElementsByName('corres');
+	var len = elements.length;
+	var checkValue = '';
+
+	for (let i = 0; i < len; i++){
+    		if (elements.item(i).checked){
+        		checkValue = elements.item(i).value;
+    		}
+	}
 										txtData = document.content;
 										answer = txtData[0].value;
 										branch = txtData[3].value;
@@ -234,6 +234,15 @@ function mailOver() {
 									location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
 									}
 								}else{
+									var elements = document.getElementsByName('corres');
+	var len = elements.length;
+	var checkValue = '';
+
+	for (let i = 0; i < len; i++){
+    		if (elements.item(i).checked){
+        		checkValue = elements.item(i).value;
+    		}
+	}
 									txtData = document.content;
 									answer = txtData[0].value;
 									branch = txtData[3].value;
