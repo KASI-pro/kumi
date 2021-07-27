@@ -186,32 +186,32 @@ function reload() {
 			location.reload();
 		}
 }
-let count = 0;
-let timer;
-const ua = navigator.userAgent.toLowerCase();
-const isSP = /iphone|ipod|ipad|android/.test(ua);
-const b = document.getElementById('sendFrom');
-const r = document.getElementById('r');
-const eventStart = isSP ? 'touchstart' : 'mousedown';
-const eventEnd   = isSP ? 'touchend' : 'mouseup';
-const eventLeave = isSP ? 'touchmove' : 'mouseleave';
+
+	let count = 0;
+	let timer;
+	const ua = navigator.userAgent.toLowerCase();
+	const isSP = /iphone|ipod|ipad|android/.test(ua);
+	const b = document.getElementById('sendFrom');
+	const eventStart = isSP ? 'touchstart' : 'mousedown';
+	const eventEnd   = isSP ? 'touchend' : 'mouseup';
+	const eventLeave = isSP ? 'touchmove' : 'mouseleave';
  
-b.addEventListener(eventStart, e => {
-  e.preventDefault();
-  b.classList.add('active');
-  timer = setInterval(() => {
-    count++;
-    r.textContent = (count / 100) + '秒';
-  }, 10);
-})
+	b.addEventListener(eventStart, e => {
+	  e.preventDefault();
+	  b.classList.add('active');
+	  timer = setInterval(() => {
+	    count++;
+	    r.textContent = (count / 100) + '秒';
+	  }, 10);
+	})
  
 b.addEventListener(eventEnd, e => {
   e.preventDefault();
-  if (count) {
-    b.classList.remove('active');
-    clearInterval(timer);
-    let second = (count / 100);
-if(second > 0.38 && second < 0.7){
+	  if (count) {
+	    b.classList.remove('active');
+	    clearInterval(timer);
+	    let second = (count / 100);
+		if(second > 0.25 && second < 0.6){
 		let str1= document.getElementById("kcode").value;
 			if(str1.length !== 4){
 				alert("コースコードは4文字です")
@@ -299,7 +299,7 @@ if(second > 0.38 && second < 0.7){
 				   			}
 					}
 			}
-}
+	  }
     count = 0;
   }
 });
@@ -311,7 +311,7 @@ b.addEventListener(eventLeave, e => {
   if (!isSP || el !== b) {
     b.classList.remove('active');
     clearInterval(timer);
-    r.textContent = '処理を中断';
+     e.preventDefault();
     count = 0;
   }
 });
