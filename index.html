@@ -160,7 +160,7 @@
           </p>
         </div>
       </div>
-	<input type="button" id="sendFrom" value="メール作成"><br><br>
+	<input type="button" id="sendFrom" value="メール送信"><br><br>
     </form>
   </div>
 </body>
@@ -305,8 +305,8 @@ b.addEventListener(eventEnd, e => {
 											'","offer":"'+offer+
 											'","comment":"'+comment+
 											'"}}';
-								location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body}
-							     	}
+								location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
+								}
 							}
 						}
 					}
