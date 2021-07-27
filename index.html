@@ -211,7 +211,7 @@ b.addEventListener(eventEnd, e => {
 	    b.classList.remove('active');
 	    clearInterval(timer);
 	    let second = (count / 100);
-		if(second > 0.25 && second < 0.6){
+		if(second > 0.2 && second < 0.6){
 		let str1= document.getElementById("kcode").value;
 			if(str1.length !== 4){
 				alert("コースコードは4文字です")
