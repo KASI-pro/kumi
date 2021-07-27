@@ -240,6 +240,7 @@ b.addEventListener(eventEnd, e => {
 									}else if(str3.length !== 7){
 										alert("\n 企画回は7文字必要です")
 									}else{
+										function(){
 									    var send = window.confirm('メールを作成します。よろしいですか？');
 									     if(send) {
 										var elements = document.getElementsByName('corres');
@@ -275,8 +276,10 @@ b.addEventListener(eventEnd, e => {
 												'"}}';
 									location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
 									     }
+										}
 									}
 								}else{
+									function(){
 								   var send = window.confirm('メールを作成します。よろしいですか？');
 								     if(send) {
 									var elements = document.getElementsByName('corres');
@@ -312,6 +315,7 @@ b.addEventListener(eventEnd, e => {
 											'"}}';
 								location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body}
 								     }
+								}
 							     	}
 							}
 						}
