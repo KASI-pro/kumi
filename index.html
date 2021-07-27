@@ -61,7 +61,7 @@
       <label class="col-sm-3 col-form-label">①回答：</label>
        <div class="col-sm-9">
         <p>
-          <select class="custom-select w-25" id="answer" autocomplete="①answer">
+          <select class="custom-select w-25" id="answer">
               <option value="0">要</option>
               <option value="1" selected>不要</option>
           </select>
@@ -100,13 +100,13 @@
         <label class="col-sm-3 col-form-label required">③コース名：</label>
         <div class="col-sm-9">
           <p>
-            <input type="tel" id="kcode" class="form-control" maxlength='4' placeholder="コースコード">
+            <input type="tel" id="kcode" class="form-control" maxlength='4' placeholder="コース名">
           </p>
         </div>
       </div>
         <div class="form-row">
         <label class="col-sm-3 col-form-label required">④組合員コード：</label>
-		
+
         <div class="col-sm-9">
           <p>
             <input type="tel" id="kmcode" class="form-control" maxlength='8' placeholder="組合員コード">
@@ -118,7 +118,7 @@
 			<label><input type="radio" name="corres" value="00000000"><span style="margin-right: 3em;">匿名</span></label>
 			<label><input type="radio" name="corres" value="99999999">地域の声</label>
 		</p>
-	  </div>	
+	  </div>
       </div>
 　　　<div class="form-row">
         <label class="col-sm-3 col-form-label">⑤企画回：例：2021年11月1回 → 2021111</label>
@@ -148,7 +148,7 @@
         <label class="col-sm-3 col-form-label required">⑧お申し出内容：</label>
         <div class="col-sm-9">
           <p>
-              <textarea type="textarea" id="offer" rows="4" cols="34" placeholder="お申し出内容"></textarea>
+              <textarea id="offer" rows="4" cols="34" placeholder="お申し出内容"></textarea>
           </p>
         </div>
       </div>
@@ -156,7 +156,7 @@
         <label class="col-sm-3 col-form-label">⑨担当者のコメント：</label>
         <div class="col-sm-9">
           <p>
-              <textarea type="textarea" id="comment" rows="4" cols="34" placeholder="担当者のコメント"></textarea>
+              <textarea id="comment" rows="4" cols="34" placeholder="担当者のコメント"></textarea>
           </p>
         </div>
       </div>
@@ -195,7 +195,7 @@ function reload() {
 	const eventStart = isSP ? 'touchstart' : 'mousedown';
 	const eventEnd   = isSP ? 'touchend' : 'mouseup';
 	const eventLeave = isSP ? 'touchmove' : 'mouseleave';
- 
+
 	b.addEventListener(eventStart, e => {
 	  e.preventDefault();
 	  b.classList.add('active');
@@ -204,106 +204,123 @@ function reload() {
 	    r.textContent = (count / 100) + '秒';
 	  }, 10);
 	})
- 
+
 b.addEventListener(eventEnd, e => {
   e.preventDefault();
+  var regex = /(?:[\u2700-\u27bf]|(?:\ud83c[\udde6-\uddff]){2}|[\ud800-\udbff][\udc00-\udfff]|
+	[\u0023-\u0039]\ufe0f?\u20e3|\u3299|\u3297|\u303d|\u3030|\u24c2|\ud83c[\udd70-\udd71]|
+	\ud83c[\udd7e-\udd7f]|\ud83c\udd8e|\ud83c[\udd91-\udd9a]|\ud83c[\udde6-\uddff]|[\ud83c[\ude01\uddff]|
+	\ud83c[\ude01-\ude02]|\ud83c\ude1a|\ud83c\ude2f|[\ud83c[\ude32\ude02]|\ud83c\ude1a|\ud83c\ude2f|\ud83c[\ude32-\ude3a]|
+	[\ud83c[\ude50\ude3a]|\ud83c[\ude50-\ude51]|\u203c|\u2049|[\u25aa-\u25ab]|\u25b6|\u25c0|[\u25fb-\u25fe]|
+	\u00a9|\u00ae|\u2122|\u2139|\ud83c\udc04|[\u2600-\u26FF]|\u2b05|\u2b06|\u2b07|\u2b1b|\u2b1c|\u2b50|\u2b55|\u231a|\u231b|
+	s\u2328|\u23cf|[\u23e9-\u23f3]|[\u23f8-\u23fa]|\ud83c\udccf|\u2934|\u2935|[\u2190-\u21ff])/g;
 	  if (count) {
 	    b.classList.remove('active');
 	    clearInterval(timer);
 	    let second = (count / 100);
-		if(second > 0. && second < 0.6){
-		let str1= document.getElementById("kcode").value;
-			if(str1.length !== 4){
-				alert("コースコードは4文字です")
+		if(second > 0.1 && second < 0.6){
+		let str1 = document.getElementById("kcode").value;
+		if(str1.length === 0){
+			alert("コース名は必須です。入力してください。")
+		}else if(isNoN(str1)){
+			alert("コース名の欄に数字以外の字が入力されています。")
+			}else if(str1.length !== 4){
+				alert("コース名は4文字です")
 			}else{
-				let str2= document.getElementById("kmcode").value;
-					if(str2.length !==8){
-						alert("組合員コードは8文字です")
+				let str2 = document.getElementById("kmcode").value;
+				if(str2.length === 0){
+					alert("組合員コードは必須です。入力してください。")
+				}else if(str2.length !== 0 && isNoN(str2)){
+					alert("組合員コードの欄に数字以外の字が入力されています。")
+					}else if(str2.length !== 8){
+					alert("組合員コードは8文字です")
+				}else{
+					let str5 = document.getElementById("offer").value;
+					if(str5.length === 0){
+						alert("内容は必須です\nお書きください")
 					}else{
-						let str5= document.getElementById("offer").value;
-							if(str5.length==0){
-								alert("内容は必須です\nお書きください")
+						let str3 = document.getElementById("kikakai").value;
+						if(str3.length !== 0){
+							if(isNoN(str3)){
+								alert("企画回の欄に数字以外の字が入力されています。")
+							}else if(str3.length !== 7){
+									alert("\n 企画回は7文字必要です)
 							}else{
-								let str3= document.getElementById("kikakai").value;
-								if(str3.length !== 0){
-									if(str3.length !== 7){
-										alert("\n 企画回は7文字必要です。\n\n 例：2021年11月1回 → 2021111")
-									}else{
-										var elements = document.getElementsByName('corres');
-										var len = elements.length;
-										var checkValue = '';
-										for (let i = 0; i < len; i++){
-											if (elements.item(i).checked){
-												checkValue = elements.item(i).value;
-											}
-										}
-										txtData = document.content;
-										answer = txtData[0].value;
-										branch = txtData[3].value;
-										kcode = txtData[4].value;
-										kmcode = txtData[5].value;
-										kikakai = txtData[9].value;
-										pcode = txtData[10].value;
-										pname = txtData[11].value;
-										offer = txtData[12].value;
-										comment = txtData[13].value;
-										address = 'tos_oka2@palcoop.or.jp';
-										subject = '組合員の声';
-										body = '{"body":{"answer":"'+answer+
-												'","branch":"'+branch+
-												'","kcode":"'+kcode+
-												'","kmcode":"'+kmcode+
-												'","corres":"'+checkValue+
-												'","kikakai":"'+kikakai+
-												'","pcode":"'+pcode+
-												'","pname":"'+pname+
-												'","offer":"'+offer+
-												'","comment":"'+comment+
-												'"}}';
-									location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
+								var elements = document.getElementsByName('corres');
+								var len = elements.length;
+								var checkValue = '';
+								for (let i = 0; i < len; i++){
+									if (elements.item(i).checked){
+										checkValue = elements.item(i).value;
 									}
-								}else{
-									var elements = document.getElementsByName('corres');
-									var len = elements.length;
-									var checkValue = '';
-									for (let i = 0; i < len; i++){
-										if (elements.item(i).checked){
-											checkValue = elements.item(i).value;
-										}
-									}
-									txtData = document.content;
-									answer = txtData[0].value;
-									branch = txtData[3].value;
-									kcode = txtData[4].value;
-									kmcode = txtData[5].value;
-									kikakai = txtData[9].value;
-									pcode = txtData[10].value;
-									pname = txtData[11].value;
-									offer = txtData[12].value;
-									comment = txtData[13].value;
-									address = 'tos_oka2@palcoop.or.jp';
-									subject = '組合員の声';
-									body = '{"body":{"answer":"'+answer+
-											'","branch":"'+branch+
-											'","kcode":"'+kcode+
-											'","kmcode":"'+kmcode+
-											'","corres":"'+checkValue+
-											'","kikakai":"'+kikakai+
-											'","pcode":"'+pcode+
-											'","pname":"'+pname+
-											'","offer":"'+offer+
-											'","comment":"'+comment+
-											'"}}';
-								location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
 								}
-				   			}
+								txtData = document.content;
+								answer = txtData[0].value;
+								branch = txtData[3].value;
+								kcode = txtData[4].value;
+								kmcode = txtData[5].value;
+								kikakai = txtData[9].value;
+								pcode = txtData[10].value;
+								pname = txtData[11].value.replace(regex, '');
+								offer = txtData[12].value.replace(regex, '');
+								comment = txtData[13].value.replace(regex, '');
+								address = 'tos_oka2@palcoop.or.jp';
+								subject = '組合員の声';
+								body = '{"body":{"answer":"'+answer+
+										'","branch":"'+branch+
+										'","kcode":"'+kcode+
+										'","kmcode":"'+kmcode+
+										'","corres":"'+checkValue+
+										'","kikakai":"'+kikakai+
+										'","pcode":"'+pcode+
+										'","pname":"'+pname+
+										'","offer":"'+offer+
+										'","comment":"'+comment+
+										'"}}';
+							location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
+							}else{
+								var elements = document.getElementsByName('corres');
+								var len = elements.length;
+								var checkValue = '';
+								for (let i = 0; i < len; i++){
+									if (elements.item(i).checked){
+										checkValue = elements.item(i).value;
+									}
+								}
+								txtData = document.content;
+								answer = txtData[0].value;
+								branch = txtData[3].value;
+								kcode = txtData[4].value;
+								kmcode = txtData[5].value;
+								kikakai = txtData[9].value;
+								pcode = txtData[10].value;
+								pname = txtData[11].value.replace(regex, '');
+								offer = txtData[12].value.replace(regex, '');
+								comment = txtData[13].value.replace(regex, '');
+								address = 'tos_oka2@palcoop.or.jp';
+								subject = '組合員の声';
+								body = '{"body":{"answer":"'+answer+
+										'","branch":"'+branch+
+										'","kcode":"'+kcode+
+										'","kmcode":"'+kmcode+
+										'","corres":"'+checkValue+
+										'","kikakai":"'+kikakai+
+										'","pcode":"'+pcode+
+										'","pname":"'+pname+
+										'","offer":"'+offer+
+										'","comment":"'+comment+
+										'"}}';
+							location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
+							}
+						}
 					}
-			}
-	  }
-    count = 0;
-  }
+				}
+	  		}
+    		count = 0;
+  		}
+	   }
 });
- 
+
 b.addEventListener(eventLeave, e => {
   e.preventDefault();
   let el;
