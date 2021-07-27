@@ -187,8 +187,16 @@ function reload() {
 		}
 }
 function mailOver() {
+	var count = 0;
 	var btn = document.getElementById("sendFrom");
 	btn.addEventListener("touchstart", function(e) {
+		 if (!count) {
+			 ++count;
+			    setTimeout(function () {
+			      count = 0;
+			    }, 500);
+		 } else {
+			 e.preventDefault();
 		let str1= document.getElementById("kcode").value;
 			if(str1.length !== 4){
 				alert("コースコードは4文字です")
@@ -276,6 +284,8 @@ function mailOver() {
 				   			}
 					}
 			}
+			 count = 0;
+		  }
 	}, false);
 }
 document.addEventListener("DOMContentLoaded", mailOver);
