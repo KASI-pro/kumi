@@ -230,7 +230,7 @@ b.addEventListener(eventEnd, e => {
 						}else if(str2.length !== 8){
 							alert("組合員コードは8文字です")
 						}else{
-							let str5 = document.getElementById("offer").value;
+							let str5 = document.getElementById("offer").value.replace(regex, '');
 							if(str5.length === 0){
 								alert("内容は必須です\nお書きください")
 							}else{
