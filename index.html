@@ -160,7 +160,7 @@
           </p>
         </div>
       </div>
-	<input type="button" id="sendFrom" value="メール送信"><br><br>
+	<input type="button" id="sendFrom" value="メール作成"><br><br>
     </form>
   </div>
 </body>
@@ -240,6 +240,8 @@ b.addEventListener(eventEnd, e => {
 									}else if(str3.length !== 7){
 										alert("\n 企画回は7文字必要です")
 									}else{
+									    var send = confirm('メールを作成します。よろしいですか？');
+									     if(send) {
 										var elements = document.getElementsByName('corres');
 										var len = elements.length;
 										var checkValue = '';
@@ -272,8 +274,11 @@ b.addEventListener(eventEnd, e => {
 												'","comment":"'+comment+
 												'"}}';
 									location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
+									     }
 									}
 								}else{
+								   var send = confirm('メールを作成します。よろしいですか？');
+								     if(send) {
 									var elements = document.getElementsByName('corres');
 									var len = elements.length;
 									var checkValue = '';
@@ -305,8 +310,9 @@ b.addEventListener(eventEnd, e => {
 											'","offer":"'+offer+
 											'","comment":"'+comment+
 											'"}}';
-								location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
-								}
+								location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body}
+								     }
+							     	}
 							}
 						}
 					}
