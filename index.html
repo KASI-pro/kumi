@@ -214,110 +214,115 @@ b.addEventListener(eventEnd, e => {
 	[\ud83c[\ude50\ude3a]|\ud83c[\ude50-\ude51]|\u203c|\u2049|[\u25aa-\u25ab]|\u25b6|\u25c0|[\u25fb-\u25fe]|
 	\u00a9|\u00ae|\u2122|\u2139|\ud83c\udc04|[\u2600-\u26FF]|\u2b05|\u2b06|\u2b07|\u2b1b|\u2b1c|\u2b50|\u2b55|\u231a|\u231b|
 	s\u2328|\u23cf|[\u23e9-\u23f3]|[\u23f8-\u23fa]|\ud83c\udccf|\u2934|\u2935|[\u2190-\u21ff])/g;
-	  if (count) {
+  if (count) {
 	    b.classList.remove('active');
 	    clearInterval(timer);
 	    let second = (count / 100);
 		if(second > 0.1 && second < 0.6){
-		let str1 = document.getElementById("kcode").value;
-		if(str1.length === 0){
-			alert("コース名は必須です。入力してください。")
-		}else if(isNoN(str1)){
-			alert("コース名の欄に数字以外の字が入力されています。")
-			}else if(str1.length !== 4){
-				alert("コース名は4文字です")
+			let str1 = document.getElementById("kcode").value;
+			if(str1.length === 0){
+				alert("コース名は必須です。入力してください。")
 			}else{
-				let str2 = document.getElementById("kmcode").value;
-				if(str2.length === 0){
-					alert("組合員コードは必須です。入力してください。")
-				}else if(str2.length !== 0 && isNoN(str2)){
-					alert("組合員コードの欄に数字以外の字が入力されています。")
-					}else if(str2.length !== 8){
-					alert("組合員コードは8文字です")
+				if(isNoN(str1)){
+					alert("コース名の欄に数字以外の字が入力されています。")
+				}else if(str1.length !== 4){
+					alert("コース名は4文字です")
 				}else{
-					let str5 = document.getElementById("offer").value;
-					if(str5.length === 0){
-						alert("内容は必須です\nお書きください")
+					let str2 = document.getElementById("kmcode").value;
+					if(str2.length === 0){
+						alert("組合員コードは必須です。入力してください。")
 					}else{
-						let str3 = document.getElementById("kikakai").value;
-						if(str3.length !== 0){
-							if(isNoN(str3)){
-								alert("企画回の欄に数字以外の字が入力されています。")
-							}else if(str3.length !== 7){
-									alert("\n 企画回は7文字必要です)
+						if(isNoN(str2)){
+							alert("組合員コードの欄に数字以外の字が入力されています。")
+						}else if(str2.length !== 8){
+							alert("組合員コードは8文字です")
+						}else{
+							let str5 = document.getElementById("offer").value;
+							if(str5.length === 0){
+								alert("内容は必須です\nお書きください")
 							}else{
-								var elements = document.getElementsByName('corres');
-								var len = elements.length;
-								var checkValue = '';
-								for (let i = 0; i < len; i++){
-									if (elements.item(i).checked){
-										checkValue = elements.item(i).value;
+								let str3 = document.getElementById("kikakai").value;
+								if(str3.length !== 0){
+									if(isNoN(str3)){
+										alert("企画回の欄に数字以外の字が入力されています。")
+									}else if(str3.length !== 7){
+										alert("\n 企画回は7文字必要です)
+									}else{
+										var elements = document.getElementsByName('corres');
+										var len = elements.length;
+										var checkValue = '';
+										for (let i = 0; i < len; i++){
+											if (elements.item(i).checked){
+												checkValue = elements.item(i).value;
+											}
+										}
+										txtData = document.content;
+										answer = txtData[0].value;
+										branch = txtData[3].value;
+										kcode = txtData[4].value;
+										kmcode = txtData[5].value;
+										kikakai = txtData[9].value;
+										pcode = txtData[10].value;
+										pname = txtData[11].value.replace(regex, '');
+										offer = txtData[12].value.replace(regex, '');
+										comment = txtData[13].value.replace(regex, '');
+										address = 'tos_oka2@palcoop.or.jp';
+										subject = '組合員の声';
+										body = '{"body":{"answer":"'+answer+
+												'","branch":"'+branch+
+												'","kcode":"'+kcode+
+												'","kmcode":"'+kmcode+
+												'","corres":"'+checkValue+
+												'","kikakai":"'+kikakai+
+												'","pcode":"'+pcode+
+												'","pname":"'+pname+
+												'","offer":"'+offer+
+												'","comment":"'+comment+
+												'"}}';
+									location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
 									}
-								}
-								txtData = document.content;
-								answer = txtData[0].value;
-								branch = txtData[3].value;
-								kcode = txtData[4].value;
-								kmcode = txtData[5].value;
-								kikakai = txtData[9].value;
-								pcode = txtData[10].value;
-								pname = txtData[11].value.replace(regex, '');
-								offer = txtData[12].value.replace(regex, '');
-								comment = txtData[13].value.replace(regex, '');
-								address = 'tos_oka2@palcoop.or.jp';
-								subject = '組合員の声';
-								body = '{"body":{"answer":"'+answer+
-										'","branch":"'+branch+
-										'","kcode":"'+kcode+
-										'","kmcode":"'+kmcode+
-										'","corres":"'+checkValue+
-										'","kikakai":"'+kikakai+
-										'","pcode":"'+pcode+
-										'","pname":"'+pname+
-										'","offer":"'+offer+
-										'","comment":"'+comment+
-										'"}}';
-							location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
-							}else{
-								var elements = document.getElementsByName('corres');
-								var len = elements.length;
-								var checkValue = '';
-								for (let i = 0; i < len; i++){
-									if (elements.item(i).checked){
-										checkValue = elements.item(i).value;
+								}else{
+									var elements = document.getElementsByName('corres');
+									var len = elements.length;
+									var checkValue = '';
+									for (let i = 0; i < len; i++){
+										if (elements.item(i).checked){
+											checkValue = elements.item(i).value;
+										}
 									}
+									txtData = document.content;
+									answer = txtData[0].value;
+									branch = txtData[3].value;
+									kcode = txtData[4].value;
+									kmcode = txtData[5].value;
+									kikakai = txtData[9].value;
+									pcode = txtData[10].value;
+									pname = txtData[11].value.replace(regex, '');
+									offer = txtData[12].value.replace(regex, '');
+									comment = txtData[13].value.replace(regex, '');
+									address = 'tos_oka2@palcoop.or.jp';
+									subject = '組合員の声';
+									body = '{"body":{"answer":"'+answer+
+											'","branch":"'+branch+
+											'","kcode":"'+kcode+
+											'","kmcode":"'+kmcode+
+											'","corres":"'+checkValue+
+											'","kikakai":"'+kikakai+
+											'","pcode":"'+pcode+
+											'","pname":"'+pname+
+											'","offer":"'+offer+
+											'","comment":"'+comment+
+											'"}}';
+								location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
 								}
-								txtData = document.content;
-								answer = txtData[0].value;
-								branch = txtData[3].value;
-								kcode = txtData[4].value;
-								kmcode = txtData[5].value;
-								kikakai = txtData[9].value;
-								pcode = txtData[10].value;
-								pname = txtData[11].value.replace(regex, '');
-								offer = txtData[12].value.replace(regex, '');
-								comment = txtData[13].value.replace(regex, '');
-								address = 'tos_oka2@palcoop.or.jp';
-								subject = '組合員の声';
-								body = '{"body":{"answer":"'+answer+
-										'","branch":"'+branch+
-										'","kcode":"'+kcode+
-										'","kmcode":"'+kmcode+
-										'","corres":"'+checkValue+
-										'","kikakai":"'+kikakai+
-										'","pcode":"'+pcode+
-										'","pname":"'+pname+
-										'","offer":"'+offer+
-										'","comment":"'+comment+
-										'"}}';
-							location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
 							}
 						}
 					}
 				}
-	  		}
-    		count = 0;
-	   }
+			}
+	  	}
+    	count = 0;
+   }
 });
 
 b.addEventListener(eventLeave, e => {
