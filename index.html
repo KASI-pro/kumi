@@ -113,7 +113,7 @@
           </p>
         </div>
 	  <div>
-		<p>＜組声の種類＞<br>
+		<p>＜声の種類＞<br>
 			<label><input type="radio" name="corres" value="0" checked><span style="margin-right: 3em;">組声</span></label>
 			<label><input type="radio" name="corres" value="1">地域の声</label>
 		</p>
@@ -128,10 +128,10 @@
         </div>
       </div>
       <div class="form-row">
-        <label class="col-sm-3 col-form-label">⑥商品番号：</label>
+        <label class="col-sm-3 col-form-label">⑥注文番号：</label>
         <div class="col-sm-9">
           <p>
-            <input type="tel" id="pcode" class="form-control" maxlength='6' placeholder="商品番号">
+            <input type="tel" id="pcode" class="form-control" maxlength='6' placeholder="注文番号">
           </p>
         </div>
       </div>
@@ -210,7 +210,7 @@ b.addEventListener(eventEnd, e => {
 	    b.classList.remove('active');
 	    clearInterval(timer);
 	    let second = (count / 100);
-		if(second > 0.1 && second < 0.6){
+		if(second > 0.06 && second < 0.6){
 			let str1 = document.getElementById("kcode").value;
 			if(str1.length === 0){
 				alert("コース名は必須です。入力してください。")
