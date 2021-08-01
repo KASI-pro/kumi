@@ -360,106 +360,104 @@ function reload() {
 						  	}
 					}
 			}else{
-				let str2 = document.getElementById("kmcode").value;
+				let str2 = document.getElementById("kmcode").value; // 組合員コードチェック
 					if(str2.length === 0){
 						alert("組合員コードは必須です。入力してください。")
 					}else if(str2 === "00000000" || str2 === "99999999"){
 						alert("対象外の組合員コードです。")
+					}else if(isNaN(str2)){
+						alert("組合員コードの欄に数字以外の字が入力されています。")
+					}else if(str2.length !== 8){
+						alert("組合員コードは8文字です")
 					}else{
-						if(isNaN(str2)){
-							alert("組合員コードの欄に数字以外の字が入力されています。")
-						}else if(str2.length !== 8){
-							alert("組合員コードは8文字です")
-						}else{
-							let str7 = document.getElementById("pname").value.replace(regex, '');
-								if(str7.length === 0){
-									alert("商品名は必須です\nお書きください")
-								}else{
-								let str5 = document.getElementById("offer").value.replace(regex, '');
-								if(str5.length === 0){
-									alert("内容は必須です\nお書きください")
-								}else{
-									let str3 = document.getElementById("kikakai").value;
-									if(str3.length !== 0){
-										if(isNaN(str3)){
-											alert("企画回の欄に数字以外の字が入力されています。")
-										}else if(str3.length !== 7){
-											alert("\n 企画回は7文字必要です")
-										}else{
-											var result = window.confirm("メールを作成しても宜しいですか？");
-												if( result ) {
-													var elements = document.getElementsByName('corres');
-													var len = elements.length;
-													var checkValue = '';
-														for (let i = 0; i < len; i++){
-															if (elements.item(i).checked){
-																checkValue = elements.item(i).value;
-															}
-														}
-													txtData = document.content;
-													answer = txtData[0].value;
-													branch = txtData[3].value;
-													kmcode = txtData[4].value;
-													kikakai = txtData[5].value;
-													pcode = txtData[6].value;
-													pname = txtData[7].value.replace(regex, '');
-													offer = txtData[8].value.replace(regex, '');
-													comment = txtData[9].value.replace(regex, '');
-													address = 'tos_oka2@palcoop.or.jp';
-													subject = '組合員の声';
-													body = '{"body":{"answer":"'+answer+
-															'","branch":"'+branch+
-															'","kmcode":"'+kmcode+
-															'","corres":"'+checkValue+
-															'","kikakai":"'+kikakai+
-															'","pcode":"'+pcode+
-															'","pname":"'+pname+
-															'","offer":"'+offer+
-															'","comment":"'+comment+
-																'"}}';
-													location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
-												} else {
-												}
-										}
+						let str7 = document.getElementById("pname").value.replace(regex, ''); // 商品名チェック
+							if(str7.length === 0){
+								alert("商品名は必須です\nお書きください")
+							}else{
+								let str5 = document.getElementById("offer").value.replace(regex, ''); // 内容チェック
+									if(str5.length === 0){
+										alert("内容は必須です\nお書きください")
 									}else{
-										 var result = window.confirm("メールを作成しても宜しいですか？");
-											if( result ) {
-												var elements = document.getElementsByName('corres');
-												var len = elements.length;
-												var checkValue = '';
-													for (let i = 0; i < len; i++){
-														if (elements.item(i).checked){
-															checkValue = elements.item(i).value;
+										let str3 = document.getElementById("kikakai").value; // 企画回チェック
+											if(str3.length !== 0){
+												if(isNaN(str3)){
+													alert("企画回の欄に数字以外の字が入力されています。")
+												}else if(str3.length !== 7){
+													alert("\n 企画回は7文字必要です")
+												}else{
+													var result = window.confirm("メールを作成しても宜しいですか？");
+														if( result ) {
+															var elements = document.getElementsByName('corres');
+															var len = elements.length;
+															var checkValue = '';
+																for (let i = 0; i < len; i++){
+																	if (elements.item(i).checked){
+																		checkValue = elements.item(i).value;
+																	}
+																}
+															txtData = document.content;
+															answer = txtData[0].value;
+															branch = txtData[3].value;
+															kmcode = txtData[4].value;
+															kikakai = txtData[5].value;
+															pcode = txtData[6].value;
+															pname = txtData[7].value.replace(regex, '');
+															offer = txtData[8].value.replace(regex, '');
+															comment = txtData[9].value.replace(regex, '');
+															address = 'tos_oka2@palcoop.or.jp';
+															subject = '組合員の声';
+															body = '{"body":{"answer":"'+answer+
+																	'","branch":"'+branch+
+																	'","kmcode":"'+kmcode+
+																	'","corres":"'+checkValue+
+																	'","kikakai":"'+kikakai+
+																	'","pcode":"'+pcode+
+																	'","pname":"'+pname+
+																	'","offer":"'+offer+
+																	'","comment":"'+comment+
+																		'"}}';
+															location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
+														} else {
 														}
+												}
+											}else{
+												 var result = window.confirm("メールを作成しても宜しいですか？");
+													if( result ) {
+														var elements = document.getElementsByName('corres');
+														var len = elements.length;
+														var checkValue = '';
+															for (let i = 0; i < len; i++){
+																if (elements.item(i).checked){
+																	checkValue = elements.item(i).value;
+																}
+															}
+														txtData = document.content;
+														answer = txtData[0].value;
+														branch = txtData[3].value;
+														kmcode = txtData[4].value;
+														kikakai = txtData[5].value;
+														pcode = txtData[6].value;
+														pname = txtData[7].value.replace(regex, '');
+														offer = txtData[8].value.replace(regex, '');
+														comment = txtData[9].value.replace(regex, '');
+														address = 'tos_oka2@palcoop.or.jp';
+														subject = '組合員の声';
+														body = '{"body":{"answer":"'+answer+
+																'","branch":"'+branch+
+																'","kmcode":"'+kmcode+
+																'","corres":"'+checkValue+
+																'","kikakai":"'+kikakai+
+																'","pcode":"'+pcode+
+																'","pname":"'+pname+
+																'","offer":"'+offer+
+																'","comment":"'+comment+
+																'"}}';
+														location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
+													} else {
 													}
-												txtData = document.content;
-												answer = txtData[0].value;
-												branch = txtData[3].value;
-												kmcode = txtData[4].value;
-												kikakai = txtData[5].value;
-												pcode = txtData[6].value;
-												pname = txtData[7].value.replace(regex, '');
-												offer = txtData[8].value.replace(regex, '');
-												comment = txtData[9].value.replace(regex, '');
-												address = 'tos_oka2@palcoop.or.jp';
-												subject = '組合員の声';
-												body = '{"body":{"answer":"'+answer+
-														'","branch":"'+branch+
-														'","kmcode":"'+kmcode+
-														'","corres":"'+checkValue+
-														'","kikakai":"'+kikakai+
-														'","pcode":"'+pcode+
-														'","pname":"'+pname+
-														'","offer":"'+offer+
-														'","comment":"'+comment+
-														'"}}';
-												location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
-											} else {
 											}
 									}
-								}
 							}
-						}
 					}
 			}
 		}
