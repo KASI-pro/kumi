@@ -362,7 +362,9 @@ function reload() {
 			}else{
 				let str2 = document.getElementById("kmcode").value;
 					if(str2.length === 0){
-							alert("組合員コードは必須です。入力してください。")
+						alert("対象外の組合員コードです。")
+					}else if(str2 === "00000000" || ste2 === "99999999"){
+						alert("組合員コードは必須です。入力してください。")
 					}else{
 						if(isNaN(str2)){
 							alert("組合員コードの欄に数字以外の字が入力されています。")
