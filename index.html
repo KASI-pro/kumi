@@ -38,7 +38,7 @@
 	border: none;
 	width: 130px;
 	background: white;
-	opacity: 0;
+opacity: 0;
 }
 
 .required::after {
@@ -67,9 +67,9 @@
 		<div>
 			<p>
 				＜声の種類＞<br> <label><input type="radio" name="corres"
-					value="0" onclick="formSwitch(#ffffff)" checked><span
+					value="0" onclick="formSwitch('#ffffff')" checked><span
 					style="margin-right: 3em;">組声</span></label> <label><input
-					type="radio" name="corres" value="1" onclick="formSwitch(#aecdd2)">地域の声</label>
+					type="radio" name="corres" value="1" onclick="formSwitch('#aecdd2')">地域の声</label>
 			</p>
 		</div>
 		<form id="content" name="content">
@@ -242,10 +242,12 @@
 <script>
  function formSwitch(newColor) {
         decided = document.getElementsByName('corres')
+
         if (decided[0].checked) {
             document.getElementById('content').style.display = "";
             document.getElementById('area').style.display = "none";
-	    document.body.style.backgroundColor = newColor;
+document.body.style.backgroundColor = newColor;
+
             var param = location.search;
         	document.getElementById("branch").value = param;
         	var f=document.getElementById("content");
@@ -254,7 +256,8 @@
         } else if (decided[1].checked) {
             document.getElementById('content').style.display = "none";
             document.getElementById('area').style.display = "";
-	    document.body.style.backgroundColor = newColor;
+document.body.style.backgroundColor = newColor;
+
             var param = location.search;
         	document.getElementById("branch2").value = param;
         	var f=document.getElementById("area");
@@ -266,6 +269,7 @@
         }
     }
     window.addEventListener('load', formSwitch());
+
 
 window.onload=function(){
 	var param = location.search;
