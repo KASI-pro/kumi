@@ -38,7 +38,7 @@
 	border: none;
 	width: 130px;
 	background: white;
-	opacity: 0;
+opacity: 0;
 }
 
 .required::after {
@@ -57,6 +57,58 @@
 	border-radius: 10px;
 	display: inline-block;
 }
+label ~ label {
+  margin-left: 30px;
+}
+
+/* ベースのラジオボタン */
+.radio-btns input[type=radio] {
+  display: none;
+}
+
+.radio-btns label {
+  position: relative;
+  padding: 5px 15px 5px 50px;
+  display: inline-block;
+  color: #fff;
+  font-weight: bold;
+  background: #48d1cc;
+  letter-spacing: 0.1em;
+  border-radius: 10px;
+}
+
+.radio-btns input[type=radio]  + label::before,
+.radio-btns input[type=radio]  + label::after {
+  position: absolute;
+  content: '';
+  display: block;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* 下 */
+.radio-btns input[type=radio]  + label::before {
+  border-radius: 30px;
+}
+
+.radio-btns input[type=radio]  + label::after {
+  height: 15px;
+  width: 15px;
+  background: #fff;
+  border-radius: 15px;
+  transition: .1s;
+}
+
+.radio-btns input[type=radio]:checked + label::after {
+  left: 30px;
+  background: #ffa500;
+}
+
+.radio-btns input[type=radio]:checked + label {
+  background: #005580;
+}
+
 </style>
 </head>
 <body>
@@ -65,10 +117,10 @@
 			<h1>組声フォーム</h1>
 		</div>
 		<div>
-			<p>
-				＜声の種類＞<br>
-					<label><input type="radio" name="corres" value="0" onclick="formSwitch('#ffffff')" checked><span style="margin-right: 3em;">組声</span></label>
-					<label><input type="radio" name="corres" value="1" onclick="formSwitch('#aecdd2')">地域の声</label>
+			<p>＜声の種類＞</p>
+			<p class="radio-btns">
+			　<input type="radio" id="kumi" name="corres" value="0" onclick="formSwitch('#ffffff')" checked><label for="kumi"><span>組声</span></label>
+			  <input type="radio" id="tiiki" name="corres" value="1" onclick="formSwitch('#aecdd2')"><label for="tiiki">地域の声</label>
 			</p>
 		</div>
 		<form id="content" name="content">
@@ -79,9 +131,9 @@
 						<select class="custom-select w-25" id="answer">
 							<option value="0">要</option>
 							<option value="1" selected>不要</option>
-						</select>
-						<span><input type="text" class="nontext" disabled></span>
-						<span><input type="button" class="btn btn-info"	value="リセット" onclick="reload()"></span>
+						</select> <span><input type="text" class="nontext" disabled></span>
+						<span><input type="button" class="btn btn-info"
+							value="リセット" onclick="reload()"></span>
 					</p>
 				</div>
 			</div>
@@ -241,10 +293,12 @@
 <script>
  function formSwitch(newColor) {
         decided = document.getElementsByName('corres')
+
         if (decided[0].checked) {
             document.getElementById('content').style.display = "";
             document.getElementById('area').style.display = "none";
-	    document.body.style.backgroundColor = newColor;
+document.body.style.backgroundColor = newColor;
+
             var param = location.search;
         	document.getElementById("branch").value = param;
         	var f=document.getElementById("content");
@@ -253,7 +307,8 @@
         } else if (decided[1].checked) {
             document.getElementById('content').style.display = "none";
             document.getElementById('area').style.display = "";
-	    document.body.style.backgroundColor = newColor;
+document.body.style.backgroundColor = newColor;
+
             var param = location.search;
         	document.getElementById("branch2").value = param;
         	var f=document.getElementById("area");
@@ -265,6 +320,7 @@
         }
     }
     window.addEventListener('load', formSwitch());
+
 
 window.onload=function(){
 	var param = location.search;
