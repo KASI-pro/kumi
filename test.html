@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<!-- Latest compiled and minified CSS -->
+<link
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+	crossorigin="anonymous">
+<style>
+body {
+	font-family:"ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+	font-weight: bolder
+	line-height:25px;
+	font-size:1.2em;
+}
+
+textarea {
+	width: 100%;
+}
+
+#sendFrom {
+	margin: 15px auto;
+	width: 100%;
+	height: 100px;
+	border: solid 1px black;
+	background-color: #ddd;
+	line-height: 100px;
+	text-align: center;
+}
+
+.nontext {
+	border: none;
+	width: 130px;
+	background: white;
+	opacity: 0;
+}
+
+.required::after {
+	content: "必須";
+	background-color: #f0ad4e;
+	color: #fff;
+	font-size: 12px;
+	font-weight: bold;
+	min-width: 10px;
+	padding: 3px 7px;
+	margin: 0px 5px;
+	line-height: 1;
+	vertical-align: middle;
+	white-space: nowrap;
+	text-align: center;
+	border-radius: 10px;
+	display: inline-block;
+}
+label ~ label {
+	margin-left: 30px;
+}
+
+/* ベースのラジオボタン */
+.radio-btns input[type=radio] {
+  display: none;
+}
+
+.radio-btns label {
+  position: relative;
+  padding: 5px 15px 5px 50px;
+  display: inline-block;
+  color: #fff;
+  font-weight: bold;
+  background: #48d1cc;
+  letter-spacing: 0.1em;
+  border-radius: 10px;
+}
+
+.radio-btns input[type=radio]  + label::before,
+.radio-btns input[type=radio]  + label::after {
+  position: absolute;
+  content: '';
+  display: block;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* 下 */
+.radio-btns input[type=radio]  + label::before {
+  border-radius: 30px;
+}
+
+.radio-btns input[type=radio]  + label::after {
+  height: 15px;
+  width: 15px;
+  background: #fff;
+  border-radius: 15px;
+  transition: .1s;
+}
+
+.radio-btns input[type=radio]:checked + label::after {
+  left: 30px;
+  background: #ffa500;
+}
+
+.radio-btns input[type=radio]:checked + label {
+  background: #005580;
+}
+
+</style>
+</head>
+<body>
+	<div class="container">
+		<div class="navbar">
+			<h1>組声フォーム</h1>
+		</div>
+		<div>
+			<p>＜声の種類＞</p>
+			<p class="radio-btns">
+			　<input type="radio" id="kumi" name="corres" value="0" onclick="formSwitch('#ffffff')" checked><label for="kumi"><span>組声</span></label>
+			  <input type="radio" id="tiiki" name="corres" value="1" onclick="formSwitch('#aecdd2')"><label for="tiiki">地域の声</label>
+			</p>
+		</div>
+		<form id="content" name="content">
+			<div class="form-row">
+				<label class="col-sm-3 col-form-label">①回答：</label>
+				<div class="col-sm-9">
+					<p>
+						<select class="custom-select w-25" id="answer">
+							<option value="0">要</option>
+							<option value="1" selected>不要</option>
+						</select> <span><input type="text" class="nontext" disabled></span>
+						<span><input type="button" class="btn btn-info"
+							value="リセット" onclick="reload()"></span>
+					</p>
+				</div>
+			</div>
+			<div class="form-row">
+				<label class="col-sm-3 col-form-label">②支所：</label>
+				<div class="col-sm-9">
+					<p>
+						<select class="custom-select w-50" id="branch" name="branch">
+							<option value="101">枚方支所</option>
+							<option value="102">南寝屋川支所</option>
+							<option value="103">南寝屋川個配センター</option>
+							<option value="104">南枚方支所</option>
+							<option value="105">北枚方支所</option>
+							<option value="106">寝屋川支所</option>
+							<option value="107">門真支所</option>
+							<option value="301">港支所</option>
+							<option value="302">西成支所</option>
+							<option value="303">港個配センター</option>
+							<option value="304">生野支所</option>
+							<option value="305">南津守支所</option>
+							<option value="307">平野支所</option>
+							<option value="401">鶴見支所</option>
+							<option value="402">都島個配センター</option>
+							<option value="405">都島支所</option>
+						</select>
+					</p>
+				</div>
+			</div>
+			<div class="form-row">
+				<label class="col-sm-3 col-form-label required">③組合員コード：</label>
+
+				<div class="col-sm-9">
+					<p>
+						<input type="tel" id="kmcode" class="form-control" maxlength='8'
+							placeholder="組合員コード">
+					</p>
+				</div>
+			</div>
+			<div class="form-row">
+				<label class="col-sm-3 col-form-label">④企画回：<br>&nbsp;&nbsp;例：2021年11月1回 → 2021111</label>
+				<div class="col-sm-9">
+					<p>
+						<input type="tel" id="kikakai" class="form-control" maxlength='7'
+							placeholder="企画回">
+					</p>
+				</div>
+			</div>
+			<div class="form-row">
+				<label class="col-sm-3 col-form-label">⑤注文番号：</label>
+				<div class="col-sm-9">
+					<p>
+						<input type="tel" id="pcode" class="form-control" maxlength='6'
+							placeholder="注文番号">
+					</p>
+				</div>
+			</div>
+			<div class="form-row">
+				<label class="col-sm-3 col-form-label required">⑥商品名：</label>
+				<div class="col-sm-9">
+					<p>
+						<input type="text" id="pname" class="form-control"
+							placeholder="商品名">
+					</p>
+				</div>
+			</div>
+			<div class="form-row">
+				<label class="col-sm-3 col-form-label required">⑦お申し出内容：</label>
+				<div class="col-sm-9">
+					<p>
+						<textarea id="offer" rows="4" cols="34" placeholder="お申し出内容"></textarea>
+					</p>
+				</div>
+			</div>
+			<div class="form-row">
+				<label class="col-sm-3 col-form-label">⑧担当者のコメント：</label>
+				<div class="col-sm-9">
+					<p>
+						<textarea id="comment" rows="4" cols="34" placeholder="担当者のコメント"></textarea>
+					</p>
+				</div>
+			</div>
+		</form>
+		<form id="area" name="area">
+			<div class="form-row">
+				<label class="col-sm-3 col-form-label">①回答：</label>
+				<div class="col-sm-9">
+					<p>
+						<select class="custom-select w-25" id="answer2">
+							<option value="0">要</option>
+							<option value="1" selected>不要</option>
+						</select> <span><input type="text" class="nontext" disabled></span>
+						<span><input type="button" class="btn btn-info"
+							value="リセット" onclick="reload()"></span>
+					</p>
+				</div>
+			</div>
+			<div class="form-row">
+				<label class="col-sm-3 col-form-label">②支所：</label>
+				<div class="col-sm-9">
+					<p>
+						<select class="custom-select w-50" id="branch2" name="branch2">
+							<option value="101">枚方支所</option>
+							<option value="102">南寝屋川支所</option>
+							<option value="103">南寝屋川個配センター</option>
+							<option value="104">南枚方支所</option>
+							<option value="105">北枚方支所</option>
+							<option value="106">寝屋川支所</option>
+							<option value="107">門真支所</option>
+							<option value="301">港支所</option>
+							<option value="302">西成支所</option>
+							<option value="303">港個配センター</option>
+							<option value="304">生野支所</option>
+							<option value="305">南津守支所</option>
+							<option value="307">平野支所</option>
+							<option value="401">鶴見支所</option>
+							<option value="402">都島個配センター</option>
+							<option value="405">都島支所</option>
+						</select>
+					</p>
+				</div>
+			</div>
+			<div class="col-sm-9">
+				<p>
+					<input type="hidden" id="kmcode" value="99999999">
+				</p>
+			</div>
+			<div class="form-row">
+				<label class="col-sm-3 col-form-label required">③要旨・商品名：</label>
+				<div class="col-sm-9">
+					<p>
+						<input type="text" id="pname2" class="form-control"
+							placeholder="要旨・商品名">
+					</p>
+				</div>
+			</div>
+			<div class="form-row">
+				<label class="col-sm-3 col-form-label required">④お申し出内容：</label>
+				<div class="col-sm-9">
+					<p>
+						<textarea id="offer2" rows="4" cols="34" placeholder="お申し出内容"></textarea>
+					</p>
+				</div>
+			</div>
+			<div class="form-row">
+				<label class="col-sm-3 col-form-label">⑤担当者のコメント：</label>
+				<div class="col-sm-9">
+					<p>
+						<textarea id="comment2" rows="4" cols="34" placeholder="担当者のコメント"></textarea>
+					</p>
+				</div>
+			</div>
+		</form>
+		<input type="button" id="sendFrom" value="メール作成"><br> <br>
+	</div>
+</body>
+<script>
+ function formSwitch(newColor) {
+        decided = document.getElementsByName('corres')
+
+        if (decided[0].checked) {
+            document.getElementById('content').style.display = "";
+            document.getElementById('area').style.display = "none";
+document.body.style.backgroundColor = newColor;
+
+            var param = location.search;
+        	document.getElementById("branch").value = param;
+        	var f=document.getElementById("content");
+        	var reparam = param.replace('?', '');
+        	checkSelect(f.elements["branch"],reparam);
+        } else if (decided[1].checked) {
+            document.getElementById('content').style.display = "none";
+            document.getElementById('area').style.display = "";
+document.body.style.backgroundColor = newColor;
+
+            var param = location.search;
+        	document.getElementById("branch2").value = param;
+        	var f=document.getElementById("area");
+        	var reparam = param.replace('?', '');
+        	checkSelect(f.elements["branch2"],reparam);
+        } else {
+            document.getElementById('content').style.display = "none";
+            document.getElementById('area').style.display = "none";
+        }
+    }
+    window.addEventListener('load', formSwitch());
+
+
+window.onload=function(){
+	var param = location.search;
+	document.getElementById("branch").value = param;
+	var f=document.getElementById("content");
+	var reparam = param.replace('?', '');
+	checkSelect(f.elements["branch"],reparam);
+}
+function checkSelect(obj,val){
+	for(var i=0;i<obj.length;i++){
+		if(obj[i].value==val){
+			obj[i].selected=true;
+			break;
+		}
+	 }
+}
+function reload() {
+	var result = confirm('本当に入力内容を削除してもよろしいですか？');
+		if(result) {
+			location.reload();
+		}
+}
+
+	var regex = /(?:[\u2700-\u27bf]|(?:\ud83c[\udde6-\uddff]){2}|[\ud800-\udbff][\udc00-\udfff]|[\u0023-\u0039]\ufe0f?\u20e3|\u3299|\u3297|\u303d|\u3030|\u24c2|\ud83c[\udd70-\udd71]|\ud83c[\udd7e-\udd7f]|\ud83c\udd8e|\ud83c[\udd91-\udd9a]|\ud83c[\udde6-\uddff]|[\ud83c[\ude01\uddff]|\ud83c[\ude01-\ude02]|\ud83c\ude1a|\ud83c\ude2f|[\ud83c[\ude32\ude02]|\ud83c\ude1a|\ud83c\ude2f|\ud83c[\ude32-\ude3a]|[\ud83c[\ude50\ude3a]|\ud83c[\ude50-\ude51]|\u203c|\u2049|[\u25aa-\u25ab]|\u25b6|\u25c0|[\u25fb-\u25fe]|\u00a9|\u00ae|\u2122|\u2139|\ud83c\udc04|[\u2600-\u26FF]|\u2b05|\u2b06|\u2b07|\u2b1b|\u2b1c|\u2b50|\u2b55|\u231a|\u231b|\u2328|\u23cf|[\u23e9-\u23f3]|[\u23f8-\u23fa]|\ud83c\udccf|\u2934|\u2935|[\u2190-\u21ff])/g;
+	let count = 0;
+	let timer;
+	const ua = navigator.userAgent.toLowerCase();
+	const isSP = /iphone|ipod|ipad|android/.test(ua);
+	const b = document.getElementById('sendFrom');
+	const eventStart = isSP ? 'touchstart' : 'mousedown';
+	const eventEnd   = isSP ? 'touchend' : 'mouseup';
+	const eventLeave = isSP ? 'touchmove' : 'mouseleave';
+
+	b.addEventListener(eventStart, e => {
+	  e.preventDefault();
+	  b.classList.add('active');
+	  timer = setInterval(() => {
+	    count++;
+	  }, 10);
+	})
+
+	b.addEventListener(eventEnd, e => {
+	  e.preventDefault();
+	  if (count) {
+	    b.classList.remove('active');
+	    clearInterval(timer);
+	    let second = (count / 100);
+		var elements = document.getElementsByName('corres');
+		var len = elements.length;
+		var radioValue = '';
+		for (let i = 0; i < len; i++){
+			if (elements.item(i).checked){
+				radioValue = elements.item(i).value;
+			}
+		}
+		if(second > 0.0 && second < 0.6){
+			if(radioValue === '1'){
+				let str6 = document.getElementById("offer2").value.replace(regex, '');
+					if(str6.length === 0){
+						alert("内容は必須です\nお書きください")
+					}else{
+						 var result = window.confirm("メールを作成しても宜しいですか？");
+							if( result ) {
+								var elements = document.getElementsByName('corres');
+								var len = elements.length;
+								var checkValue = '';
+									for (let i = 0; i < len; i++){
+										if (elements.item(i).checked){
+											checkValue = elements.item(i).value;
+										}
+									}
+								txtData = document.area;
+								answer = txtData[0].value;
+								branch = txtData[3].value;
+								kmcode = txtData[4].value;
+								pname = txtData[5].value.replace(regex, '');
+								offer = txtData[6].value.replace(regex, '');
+								comment = txtData[7].value.replace(regex, '');
+												kikakai = null;
+												pcode = null;
+								address = 'kumikoeTest@palcoop.or.jp';
+								subject = '組合員の声';
+								body = '{"body":{"answer":"'+answer+
+										'","branch":"'+branch+
+										'","kmcode":"'+kmcode+
+										'","corres":"'+checkValue+
+										'","pname":"'+pname+
+										'","offer":"'+offer+
+										'","comment":"'+comment+
+									'","kikakai":"'+kikakai+
+									'","pcode":"'+pcode+
+											'"}}';
+								location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
+							} else {
+						  	}
+					}
+			}else{
+				let str2 = document.getElementById("kmcode").value; // 組合員コードチェック
+					if(str2.length === 0){
+						alert("組合員コードは必須です。入力してください。")
+					}else if(str2 === "00000000" || str2 === "99999999"){
+						alert("対象外の組合員コードです。")
+					}else if(isNaN(str2)){
+						alert("組合員コードの欄に数字以外の字が入力されています。")
+					}else if(str2.length !== 8){
+						alert("組合員コードは8文字です")
+					}else{
+						let str7 = document.getElementById("pname").value.replace(regex, ''); // 商品名チェック
+							if(str7.length === 0){
+								alert("商品名は必須です\nお書きください")
+							}else{
+								let str5 = document.getElementById("offer").value.replace(regex, ''); // 内容チェック
+									if(str5.length === 0){
+										alert("内容は必須です\nお書きください")
+									}else{
+										let str3 = document.getElementById("kikakai").value; // 企画回チェック
+											if(str3.length !== 0){
+												if(isNaN(str3)){
+													alert("企画回の欄に数字以外の字が入力されています。")
+												}else if(str3.length !== 7){
+													alert("\n 企画回は7文字必要です")
+												}else{
+													var result = window.confirm("メールを作成しても宜しいですか？");
+														if( result ) {
+															var elements = document.getElementsByName('corres');
+															var len = elements.length;
+															var checkValue = '';
+																for (let i = 0; i < len; i++){
+																	if (elements.item(i).checked){
+																		checkValue = elements.item(i).value;
+																	}
+																}
+															txtData = document.content;
+															answer = txtData[0].value;
+															branch = txtData[3].value;
+															kmcode = txtData[4].value;
+															kikakai = txtData[5].value;
+															pcode = txtData[6].value;
+															pname = txtData[7].value.replace(regex, '');
+															offer = txtData[8].value.replace(regex, '');
+															comment = txtData[9].value.replace(regex, '');
+															address = 'kumikoeTest@palcoop.or.jp';
+															subject = '組合員の声';
+															body = '{"body":{"answer":"'+answer+
+																	'","branch":"'+branch+
+																	'","kmcode":"'+kmcode+
+																	'","corres":"'+checkValue+
+																	'","kikakai":"'+kikakai+
+																	'","pcode":"'+pcode+
+																	'","pname":"'+pname+
+																	'","offer":"'+offer+
+																	'","comment":"'+comment+
+																		'"}}';
+															location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
+														} else {
+														}
+												}
+											}else{
+												 var result = window.confirm("メールを作成しても宜しいですか？");
+													if( result ) {
+														var elements = document.getElementsByName('corres');
+														var len = elements.length;
+														var checkValue = '';
+															for (let i = 0; i < len; i++){
+																if (elements.item(i).checked){
+																	checkValue = elements.item(i).value;
+																}
+															}
+														txtData = document.content;
+														answer = txtData[0].value;
+														branch = txtData[3].value;
+														kmcode = txtData[4].value;
+														kikakai = txtData[5].value;
+														pcode = txtData[6].value;
+														pname = txtData[7].value.replace(regex, '');
+														offer = txtData[8].value.replace(regex, '');
+														comment = txtData[9].value.replace(regex, '');
+														address = 'kumikoeTest@palcoop.or.jp';
+														subject = '組合員の声';
+														body = '{"body":{"answer":"'+answer+
+																'","branch":"'+branch+
+																'","kmcode":"'+kmcode+
+																'","corres":"'+checkValue+
+																'","kikakai":"'+kikakai+
+																'","pcode":"'+pcode+
+																'","pname":"'+pname+
+																'","offer":"'+offer+
+																'","comment":"'+comment+
+																'"}}';
+														location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
+													} else {
+													}
+											}
+									}
+							}
+					}
+			}
+		}
+		count = 0;
+		}
+	});
+
+b.addEventListener(eventLeave, e => {
+  e.preventDefault();
+  let el;
+  el = isSP ? document.elementFromPoint(e.touches[0].clientX, e.touches[0].clientY) : b;
+  if (!isSP || el !== b) {
+    b.classList.remove('active');
+    clearInterval(timer);
+     e.preventDefault();
+    count = 0;
+  }
+});
+</script>
+</html>
