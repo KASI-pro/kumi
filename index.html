@@ -117,7 +117,7 @@ label ~ label {
 		<div>
 			<p>＜声の種類＞</p>
 			<p class="radio-btns">
-			　<input type="radio" id="kumi" name="corres" value="0" onclick="formSwitch('#ffffff')" checked><label for="kumi"><span>組声</span></label>
+			  <input type="radio" id="kumi" name="corres" value="0" onclick="formSwitch('#ffffff')" checked><label for="kumi"><span>組声</span></label>
 			  <input type="radio" id="tiiki" name="corres" value="1" onclick="formSwitch('#aecdd2')"><label for="tiiki">地域の声</label>
 			</p>
 		</div>
@@ -130,8 +130,7 @@ label ~ label {
 							<option value="0">要</option>
 							<option value="1" selected>不要</option>
 						</select> <span><input type="text" class="nontext" disabled></span>
-						<span><input type="button" class="btn btn-info"
-							value="リセット" onclick="reload()"></span>
+						<span><input type="button" class="btn btn-info"	value="リセット" onclick="reload()"></span>
 					</p>
 				</div>
 			</div>
@@ -165,8 +164,7 @@ label ~ label {
 
 				<div class="col-sm-9">
 					<p>
-						<input type="tel" id="kmcode" class="form-control" maxlength='8'
-							placeholder="組合員コード">
+						<input type="tel" id="kmcode" class="form-control" maxlength='8' placeholder="組合員コード">
 					</p>
 				</div>
 			</div>
@@ -174,8 +172,7 @@ label ~ label {
 				<label class="col-sm-3 col-form-label">④企画回：<br>&nbsp;&nbsp;例：2021年11月1回 → 2021111</label>
 				<div class="col-sm-9">
 					<p>
-						<input type="tel" id="kikakai" class="form-control" maxlength='7'
-							placeholder="企画回">
+						<input type="tel" id="kikakai" class="form-control" maxlength='7' placeholder="企画回">
 					</p>
 				</div>
 			</div>
@@ -183,8 +180,7 @@ label ~ label {
 				<label class="col-sm-3 col-form-label">⑤注文番号：</label>
 				<div class="col-sm-9">
 					<p>
-						<input type="tel" id="pcode" class="form-control" maxlength='6'
-							placeholder="注文番号">
+						<input type="tel" id="pcode" class="form-control" maxlength='6'	placeholder="注文番号">
 					</p>
 				</div>
 			</div>
@@ -192,8 +188,7 @@ label ~ label {
 				<label class="col-sm-3 col-form-label required">⑥商品名：</label>
 				<div class="col-sm-9">
 					<p>
-						<input type="text" id="pname" class="form-control"
-							placeholder="商品名">
+						<input type="text" id="pname" class="form-control" placeholder="商品名">
 					</p>
 				</div>
 			</div>
@@ -223,8 +218,7 @@ label ~ label {
 							<option value="0">要</option>
 							<option value="1" selected>不要</option>
 						</select> <span><input type="text" class="nontext" disabled></span>
-						<span><input type="button" class="btn btn-info"
-							value="リセット" onclick="reload()"></span>
+						<span><input type="button" class="btn btn-info" value="リセット" onclick="reload()"></span>
 					</p>
 				</div>
 			</div>
@@ -262,8 +256,7 @@ label ~ label {
 				<label class="col-sm-3 col-form-label required">③要旨・商品名：</label>
 				<div class="col-sm-9">
 					<p>
-						<input type="text" id="pname2" class="form-control"
-							placeholder="要旨・商品名">
+						<input type="text" id="pname2" class="form-control" placeholder="要旨・商品名">
 					</p>
 				</div>
 			</div>
@@ -398,7 +391,7 @@ function reload() {
 								comment = txtData[7].value.replace(regex, '');
 												kikakai = '';
 												pcode = '';
-								address = 'tos_oka2@palcoop.or.jp';
+								address = 'kumikoeTest@palcoop.or.jp';
 								subject = '組合員の声';
 								body = '{"body":{"answer":"'+answer+
 										'","branch":"'+branch+
@@ -440,76 +433,86 @@ function reload() {
 												}else if(str3.length !== 7){
 													alert("\n 企画回は7文字必要です")
 												}else{
-													var result = window.confirm("メールを作成しても宜しいですか？");
-														if( result ) {
-															var elements = document.getElementsByName('corres');
-															var len = elements.length;
-															var checkValue = '';
-																for (let i = 0; i < len; i++){
-																	if (elements.item(i).checked){
-																		checkValue = elements.item(i).value;
+													let str8= document.getElementById("pcode").value; // 注文番チェック
+														if(isNaN(str8)){
+															alert("注文番号の欄に数字以外の字が入力されています。")
+														}else{
+															var result = window.confirm("メールを作成しても宜しいですか？");
+															if( result ) {
+																var elements = document.getElementsByName('corres');
+																var len = elements.length;
+																var checkValue = '';
+																	for (let i = 0; i < len; i++){
+																		if (elements.item(i).checked){
+																			checkValue = elements.item(i).value;
+																		}
 																	}
-																}
-															txtData = document.content;
-															answer = txtData[0].value;
-															branch = txtData[3].value;
-															kmcode = txtData[4].value;
-															kikakai = txtData[5].value;
-															pcode = txtData[6].value;
-															pname = txtData[7].value.replace(regex, '');
-															offer = txtData[8].value.replace(regex, '');
-															comment = txtData[9].value.replace(regex, '');
-															address = 'tos_oka2@palcoop.or.jp';
-															subject = '組合員の声';
-															body = '{"body":{"answer":"'+answer+
-																	'","branch":"'+branch+
-																	'","kmcode":"'+kmcode+
-																	'","corres":"'+checkValue+
-																	'","kikakai":"'+kikakai+
-																	'","pcode":"'+pcode+
-																	'","pname":"'+pname+
-																	'","offer":"'+offer+
-																	'","comment":"'+comment+
-																		'"}}';
-															location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
-														} else {
-														}
+																txtData = document.content;
+																answer = txtData[0].value;
+																branch = txtData[3].value;
+																kmcode = txtData[4].value;
+																kikakai = txtData[5].value;
+																pcode = txtData[6].value;
+																pname = txtData[7].value.replace(regex, '');
+																offer = txtData[8].value.replace(regex, '');
+																comment = txtData[9].value.replace(regex, '');
+																address = 'kumikoeTest@palcoop.or.jp';
+																subject = '組合員の声';
+																body = '{"body":{"answer":"'+answer+
+																		'","branch":"'+branch+
+																		'","kmcode":"'+kmcode+
+																		'","corres":"'+checkValue+
+																		'","kikakai":"'+kikakai+
+																		'","pcode":"'+pcode+
+																		'","pname":"'+pname+
+																		'","offer":"'+offer+
+																		'","comment":"'+comment+
+																			'"}}';
+																location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
+															} else {
+															}
+													 	}
 												}
 											}else{
-												 var result = window.confirm("メールを作成しても宜しいですか？");
-													if( result ) {
-														var elements = document.getElementsByName('corres');
-														var len = elements.length;
-														var checkValue = '';
-															for (let i = 0; i < len; i++){
-																if (elements.item(i).checked){
-																	checkValue = elements.item(i).value;
-																}
+												let str8= document.getElementById("pcode").value; // 注文番チェック
+													if(isNaN(str8)){
+														alert("注文番号の欄に数字以外の字が入力されています。")
+													}else{
+														 var result = window.confirm("メールを作成しても宜しいですか？");
+															if( result ) {
+																var elements = document.getElementsByName('corres');
+																var len = elements.length;
+																var checkValue = '';
+																	for (let i = 0; i < len; i++){
+																		if (elements.item(i).checked){
+																			checkValue = elements.item(i).value;
+																		}
+																	}
+																txtData = document.content;
+																answer = txtData[0].value;
+																branch = txtData[3].value;
+																kmcode = txtData[4].value;
+																kikakai = txtData[5].value;
+																pcode = txtData[6].value;
+																pname = txtData[7].value.replace(regex, '');
+																offer = txtData[8].value.replace(regex, '');
+																comment = txtData[9].value.replace(regex, '');
+																address = 'kumikoeTest@palcoop.or.jp';
+																subject = '組合員の声';
+																body = '{"body":{"answer":"'+answer+
+																		'","branch":"'+branch+
+																		'","kmcode":"'+kmcode+
+																		'","corres":"'+checkValue+
+																		'","kikakai":"'+kikakai+
+																		'","pcode":"'+pcode+
+																		'","pname":"'+pname+
+																		'","offer":"'+offer+
+																		'","comment":"'+comment+
+																		'"}}';
+																location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
+															} else {
 															}
-														txtData = document.content;
-														answer = txtData[0].value;
-														branch = txtData[3].value;
-														kmcode = txtData[4].value;
-														kikakai = txtData[5].value;
-														pcode = txtData[6].value;
-														pname = txtData[7].value.replace(regex, '');
-														offer = txtData[8].value.replace(regex, '');
-														comment = txtData[9].value.replace(regex, '');
-														address = 'tos_oka2@palcoop.or.jp';
-														subject = '組合員の声';
-														body = '{"body":{"answer":"'+answer+
-																'","branch":"'+branch+
-																'","kmcode":"'+kmcode+
-																'","corres":"'+checkValue+
-																'","kikakai":"'+kikakai+
-																'","pcode":"'+pcode+
-																'","pname":"'+pname+
-																'","offer":"'+offer+
-																'","comment":"'+comment+
-																'"}}';
-														location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
-													} else {
-													}
+													 }
 											}
 									}
 							}
