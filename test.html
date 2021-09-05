@@ -440,9 +440,10 @@ function reload() {
 													alert("企画回の欄に数字以外の字が入力されています。")
 												}else if(str3.length !== 7){
 													alert("\n 企画回は7文字必要です")
-												}else if(isNaN(str8){
-													alert("注文番号の欄に数字以外の字が入力されています。")
 												}else{
+													 if(isNaN(str8)){
+														alert("注文番号の欄に数字以外の字が入力されています。")
+													 }else{
 													var result = window.confirm("メールを作成しても宜しいですか？");
 														if( result ) {
 															var elements = document.getElementsByName('corres');
@@ -477,6 +478,7 @@ function reload() {
 															location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
 														} else {
 														}
+													 }
 												}
 											}else{
 												 var result = window.confirm("メールを作成しても宜しいですか？");
