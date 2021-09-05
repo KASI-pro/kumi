@@ -434,13 +434,13 @@ function reload() {
 										alert("内容は必須です\nお書きください")
 									}else{
 										let str3 = document.getElementById("kikakai").value; // 企画回チェック
-										let str8= document.getElementById("pcode").value; // 注文番チェック
 											if(str3.length !== 0){
 												if(isNaN(str3)){
 													alert("企画回の欄に数字以外の字が入力されています。")
 												}else if(str3.length !== 7){
 													alert("\n 企画回は7文字必要です")
 												}else{
+													let str8= document.getElementById("pcode").value; // 注文番チェック
 													 if(isNaN(str8)){
 														alert("注文番号の欄に数字以外の字が入力されています。")
 													 }else{
@@ -481,6 +481,10 @@ function reload() {
 													 }
 												}
 											}else{
+												let str8= document.getElementById("pcode").value; // 注文番チェック
+													 if(isNaN(str8)){
+														alert("注文番号の欄に数字以外の字が入力されています。")
+													 }else{
 												 var result = window.confirm("メールを作成しても宜しいですか？");
 													if( result ) {
 														var elements = document.getElementsByName('corres');
@@ -515,6 +519,7 @@ function reload() {
 														location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
 													} else {
 													}
+													 }
 											}
 									}
 							}
