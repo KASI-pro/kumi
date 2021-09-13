@@ -174,13 +174,13 @@ label ~ label {
 					<div><span>
 <input type="month" class="input-group__control w-50" id="month" value="">
 <select class="input-group__control w-25" id="kai" name="kai">
-<option value=""></option>
+<option value="" selected></option>
 <option value="1">1回</option>
 <option value="2">2回</option>
 <option value="3">3回</option>
 <option value="4">4回</option>
 <option value="5">5回</option>
-</select>
+</select><input type="button" class="btn btn-info" value="未選択" onclick="non">
 
 
 					</span></div>
@@ -331,12 +331,10 @@ window.onload=function(){
 	checkSelect(f.elements["branch"],reparam);
 }
 	
-let select = document.querySelector('[name="kai"]');
-select.onclick = event => {
-	if(select.selectedIndex === 0){
+function non(){
 		document.getElementById("month").value = '';
-	}
-}	
+		document.getElementById("kai").value = '';
+	}	
 
 function checkSelect(obj,val){
 	for(var i=0;i<obj.length;i++){
