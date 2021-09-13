@@ -171,17 +171,18 @@ label ~ label {
 			<div class="form-row">
 				<label class="col-sm-3 col-form-label">④企画回：<br>&nbsp;&nbsp;例：2021年11月1回 → 2021111</label>
 				<div class="col-sm-9">
-					<p>
-						<input type="tel" id="kikakai" class="form-control" maxlength='7' placeholder="企画回">
-						<span>
-<input type="month" id="month" class="form-control w-50" min="2021-03" value="2012103">
-<select id="kai" name="kai" class="custom-select w-25">
+					<div><span>
+<input type="month" class="input-group__control w-50" id="month" value="">
+<select class="input-group__control w-25" id="kai" name="kai">
 <option value="1">1回</option>
 <option value="2">2回</option>
 <option value="3">3回</option>
 <option value="4">4回</option>
 <option value="5">5回</option>
-						</select></span>
+</select>
+
+
+					</span></div>
 					</p>
 				</div>
 			</div>
@@ -327,6 +328,19 @@ window.onload=function(){
 	var f=document.getElementById("content");
 	var reparam = param.replace('?', '');
 	checkSelect(f.elements["branch"],reparam);
+var toDoubleDigits = function(num) {
+  num += "";
+  if (num.length === 1) {
+    num = "0" + num;
+  }
+ return num;     
+};
+var date = new Date();
+var yyyy = date.getFullYear();
+var mm = toDoubleDigits(date.getMonth() + 1);
+var kikaku = yyyy+'-'+mm;
+document.getElementById("month").value = kikaku;
+console.log(kikaku);
 }
 function checkSelect(obj,val){
 	for(var i=0;i<obj.length;i++){
@@ -417,7 +431,7 @@ function reload() {
 						  	}
 					}
 			}else{
-				let str2 = document.getElementById("kmcode").value; // 組合員コードチェック
+			let str2 = document.getElementById("kmcode").value; // 組合員コードチェック
 					if(str2.length === 0){
 						alert("組合員コードは必須です。入力してください。")
 					}else if(str2 === "00000000" || str2 === "99999999"){
@@ -427,6 +441,9 @@ function reload() {
 					}else if(str2.length !== 8){
 						alert("組合員コードは8文字です")
 					}else{
+						
+						
+						
 						let str7 = document.getElementById("pname").value.replace(regex, ''); // 商品名チェック
 							if(str7.length === 0){
 								alert("商品名は必須です\nお書きください")
@@ -435,61 +452,19 @@ function reload() {
 									if(str5.length === 0){
 										alert("内容は必須です\nお書きください")
 									}else{
-										let str3 = document.getElementById("kikakai").value; // 企画回チェック
-											if(str3.length !== 0){
-												if(isNaN(str3)){
-													alert("企画回の欄に数字以外の字が入力されています。")
-												}else if(str3.length !== 7){
-													alert("\n 企画回は7文字必要です")
-												}else{
-													let str8= document.getElementById("pcode").value; // 注文番チェック
-														if(isNaN(str8)){
-															alert("注文番号の欄に数字以外の字が入力されています。")
-														}else{
-															var result = window.confirm("メールを作成しても宜しいですか？");
-															if( result ) {
-																var elements = document.getElementsByName('corres');
-																var len = elements.length;
-																var checkValue = '';
-																	for (let i = 0; i < len; i++){
-																		if (elements.item(i).checked){
-																			checkValue = elements.item(i).value;
-																		}
-																	}
-																txtData = document.content;
-																answer = txtData[0].value;
-																branch = txtData[3].value;
-																kmcode = txtData[4].value;
-																kikakai = txtData[5].value;
-																pcode = txtData[6].value;
-																pname = txtData[7].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-																offer = txtData[8].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-																comment = txtData[9].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-																address = 'kumikoeTest@palcoop.or.jp';
-																subject = '組合員の声';
-																body = '{"body":{"answer":"'+answer+
-																		'","branch":"'+branch+
-																		'","kmcode":"'+kmcode+
-																		'","corres":"'+checkValue+
-																		'","kikakai":"'+kikakai+
-																		'","pcode":"'+pcode+
-																		'","pname":"'+pname+
-																		'","offer":"'+offer+
-																		'","comment":"'+comment+
-																			'"}}';
-																location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
-															} else {
-															}
-													 	}
-												}
-											}else{
 												let str8= document.getElementById("pcode").value; // 注文番チェック
 													if(isNaN(str8)){
 														alert("注文番号の欄に数字以外の字が入力されています。")
 													}else{
-														 var result = window.confirm("メールを作成しても宜しいですか？");
+														
+
+														
+														
+														var result = window.confirm("メールを作成しても宜しいですか？");
 															if( result ) {
 																var elements = document.getElementsByName('corres');
+																var time1 = document.getElementById('month').value.replace('-', '');
+																var time2 = document.getElementById('kai').value;
 																var len = elements.length;
 																var checkValue = '';
 																	for (let i = 0; i < len; i++){
@@ -501,11 +476,11 @@ function reload() {
 																answer = txtData[0].value;
 																branch = txtData[3].value;
 																kmcode = txtData[4].value;
-																kikakai = txtData[5].value;
-																pcode = txtData[6].value;
-																pname = txtData[7].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-																offer = txtData[8].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-																comment = txtData[9].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+																kikakai = time1+time2;
+																pcode = txtData[7].value;
+																pname = txtData[8].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+																offer = txtData[9].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+																comment = txtData[10].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 																address = 'kumikoeTest@palcoop.or.jp';
 																subject = '組合員の声';
 																body = '{"body":{"answer":"'+answer+
@@ -521,13 +496,15 @@ function reload() {
 																location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
 															} else {
 															}
-													 }
+
+															
+															
 											}
 									}
 							}
 					}
 			}
-		}
+}
 		count = 0;
 		}
 	});
