@@ -332,7 +332,7 @@ window.onload=function(){
 }
 	
 let select = document.querySelector('[name="kai"]');
-select.onchange = event => {
+select.onclick = event => {
 	if(select.selectedIndex === 0){
 		document.getElementById("month").value = '';
 	}
