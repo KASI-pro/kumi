@@ -174,7 +174,7 @@ label ~ label {
 					<div><span>
 <input type="month" class="input-group__control w-50" id="month" value="">
 <select class="input-group__control w-25" id="kai" name="kai">
-<option value="">分からない</option>
+<option value=""></option>
 <option value="1">1回</option>
 <option value="2">2回</option>
 <option value="3">3回</option>
@@ -329,18 +329,6 @@ window.onload=function(){
 	var f=document.getElementById("content");
 	var reparam = param.replace('?', '');
 	checkSelect(f.elements["branch"],reparam);
-var toDoubleDigits = function(num) {
-  num += "";
-  if (num.length === 1) {
-    num = "0" + num;
-  }
- return num;     
-};	
-var date = new Date();
-var yyyy = date.getFullYear();
-var mm = toDoubleDigits(date.getMonth() + 1);
-var kikaku = yyyy+'-'+mm;
-document.getElementById("month").value = kikaku;
 }
 	
 let select = document.querySelector('[name="kai"]');
