@@ -458,8 +458,15 @@ function reload() {
 														
 														var result = window.confirm("メールを作成しても宜しいですか？");
 															if( result ) {
+																var toDoubleDigits = function(num) {
+																  num += "";
+																  if (num.length === 1) {
+																    num = "0" + num;
+																  }
+																 return num;     
+																};	
 																var elements = document.getElementsByName('corres');
-																var time1 = document.getElementById('month').value.replace('-', '');
+																var time1 =  toDoubleDigits(document.getElementById('month').value.replace('-', ''));
 																var time2 = document.getElementById('kai').value;
 																var len = elements.length;
 																var checkValue = '';
