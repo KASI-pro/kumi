@@ -219,19 +219,21 @@ label ~ label {
 				<label class="col-sm-3 col-form-label">④企画回：</label>
 				<div class="col-sm-9">
 					<div><span>
-<input type="month" class="input-group__control w-50" id="month" value="-------">
+<input type="month" class="input-group__control w-25" id="month" value="-------">
 <select class="input-group__control w-25" id="kai" name="kai">
-<option value="" selected>回を選択</option>
+<option value="" selected>回</option>
 <option value="1">1回</option>
 <option value="2">2回</option>
 <option value="3">3回</option>
 <option value="4">4回</option>
 <option value="5">5回</option>
-</select><input type="button" class="btn btn-info" value="未選択" onclick="non()">
+</select>
+<div>
+<span><input type="text" class="nontext" disabled></span>
+<input type="button" class="btn btn-info" value="未選択" onclick="non()"></div>
 
 
 					</span></div>
-					</p>
 				</div>
 			</div>
 			<div class="form-row">
