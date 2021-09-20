@@ -38,12 +38,7 @@ textarea {
 	background: white;
 	opacity: 0;
 }
-.snontext {
-	border: none;
-	width: 80px;
-	background: white;
-	opacity: 0;
-}
+
 .required::after {
 	content: "必須";
 	background-color: #f0ad4e;
@@ -159,6 +154,16 @@ label ~ label {
   border-width:1px 1px 1px 0;
 }
 
+.wi{
+ width: 10px;
+}
+.button1{
+border-radius:30px;
+background:orange;
+width:30px;
+height:30px
+}
+
 </style>
 </head>
 <body>
@@ -224,21 +229,21 @@ label ~ label {
 				<label class="col-sm-3 col-form-label">④企画回：</label>
 				<div class="col-sm-9">
 					<div><span>
-<input type="month" class="input-group__control w-50" id="month" value="-------">
-<select class="input-group__control w-25" id="kai" name="kai">
+<select class="input-group__control w-25" id="kikaku-year" name="kikaku-year" onclick="chageM" disabled><option value="" selected>年</option></select>
+<select class="input-group__control w-25" id="kikaku-month" name="kikaku-month" onclick="chageY" disabled><option value="" selected>月</option></select>
+<select class="input-group__control w-25" id="kai" name="kai" disabled>
 <option value="" selected>回</option>
 <option value="1">1回</option>
 <option value="2">2回</option>
 <option value="3">3回</option>
 <option value="4">4回</option>
 <option value="5">5回</option>
-</select>
-
-<span><input type="text" class="snontext" disabled></span>
-<input type="button" class="btn btn-info" value="未選択" onclick="non()">
-
+</select><span><input type="text" class="nontext wi" disabled></span>
+<input type="button" id="button1" class="button1"  onclick="non()">
+<input type="hidden" id="non-kikakunm">
 
 					</span></div>
+					</p>
 				</div>
 			</div>
 			<div class="form-row">
@@ -383,11 +388,69 @@ window.onload=function(){
 	var f=document.getElementById("content");
 	var reparam = param.replace('?', '');
 	checkSelect(f.elements["branch"],reparam);
+
+
+
 }
 	
 function non(){
-		document.getElementById("month").value = '';
+const button1 = document.getElementById("button1");
+for(var j = 1; j <= 12; j++) {
+const selectMonth = document.getElementById('kikaku-month');
+const option2 = document.createElement('option');
+option2.value = j;
+option2.textContent = j;
+selectMonth.appendChild(option2)
+}
+
+for(var i = 2000; i <= 2050; i++) {
+const selectYear = document.getElementById('kikaku-year');
+const option1 = document.createElement('option');
+option1.value = i;
+option1.textContent = i;
+selectYear.appendChild(option1)
+}
+
+var p = new Date();
+var monthL = p.getMonth() + 1;
+  select = document.getElementById('kikaku-month').options;
+
+    for(let n = 0; n < select.length; n++ ){
+        if(select[n].value == monthL){
+            select[n].selected = true;
+            break;
+        }
+    }
+var h = new Date();
+var yearL = h.getFullYear();
+  select = document.getElementById('kikaku-year').options;
+    for(let m = 0; m < select.length; m++ ){
+        if(select[m].value == yearL){
+            select[m].selected = true;
+            break;
+        }
+    }
+
+
+if (document.getElementById("kikaku-year").disabled === true){
+document.getElementById("kikaku-year").removeAttribute("disabled");
+document.getElementById("kikaku-month").removeAttribute("disabled");
+document.getElementById("kai").removeAttribute("disabled");
+button1.style.backgroundColor = "lightblue";
+	}else{
+		document.getElementById("kikaku-year").setAttribute("disabled", true);
+		document.getElementById("kikaku-month").setAttribute("disabled", true);
+		document.getElementById("kai").setAttribute("disabled", true);
+		document.getElementById("kikaku-year").value = '';
+		document.getElementById("kikaku-month").value = '';
 		document.getElementById("kai").value = '';
+		button1.style.backgroundColor = "orange";
+	}
+
+
+
+
+		
 	}	
 
 function checkSelect(obj,val){
@@ -518,8 +581,9 @@ function reload() {
 																 return num;     
 																};	
 																var elements = document.getElementsByName('corres');
-																var time1 =  toDoubleDigits(document.getElementById('month').value.replace('-', ''));
-																var time2 = document.getElementById('kai').value;
+																var time1 =  document.getElementById('kikaku-year').value;
+																var time2 =  toDoubleDigits(document.getElementById('kikaku-month').value);
+																var time3 = document.getElementById('kai').value;
 																var len = elements.length;
 																var checkValue = '';
 																	for (let i = 0; i < len; i++){
@@ -531,11 +595,11 @@ function reload() {
 																answer = txtData[0].value;
 																branch = txtData[3].value;
 																kmcode = txtData[4].value;
-																kikakai = time1+time2;
-																pcode = txtData[7].value;
-																pname = txtData[8].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-																offer = txtData[9].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-																comment = txtData[10].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+																kikakai = time1+time2+time3;
+																pcode = txtData[11].value;
+																pname = txtData[12].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+																offer = txtData[13].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+																comment = txtData[14].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 																address = 'kumikoeTest@palcoop.or.jp';
 																subject = '組合員の声';
 																body = '{"body":{"answer":"'+answer+
