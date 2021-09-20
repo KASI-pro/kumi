@@ -160,8 +160,8 @@ label ~ label {
 .button1{
 border-radius:30px;
 background:orange;
-width:30px;
-height:30px
+width:20px;
+height:20px
 }
 
 </style>
@@ -229,8 +229,8 @@ height:30px
 				<label class="col-sm-3 col-form-label">④企画回：</label>
 				<div class="col-sm-9">
 					<div><span>
-<select class="input-group__control w-25" id="kikaku-year" name="kikaku-year" onclick="chageM" disabled><option value="" selected>年</option></select>
-<select class="input-group__control w-25" id="kikaku-month" name="kikaku-month" onclick="chageY" disabled><option value="" selected>月</option></select>
+<select class="input-group__control w-25" id="kikaku-year" name="kikaku-year" disabled><option value="" selected>年</option></select>
+<select class="input-group__control w-25" id="kikaku-month" name="kikaku-month" disabled><option value="" selected>月</option></select>
 <select class="input-group__control w-25" id="kai" name="kai" disabled>
 <option value="" selected>回</option>
 <option value="1">1回</option>
@@ -388,18 +388,11 @@ window.onload=function(){
 	var f=document.getElementById("content");
 	var reparam = param.replace('?', '');
 	checkSelect(f.elements["branch"],reparam);
-
-
-
-}
-	
-function non(){
-const button1 = document.getElementById("button1");
 for(var j = 1; j <= 12; j++) {
 const selectMonth = document.getElementById('kikaku-month');
 const option2 = document.createElement('option');
 option2.value = j;
-option2.textContent = j;
+option2.textContent = j+"月";
 selectMonth.appendChild(option2)
 }
 
@@ -407,9 +400,15 @@ for(var i = 2000; i <= 2050; i++) {
 const selectYear = document.getElementById('kikaku-year');
 const option1 = document.createElement('option');
 option1.value = i;
-option1.textContent = i;
+option1.textContent = i+"年";
 selectYear.appendChild(option1)
 }
+
+
+}
+	
+function non(){
+const button1 = document.getElementById("button1");
 
 var p = new Date();
 var monthL = p.getMonth() + 1;
@@ -431,6 +430,15 @@ var yearL = h.getFullYear();
         }
     }
 
+ var chkdate  = new Date();
+ var week = Math.floor((chkdate.getDate() - chkdate.getDay() + 12 ) / 7);
+select = document.getElementById('kai').options;
+    for(let q = 0; q < select.length; q++ ){
+        if(select[q].value == week){
+            select[q].selected = true;
+            break;
+        }
+    }
 
 if (document.getElementById("kikaku-year").disabled === true){
 document.getElementById("kikaku-year").removeAttribute("disabled");
