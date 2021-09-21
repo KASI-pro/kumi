@@ -163,7 +163,79 @@ background:orange;
 width:20px;
 height:20px
 }
-
+.switch3__label {
+    width: 37px;
+    position: relative;
+    display: inline-block;
+    padding-top: 3px;
+}
+.switch3__content {
+    display: block;
+    cursor: pointer;
+    position: relative;
+    border-radius: 7px;
+    height: 14px;
+    background-color: rgba(34,31,31,.26);
+    -webkit-transition: all .1s .4s;
+       -moz-transition: all .1s .4s;
+        -ms-transition: all .1s .4s;
+         -o-transition: all .1s .4s;
+            transition: all .1s .4s;
+    overflow: hidden;
+}
+.switch3__content:after {
+    content: "";
+    display: block;
+    position: absolute;
+    
+    width: 0;
+    height: 100%;
+    top: 0;
+    left: 0;
+    border-radius: 7px;
+    -webkit-transition: all .5s;
+       -moz-transition: all .5s;
+        -ms-transition: all .5s;
+         -o-transition: all .5s;
+            transition: all .5s;
+}
+.switch3__input {
+    display: none;
+}
+.switch3__circle {
+    display: block;
+    top: 0px;
+    left: 0px;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    -webkit-border-radius: 10px;
+            border-radius: 10px;
+    background-color: #F1F1F1;
+    -webkit-transition: all .2s;
+       -moz-transition: all .2s;
+        -ms-transition: all .2s;
+         -o-transition: all .2s;
+            transition: all .2s;
+    -webkit-box-shadow: 0 2px 2px #ccc;
+            box-shadow: 0 2px 2px #ccc;
+}
+.switch3__input:checked ~ .switch3__circle {
+    left: 18px;
+    background-color: #00c4cc;
+}
+.switch3__input:checked ~ .switch3__content {
+    border-color: transparent;
+    -webkit-transition: all 0s;
+       -moz-transition: all 0s;
+        -ms-transition: all 0s;
+         -o-transition: all 0s;
+            transition: all 0s;
+}
+.switch3__input:checked ~ .switch3__content:after {
+    background-color: rgba(55 190 176 / 25%);
+    width: 100%;
+}
 </style>
 </head>
 <body>
@@ -239,7 +311,11 @@ height:20px
 <option value="4">4回</option>
 <option value="5">5回</option>
 </select><span><input type="text" class="nontext wi" disabled></span>
-<input type="button" id="button1" class="button1"  onclick="non()">
+ <label class="switch3__label">
+        <input type="checkbox" class="switch3__input" onclick="non()"/>
+        <span class="switch3__content"></span>
+        <span class="switch3__circle"></span>
+    </label>
 <input type="hidden" id="non-kikakunm">
 
 					</span></div>
