@@ -106,7 +106,136 @@ label ~ label {
 .radio-btns input[type=radio]:checked + label {
   background: #005580;
 }
+.input-group,
+.input-group__control,
+.input-group__addon {
+  box-sizing:border-box;
+}
 
+.input-group {
+  display:table;
+  width:100%;
+  border-collapse:separate;
+  font-size:14px;
+}
+
+.input-group__control,
+.input-group__addon {
+  display:table-cell;
+  height:40px;
+  padding:8px 14px;
+}
+
+.input-group__control {
+  float:left;
+  width:100%;
+  margin:0;
+  border:1px solid #D3D3D3;
+  border-radius:5px;
+  font-size:14px;
+  font-family:inherit;
+  line-height:1.5;
+  -webkit-appearance:none;
+          appearance:none;
+}
+
+.input-group__addon {
+  width:1%;
+  border-width:1px 0 1px 1px;
+  border-style:solid;
+  border-color:#C0C0C0;
+  white-space:nowrap;
+  vertical-align:middle;
+  text-align:center;
+  line-height:1;
+}
+
+.input-group__control + .input-group__addon {
+  border-width:1px 1px 1px 0;
+}
+
+.wi{
+ width: 10px;
+}
+.button1{
+border-radius:30px;
+background:orange;
+width:20px;
+height:20px
+}
+.switch3__label {
+    width: 37px;
+    position: relative;
+    display: inline-block;
+    padding-top: 3px;
+}
+.switch3__content {
+    display: block;
+    cursor: pointer;
+    position: relative;
+    border-radius: 7px;
+    height: 14px;
+    background-color: rgba(34,31,31,.26);
+    -webkit-transition: all .1s .4s;
+       -moz-transition: all .1s .4s;
+        -ms-transition: all .1s .4s;
+         -o-transition: all .1s .4s;
+            transition: all .1s .4s;
+    overflow: hidden;
+}
+.switch3__content:after {
+    content: "";
+    display: block;
+    position: absolute;
+
+    width: 0;
+    height: 100%;
+    top: 0;
+    left: 0;
+    border-radius: 7px;
+    -webkit-transition: all .5s;
+       -moz-transition: all .5s;
+        -ms-transition: all .5s;
+         -o-transition: all .5s;
+            transition: all .5s;
+}
+.switch3__input {
+    display: none;
+}
+.switch3__circle {
+    display: block;
+    top: 0px;
+    left: 0px;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    -webkit-border-radius: 10px;
+            border-radius: 10px;
+    background-color: #F1F1F1;
+    -webkit-transition: all .2s;
+       -moz-transition: all .2s;
+        -ms-transition: all .2s;
+         -o-transition: all .2s;
+            transition: all .2s;
+    -webkit-box-shadow: 0 2px 2px #ccc;
+            box-shadow: 0 2px 2px #ccc;
+}
+.switch3__input:checked ~ .switch3__circle {
+    left: 18px;
+    background-color: #00c4cc;
+}
+.switch3__input:checked ~ .switch3__content {
+    border-color: transparent;
+    -webkit-transition: all 0s;
+       -moz-transition: all 0s;
+        -ms-transition: all 0s;
+         -o-transition: all 0s;
+            transition: all 0s;
+}
+.switch3__input:checked ~ .switch3__content:after {
+    background-color: rgba(55 190 176 / 25%);
+    width: 100%;
+}
 </style>
 </head>
 <body>
@@ -169,10 +298,26 @@ label ~ label {
 				</div>
 			</div>
 			<div class="form-row">
-				<label class="col-sm-3 col-form-label">④企画回：<br>&nbsp;&nbsp;例：2021年3月4回 → 2021034</label>
+				<label class="col-sm-3 col-form-label">④企画回：</label>
 				<div class="col-sm-9">
-					<p>
-						<input type="tel" id="kikakai" class="form-control" maxlength='7' placeholder="企画回">
+					<div><span>
+						<select class="input-group__control w-25" id="kikaku-year" name="kikaku-year" disabled><option value="" selected>年</option></select>
+						<select class="input-group__control w-25" id="kikaku-month" name="kikaku-month" disabled><option value="" selected>月</option></select>
+						<select class="input-group__control w-25" id="kai" name="kai" disabled>
+						<option value="" selected>回</option>
+						<option value="1">1回</option>
+						<option value="2">2回</option>
+						<option value="3">3回</option>
+						<option value="4">4回</option>
+						<option value="5">5回</option>
+						</select><span><input type="text" class="nontext wi" disabled></span>
+						 <label class="switch3__label">
+						        <input type="checkbox" class="switch3__input" onclick="non()"/>
+						        <span class="switch3__content"></span>
+						        <span class="switch3__circle"></span>
+						    </label>
+						<input type="hidden" id="non-kikakunm">
+					</span></div>
 					</p>
 				</div>
 			</div>
@@ -249,14 +394,14 @@ label ~ label {
 			</div>
 			<div class="col-sm-9">
 				<p>
-					<input type="hidden" id="kmcode" value="99999999">
+				  <input type="hidden" id="kmcode" value="99999999">
 				</p>
 			</div>
 			<div class="form-row">
 				<label class="col-sm-3 col-form-label required">③要旨・商品名：</label>
 				<div class="col-sm-9">
 					<p>
-						<input type="text" id="pname2" class="form-control" placeholder="要旨・商品名">
+					  <input type="text" id="pname2" class="form-control" placeholder="要旨・商品名">
 					</p>
 				</div>
 			</div>
@@ -264,7 +409,7 @@ label ~ label {
 				<label class="col-sm-3 col-form-label required">④お申し出内容：</label>
 				<div class="col-sm-9">
 					<p>
-						<textarea id="offer2" rows="4" cols="34" placeholder="お申し出内容"></textarea>
+					  <textarea id="offer2" rows="4" cols="34" placeholder="お申し出内容"></textarea>
 					</p>
 				</div>
 			</div>
@@ -272,7 +417,7 @@ label ~ label {
 				<label class="col-sm-3 col-form-label">⑤担当者のコメント：</label>
 				<div class="col-sm-9">
 					<p>
-						<textarea id="comment2" rows="4" cols="34" placeholder="担当者のコメント"></textarea>
+					  <textarea id="comment2" rows="4" cols="34" placeholder="担当者のコメント"></textarea>
 					</p>
 				</div>
 			</div>
@@ -287,7 +432,7 @@ label ~ label {
         if (decided[0].checked) {
             document.getElementById('content').style.display = "";
             document.getElementById('area').style.display = "none";
-	    document.body.style.backgroundColor = newColor;
+document.body.style.backgroundColor = newColor;
 
             var param = location.search;
         	document.getElementById("branch").value = param;
@@ -297,7 +442,7 @@ label ~ label {
         } else if (decided[1].checked) {
             document.getElementById('content').style.display = "none";
             document.getElementById('area').style.display = "";
-	    document.body.style.backgroundColor = newColor;
+document.body.style.backgroundColor = newColor;
 
             var param = location.search;
         	document.getElementById("branch2").value = param;
@@ -318,7 +463,71 @@ window.onload=function(){
 	var f=document.getElementById("content");
 	var reparam = param.replace('?', '');
 	checkSelect(f.elements["branch"],reparam);
+	for(var j = 1; j <= 12; j++) {
+		const selectMonth = document.getElementById('kikaku-month');
+		const option2 = document.createElement('option');
+		option2.value = j;
+		option2.textContent = j+"月";
+		selectMonth.appendChild(option2)
+	}
+
+	for(var i = 2000; i <= 2050; i++) {
+		const selectYear = document.getElementById('kikaku-year');
+		const option1 = document.createElement('option');
+		option1.value = i;
+		option1.textContent = i+"年";
+		selectYear.appendChild(option1)
+	}
 }
+
+function non(){
+	const button1 = document.getElementById("button1");
+
+	var p = new Date();
+	var monthL = p.getMonth() + 1;
+	  select = document.getElementById('kikaku-month').options;
+
+	    for(let n = 0; n < select.length; n++ ){
+	        if(select[n].value == monthL){
+	            select[n].selected = true;
+	            break;
+	        }
+	    }
+
+	var h = new Date();
+	var yearL = h.getFullYear();
+	  select = document.getElementById('kikaku-year').options;
+	    for(let m = 0; m < select.length; m++ ){
+	        if(select[m].value == yearL){
+	            select[m].selected = true;
+	            break;
+	        }
+	    }
+
+	var chkdate  = new Date();
+	var week = Math.floor((chkdate.getDate() - chkdate.getDay() + 12 ) / 7);
+	select = document.getElementById('kai').options;
+	    for(let q = 0; q < select.length; q++ ){
+	        if(select[q].value == week){
+	            select[q].selected = true;
+	            break;
+	        }
+	    }
+
+	if (document.getElementById("kikaku-year").disabled === true){
+		document.getElementById("kikaku-year").removeAttribute("disabled");
+		document.getElementById("kikaku-month").removeAttribute("disabled");
+		document.getElementById("kai").removeAttribute("disabled");
+	}else{
+		document.getElementById("kikaku-year").setAttribute("disabled", true);
+		document.getElementById("kikaku-month").setAttribute("disabled", true);
+		document.getElementById("kai").setAttribute("disabled", true);
+		document.getElementById("kikaku-year").value = '';
+		document.getElementById("kikaku-month").value = '';
+		document.getElementById("kai").value = '';
+	}
+}
+
 function checkSelect(obj,val){
 	for(var i=0;i<obj.length;i++){
 		if(obj[i].value==val){
@@ -327,6 +536,7 @@ function checkSelect(obj,val){
 		}
 	 }
 }
+
 function reload() {
 	var result = confirm('本当に入力内容を削除してもよろしいですか？');
 		if(result) {
@@ -392,7 +602,7 @@ function reload() {
 												kikakai = '';
 												pcode = '';
 								address = 'tos_oka2@palcoop.or.jp';
-								subject = '組合員の声';
+								subject = '地域の声';
 								body = '{"body":{"answer":"'+answer+
 										'","branch":"'+branch+
 										'","kmcode":"'+kmcode+
@@ -408,7 +618,7 @@ function reload() {
 						  	}
 					}
 			}else{
-				let str2 = document.getElementById("kmcode").value; // 組合員コードチェック
+			let str2 = document.getElementById("kmcode").value; // 組合員コードチェック
 					if(str2.length === 0){
 						alert("組合員コードは必須です。入力してください。")
 					}else if(str2 === "00000000" || str2 === "99999999"){
@@ -426,61 +636,35 @@ function reload() {
 									if(str5.length === 0){
 										alert("内容は必須です\nお書きください")
 									}else{
-										let str3 = document.getElementById("kikakai").value; // 企画回チェック
-											if(str3.length !== 0){
-												if(isNaN(str3)){
-													alert("企画回の欄に数字以外の字が入力されています。")
-												}else if(str3.length !== 7){
-													alert("\n 企画回は7文字必要です")
-												}else{
-													let str8= document.getElementById("pcode").value; // 注文番チェック
-														if(isNaN(str8)){
-															alert("注文番号の欄に数字以外の字が入力されています。")
-														}else{
-															var result = window.confirm("メールを作成しても宜しいですか？");
-															if( result ) {
-																var elements = document.getElementsByName('corres');
-																var len = elements.length;
-																var checkValue = '';
-																	for (let i = 0; i < len; i++){
-																		if (elements.item(i).checked){
-																			checkValue = elements.item(i).value;
-																		}
-																	}
-																txtData = document.content;
-																answer = txtData[0].value;
-																branch = txtData[3].value;
-																kmcode = txtData[4].value;
-																kikakai = txtData[5].value;
-																pcode = txtData[6].value;
-																pname = txtData[7].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-																offer = txtData[8].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-																comment = txtData[9].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-																address = 'tos_oka2@palcoop.or.jp';
-																subject = '組合員の声';
-																body = '{"body":{"answer":"'+answer+
-																		'","branch":"'+branch+
-																		'","kmcode":"'+kmcode+
-																		'","corres":"'+checkValue+
-																		'","kikakai":"'+kikakai+
-																		'","pcode":"'+pcode+
-																		'","pname":"'+pname+
-																		'","offer":"'+offer+
-																		'","comment":"'+comment+
-																			'"}}';
-																location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
-															} else {
-															}
-													 	}
-												}
-											}else{
 												let str8= document.getElementById("pcode").value; // 注文番チェック
 													if(isNaN(str8)){
 														alert("注文番号の欄に数字以外の字が入力されています。")
 													}else{
-														 var result = window.confirm("メールを作成しても宜しいですか？");
+														var toDoubleDigits = function(num) {
+															  num += "";
+															  if (num.length === 1) {
+															    num = "0" + num;
+															  }
+															 return num;
+															};
+														let str11= document.getElementById("kikaku-year").value; // 年
+														let str12= toDoubleDigits(document.getElementById('kikaku-month').value); // 月
+														let str13= document.getElementById("kai").value; // 回
+														let kikanm = str11+str12+str13;
+												if(kikanm.length === 0 || kikanm.length === 7){
+														var result = window.confirm("メールを作成しても宜しいですか？");
 															if( result ) {
+																var toDoubleDigits = function(num) {
+																  num += "";
+																  if (num.length === 1) {
+																    num = "0" + num;
+																  }
+																 return num;
+																};
 																var elements = document.getElementsByName('corres');
+																var time1 =  document.getElementById('kikaku-year').value;
+																var time2 =  toDoubleDigits(document.getElementById('kikaku-month').value);
+																var time3 = document.getElementById('kai').value;
 																var len = elements.length;
 																var checkValue = '';
 																	for (let i = 0; i < len; i++){
@@ -492,11 +676,11 @@ function reload() {
 																answer = txtData[0].value;
 																branch = txtData[3].value;
 																kmcode = txtData[4].value;
-																kikakai = txtData[5].value;
-																pcode = txtData[6].value;
-																pname = txtData[7].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-																offer = txtData[8].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-																comment = txtData[9].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+																kikakai = time1+time2+time3;
+																pcode = txtData[11].value;
+																pname = txtData[12].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+																offer = txtData[13].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+																comment = txtData[14].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 																address = 'tos_oka2@palcoop.or.jp';
 																subject = '組合員の声';
 																body = '{"body":{"answer":"'+answer+
@@ -512,13 +696,29 @@ function reload() {
 																location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
 															} else {
 															}
-													 }
+														}else{
+															var emsg;
+															if(str11.length === 0 && str12.length !== 0 && str13.length !== 0){
+																emsg = "年の";
+															}else if(str11.length !== 0 && str12.length === 0 && str13.length !== 0){
+																emsg = "月の";
+															}else if(str11.length !== 0 && str12.length !== 0 && str13.length === 0){
+																emsg = "回の";
+															}else if(str11.length === 0 && str12.length === 0 && str13.length !== 0){
+																emsg = "年と月の";
+															}else if(str11.length !== 0 && str12.length === 0 && str13.length === 0){
+																emsg = "月と回の";
+															}else if(str11.length === 0 && str12.length !== 0 && str13.length === 0){
+																emsg = "年と回の";
+															}
+															alert("企画回を使用するボタンが\nチェックされているのですが\n"+emsg+"欄が選択されていません。");
+														}
 											}
 									}
 							}
 					}
 			}
-		}
+}
 		count = 0;
 		}
 	});
