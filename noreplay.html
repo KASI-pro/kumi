@@ -247,7 +247,7 @@ height:20px
 			<p>＜声の種類＞</p>
 			<p class="radio-btns">
 			  <input type="radio" id="kumi" name="corres" value="3" onclick="formSwitch('#ffffff')" checked><label for="kumi"><span>組声</span></label>
-			  <input type="radio" id="tiiki" name="corres" value="3" onclick="formSwitch('#aecdd2')"><label for="tiiki">地域の声</label>
+			  <input type="radio" id="tiiki" name="corres" value="4" onclick="formSwitch('#aecdd2')"><label for="tiiki">地域の声</label>
 			</p>
 		</div>
 		<form id="content" name="content">
@@ -577,7 +577,7 @@ function reload() {
 			}
 		}
 		if(second > 0.0 && second < 0.6){
-			if(radioValue === '1'){
+			if(radioValue === '4'){
 				let str6 = document.getElementById("offer2").value.replace(regex, '');
 					if(str6.length === 0){
 						alert("内容は必須です\nお書きください")
