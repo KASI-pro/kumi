@@ -240,10 +240,9 @@ height:20px
 </head>
 <body>
 	<div class="container">
-<form id="up">
+	    <form id="up">
 		<div class="navbar" id="all">
-
-			<h1>組声フォーム</h1>
+			<h1>修正フォーム</h1>
 		</div>
 		<div>
 			<p>＜声の種類＞</p>
@@ -252,7 +251,7 @@ height:20px
 			  <input type="radio" id="tiiki" name="corres" value="6" onclick="formSwitch('#aecdd2')"><label for="tiiki">地域の声</label>
 			</p>
 		</div>
-</form>
+	     </form>
 		<form id="content" name="content">
 			<div class="form-row">
 				<label class="col-sm-3 col-form-label">①回答：</label>
@@ -538,9 +537,9 @@ window.onload=function(){
 		checkSelect(c.elements["answer2"],reparam2);
 	}else{
 		document.getElementById('content').style.display = "none";
-        document.getElementById('content').style.display = "none";
-        document.getElementById('area').style.display = "none";
-        document.getElementById('down').style.display = "none";
+     		document.getElementById('content').style.display = "none";
+        	document.getElementById('area').style.display = "none";
+        	document.getElementById('down').style.display = "none";
 		document.getElementById('up').style.display = "none";
 		alert("修正できる期限が過ぎているため\n表示できません");
 	}
