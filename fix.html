@@ -240,7 +240,9 @@ height:20px
 </head>
 <body>
 	<div class="container">
-		<div class="navbar">
+<form id="up">
+		<div class="navbar" id="all">
+
 			<h1>組声フォーム</h1>
 		</div>
 		<div>
@@ -250,6 +252,7 @@ height:20px
 			  <input type="radio" id="tiiki" name="corres" value="6" onclick="formSwitch('#aecdd2')"><label for="tiiki">地域の声</label>
 			</p>
 		</div>
+</form>
 		<form id="content" name="content">
 			<div class="form-row">
 				<label class="col-sm-3 col-form-label">①回答：</label>
@@ -315,10 +318,9 @@ height:20px
 						        <input type="checkbox" id="ag" class="switch3__input" onclick="non()"/>
 						        <span class="switch3__content"></span>
 						        <span class="switch3__circle"></span>
-						    </label>
+						 </label>
 						<input type="hidden" id="non-kikakunm">
 					</span></div>
-					</p>
 				</div>
 			</div>
 			<div class="form-row">
@@ -421,8 +423,11 @@ height:20px
 					</p>
 				</div>
 			</div>
+
 		</form>
+<form id="down">
 		<input type="button" id="sendFrom" value="メール作成"><br> <br>
+</form>
 	</div>
 </body>
 <script>
@@ -431,31 +436,43 @@ function formSwitch(newColor) {
         if (decided[0].checked) {
             document.getElementById('content').style.display = "";
             document.getElementById('area').style.display = "none";
-			document.body.style.backgroundColor = newColor;
-			var url = new URL(window.location.href);
+	    document.body.style.backgroundColor = newColor;
+	    var url = new URL(window.location.href);
             var param = url.searchParams;
-        	var f=document.getElementById("content");
-        	checkSelect(f.elements["branch"],param.get('branch'));
+            var f=document.getElementById("content");
+            checkSelect(f.elements["branch"],param.get('branch'));
         } else if (decided[1].checked) {
             document.getElementById('content').style.display = "none";
             document.getElementById('area').style.display = "";
-			document.body.style.backgroundColor = newColor;
-			var url = new URL(window.location.href);
+	    document.body.style.backgroundColor = newColor;
+	    var url = new URL(window.location.href);
             var param = url.searchParams;
-        	var f=document.getElementById("area");
-        	checkSelect(f.elements["branch2"],param.get('branch'));
+            var f=document.getElementById("area");
+            checkSelect(f.elements["branch2"],param.get('branch'));
         } else {
-            document.getElementById('content').style.display = "none";
-            document.getElementById('area').style.display = "none";
+            document.getElementById('all').style.display = "none";
         }
  }
  window.addEventListener('load', formSwitch());
 
 window.onload=function(){
+	var p = new Date();
+	var toDoubleDigits = function(num) {
+	  num += "";
+	  if (num.length === 1) {
+	    num = "0" + num;
+	  }
+	 return num;
+	};
+	var nowday1 = p.getFullYear();
+	var nowday2 = toDoubleDigits(p.getMonth()+1);
+	var nowday3 = p.getDate()
+	var nisd = nowday1 + nowday2 + nowday3;
 	var url = new URL(window.location.href);
 	var params = url.searchParams;
 	var cor = Number(params.get('corres'));
-	if(cor == 5){
+	var ind = params.get('insday');
+	if(cor == 5 && nisd == ind){
 		var f=document.getElementById("content");
 		document.getElementById("branch").value = params.get('branch');
 		document.getElementById("kmcode").value = params.get('kumcd');
@@ -505,7 +522,7 @@ window.onload=function(){
 				document.getElementById("kai").value = '';
 			}
 		}
-	}else{
+	}else if(cor == 6 && nisd == ind){
 		let element2 = document.getElementsByName('corres');
 		element2[1].checked = true;
 		formSwitch('#aecdd2');
@@ -519,6 +536,13 @@ window.onload=function(){
 		checkSelect(c.elements["branch2"],reparam);
 		var reparam2 = params.get('answer');
 		checkSelect(c.elements["answer2"],reparam2);
+	}else{
+		document.getElementById('content').style.display = "none";
+        document.getElementById('content').style.display = "none";
+        document.getElementById('area').style.display = "none";
+        document.getElementById('down').style.display = "none";
+		document.getElementById('up').style.display = "none";
+		alert("修正できる期限が過ぎているため\n表示できません");
 	}
 }
 
