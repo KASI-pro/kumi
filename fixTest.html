@@ -521,6 +521,7 @@ window.onload=function(){
 				document.getElementById("kai").value = '';
 			}
 		}
+		document.getElementById('up').style.display = "none";
 	}else if(cor == 6 && nisd == ind){
 		let element2 = document.getElementsByName('corres');
 		element2[1].checked = true;
@@ -535,8 +536,8 @@ window.onload=function(){
 		checkSelect(c.elements["branch2"],reparam);
 		var reparam2 = params.get('answer');
 		checkSelect(c.elements["answer2"],reparam2);
+		document.getElementById('up').style.display = "none";
 	}else{
-		document.getElementById('content').style.display = "none";
      		document.getElementById('content').style.display = "none";
         	document.getElementById('area').style.display = "none";
         	document.getElementById('down').style.display = "none";
