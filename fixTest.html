@@ -426,7 +426,7 @@ height:20px
 
 		</form>
 <form id="down">
-		<input type="button" id="sendFrom" value="メール作成" onclick="checke()"><br> <br>
+		<input type="button" id="sendFrom" value="メール作成"><br> <br>
 </form>
 	</div>
 </body>
@@ -540,31 +540,6 @@ window.onload=function(){
 		document.getElementById('up').style.display = "none";
 	}else{
      		document.getElementById('content').style.display = "none";
-        	document.getElementById('area').style.display = "none";
-        	document.getElementById('down').style.display = "none";
-		document.getElementById('up').style.display = "none";
-		alert("修正できる期限が過ぎているため\n表示できません");
-	}
-}
-function checke(){
-var p = new Date();
-	var toDoubleDigits = function(num) {
-	  num += "";
-	  if (num.length === 1) {
-	    num = "0" + num;
-	  }
-	 return num;
-	};
-	var nowday1 = p.getFullYear();
-	var nowday2 = toDoubleDigits(p.getMonth()+1);
-	var nowday3 = p.getDate()
-	var nisd = nowday1 + nowday2 + nowday3;
-	var url = new URL(window.location.href);
-	var params = url.searchParams;
-	var cor = Number(params.get('corres'));
-	var ind = params.get('insday');
-	if(nisd != ind){
-		document.getElementById('content').style.display = "none";
         	document.getElementById('area').style.display = "none";
         	document.getElementById('down').style.display = "none";
 		document.getElementById('up').style.display = "none";
@@ -688,7 +663,23 @@ function reload() {
 			}
 		}
 		if(second > 0.0 && second < 0.6){
-			if(radioValue === '6'){
+var p = new Date();
+	var toDoubleDigits = function(num) {
+	  num += "";
+	  if (num.length === 1) {
+	    num = "0" + num;
+	  }
+	 return num;
+	};
+	var nowday1 = p.getFullYear();
+	var nowday2 = toDoubleDigits(p.getMonth()+1);
+	var nowday3 = p.getDate()
+	var nisd = nowday1 + nowday2 + nowday3;
+	var url = new URL(window.location.href);
+	var params = url.searchParams;
+	var cor = Number(params.get('corres'));
+	var ind = params.get('insday');
+			if(radioValue === '6' && nisd == ind){
 				let str6 = document.getElementById("offer2").value.replace(regex, '');
 					if(str6.length === 0){
 						alert("内容は必須です\nお書きください");
@@ -734,7 +725,7 @@ function reload() {
 							} else {
 						  	}
 					}
-			}else{
+			}else if(radioValue === '5' && nisd == ind){
 			let str2 = document.getElementById("kmcode").value; // 組合員コードチェック
 					if(str2.length === 0){
 						alert("組合員コードは必須です。入力してください。");
@@ -840,6 +831,12 @@ function reload() {
 									}
 							}
 					}
+			}else{
+				document.getElementById('content').style.display = "none";
+        			document.getElementById('area').style.display = "none";
+        			document.getElementById('down').style.display = "none";
+				document.getElementById('up').style.display = "none";
+				alert("修正できる期限が過ぎています。\n修正できません。");
 			}
 }
 		count = 0;
