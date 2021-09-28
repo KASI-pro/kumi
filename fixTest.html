@@ -426,7 +426,7 @@ height:20px
 
 		</form>
 <form id="down">
-		<input type="button" id="sendFrom" value="メール作成"><br> <br>
+		<input type="button" id="sendFrom" value="メール作成" onclick="checke()"><br> <br>
 </form>
 	</div>
 </body>
@@ -540,6 +540,31 @@ window.onload=function(){
 		document.getElementById('up').style.display = "none";
 	}else{
      		document.getElementById('content').style.display = "none";
+        	document.getElementById('area').style.display = "none";
+        	document.getElementById('down').style.display = "none";
+		document.getElementById('up').style.display = "none";
+		alert("修正できる期限が過ぎているため\n表示できません");
+	}
+}
+function checke(){
+var p = new Date();
+	var toDoubleDigits = function(num) {
+	  num += "";
+	  if (num.length === 1) {
+	    num = "0" + num;
+	  }
+	 return num;
+	};
+	var nowday1 = p.getFullYear();
+	var nowday2 = toDoubleDigits(p.getMonth()+1);
+	var nowday3 = p.getDate()
+	var nisd = nowday1 + nowday2 + nowday3;
+	var url = new URL(window.location.href);
+	var params = url.searchParams;
+	var cor = Number(params.get('corres'));
+	var ind = params.get('insday');
+	if(nisd != ind){
+		document.getElementById('content').style.display = "none";
         	document.getElementById('area').style.display = "none";
         	document.getElementById('down').style.display = "none";
 		document.getElementById('up').style.display = "none";
