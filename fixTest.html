@@ -237,6 +237,24 @@ height:20px
     background-color: rgba(55 190 176 / 25%);
     width: 100%;
 }
+.sample-text1 {
+    font-size: 20px;
+    font-weight: bold;
+    animation-name: fadein;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+}
+@keyframes fadein {
+	from {
+	    opacity: 0;
+	    transform: translateY(20px);
+	}
+	to {
+            color: red;
+	    opacity: 1;
+	    transform: translateY(0);
+	}
+}
 </style>
 </head>
 <body>
@@ -253,6 +271,7 @@ height:20px
 			</p>
 		</div>
 	     </form>
+		<p class="sample-text1">この画面は『修正』専用です</p>
 		<form id="content" name="content">
 			<div class="form-row">
 				<label class="col-sm-3 col-form-label">①回答：</label>
