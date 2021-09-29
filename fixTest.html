@@ -458,6 +458,7 @@ function formSwitch(newColor) {
             document.getElementById('content').style.display = "";
             document.getElementById('area').style.display = "none";
 	    document.body.style.backgroundColor = newColor;
+	    document.getElementById('header').style.backgroundColor = newColor;
 	    var url = new URL(window.location.href);
             var param = url.searchParams;
             var f=document.getElementById("content");
@@ -466,6 +467,7 @@ function formSwitch(newColor) {
             document.getElementById('content').style.display = "none";
             document.getElementById('area').style.display = "";
 	    document.body.style.backgroundColor = newColor;
+	    document.getElementById('header').style.backgroundColor = newColor;
 	    var url = new URL(window.location.href);
             var param = url.searchParams;
             var f=document.getElementById("area");
