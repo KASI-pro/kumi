@@ -237,14 +237,35 @@ height:20px
     background-color: rgba(55 190 176 / 25%);
     width: 100%;
 }
+.sample-text1 {
+    color: red;
+    font-size: 20px;
+    font-weight: bold;
+    animation-name: fadein;
+    animation-duration: 3s;
+    animation-iteration-count: 5;
+}
+#header {
+background-color:#FFF;
+height: 40px;
+position: fixed;
+z-index: 999;
+width: 100%;
+}
+#content {
+padding: 50px 0 0 0;
+}
+#area {
+padding: 50px 0 0 0;
+}
 </style>
 </head>
 <body>
 	<div class="container">
+		<header id="header">
+    			<p style="color:#FF367F; margin-top:5px; font-size:21px; font-weight:bold;">このページは【修正】専用画面です。</p>
+</header>
 	    <form id="up">
-		<div class="navbar" id="all">
-			<h1>修正フォーム</h1>
-		</div>
 		<div>
 			<p>＜声の種類＞</p>
 			<p class="radio-btns">
@@ -262,7 +283,7 @@ height:20px
 							<option value="0">要</option>
 							<option value="1" selected>不要</option>
 						</select> <span><input type="text" class="nontext" disabled></span>
-						<span><input type="button" class="btn btn-info"	value="リセット" onclick="reload()"></span>
+						<span><input type="button" class="btn btn-info"	value="初めに戻す" onclick="reload()"></span>
 					</p>
 				</div>
 			</div>
@@ -365,7 +386,7 @@ height:20px
 							<option value="0">要</option>
 							<option value="1" selected>不要</option>
 						</select> <span><input type="text" class="nontext" disabled></span>
-						<span><input type="button" class="btn btn-info" value="リセット" onclick="reload()"></span>
+						<span><input type="button" class="btn btn-info" value="初めに戻す" onclick="reload()"></span>
 					</p>
 				</div>
 			</div>
@@ -437,6 +458,7 @@ function formSwitch(newColor) {
             document.getElementById('content').style.display = "";
             document.getElementById('area').style.display = "none";
 	    document.body.style.backgroundColor = newColor;
+	    document.getElementById('header').style.backgroundColor = newColor;
 	    var url = new URL(window.location.href);
             var param = url.searchParams;
             var f=document.getElementById("content");
@@ -445,6 +467,7 @@ function formSwitch(newColor) {
             document.getElementById('content').style.display = "none";
             document.getElementById('area').style.display = "";
 	    document.body.style.backgroundColor = newColor;
+	    document.getElementById('header').style.backgroundColor = newColor;
 	    var url = new URL(window.location.href);
             var param = url.searchParams;
             var f=document.getElementById("area");
@@ -522,6 +545,7 @@ window.onload=function(){
 				document.getElementById("kai").value = '';
 			}
 		}
+		document.getElementById('up').style.display = "none";
 	}else if(cor == 6 && nisd == ind){
 		let element2 = document.getElementsByName('corres');
 		element2[1].checked = true;
@@ -536,8 +560,8 @@ window.onload=function(){
 		checkSelect(c.elements["branch2"],reparam);
 		var reparam2 = params.get('answer');
 		checkSelect(c.elements["answer2"],reparam2);
+		document.getElementById('up').style.display = "none";
 	}else{
-		document.getElementById('content').style.display = "none";
      		document.getElementById('content').style.display = "none";
         	document.getElementById('area').style.display = "none";
         	document.getElementById('down').style.display = "none";
@@ -623,7 +647,7 @@ function checkSelect(obj,val){
 }
 
 function reload() {
-	var result = confirm('本当に入力内容を削除してもよろしいですか？');
+	var result = confirm('本当に入力内容を\n初期値に戻してもよろしいですか？');
 		if(result) {
 			location.reload();
 		}
@@ -662,7 +686,23 @@ function reload() {
 			}
 		}
 		if(second > 0.0 && second < 0.6){
-			if(radioValue === '6'){
+var p = new Date();
+	var toDoubleDigits = function(num) {
+	  num += "";
+	  if (num.length === 1) {
+	    num = "0" + num;
+	  }
+	 return num;
+	};
+	var nowday1 = p.getFullYear();
+	var nowday2 = toDoubleDigits(p.getMonth()+1);
+	var nowday3 = p.getDate()
+	var nisd = nowday1 + nowday2 + nowday3;
+	var url = new URL(window.location.href);
+	var params = url.searchParams;
+	var cor = Number(params.get('corres'));
+	var ind = params.get('insday');
+			if(radioValue === '6' && nisd == ind){
 				let str6 = document.getElementById("offer2").value.replace(regex, '');
 					if(str6.length === 0){
 						alert("内容は必須です\nお書きください");
@@ -708,7 +748,7 @@ function reload() {
 							} else {
 						  	}
 					}
-			}else{
+			}else if(radioValue === '5' && nisd == ind){
 			let str2 = document.getElementById("kmcode").value; // 組合員コードチェック
 					if(str2.length === 0){
 						alert("組合員コードは必須です。入力してください。");
@@ -814,6 +854,12 @@ function reload() {
 									}
 							}
 					}
+			}else{
+				document.getElementById('content').style.display = "none";
+        			document.getElementById('area').style.display = "none";
+        			document.getElementById('down').style.display = "none";
+				document.getElementById('up').style.display = "none";
+				alert("修正できる期限が過ぎています。\n修正できません。");
 			}
 }
 		count = 0;
