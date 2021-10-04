@@ -613,11 +613,41 @@ function non(){
 		            break;
 		        }
 		    }
+		var h = new Date();
+		var yearL = h.getFullYear();
+		  select = document.getElementById('kikaku-year').options;
+		    for(let m = 0; m < select.length; m++ ){
+		        if(select[m].value == yearL){
+		            select[m].selected = true;
+		            break;
+		        }
+		    }
 		var chkdate  = new Date();
-		var week = Math.floor((chkdate.getDate() - chkdate.getDay() + 12 ) / 7);
+		var nowweek = null;
+		var firday = new Date(chkdate.getFullYear(),chkdate.getMonth(),1);
+		var firday2 = Number(firday.getDay());
+		if(firday2 === 4 || firday2 === 5){
+			if(Number(chkdate.getDate()) < 3){
+				var refmon = new Date(chkdate.getFullYear(), chkdate.getMonth(), 0);
+				var nowweek = Math.floor((refmon.getDate() - refmon.getDay() + 12 ) / 7);
+				var remonthL = refmon.getMonth() + 1;
+				select = document.getElementById('kikaku-month').options;
+				    for(let n = 0; n < select.length; n++ ){
+					if(select[n].value == remonthL){
+					    select[n].selected = true;
+					    break;
+					}
+				    }
+			}else{
+				var week = Math.floor((chkdate.getDate() - chkdate.getDay() + 12 ) / 7);
+				var nowweek = Number(week) - 1;
+			}
+		}else{
+			var nowweek = Math.floor((chkdate.getDate() - chkdate.getDay() + 12 ) / 7);
+		}
 		select = document.getElementById('kai').options;
 		    for(let q = 0; q < select.length; q++ ){
-		        if(select[q].value == week){
+		        if(select[q].value == nowweek){
 		            select[q].selected = true;
 		            break;
 		        }
