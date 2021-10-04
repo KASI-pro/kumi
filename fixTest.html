@@ -619,9 +619,9 @@ function non(){
 		var firday2 = Number(firday.getDay());
 		if(firday2 === 4 || firday2 === 5){
 			if(Number(chkdate.getDate()) > 3){
-				console.log("koko3");
 				var refmon = new Date(chkdate.getFullYear(), chkdate.getMonth(), 0);
-				console.log("refmon: "+refmon);
+				console.log("refmon前月日: "+refmon.getDate());
+				console.log("refmon曜日: "+refmon.getDay());
 				var noeweek = Math.floor((refmon.getDate() - refmon.getDay() + 12 ) / 7);
 				console.log("noeweekn3 : "+noeweek);
 			}else{
