@@ -616,11 +616,11 @@ function non(){
 		var chkdate  = new Date();
 		var nowweek = null;
 		var firday = new Date(chkdate.getFullYear(),chkdate.getMonth(),1);
-		var firday2 = firday.getDay();
+		var firday2 = Number(firday.getDay());
 		console.log("firday2: "+firday2);
-		if(firday2 === '4' || firday2 === '5'){
+		if(firday2 === 4 || firday2 === 5){
 			console.log("koko2");
-			if(chkdate.getDate() > 3){
+			if(Number(chkdate.getDate()) > 3){
 				console.log("koko3");
 			var refmon = new Date(chkdate.getFullYear(), chkdate.getMonth(), 0);
 			var noeweek = Math.floor((refmon.getDate() - refmon.getDay() + 12 ) / 7);
