@@ -615,9 +615,9 @@ function non(){
 		    }
 		var chkdate  = new Date();
 		var nowweek = null;
-		var firday = new Date(chkdate.getDate(),chkdate.getDay(),1);
+		var firday = new Date(chkdate.getFullYear(),chkdate.getMonth(),1);
 		var firday2 = firday.getDay();
-		console.log("firday2"+firday2);
+		console.log("firday2: "+firday2);
 		if(firday2 == 4 || firday2 == 5){
 			if(chkdate.getDate() > 3){
 			var refmon = new Date(chkdate.getFullYear(), chkdate.getMonth(), 0);
@@ -631,6 +631,7 @@ function non(){
 		}
 		select = document.getElementById('kai').options;
 		    for(let q = 0; q < select.length; q++ ){
+			    console.log("nowweek: "+nowweek);
 		        if(select[q].value == nowweek){
 		            select[q].selected = true;
 		            break;
