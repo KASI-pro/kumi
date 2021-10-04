@@ -621,9 +621,10 @@ function non(){
 			if(Number(chkdate.getDate()) > 3){
 				var refmon = new Date(chkdate.getFullYear(), chkdate.getMonth(), 0);
 				var nowweek = Math.floor((refmon.getDate() - refmon.getDay() + 12 ) / 7);
+				var remonthL = refmon.getMonth() + 1;
 				select = document.getElementById('kikaku-month').options;
 				    for(let n = 0; n < select.length; n++ ){
-					if(select[n].value == nowweek){
+					if(select[n].value == remonthL){
 					    select[n].selected = true;
 					    break;
 					}
@@ -637,7 +638,6 @@ function non(){
 		}
 		select = document.getElementById('kai').options;
 		    for(let q = 0; q < select.length; q++ ){
-			    console.log("nowweek: "+nowweek);
 		        if(select[q].value == nowweek){
 		            select[q].selected = true;
 		            break;
