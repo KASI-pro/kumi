@@ -491,13 +491,11 @@ window.onload=function(){
 	var nowday2 = toDoubleDigits(p.getMonth()+1);
 	var nowday3 = p.getDate()
 	var nisd = nowday1 + nowday2 + nowday3;
-	console.log("nisd1: "+nisd );
 	var url = new URL(window.location.href);
 	var params = url.searchParams;
 	var cor = Number(params.get('corres'));
-	console.log("cor1: "+cor );
 	var ind = params.get('insday');
-	console.log("cor2: "+cor );
+	console.log("ind: "+ind );
 	console.log("nisd2: "+nisd );
 	if(cor == 5 && nisd == ind){
 		var f=document.getElementById("content");
