@@ -620,10 +620,14 @@ function non(){
 		if(firday2 === 4 || firday2 === 5){
 			if(Number(chkdate.getDate()) > 3){
 				var refmon = new Date(chkdate.getFullYear(), chkdate.getMonth(), 0);
-				console.log("refmon前月日: "+refmon.getDate());
-				console.log("refmon曜日: "+refmon.getDay());
-				var noeweek = Math.floor((refmon.getDate() - refmon.getDay() + 12 ) / 7);
-				console.log("noeweekn3 : "+noeweek);
+				var nowweek = Math.floor((refmon.getDate() - refmon.getDay() + 12 ) / 7);
+				select = document.getElementById('kikaku-month').options;
+				    for(let n = 0; n < select.length; n++ ){
+					if(select[n].value == nowweek){
+					    select[n].selected = true;
+					    break;
+					}
+				    }
 			}else{
 				var week = Math.floor((chkdate.getDate() - chkdate.getDay() + 12 ) / 7);
 				var nowweek = Number(week) - 1;
