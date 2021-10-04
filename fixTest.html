@@ -618,7 +618,7 @@ function non(){
 		var firday = new Date(chkdate.getFullYear(),chkdate.getMonth(),1);
 		var firday2 = firday.getDay();
 		console.log("firday2: "+firday2);
-		if(firday2 === 4 || firday2 === 5){
+		if(firday2 === '5'){
 			if(chkdate.getDate() > 3){
 			var refmon = new Date(chkdate.getFullYear(), chkdate.getMonth(), 0);
 			var noeweek = Math.floor((refmon.getDate() - refmon.getDay() + 12 ) / 7);
