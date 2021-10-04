@@ -617,25 +617,19 @@ function non(){
 		var nowweek = null;
 		var firday = new Date(chkdate.getFullYear(),chkdate.getMonth(),1);
 		var firday2 = Number(firday.getDay());
-		console.log("firday2: "+firday2);
 		if(firday2 === 4 || firday2 === 5){
-			console.log("koko2");
-			if(Number(chkdate.getDate()) < 3){
+			if(Number(chkdate.getDate()) > 3){
 				console.log("koko3");
-			var refmon = new Date(chkdate.getFullYear(), chkdate.getMonth(), 0);
+				var refmon = new Date(chkdate.getFullYear(), chkdate.getMonth(), 0);
 				console.log("refmon: "+refmon);
-			var noeweek = Math.floor((refmon.getDate() - refmon.getDay() + 12 ) / 7);
+				var noeweek = Math.floor((refmon.getDate() - refmon.getDay() + 12 ) / 7);
 				console.log("noeweekn3 : "+noeweek);
 			}else{
-				console.log("koko4");
-			var week = Math.floor((chkdate.getDate() - chkdate.getDay() + 12 ) / 7);
-			var nowweek = Number(week) - 1;
-				console.log("nowweek2:"+nowweek);
+				var week = Math.floor((chkdate.getDate() - chkdate.getDay() + 12 ) / 7);
+				var nowweek = Number(week) - 1;
 			}
 		}else{
-			console.log("koko5");
-		var nowweek = Math.floor((chkdate.getDate() - chkdate.getDay() + 12 ) / 7);
-			
+			var nowweek = Math.floor((chkdate.getDate() - chkdate.getDay() + 12 ) / 7);
 		}
 		select = document.getElementById('kai').options;
 		    for(let q = 0; q < select.length; q++ ){
