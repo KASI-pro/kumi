@@ -615,7 +615,7 @@ function non(){
 		    }
 		var chkdate  = new Date();
 		var nowweek = null;
-		var firday = date .setDate(1).getDay();
+		var firday = chkdate.setDate(1).getDay();
 		if(firday == 4 || firday == 5){
 			if(chkdate.getDate() > 3){
 			var refmon = new Date(chkdate.getFullYear(), chkdate.getMonth(), 0);
