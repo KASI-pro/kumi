@@ -489,14 +489,13 @@ window.onload=function(){
 	};
 	var nowday1 = p.getFullYear();
 	var nowday2 = toDoubleDigits(p.getMonth()+1);
+	console.log("nowday2: "+nowday2 );
 	var nowday3 = p.getDate()
 	var nisd = nowday1 + nowday2 + nowday3;
 	var url = new URL(window.location.href);
 	var params = url.searchParams;
 	var cor = Number(params.get('corres'));
 	var ind = params.get('insday');
-	console.log("ind: "+ind );
-	console.log("nisd2: "+nisd );
 	if(cor == 5 && nisd == ind){
 		var f=document.getElementById("content");
 		document.getElementById("branch").value = params.get('branch');
