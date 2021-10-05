@@ -717,7 +717,7 @@ var p = new Date();
 	};
 	var nowday1 = p.getFullYear();
 	var nowday2 = toDoubleDigits(p.getMonth()+1);
-	var nowday3 = p.getDate()
+	var nowday3 = toDoubleDigits(p.getDate());
 	var nisd = nowday1 + nowday2 + nowday3;
 	var url = new URL(window.location.href);
 	var params = url.searchParams;
