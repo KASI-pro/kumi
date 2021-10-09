@@ -504,28 +504,66 @@ function non(){
 	        }
 	    }
 
+			var endday = new Date(p.getFullYear(),p.getMonth() + 1,0);  // 当月最終日
+		var endday2 = Number(endday.getDay()); // 当月最終日の曜日
+		var monthweek = Math.floor((endday.getDay() - endday2 + 12 ) / 7); // その月は何週あるか
+		var nowwk = Math.floor((p.getDate() - p.getDay() + 12 ) / 7); // 開いた時月の何週目か
+		var firday = new Date(p.getFullYear(),p.getMonth(),1);      // 当月1日
+		var firday2 = Number(firday.getDay()); // 当月1日の曜日
 		var nowweek = null;
-		var firday = new Date(p.getFullYear(),p.getMonth(),1);
-		var firday2 = Number(firday.getDay());
-		if(firday2 === 4 || firday2 === 5){
-			if(Number(p.getDate()) < 3){
-				var refmon = new Date(p.getFullYear(), p.getMonth(), 0);
-				var nowweek = Math.floor((refmon.getDate() - refmon.getDay() + 12 ) / 7);
-				var remonthL = refmon.getMonth() + 1;
-				select = document.getElementById('kikaku-month').options;
-				    for(let n = 0; n < select.length; n++ ){
-					if(select[n].value == remonthL){
-					    select[n].selected = true;
-					    break;
+			if(nowwk < monthweek){
+				if(firday2 === 4 || firday2 === 5){
+					if(Number(p.getDate()) < 3){
+						var refmon = new Date(p.getFullYear(), p.getMonth(), 0);
+						var nowweek = Math.floor((refmon.getDate() - refmon.getDay() + 12 ) / 7);
+						var remonthL = refmon.getMonth() + 1;
+						select = document.getElementById('kikaku-month').options;
+						    for(let n = 0; n < select.length; n++ ){
+								if(select[n].value == remonthL){
+								    select[n].selected = true;
+								    break;
+								}
+						    }
+					}else{
+						var week = Math.floor((p.getDate() - p.getDay() + 12 ) / 7);
+						var nowweek = Number(week) - 1;
 					}
-				    }
+				}else{
+					var nowweek = Math.floor((p.getDate() - p.getDay() + 12 ) / 7);
+				}
 			}else{
-				var week = Math.floor((p.getDate() - p.getDay() + 12 ) / 7);
-				var nowweek = Number(week) - 1;
+				if(endday2 < 3){
+					var remonthL = p.getMonth() + 2;
+					select = document.getElementById('kikaku-month').options;
+				    for(let n = 0; n < select.length; n++ ){
+						if(select[n].value == remonthL){
+						    select[n].selected = true;
+						    break;
+						}
+				    }
+				    var nowweek = 1;
+				}else{
+					if(firday2 === 4 || firday2 === 5){
+						if(Number(p.getDate()) < 3){
+							var refmon = new Date(p.getFullYear(), p.getMonth(), 0);
+							var nowweek = Math.floor((refmon.getDate() - refmon.getDay() + 12 ) / 7);
+							var remonthL = refmon.getMonth() + 1;
+							select = document.getElementById('kikaku-month').options;
+							    for(let n = 0; n < select.length; n++ ){
+									if(select[n].value == remonthL){
+									    select[n].selected = true;
+									    break;
+									}
+							    }
+						}else{
+							var week = Math.floor((p.getDate() - p.getDay() + 12 ) / 7);
+							var nowweek = Number(week) - 1;
+						}
+					}else{
+						var nowweek = Math.floor((p.getDate() - p.getDay() + 12 ) / 7);
+					}
+				}
 			}
-		}else{
-			var nowweek = Math.floor((p.getDate() - p.getDay() + 12 ) / 7);
-		}
 		select = document.getElementById('kai').options;
 		    for(let q = 0; q < select.length; q++ ){
 		        if(select[q].value == nowweek){
