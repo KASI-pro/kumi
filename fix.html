@@ -376,6 +376,17 @@ padding: 50px 0 0 0;
 					</p>
 				</div>
 			</div>
+			<div class="form-row">
+				<label class="col-sm-3 col-form-label">※添付画像を：</label>
+				<div class="col-sm-9">
+					<p>
+						<select class="custom-select w-25" id="delete">
+							<option value="0" selected></option>
+							<option value="1" >全て削除</option>
+						</select>
+					</p>
+				</div>
+			</div>
 		</form>
 		<form id="area" name="area">
 			<div class="form-row">
@@ -444,9 +455,20 @@ padding: 50px 0 0 0;
 					</p>
 				</div>
 			</div>
-
+			<div class="form-row">
+				<label class="col-sm-3 col-form-label">※添付画像を：</label>
+				<div class="col-sm-9">
+					<p>
+						<select class="custom-select w-25" id="delete2">
+							<option value="0" selected></option>
+							<option value="1" >全て削除</option>
+						</select>
+					</p>
+				</div>
+			</div>
 		</form>
 <form id="down">
+
 		<input type="button" id="sendFrom" value="メール作成"><br> <br>
 </form>
 	</div>
@@ -599,28 +621,59 @@ function non(){
 			var monthL = p.getMonth() + 1;
 			  select = document.getElementById('kikaku-month').options;
 			    for(let n = 0; n < select.length; n++ ){
-				if(select[n].value == monthL){
-				    select[n].selected = true;
-				    break;
-				}
+			        if(select[n].value == monthL){
+			            select[n].selected = true;
+			            break;
+			        }
 			    }
-			var yearL = p.getFullYear();
-		  select = document.getElementById('kikaku-year').options;
-		    for(let m = 0; m < select.length; m++ ){
-			if(select[m].value == yearL){
-			    select[m].selected = true;
-			    break;
-			}
-		    }
+		var yearL = p.getFullYear();
+	  select = document.getElementById('kikaku-year').options;
+	    for(let m = 0; m < select.length; m++ ){
+	        if(select[m].value == yearL){
+	            select[m].selected = true;
+	            break;
+	        }
+	    }
 
-			var endday = new Date(p.getFullYear(),p.getMonth() + 1,0);
-			var endday2 = Number(endday.getDay());
-			var monthweek = Math.floor((endday.getDate() - endday2 + 12 ) / 7);
-			var nowwk = Math.floor((p.getDate() - p.getDay() + 12 ) / 7);
-			var firday = new Date(p.getFullYear(),p.getMonth(),1);
-			var firday2 = Number(firday.getDay());
-			var nowweek = null;
-				if(nowwk < monthweek){
+		var endday = new Date(p.getFullYear(),p.getMonth() + 1,0);
+		var endday2 = Number(endday.getDay());
+		var monthweek = Math.floor((endday.getDate() - endday2 + 12 ) / 7);
+		var nowwk = Math.floor((p.getDate() - p.getDay() + 12 ) / 7);
+		var firday = new Date(p.getFullYear(),p.getMonth(),1);
+		var firday2 = Number(firday.getDay());
+		var nowweek = null;
+			if(nowwk < monthweek){
+				if(firday2 === 4 || firday2 === 5){
+					if(Number(p.getDate()) < 3){
+						var refmon = new Date(p.getFullYear(), p.getMonth(), 0);
+						var nowweek = Math.floor((refmon.getDate() - refmon.getDay() + 12 ) / 7);
+						var remonthL = refmon.getMonth() + 1;
+						select = document.getElementById('kikaku-month').options;
+						    for(let n = 0; n < select.length; n++ ){
+								if(select[n].value == remonthL){
+								    select[n].selected = true;
+								    break;
+								}
+						    }
+					}else{
+						var week = Math.floor((p.getDate() - p.getDay() + 12 ) / 7);
+						var nowweek = Number(week) - 1;
+					}
+				}else{
+					var nowweek = Math.floor((p.getDate() - p.getDay() + 12 ) / 7);
+				}
+			}else{
+				if(endday2 < 3){
+					var remonthL = p.getMonth() + 2;
+					select = document.getElementById('kikaku-month').options;
+				    for(let n = 0; n < select.length; n++ ){
+						if(select[n].value == remonthL){
+						    select[n].selected = true;
+						    break;
+						}
+				    }
+				    var nowweek = 1;
+				}else{
 					if(firday2 === 4 || firday2 === 5){
 						if(Number(p.getDate()) < 3){
 							var refmon = new Date(p.getFullYear(), p.getMonth(), 0);
@@ -640,60 +693,29 @@ function non(){
 					}else{
 						var nowweek = Math.floor((p.getDate() - p.getDay() + 12 ) / 7);
 					}
-				}else{
-					if(endday2 < 3){
-						var remonthL = p.getMonth() + 2;
-						select = document.getElementById('kikaku-month').options;
-					    for(let n = 0; n < select.length; n++ ){
-							if(select[n].value == remonthL){
-							    select[n].selected = true;
-							    break;
-							}
-					    }
-					    var nowweek = 1;
-					}else{
-						if(firday2 === 4 || firday2 === 5){
-							if(Number(p.getDate()) < 3){
-								var refmon = new Date(p.getFullYear(), p.getMonth(), 0);
-								var nowweek = Math.floor((refmon.getDate() - refmon.getDay() + 12 ) / 7);
-								var remonthL = refmon.getMonth() + 1;
-								select = document.getElementById('kikaku-month').options;
-								    for(let n = 0; n < select.length; n++ ){
-										if(select[n].value == remonthL){
-										    select[n].selected = true;
-										    break;
-										}
-								    }
-							}else{
-								var week = Math.floor((p.getDate() - p.getDay() + 12 ) / 7);
-								var nowweek = Number(week) - 1;
-							}
-						}else{
-							var nowweek = Math.floor((p.getDate() - p.getDay() + 12 ) / 7);
-						}
-					}
 				}
-			select = document.getElementById('kai').options;
-			    for(let q = 0; q < select.length; q++ ){
-				if(select[q].value == nowweek){
-				    select[q].selected = true;
-				    break;
-				}
-			    }
+			}
+		select = document.getElementById('kai').options;
+		    for(let q = 0; q < select.length; q++ ){
+		        if(select[q].value == nowweek){
+		            select[q].selected = true;
+		            break;
+		        }
+		    }
 
-		if (document.getElementById("kikaku-year").disabled === true){
-			document.getElementById("kikaku-year").removeAttribute("disabled");
-			document.getElementById("kikaku-month").removeAttribute("disabled");
-			document.getElementById("kai").removeAttribute("disabled");
-		}else{
-			document.getElementById("kikaku-year").setAttribute("disabled", true);
-			document.getElementById("kikaku-month").setAttribute("disabled", true);
-			document.getElementById("kai").setAttribute("disabled", true);
-			document.getElementById("kikaku-year").value = '';
-			document.getElementById("kikaku-month").value = '';
-			document.getElementById("kai").value = '';
-		}
+	if (document.getElementById("kikaku-year").disabled === true){
+		document.getElementById("kikaku-year").removeAttribute("disabled");
+		document.getElementById("kikaku-month").removeAttribute("disabled");
+		document.getElementById("kai").removeAttribute("disabled");
+	}else{
+		document.getElementById("kikaku-year").setAttribute("disabled", true);
+		document.getElementById("kikaku-month").setAttribute("disabled", true);
+		document.getElementById("kai").setAttribute("disabled", true);
+		document.getElementById("kikaku-year").value = '';
+		document.getElementById("kikaku-month").value = '';
+		document.getElementById("kai").value = '';
 	}
+  }
 }
 
 function checkSelect(obj,val){
@@ -766,7 +788,13 @@ var p = new Date();
 					if(str6.length === 0){
 						alert("内容は必須です\nお書きください");
 					}else{
-						 var result = window.confirm("メールを作成しても宜しいですか？");
+						let str21 = document.getElementById("delete2").value; // 添付削除
+var result;
+if(str21 != 0){
+result = window.confirm("添付画像全て削除にチェックされていますが\nメールを作成しても宜しいですか？");
+}else{
+result = window.confirm("メールを作成しても宜しいですか？");
+}
 							if( result ) {
 								var elements = document.getElementsByName('corres');
 								var len = elements.length;
@@ -787,6 +815,7 @@ var p = new Date();
 								pname = txtData[5].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m}).replace(' ', '');
 								offer = txtData[6].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m}).replace(' ', '');
 								comment = txtData[7].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m}).replace(' ', '');
+								delfox = txtData[8].value;
 												kikakai = '';
 												pcode = '';
 								address = 'tos_oka2@palcoop.or.jp';
@@ -802,6 +831,7 @@ var p = new Date();
 										'","pcode":"'+pcode+
 										'","insday":"'+insday+
 										'","instime":"'+instime+
+										'","delfox":"'+delfox+
 											'"}}';
 								location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
 							} else {
@@ -842,7 +872,14 @@ var p = new Date();
 														let str13= document.getElementById("kai").value; // 回
 														let kikanm = str11+str12+str13;
 												if(kikanm.length === 0 || kikanm.length === 7){
-														var result = window.confirm("メールを作成しても宜しいですか？");
+														let str20 = document.getElementById("delete").value; // 添付削除
+var result;
+if(str20 != 0){
+result = window.confirm("添付画像全て削除にチェックされていますが\nメールを作成しても宜しいですか？");
+}else{
+result = window.confirm("メールを作成しても宜しいですか？");
+}
+														
 															if( result ) {
 																var toDoubleDigits = function(num) {
 																  num += "";
@@ -875,6 +912,7 @@ var p = new Date();
 																pname = txtData[12].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m}).replace(' ', '');
 																offer = txtData[13].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m}).replace(' ', '');
 																comment = txtData[14].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m}).replace(' ', '');
+																delfox = txtData[15].value;
 																address = 'tos_oka2@palcoop.or.jp';
 																subject = '組合員の声（修正）';
 																body = '{"body":{"answer":"'+answer+
@@ -888,6 +926,7 @@ var p = new Date();
 																		'","comment":"'+comment+
 																		'","insday":"'+insday+
 																		'","instime":"'+instime+
+																		'","delfox":"'+delfox+
 																		'"}}';
 																location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
 															} else {
