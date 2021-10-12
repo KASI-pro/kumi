@@ -661,6 +661,7 @@ function reload() {
 												pcode = '';
 												insday = '';
 												instime = '';
+												delfox = "";
 								address = 'kumikoeTest@palcoop.or.jp';
 								subject = '地域の声';
 								body = '{"body":{"answer":"'+answer+
@@ -674,6 +675,7 @@ function reload() {
 										'","pcode":"'+pcode+
 										'","insday":"'+insday+
 										'","instime":"'+instime+
+										'","delfox":"'+delfox+
 											'"}}';
 								location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
 							} else {
@@ -745,6 +747,7 @@ function reload() {
 																comment = txtData[14].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 																insday = '';
 																instime = '';
+																delfox = "";
 																address = 'kumikoeTest@palcoop.or.jp';
 																subject = '組合員の声';
 																body = '{"body":{"answer":"'+answer+
@@ -758,6 +761,7 @@ function reload() {
 																		'","comment":"'+comment+
 																		'","insday":"'+insday+
 																		'","instime":"'+instime+
+																		'","delfox":"'+delfox+
 																		'"}}';
 																location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
 															} else {
