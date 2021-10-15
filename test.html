@@ -237,9 +237,12 @@ height:20px
     background-color: rgba(55 190 176 / 25%);
     width: 100%;
 }
+.memoApp{max-width: 375px;margin:0 auto 20px;}
+.memoApp input,.memoApp textarea,.memoApp button{margin-bottom: 10px;}
 </style>
 </head>
 <body>
+
 	<div class="container">
 		<div class="navbar">
 			<h1>組声フォーム</h1>
@@ -268,7 +271,7 @@ height:20px
 				<label class="col-sm-3 col-form-label">②支所：</label>
 				<div class="col-sm-9">
 					<p>
-						<select class="custom-select w-50" id="branch" name="branch">
+						<select class="custom-select w-50" id="branch" name="branch" onchange="keep()">
 							<option value="101">枚方支所</option>
 							<option value="102">南寝屋川支所</option>
 							<option value="103">南寝屋川個配センター</option>
@@ -372,7 +375,7 @@ height:20px
 				<label class="col-sm-3 col-form-label">②支所：</label>
 				<div class="col-sm-9">
 					<p>
-						<select class="custom-select w-50" id="branch2" name="branch2">
+						<select class="custom-select w-50" id="branch2" name="branch2" onchange="rekeep()">
 							<option value="101">枚方支所</option>
 							<option value="102">南寝屋川支所</option>
 							<option value="103">南寝屋川個配センター</option>
@@ -427,29 +430,48 @@ height:20px
 	</div>
 </body>
 <script>
+
+function keep(){
+    var text = document.getElementById("branch").value;
+    localStorage.setItem('memo', text);
+    alert('支所の変更を保存しました。');
+}
+function rekeep(){
+    var text = document.getElementById("branch2").value;
+    localStorage.setItem('memo', text);
+    alert('支所の変更を保存しました。');
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
  function formSwitch(newColor) {
+
         decided = document.getElementsByName('corres')
 
         if (decided[0].checked) {
             document.getElementById('content').style.display = "";
             document.getElementById('area').style.display = "none";
-document.body.style.backgroundColor = newColor;
-
-            var param = location.search;
-        	document.getElementById("branch").value = param;
-        	var f=document.getElementById("content");
-        	var reparam = param.replace('?', '');
-        	checkSelect(f.elements["branch"],reparam);
+	    document.body.style.backgroundColor = newColor;
+	    var txt = localStorage.getItem('memo');
+            var f=document.getElementById("content");
+            checkSelect(f.elements["branch"],txt);
         } else if (decided[1].checked) {
             document.getElementById('content').style.display = "none";
             document.getElementById('area').style.display = "";
-document.body.style.backgroundColor = newColor;
-
-            var param = location.search;
-        	document.getElementById("branch2").value = param;
-        	var f=document.getElementById("area");
-        	var reparam = param.replace('?', '');
-        	checkSelect(f.elements["branch2"],reparam);
+	    document.body.style.backgroundColor = newColor;
+            var txt = localStorage.getItem('memo');
+       	    var f=document.getElementById("area");
+            checkSelect(f.elements["branch2"],txt);
         } else {
             document.getElementById('content').style.display = "none";
             document.getElementById('area').style.display = "none";
@@ -459,11 +481,10 @@ document.body.style.backgroundColor = newColor;
 
 
 window.onload=function(){
-	var param = location.search;
-	document.getElementById("branch").value = param;
-	var f=document.getElementById("content");
-	var reparam = param.replace('?', '');
-	checkSelect(f.elements["branch"],reparam);
+
+	var txt = localStorage.getItem('memo');
+       	var f=document.getElementById("content");
+	checkSelect(f.elements["branch"],txt);
 	for(var j = 1; j <= 12; j++) {
 		const selectMonth = document.getElementById('kikaku-month');
 		const option2 = document.createElement('option');
@@ -511,6 +532,14 @@ function non(){
 		var firday = new Date(p.getFullYear(),p.getMonth(),1);
 		var firday2 = Number(firday.getDay());
 		var nowweek = null;
+
+console.log("endday : "+endday );
+console.log("endday2 : "+endday2 );
+console.log("monthweek: "+monthweek);
+console.log("nowwk: "+nowwk);
+console.log("firday: "+firday);
+console.log("firday2: "+firday2);
+
 			if(nowwk < monthweek){
 				if(firday2 === 4 || firday2 === 5){
 					if(Number(p.getDate()) < 3){
@@ -659,10 +688,7 @@ function reload() {
 								comment = txtData[7].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 												kikakai = '';
 												pcode = '';
-												insday = '';
-												instime = '';
-												delfox = "0";
-								address = 'kumikoeTest@palcoop.or.jp';
+								address = 'tos_oka2@palcoop.or.jp';
 								subject = '地域の声';
 								body = '{"body":{"answer":"'+answer+
 										'","branch":"'+branch+
@@ -671,11 +697,8 @@ function reload() {
 										'","pname":"'+pname+
 										'","offer":"'+offer+
 										'","comment":"'+comment+
-										'","kikakai":"'+kikakai+
-										'","pcode":"'+pcode+
-										'","insday":"'+insday+
-										'","instime":"'+instime+
-										'","delfox":"'+delfox+
+									'","kikakai":"'+kikakai+
+									'","pcode":"'+pcode+
 											'"}}';
 								location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
 							} else {
@@ -745,10 +768,7 @@ function reload() {
 																pname = txtData[12].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 																offer = txtData[13].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 																comment = txtData[14].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-																insday = '';
-																instime = '';
-																delfox = "";
-																address = 'kumikoeTest@palcoop.or.jp';
+																address = 'tos_oka2@palcoop.or.jp';
 																subject = '組合員の声';
 																body = '{"body":{"answer":"'+answer+
 																		'","branch":"'+branch+
@@ -759,9 +779,6 @@ function reload() {
 																		'","pname":"'+pname+
 																		'","offer":"'+offer+
 																		'","comment":"'+comment+
-																		'","insday":"'+insday+
-																		'","instime":"'+instime+
-																		'","delfox":"'+delfox+
 																		'"}}';
 																location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
 															} else {
