@@ -442,22 +442,8 @@ function rekeep(){
     alert('支所の変更を保存しました。');
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
- function formSwitch(newColor) {
-
+function formSwitch(newColor) {
         decided = document.getElementsByName('corres')
-
         if (decided[0].checked) {
             document.getElementById('content').style.display = "";
             document.getElementById('area').style.display = "none";
@@ -478,7 +464,6 @@ function rekeep(){
         }
     }
     window.addEventListener('load', formSwitch());
-
 
 window.onload=function(){
 
@@ -688,7 +673,7 @@ function reload() {
 								comment = txtData[7].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 												kikakai = '';
 												pcode = '';
-								address = 'tos_oka2@palcoop.or.jp';
+								address = 'kumikoeTest@palcoop.or.jp';
 								subject = '地域の声';
 								body = '{"body":{"answer":"'+answer+
 										'","branch":"'+branch+
@@ -768,7 +753,7 @@ function reload() {
 																pname = txtData[12].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 																offer = txtData[13].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 																comment = txtData[14].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-																address = 'tos_oka2@palcoop.or.jp';
+																address = 'kumikoeTest@palcoop.or.jp';
 																subject = '組合員の声';
 																body = '{"body":{"answer":"'+answer+
 																		'","branch":"'+branch+
