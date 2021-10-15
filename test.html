@@ -237,12 +237,9 @@ height:20px
     background-color: rgba(55 190 176 / 25%);
     width: 100%;
 }
-.memoApp{max-width: 375px;margin:0 auto 20px;}
-.memoApp input,.memoApp textarea,.memoApp button{margin-bottom: 10px;}
 </style>
 </head>
 <body>
-
 	<div class="container">
 		<div class="navbar">
 			<h1>組声フォーム</h1>
@@ -430,8 +427,7 @@ height:20px
 	</div>
 </body>
 <script>
-
-function keep(){
+ function keep(){
     var text = document.getElementById("branch").value;
     localStorage.setItem('memo', text);
     alert('支所の変更を保存しました。');
@@ -517,14 +513,6 @@ function non(){
 		var firday = new Date(p.getFullYear(),p.getMonth(),1);
 		var firday2 = Number(firday.getDay());
 		var nowweek = null;
-
-console.log("endday : "+endday );
-console.log("endday2 : "+endday2 );
-console.log("monthweek: "+monthweek);
-console.log("nowwk: "+nowwk);
-console.log("firday: "+firday);
-console.log("firday2: "+firday2);
-
 			if(nowwk < monthweek){
 				if(firday2 === 4 || firday2 === 5){
 					if(Number(p.getDate()) < 3){
@@ -673,6 +661,9 @@ function reload() {
 								comment = txtData[7].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 												kikakai = '';
 												pcode = '';
+												insday = '';
+												instime = '';
+												delfox = "0";
 								address = 'kumikoeTest@palcoop.or.jp';
 								subject = '地域の声';
 								body = '{"body":{"answer":"'+answer+
@@ -682,8 +673,11 @@ function reload() {
 										'","pname":"'+pname+
 										'","offer":"'+offer+
 										'","comment":"'+comment+
-									'","kikakai":"'+kikakai+
-									'","pcode":"'+pcode+
+										'","kikakai":"'+kikakai+
+										'","pcode":"'+pcode+
+										'","insday":"'+insday+
+										'","instime":"'+instime+
+										'","delfox":"'+delfox+
 											'"}}';
 								location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
 							} else {
@@ -753,6 +747,9 @@ function reload() {
 																pname = txtData[12].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 																offer = txtData[13].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 																comment = txtData[14].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+																insday = '';
+																instime = '';
+																delfox = "";
 																address = 'kumikoeTest@palcoop.or.jp';
 																subject = '組合員の声';
 																body = '{"body":{"answer":"'+answer+
@@ -764,6 +761,9 @@ function reload() {
 																		'","pname":"'+pname+
 																		'","offer":"'+offer+
 																		'","comment":"'+comment+
+																		'","insday":"'+insday+
+																		'","instime":"'+instime+
+																		'","delfox":"'+delfox+
 																		'"}}';
 																location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
 															} else {
