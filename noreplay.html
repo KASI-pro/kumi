@@ -268,7 +268,7 @@ height:20px
 				<label class="col-sm-3 col-form-label">②支所：</label>
 				<div class="col-sm-9">
 					<p>
-						<select class="custom-select w-50" id="branch" name="branch">
+						<select class="custom-select w-50" id="branch" name="branch" onchange="keep()">
 							<option value="101">枚方支所</option>
 							<option value="102">南寝屋川支所</option>
 							<option value="103">南寝屋川個配センター</option>
@@ -372,7 +372,7 @@ height:20px
 				<label class="col-sm-3 col-form-label">②支所：</label>
 				<div class="col-sm-9">
 					<p>
-						<select class="custom-select w-50" id="branch2" name="branch2">
+						<select class="custom-select w-50" id="branch2" name="branch2" onchange="rekeep()">
 							<option value="101">枚方支所</option>
 							<option value="102">南寝屋川支所</option>
 							<option value="103">南寝屋川個配センター</option>
@@ -427,29 +427,33 @@ height:20px
 	</div>
 </body>
 <script>
- function formSwitch(newColor) {
-        decided = document.getElementsByName('corres')
+ function keep(){
+    var text = document.getElementById("branch").value;
+    localStorage.setItem('memo', text);
+    alert('支所の変更を保存しました。');
+}
+function rekeep(){
+    var text = document.getElementById("branch2").value;
+    localStorage.setItem('memo', text);
+    alert('支所の変更を保存しました。');
+}
 
+function formSwitch(newColor) {
+        decided = document.getElementsByName('corres')
         if (decided[0].checked) {
             document.getElementById('content').style.display = "";
             document.getElementById('area').style.display = "none";
-document.body.style.backgroundColor = newColor;
-
-            var param = location.search;
-        	document.getElementById("branch").value = param;
-        	var f=document.getElementById("content");
-        	var reparam = param.replace('?', '');
-        	checkSelect(f.elements["branch"],reparam);
+	    document.body.style.backgroundColor = newColor;
+	    var txt = localStorage.getItem('memo');
+            var f=document.getElementById("content");
+            checkSelect(f.elements["branch"],txt);
         } else if (decided[1].checked) {
             document.getElementById('content').style.display = "none";
             document.getElementById('area').style.display = "";
-document.body.style.backgroundColor = newColor;
-
-            var param = location.search;
-        	document.getElementById("branch2").value = param;
-        	var f=document.getElementById("area");
-        	var reparam = param.replace('?', '');
-        	checkSelect(f.elements["branch2"],reparam);
+	    document.body.style.backgroundColor = newColor;
+            var txt = localStorage.getItem('memo');
+       	    var f=document.getElementById("area");
+            checkSelect(f.elements["branch2"],txt);
         } else {
             document.getElementById('content').style.display = "none";
             document.getElementById('area').style.display = "none";
@@ -457,13 +461,11 @@ document.body.style.backgroundColor = newColor;
     }
     window.addEventListener('load', formSwitch());
 
-
 window.onload=function(){
-	var param = location.search;
-	document.getElementById("branch").value = param;
-	var f=document.getElementById("content");
-	var reparam = param.replace('?', '');
-	checkSelect(f.elements["branch"],reparam);
+
+	var txt = localStorage.getItem('memo');
+       	var f=document.getElementById("content");
+	checkSelect(f.elements["branch"],txt);
 	for(var j = 1; j <= 12; j++) {
 		const selectMonth = document.getElementById('kikaku-month');
 		const option2 = document.createElement('option');
@@ -635,7 +637,7 @@ function reload() {
 			}
 		}
 		if(second > 0.0 && second < 0.6){
-			if(radioValue === '4'){
+			if(radioValue === '1'){
 				let str6 = document.getElementById("offer2").value.replace(regex, '');
 					if(str6.length === 0){
 						alert("内容は必須です\nお書きください")
@@ -659,6 +661,9 @@ function reload() {
 								comment = txtData[7].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 												kikakai = '';
 												pcode = '';
+												insday = '';
+												instime = '';
+												delfox = "0";
 								address = 'tos_oka2@palcoop.or.jp';
 								subject = '地域の声';
 								body = '{"body":{"answer":"'+answer+
@@ -668,8 +673,11 @@ function reload() {
 										'","pname":"'+pname+
 										'","offer":"'+offer+
 										'","comment":"'+comment+
-									'","kikakai":"'+kikakai+
-									'","pcode":"'+pcode+
+										'","kikakai":"'+kikakai+
+										'","pcode":"'+pcode+
+										'","insday":"'+insday+
+										'","instime":"'+instime+
+										'","delfox":"'+delfox+
 											'"}}';
 								location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
 							} else {
@@ -739,6 +747,9 @@ function reload() {
 																pname = txtData[12].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 																offer = txtData[13].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 																comment = txtData[14].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+																insday = '';
+																instime = '';
+																delfox = "0";
 																address = 'tos_oka2@palcoop.or.jp';
 																subject = '組合員の声';
 																body = '{"body":{"answer":"'+answer+
@@ -750,6 +761,9 @@ function reload() {
 																		'","pname":"'+pname+
 																		'","offer":"'+offer+
 																		'","comment":"'+comment+
+																		'","insday":"'+insday+
+																		'","instime":"'+instime+
+																		'","delfox":"'+delfox+
 																		'"}}';
 																location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
 															} else {
