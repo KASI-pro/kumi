@@ -377,12 +377,12 @@ padding: 50px 0 0 0;
 				</div>
 			</div>
 			<div class="form-row">
-				<label class="col-sm-3 col-form-label">※添付画像を：</label>
+				<label class="col-sm-3 col-form-label">※添付画像を全て削除する：</label>
 				<div class="col-sm-9">
 					<p>
-						<select class="custom-select w-25" id="delete">
-							<option value="0" selected></option>
-							<option value="1" >全て削除</option>
+						<select class="custom-select w-50" id="delete">
+							<option value="0" selected>いいえ</option>
+							<option value="1" >はい</option>
 						</select>
 					</p>
 				</div>
@@ -456,12 +456,12 @@ padding: 50px 0 0 0;
 				</div>
 			</div>
 			<div class="form-row">
-				<label class="col-sm-3 col-form-label">※添付画像を：</label>
+				<label class="col-sm-3 col-form-label">※添付画像を全て削除する：</label>
 				<div class="col-sm-9">
 					<p>
-						<select class="custom-select w-25" id="delete2">
-							<option value="0" selected></option>
-							<option value="1" >全て削除</option>
+						<select class="custom-select w-50" id="delete2">
+							<option value="0" selected>いいえ</option>
+							<option value="1" >はい</option>
 						</select>
 					</p>
 				</div>
@@ -791,7 +791,7 @@ var p = new Date();
 						let str21 = document.getElementById("delete2").value; // 添付削除
 var result;
 if(str21 != 0){
-result = window.confirm("添付画像全て削除にチェックされていますが\nメールを作成しても宜しいですか？");
+result = window.confirm("添付画像全て削除に\nチェックされていますが\nメールを作成しても宜しいですか？");
 }else{
 result = window.confirm("メールを作成しても宜しいですか？");
 }
@@ -875,7 +875,7 @@ result = window.confirm("メールを作成しても宜しいですか？");
 														let str20 = document.getElementById("delete").value; // 添付削除
 var result;
 if(str20 != 0){
-result = window.confirm("添付画像全て削除にチェックされていますが\nメールを作成しても宜しいですか？");
+result = window.confirm("添付画像全て削除に\nチェックされていますが\nメールを作成しても宜しいですか？");
 }else{
 result = window.confirm("メールを作成しても宜しいですか？");
 }
