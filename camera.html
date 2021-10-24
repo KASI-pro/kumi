@@ -28,7 +28,7 @@ window.addEventListener('load',function(event){
     function(stream){
       video.srcObject = stream;
       //0.5秒毎にスキャンする
-      setTimeout(Scan,500,true);
+      setTimeout(Scan,300,true);
     }
   ).catch( //許可されなかった場合
     function(err){jan.value+=err+'\n';}
