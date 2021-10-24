@@ -212,8 +212,32 @@ b.addEventListener(eventEnd, e => {
 				if(str6.length === 0){
 					alert("内容は必須です\nお書きください")
 				}else{
-					var bcd = document.getElementById("bumon").value
-					var success = window.confirm("部門は"+bcd +"で間違えなかったですか？");
+					var bucd = document.getElementById("bumon").value
+					var bunm = null;
+					if(bucd == 1){
+						bunm = '農産'
+						}else if(bucd == 2){
+							bunm = '水産'
+							}else if(bucd == 3){
+								bunm = '畜産'
+								}else if(bucd == 4){
+									bunm = '和日配'
+									}else if(bucd == 5){
+										bunm = '惣菜'
+										}else if(bucd == 6){
+											bunm = '洋日配'
+											}else if(bucd == 7){
+												bunm = '食品'
+												}else if(bucd == 8){
+													bunm = '菓子'
+													}else if(bucd == 9){
+														bunm = '米'
+														}else if(bucd == 10){
+															bunm = '酒'
+															}else if(bucd == 11){
+																bunm = '住居関連'
+																}
+					var success = window.confirm("\""+" "+"部門"+" "+"\""+"は"+"【 "+bunm+" 】"+"で間違えなかったですか？");
 					if(success){
 					 var result = window.confirm("メールを作成しても宜しいですか？");
 						if( result ) {
