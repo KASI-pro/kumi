@@ -141,7 +141,15 @@ label ~ label {
 				</div>
 			</div>
 			<div class="form-row">
-				<label class="col-sm-3 col-form-label">⑥職員のコメント：</label>
+				<label class="col-sm-3 col-form-label required">⑥職員コード：</label>
+				<div class="col-sm-9">
+					<p>
+						<input type="tel" id="skcode" class="form-control" maxlength='6' placeholder="職員コード">
+					</p>
+				</div>
+			</div>
+			<div class="form-row">
+				<label class="col-sm-3 col-form-label">⑦職員のコメント：</label>
 				<div class="col-sm-9">
 					<p>
 					  <textarea id="comment2" rows="4" cols="34" placeholder="職員のコメント"></textarea>
@@ -209,9 +217,22 @@ b.addEventListener(eventEnd, e => {
 	var len = elements.length;
 
 	if(second > 0.0 && second < 0.6){
-			let str6 = document.getElementById("offer2").value.replace(regex, '');
+			let str = document.getElementById("pname2").value.replace(regex, '');
+				if(str.length === 0){
+					alert("要旨は必須です\nお書きください")
+				}else{
+
+let str6 = document.getElementById("offer2").value.replace(regex, '');
 				if(str6.length === 0){
-					alert("内容は必須です\nお書きください")
+alert("内容は必須です\nお書きください")
+				}else{
+let str2 = document.getElementById("skcode").value.replace(regex, '');
+				if(str2.length === 0){
+					alert("職員コードは必須です\nお書きください")
+}else if(isNaN(str2)){
+						alert("組合員コードの欄に数字以外の字が入力されています。")
+					}else if(str2.length !== 6){
+						alert("組合員コードは6文字です")
 				}else{
 					var bucd = document.getElementById("bumon").value
 					var bunm = null;
@@ -252,7 +273,8 @@ b.addEventListener(eventEnd, e => {
 							bumon = txtData[5].value;
 							pname = txtData[6].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 							offer = txtData[7].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-							comment = txtData[8].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+							skcode = txtData[8].value.replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});;
+							comment = txtData[9].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 											kikakai = '';
 											pcode = '';
 											insday = '';
@@ -267,6 +289,7 @@ b.addEventListener(eventEnd, e => {
 									'","corres":"'+checkValue+
 									'","pname":"'+pname+
 									'","offer":"'+offer+
+									'","skcode":"'+skcode+
 									'","comment":"'+comment+
 									'","kikakai":"'+kikakai+
 									'","pcode":"'+pcode+
@@ -276,6 +299,8 @@ b.addEventListener(eventEnd, e => {
 										'"}}';
 							location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
 						}
+}
+}
 					}
 				}
 	count = 0;
