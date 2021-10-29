@@ -118,7 +118,8 @@ label ~ label {
 							<option value="8">菓子</option>
 							<option value="9"> 米</option>
 							<option value="10">酒</option>
-							<option value="11"> 住居関連</option>
+							<option value="11">住居関連</option>
+							<option value="12">その他</option>
 						</select>
 					</p>
 				</div>
@@ -236,6 +237,8 @@ b.addEventListener(eventEnd, e => {
 															bunm = '酒'
 															}else if(bucd == 11){
 																bunm = '住居関連'
+																}else if(bucd == 12){
+																	bunm = 'その他'
 																}
 					var success = window.confirm("\""+" "+"部門"+" "+"\""+"は"+"【 "+bunm+" 】"+"で間違えなかったですか？");
 					if(success){
