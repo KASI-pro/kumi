@@ -213,97 +213,93 @@ b.addEventListener(eventEnd, e => {
     b.classList.remove('active');
     clearInterval(timer);
     let second = (count / 100);
-	var elements = document.getElementsByName('corres');
-	var len = elements.length;
-
 	if(second > 0.0 && second < 0.6){
 			let str = document.getElementById("pname2").value.replace(regex, '');
 				if(str.length === 0){
 					alert("要旨は必須です\nお書きください")
 				}else{
-
-let str6 = document.getElementById("offer2").value.replace(regex, '');
-				if(str6.length === 0){
-alert("内容は必須です\nお書きください")
-				}else{
-let str2 = document.getElementById("skcode").value.replace(regex, '');
-				if(str2.length === 0){
-					alert("職員コードは必須です\nお書きください")
-}else if(isNaN(str2)){
-						alert("組合員コードの欄に数字以外の字が入力されています。")
-					}else if(str2.length !== 6){
-						alert("組合員コードは6文字です")
-				}else{
-					var bucd = document.getElementById("bumon").value
-					var bunm = null;
-					if(bucd == 1){
-						bunm = '農産'
-						}else if(bucd == 2){
-							bunm = '水産'
-							}else if(bucd == 3){
-								bunm = '畜産'
-								}else if(bucd == 4){
-									bunm = '和日配'
-									}else if(bucd == 5){
-										bunm = '惣菜'
-										}else if(bucd == 6){
-											bunm = '洋日配'
-											}else if(bucd == 7){
-												bunm = '食品'
-												}else if(bucd == 8){
-													bunm = '菓子'
-													}else if(bucd == 9){
-														bunm = '米'
-														}else if(bucd == 10){
-															bunm = '酒'
-															}else if(bucd == 11){
-																bunm = '住居関連'
-																}else if(bucd == 12){
-																	bunm = 'その他'
-																}
-					var success = window.confirm("\""+" "+"部門"+" "+"\""+"は"+"【 "+bunm+" 】"+"で間違えなかったですか？");
-					if(success){
-					 var result = window.confirm("メールを作成しても宜しいですか？");
-						if( result ) {
-							var checkValue = '7';
-							txtData = document.area;
-							answer = txtData[0].value;
-							branch = txtData[3].value;
-							kmcode = txtData[4].value;
-							bumon = txtData[5].value;
-							pname = txtData[6].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-							offer = txtData[7].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-							skcode = txtData[8].value.replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});;
-							comment = txtData[9].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-											kikakai = '';
-											pcode = '';
-											insday = '';
-											instime = '';
-											delfox = "0";
-							address = 'tos_oka2@palcoop.or.jp';
-							subject = '店舗の声';
-							body = '{"body":{"answer":"'+answer+
-									'","branch":"'+branch+
-									'","kmcode":"'+kmcode+
-									'","bumon":"'+bumon+
-									'","corres":"'+checkValue+
-									'","pname":"'+pname+
-									'","offer":"'+offer+
-									'","skcode":"'+skcode+
-									'","comment":"'+comment+
-									'","kikakai":"'+kikakai+
-									'","pcode":"'+pcode+
-									'","insday":"'+insday+
-									'","instime":"'+instime+
-									'","delfox":"'+delfox+
-										'"}}';
-							location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
+					let str6 = document.getElementById("offer2").value.replace(regex, '');
+					if(str6.length === 0){
+						alert("内容は必須です\nお書きください")
+					}else{
+						let str2 = document.getElementById("skcode").value.replace(regex, '');
+						if(str2.length === 0){
+							alert("職員コードは必須です\nお書きください")
+						}else if(isNaN(str2)){
+							alert("組合員コードの欄に数字以外の字が入力されています。")
+						}else if(str2.length !== 6){
+							alert("組合員コードは6文字です")
+						}else{
+							var bucd = document.getElementById("bumon").value
+							var bunm = null;
+							if(bucd == 1){
+								bunm = '農産'
+								}else if(bucd == 2){
+									bunm = '水産'
+									}else if(bucd == 3){
+										bunm = '畜産'
+										}else if(bucd == 4){
+											bunm = '和日配'
+											}else if(bucd == 5){
+												bunm = '惣菜'
+												}else if(bucd == 6){
+													bunm = '洋日配'
+													}else if(bucd == 7){
+														bunm = '食品'
+														}else if(bucd == 8){
+															bunm = '菓子'
+															}else if(bucd == 9){
+																bunm = '米'
+																}else if(bucd == 10){
+																	bunm = '酒'
+																	}else if(bucd == 11){
+																		bunm = '住居関連'
+																		}else if(bucd == 12){
+																			bunm = 'その他'
+																		}
+						var success = window.confirm("\""+" "+"部門"+" "+"\""+"は"+"【 "+bunm+" 】"+"で間違えなかったですか？");
+							if(success){
+							 var result = window.confirm("メールを作成しても宜しいですか？");
+								if( result ) {
+									var checkValue = '7';
+									txtData = document.area;
+									answer = txtData[0].value;
+									branch = txtData[3].value;
+									kmcode = txtData[4].value;
+									bumon = txtData[5].value;
+									pname = txtData[6].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+									offer = txtData[7].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+									skcode = txtData[8].value.replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});;
+									comment = txtData[9].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+													kikakai = '';
+													pcode = '';
+													insday = '';
+													instime = '';
+													delfox = "0";
+									address = 'tos_oka2@palcoop.or.jp';
+									subject = '店舗の声';
+									body = '{"body":{"answer":"'+answer+
+											'","branch":"'+branch+
+											'","kmcode":"'+kmcode+
+											'","bumon":"'+bumon+
+											'","corres":"'+checkValue+
+											'","pname":"'+pname+
+											'","offer":"'+offer+
+											'","skcode":"'+skcode+
+											'","comment":"'+comment+
+											'","kikakai":"'+kikakai+
+											'","pcode":"'+pcode+
+											'","insday":"'+insday+
+											'","instime":"'+instime+
+											'","delfox":"'+delfox+
+												'"}}';
+									location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
+								}
+							}
 						}
-}
-}
 					}
 				}
-	count = 0;
+		count = 0;
 	}
    }
 });
