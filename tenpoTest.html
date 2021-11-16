@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<!-- Latest compiled and minified CSS -->
+<link
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+	crossorigin="anonymous">
+<link rel="apple-touch-icon" href="https://kasi-pro.github.io/kumi/favicon.ico" sizes="180x180">
+<style>
+body {
+	font-family:"ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+	font-weight: bolder
+	line-height:25px;
+	font-size:1.2em;
+}
+
+textarea {
+	width: 100%;
+}
+
+#sendFrom {
+	margin: 15px auto;
+	width: 100%;
+	height: 100px;
+	border: solid 1px black;
+	background-color: #ddd;
+	line-height: 100px;
+	text-align: center;
+}
+
+.nontext {
+	border: none;
+	width: 130px;
+	background: white;
+	opacity: 0;
+}
+
+.required::after {
+	content: "必須";
+	background-color: #f0ad4e;
+	color: #fff;
+	font-size: 12px;
+	font-weight: bold;
+	min-width: 10px;
+	padding: 3px 7px;
+	margin: 0px 5px;
+	line-height: 1;
+	vertical-align: middle;
+	white-space: nowrap;
+	text-align: center;
+	border-radius: 10px;
+	display: inline-block;
+}
+label ~ label {
+	margin-left: 30px;
+}
+
+</style>
+</head>
+<body>
+	<div class="container">
+		<div class="navbar">
+			<h1>店舗声フォーム</h1>
+		</div>
+		<form id="area" name="area">
+			<div class="form-row">
+				<label class="col-sm-3 col-form-label" for="answer2">①回答：</label>
+				<div class="col-sm-9">
+					<p>
+						<select class="custom-select w-25" id="answer2">
+							<option value="0" selected>要</option>
+							<option value="1">不要</option>
+						</select> <span><input type="text" class="nontext" disabled></span>
+						<span><input type="button" class="btn btn-info" value="リセット" onclick="reload()"></span>
+					</p>
+				</div>
+			</div>
+			<div class="form-row">
+				<label class="col-sm-3 col-form-label" for="branch2">②店舗：</label>
+				<div class="col-sm-9">
+					<p>
+						<select class="custom-select w-50" id="branch2" name="branch2" onchange="rekeep()">
+							<option value="151">ながお店</option>
+							<option value="152">西くずは店</option>
+							<option value="153">星ヶ丘店</option>
+							<option value="154">枚方公園店</option>
+							<option value="155">忍ヶ丘店</option>
+							<option value="351">粉浜店</option>
+							<option value="451">東都島店</option>
+							<option value="452">東中浜店</option>
+							<option value="453">つるみ店</option>
+						</select>
+					</p>
+				</div>
+			</div>
+			<div class="col-sm-9">
+				<p>
+				  <input type="hidden" id="kmcode" value="77777777">
+				</p>
+			</div>
+			<div class="form-row">
+				<label class="col-sm-3 col-form-label required"" for="bumon">③部門：</label>
+				<div class="col-sm-9">
+					<p>
+						<select class="custom-select w-50" id="bumon" name="bumon">
+							<option value="1">農産</option>
+							<option value="2">水産</option>
+							<option value="3">畜産</option>
+							<option value="4">和日配</option>
+							<option value="5">惣菜</option>
+							<option value="6">洋日配</option>
+							<option value="7">食品</option>
+							<option value="8">菓子</option>
+							<option value="9"> 米</option>
+							<option value="10">酒</option>
+							<option value="11">住居関連</option>
+							<option value="12">その他</option>
+						</select>
+					</p>
+				</div>
+			</div>
+			<div class="form-row">
+				<label class="col-sm-3 col-form-label required">④要旨・商品名：</label>
+				<div class="col-sm-9">
+					<p>
+					  <input type="text" id="pname2" class="form-control" placeholder="要旨・商品名">
+					</p>
+				</div>
+			</div>
+			<div class="form-row">
+				<label class="col-sm-3 col-form-label required">⑤お申し出内容：</label>
+				<div class="col-sm-9">
+					<p>
+					  <textarea id="offer2" rows="4" cols="34" placeholder="お申し出内容"></textarea>
+					</p>
+				</div>
+			</div>
+			<div class="form-row">
+				<label class="col-sm-3 col-form-label required">⑥職員コード：</label>
+				<div class="col-sm-9">
+					<p>
+						<input type="tel" id="skcode" class="form-control" maxlength='6' placeholder="職員コード">
+					</p>
+				</div>
+			</div>
+			<div class="form-row">
+				<label class="col-sm-3 col-form-label">⑦職員のコメント：</label>
+				<div class="col-sm-9">
+					<p>
+					  <textarea id="comment2" rows="4" cols="34" placeholder="職員のコメント"></textarea>
+					</p>
+				</div>
+			</div>
+		</form>
+		<input type="button" id="sendFrom" value="メール作成"><br> <br>
+	</div>
+</body>
+<script>
+function rekeep(){
+    var text = document.getElementById("branch2").value;
+    localStorage.setItem('memo', text);
+    alert('店舗の変更を保存しました。');
+}
+
+window.onload=function(){
+	var txt = localStorage.getItem('memo');
+       	var f=document.getElementById("area");
+	checkSelect(f.elements["branch2"],txt);
+}
+
+function checkSelect(obj,val){
+	for(var i=0;i<obj.length;i++){
+		if(obj[i].value==val){
+			obj[i].selected=true;
+			break;
+		}
+	 }
+}
+
+function reload() {
+	var result = confirm('本当に入力内容を削除してもよろしいですか？');
+		if(result) {
+			location.reload();
+		}
+}
+
+var regex = /(?:[\u2700-\u27bf]|(?:\ud83c[\udde6-\uddff]){2}|[\ud800-\udbff][\udc00-\udfff]|[\u0023-\u0039]\ufe0f?\u20e3|\u3299|\u3297|\u303d|\u3030|\u24c2|\ud83c[\udd70-\udd71]|\ud83c[\udd7e-\udd7f]|\ud83c\udd8e|\ud83c[\udd91-\udd9a]|\ud83c[\udde6-\uddff]|[\ud83c[\ude01\uddff]|\ud83c[\ude01-\ude02]|\ud83c\ude1a|\ud83c\ude2f|[\ud83c[\ude32\ude02]|\ud83c\ude1a|\ud83c\ude2f|\ud83c[\ude32-\ude3a]|[\ud83c[\ude50\ude3a]|\ud83c[\ude50-\ude51]|\u203c|\u2049|[\u25aa-\u25ab]|\u25b6|\u25c0|[\u25fb-\u25fe]|\u00a9|\u00ae|\u2122|\u2139|\ud83c\udc04|[\u2600-\u26FF]|\u2b05|\u2b06|\u2b07|\u2b1b|\u2b1c|\u2b50|\u2b55|\u231a|\u231b|\u2328|\u23cf|[\u23e9-\u23f3]|[\u23f8-\u23fa]|\ud83c\udccf|\u2934|\u2935|[\u2190-\u21ff])/g;
+let count = 0;
+let timer;
+const ua = navigator.userAgent.toLowerCase();
+const isSP = /iphone|ipod|ipad|android/.test(ua);
+const b = document.getElementById('sendFrom');
+const eventStart = isSP ? 'touchstart' : 'mousedown';
+const eventEnd   = isSP ? 'touchend' : 'mouseup';
+const eventLeave = isSP ? 'touchmove' : 'mouseleave';
+
+b.addEventListener(eventStart, e => {
+  e.preventDefault();
+  b.classList.add('active');
+  timer = setInterval(() => {
+    count++;
+  }, 10);
+})
+
+b.addEventListener(eventEnd, e => {
+  e.preventDefault();
+  if (count) {
+    b.classList.remove('active');
+    clearInterval(timer);
+    let second = (count / 100);
+	if(second > 0.0 && second < 0.6){
+			let str = document.getElementById("pname2").value.replace(regex, '');
+				if(str.length === 0){
+					alert("要旨は必須です\nお書きください")
+				}else{
+					let str6 = document.getElementById("offer2").value.replace(regex, '');
+					if(str6.length === 0){
+						alert("内容は必須です\nお書きください")
+					}else{
+						let str2 = document.getElementById("skcode").value.replace(regex, '');
+						if(str2.length === 0){
+							alert("職員コードは必須です\nお書きください")
+						}else if(isNaN(str2)){
+							alert("組合員コードの欄に数字以外の字が入力されています。")
+						}else if(str2.length !== 6){
+							alert("組合員コードは6文字です")
+						}else{
+							var bucd = document.getElementById("bumon").value
+							var bunm = null;
+							if(bucd == 1){
+								bunm = '農産'
+								}else if(bucd == 2){
+									bunm = '水産'
+									}else if(bucd == 3){
+										bunm = '畜産'
+										}else if(bucd == 4){
+											bunm = '和日配'
+											}else if(bucd == 5){
+												bunm = '惣菜'
+												}else if(bucd == 6){
+													bunm = '洋日配'
+													}else if(bucd == 7){
+														bunm = '食品'
+														}else if(bucd == 8){
+															bunm = '菓子'
+															}else if(bucd == 9){
+																bunm = '米'
+																}else if(bucd == 10){
+																	bunm = '酒'
+																	}else if(bucd == 11){
+																		bunm = '住居関連'
+																		}else if(bucd == 12){
+																			bunm = 'その他'
+																		}
+						var success = window.confirm("\""+" "+"部門"+" "+"\""+"は"+"【 "+bunm+" 】"+"で間違えなかったですか？");
+							if(success){
+							 var result = window.confirm("メールを作成しても宜しいですか？");
+								if( result ) {
+									var checkValue = '7';
+									txtData = document.area;
+									answer = txtData[0].value;
+									branch = txtData[3].value;
+									kmcode = txtData[4].value;
+									bumon = txtData[5].value;
+									pname = txtData[6].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+									offer = txtData[7].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+									skcode = txtData[8].value.replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});;
+									comment = txtData[9].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+													kikakai = '';
+													pcode = '';
+													insday = '';
+													instime = '';
+													delfox = "0";
+									address = 'kumikoeTest@palcoop.or.jp';
+									subject = '店舗の声';
+									body = '{"body":{"answer":"'+answer+
+											'","branch":"'+branch+
+											'","kmcode":"'+kmcode+
+											'","bumon":"'+bumon+
+											'","corres":"'+checkValue+
+											'","pname":"'+pname+
+											'","offer":"'+offer+
+											'","skcode":"'+skcode+
+											'","comment":"'+comment+
+											'","kikakai":"'+kikakai+
+											'","pcode":"'+pcode+
+											'","insday":"'+insday+
+											'","instime":"'+instime+
+											'","delfox":"'+delfox+
+												'"}}';
+									location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
+								}
+							}
+						}
+					}
+				}
+		count = 0;
+	}
+   }
+});
+
+b.addEventListener(eventLeave, e => {
+e.preventDefault();
+let el;
+el = isSP ? document.elementFromPoint(e.touches[0].clientX, e.touches[0].clientY) : b;
+	if (!isSP || el !== b) {
+	b.classList.remove('active');
+	clearInterval(timer);
+	 e.preventDefault();
+	count = 0;
+	}
+});
+</script>
+</html>
