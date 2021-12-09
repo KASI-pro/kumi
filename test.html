@@ -642,6 +642,8 @@ function reload() {
 					if(str6.length === 0){
 						alert("内容は必須です\nお書きください")
 					}else{
+						var success = window.confirm("間違えなかったですか？");
+							if(success){
 						 var result = window.confirm("メールを作成しても宜しいですか？");
 							if( result ) {
 								var elements = document.getElementsByName('corres');
@@ -682,6 +684,7 @@ function reload() {
 								location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
 							} else {
 						  	}
+						}
 					}
 			}else{
 			let str2 = document.getElementById("kmcode").value; // 組合員コードチェック
@@ -718,6 +721,8 @@ function reload() {
 														let str13= document.getElementById("kai").value; // 回
 														let kikanm = str11+str12+str13;
 												if(kikanm.length === 0 || kikanm.length === 7){
+													var success = window.confirm("回答："不要" で間違えなかったですか？");
+													if(success){
 														var result = window.confirm("メールを作成しても宜しいですか？");
 															if( result ) {
 																var toDoubleDigits = function(num) {
@@ -768,6 +773,7 @@ function reload() {
 																location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
 															} else {
 															}
+														}
 														}else{
 															var emsg;
 															if(str11.length === 0 && str12.length !== 0 && str13.length !== 0){
