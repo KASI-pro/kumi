@@ -644,7 +644,7 @@ function reload() {
 					}else{
 						let kaitou2 = document.getElementById("answer2").value; // 回答チェック
 						if(kaitou2 == 1){
-						var success = window.confirm("間違えなかったですか？");
+						var success = window.confirm("回答:【 不要 】\nで、お間違えないでしょうか？");
 							if(success){
 						 var result = window.confirm("メールを作成しても宜しいですか？");
 							if( result ) {
@@ -688,7 +688,7 @@ function reload() {
 						  	}
 						}
 						}else{
-							 var result = window.confirm("回答:【 不要 】\nでお間違えないでしょうか？");
+							 var result = window.confirm("メールを作成しても宜しいですか？");
 								if( result ) {
 									var elements = document.getElementsByName('corres');
 									var len = elements.length;
@@ -767,7 +767,7 @@ function reload() {
 												if(kikanm.length === 0 || kikanm.length === 7){
 													let kaitou = document.getElementById("answer").value; // 回答チェック
 													if(kaitou == 1){
-														var success = window.confirm("回答:【 不要 】\nでお間違えないでしょうか？");
+														var success = window.confirm("回答:【 不要 】\nで、お間違えないでしょうか？");
 														if(success){
 															var result = window.confirm("メールを作成しても宜しいですか？");
 																if( result ) {
