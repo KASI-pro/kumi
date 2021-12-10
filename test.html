@@ -642,6 +642,8 @@ function reload() {
 					if(str6.length === 0){
 						alert("内容は必須です\nお書きください")
 					}else{
+						let kaitou2 = document.getElementById("answer2").value; // 回答チェック
+						if(kaitou2 == 1){
 						var success = window.confirm("間違えなかったですか？");
 							if(success){
 						 var result = window.confirm("メールを作成しても宜しいですか？");
@@ -685,6 +687,48 @@ function reload() {
 							} else {
 						  	}
 						}
+						}else{
+							 var result = window.confirm("回答:【 不要 】\nで間違えなかったでしょうか？");
+								if( result ) {
+									var elements = document.getElementsByName('corres');
+									var len = elements.length;
+									var checkValue = '';
+										for (let i = 0; i < len; i++){
+											if (elements.item(i).checked){
+												checkValue = elements.item(i).value;
+											}
+										}
+									txtData = document.area;
+									answer = txtData[0].value;
+									branch = txtData[3].value;
+									kmcode = txtData[4].value;
+									pname = txtData[5].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+									offer = txtData[6].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+									comment = txtData[7].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+													kikakai = '';
+													pcode = '';
+													insday = '';
+													instime = '';
+													delfox = "0";
+									address = 'kumikoeTest@palcoop.or.jp';
+									subject = '地域の声';
+									body = '{"body":{"answer":"'+answer+
+											'","branch":"'+branch+
+											'","kmcode":"'+kmcode+
+											'","corres":"'+checkValue+
+											'","pname":"'+pname+
+											'","offer":"'+offer+
+											'","comment":"'+comment+
+											'","kikakai":"'+kikakai+
+											'","pcode":"'+pcode+
+											'","insday":"'+insday+
+											'","instime":"'+instime+
+											'","delfox":"'+delfox+
+												'"}}';
+									location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
+								} else {
+							  	}
+						}
 					}
 			}else{
 			let str2 = document.getElementById("kmcode").value; // 組合員コードチェック
@@ -721,9 +765,63 @@ function reload() {
 														let str13= document.getElementById("kai").value; // 回
 														let kikanm = str11+str12+str13;
 												if(kikanm.length === 0 || kikanm.length === 7){
-													var success = window.confirm("回答:【 不要 】で間違えなかったでしょうか？");
-													if(success){
-														var result = window.confirm("メールを作成しても宜しいですか？");
+													let kaitou = document.getElementById("answer").value; // 回答チェック
+													if(kaitou == 1){
+														var success = window.confirm("回答:【 不要 】\nで間違えなかったでしょうか？");
+														if(success){
+															var result = window.confirm("メールを作成しても宜しいですか？");
+																if( result ) {
+																	var toDoubleDigits = function(num) {
+																	  num += "";
+																	  if (num.length === 1) {
+																	    num = "0" + num;
+																	  }
+																	 return num;
+																	};
+																	var elements = document.getElementsByName('corres');
+																	var time1 =  document.getElementById('kikaku-year').value;
+																	var time2 =  toDoubleDigits(document.getElementById('kikaku-month').value);
+																	var time3 = document.getElementById('kai').value;
+																	var len = elements.length;
+																	var checkValue = '';
+																		for (let i = 0; i < len; i++){
+																			if (elements.item(i).checked){
+																				checkValue = elements.item(i).value;
+																			}
+																		}
+																	txtData = document.content;
+																	answer = txtData[0].value;
+																	branch = txtData[3].value;
+																	kmcode = txtData[4].value;
+																	kikakai = time1+time2+time3;
+																	pcode = txtData[11].value;
+																	pname = txtData[12].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+																	offer = txtData[13].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+																	comment = txtData[14].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+																	insday = '';
+																	instime = '';
+																	delfox = "0";
+																	address = 'kumikoeTest@palcoop.or.jp';
+																	subject = '組合員の声';
+																	body = '{"body":{"answer":"'+answer+
+																			'","branch":"'+branch+
+																			'","kmcode":"'+kmcode+
+																			'","corres":"'+checkValue+
+																			'","kikakai":"'+kikakai+
+																			'","pcode":"'+pcode+
+																			'","pname":"'+pname+
+																			'","offer":"'+offer+
+																			'","comment":"'+comment+
+																			'","insday":"'+insday+
+																			'","instime":"'+instime+
+																			'","delfox":"'+delfox+
+																			'"}}';
+																	location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
+																} else {
+																}
+															}
+														}else{
+															var result = window.confirm("メールを作成しても宜しいですか？");
 															if( result ) {
 																var toDoubleDigits = function(num) {
 																  num += "";
