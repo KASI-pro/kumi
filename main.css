@@ -17,12 +17,6 @@ th {
   padding: 0 8px;
   line-height: 40px;
 }
-thead th.id {
-  width: 50px;
-}
-thead th.state {
-  width: 100px;
-}
 thead th.button {
   width: 60px;
 }
