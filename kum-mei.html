@@ -345,7 +345,7 @@ var KC = getParam('kumcd').replaceAll('\"','').replace(/\s+$/,"").replace(/^\s+/
 	var K = getParam('kname').replaceAll('\"','').replace(/\s+$/,"").replace(/^\s+/,"");
 	var C = getParam('cyumoncd').replaceAll('\"','').replace(/\s+$/,"").replace(/^\s+/,"");
 	var SN = getParam('syohinnm').replaceAll('\"','').replace(/\s+$/,"").replace(/^\s+/,"").substr( 0, 11 );
-	// var KG = getParam('kingaku').replaceAll('\"','').replace(/\s+$/,"").replace(/^\s+/,"");
+	var SNL = getParam('syohinnm').replaceAll('\"','').replace(/\s+$/,"").replace(/^\s+/,"");
 	var KK = getParam('kikaku').replaceAll('\"','').replace(/\s+$/,"").replace(/^\s+/,"");
 	// 企画回分割
 	var nen = KK.slice(0, 4);
@@ -362,7 +362,7 @@ var KC = getParam('kumcd').replaceAll('\"','').replace(/\s+$/,"").replace(/^\s+/
 	document.getElementById("hkikaku").value = KK;
 	document.getElementById("hkumcd").value = KC;
 	document.getElementById("hpcode").value = C;
-	document.getElementById("hpname").value = SN;
+	document.getElementById("hpname").value = SNL;
 	document.getElementById("hjigcd").value = JG;
 }
 
