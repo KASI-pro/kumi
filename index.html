@@ -642,52 +642,14 @@ function reload() {
 					if(str6.length === 0){
 						alert("内容は必須です\nお書きください")
 					}else{
-						let kaitou2 = document.getElementById("answer2").value; // 回答チェック
-						if(kaitou2 == 1){
-						var success = window.confirm("回答:【 不要 】\nで、お間違いないでしょうか？");
-							if(success){
-						 var result = window.confirm("メールを作成しても宜しいですか？");
-							if( result ) {
-								var elements = document.getElementsByName('corres');
-								var len = elements.length;
-								var checkValue = '';
-									for (let i = 0; i < len; i++){
-										if (elements.item(i).checked){
-											checkValue = elements.item(i).value;
-										}
-									}
-								txtData = document.area;
-								answer = txtData[0].value;
-								branch = txtData[3].value;
-								kmcode = txtData[4].value;
-								pname = txtData[5].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-								offer = txtData[6].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-								comment = txtData[7].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-												kikakai = '';
-												pcode = '';
-												insday = '';
-												instime = '';
-												delfox = "0";
-								address = 'tos_oka2@palcoop.or.jp';
-								subject = '地域の声';
-								body = '{"body":{"answer":"'+answer+
-										'","branch":"'+branch+
-										'","kmcode":"'+kmcode+
-										'","corres":"'+checkValue+
-										'","pname":"'+pname+
-										'","offer":"'+offer+
-										'","comment":"'+comment+
-										'","kikakai":"'+kikakai+
-										'","pcode":"'+pcode+
-										'","insday":"'+insday+
-										'","instime":"'+instime+
-										'","delfox":"'+delfox+
-											'"}}';
-								location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
-							} else {
-						  	}
-						}
+						let str7 = document.getElementById("pname2").value.replace(regex, ''); // 商品名チェック
+						if(str7.length === 0){
+							alert("商品名は必須です\nお書きください")
 						}else{
+							let kaitou2 = document.getElementById("answer2").value; // 回答チェック
+							if(kaitou2 == 1){
+							var success = window.confirm("回答:【 不要 】\nで、お間違いないでしょうか？");
+								if(success){
 							 var result = window.confirm("メールを作成しても宜しいですか？");
 								if( result ) {
 									var elements = document.getElementsByName('corres');
@@ -728,6 +690,49 @@ function reload() {
 									location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
 								} else {
 							  	}
+							}
+							}else{
+								 var result = window.confirm("メールを作成しても宜しいですか？");
+									if( result ) {
+										var elements = document.getElementsByName('corres');
+										var len = elements.length;
+										var checkValue = '';
+											for (let i = 0; i < len; i++){
+												if (elements.item(i).checked){
+													checkValue = elements.item(i).value;
+												}
+											}
+										txtData = document.area;
+										answer = txtData[0].value;
+										branch = txtData[3].value;
+										kmcode = txtData[4].value;
+										pname = txtData[5].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+										offer = txtData[6].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+										comment = txtData[7].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+														kikakai = '';
+														pcode = '';
+														insday = '';
+														instime = '';
+														delfox = "0";
+										address = 'tos_oka2@palcoop.or.jp';
+										subject = '地域の声';
+										body = '{"body":{"answer":"'+answer+
+												'","branch":"'+branch+
+												'","kmcode":"'+kmcode+
+												'","corres":"'+checkValue+
+												'","pname":"'+pname+
+												'","offer":"'+offer+
+												'","comment":"'+comment+
+												'","kikakai":"'+kikakai+
+												'","pcode":"'+pcode+
+												'","insday":"'+insday+
+												'","instime":"'+instime+
+												'","delfox":"'+delfox+
+													'"}}';
+										location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
+									} else {
+								  	}
+							}
 						}
 					}
 			}else{
