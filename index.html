@@ -801,7 +801,7 @@ function reload() {
 																	branch = txtData[3].value;
 																	kmcode = txtData[4].value;
 																	kikakai = time1+time2+time3;
-																	pcode = txtData[11].value;
+																	pcode = txtData[11].value.replace(/ /g, '');
 																	pname = txtData[12].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 																	offer = txtData[13].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 																	comment = txtData[14].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
@@ -853,7 +853,7 @@ function reload() {
 																branch = txtData[3].value;
 																kmcode = txtData[4].value;
 																kikakai = time1+time2+time3;
-																pcode = txtData[11].value;
+																pcode = txtData[11].value.replace(/ /g, '');
 																pname = txtData[12].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 																offer = txtData[13].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 																comment = txtData[14].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
