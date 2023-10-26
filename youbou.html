@@ -270,14 +270,8 @@ height:20px
 <!-- モーダルエリアここまで -->
 <br>
 <label for="upload">現物を写真で撮影する</label>
-<input
-  id="fileElem"
-  name="fileElem"
-　type="file"
-  accept="image/*"
-  capture="camera"
-  style="display:none">
-<button id="fileSelect" type="button">画像を選択</button>
+<input id="fileElem" name="fileElem" type="file" accept="image/*" capture="camera">
+
 <br><br>
 		<form id="content" name="content">
 			<div class="form-row">
@@ -463,16 +457,6 @@ function outsideClose(e) {
     modal.style.display = 'none';
   }
 }
-
-const fileSelect = document.getElementById("fileSelect");
-const fileElem = document.getElementById("fileElem");
-
-fileSelect.addEventListener("click", (e) => {
-// console.log('きた')
-  if (fileElem) {
-    fileElem.click();
-  }
-}, false);
 
  function keep(){
     var text = document.getElementById("branch").value;
