@@ -268,9 +268,9 @@ height:20px
     </div>
   </div>
 <!-- モーダルエリアここまで -->
-// <br>
-// <label for="upload">現物を写真で撮影する</label>
-// <input id="fileElem" name="fileElem" type="file" accept="image/*" capture="camera">
+ <br>
+ <label for="upload">現物を写真で撮影する</label>
+ <input id="fileElem" name="fileElem" type="file" accept="image/*" capture="camera">
 
 <br><br>
 		<form id="content" name="content">
@@ -362,8 +362,15 @@ height:20px
 				</div>
 			</div>
 			<div class="form-row">
-				<label class="col-sm-3 col-form-label required">⑦お申し出内容：</label>
+				<label class="col-sm-3 col-form-label required">⑦要望内容：</label>
 				<div class="col-sm-9">
+					<p>
+						代替商品のご提案：
+						<select class="custom-select w-50" id="ondo" name="ondo" onchange="">
+							<option value="0">要</option>
+							<option value="1" selected>不要</option>
+						</select>
+					</p>
 					<p>
 						温度帯：
 						<select class="custom-select w-50" id="ondo" name="ondo" onchange="">
@@ -410,15 +417,15 @@ height:20px
 						</select>
 					</p>
 					<p>
-						<textarea id="offer" rows="4" cols="34" placeholder="お申し出内容"></textarea>
+						<textarea id="offer" rows="4" cols="34" placeholder="要望内容"></textarea>
 					</p>
 				</div>
 			</div>
 			<div class="form-row">
-				<label class="col-sm-3 col-form-label">⑧担当者のコメント：</label>
+				<label class="col-sm-3 col-form-label">⑧補足：</label>
 				<div class="col-sm-9">
 					<p>
-						<textarea id="comment" rows="4" cols="34" placeholder="担当者のコメント"></textarea>
+						<textarea id="comment" rows="4" cols="34" placeholder="補足がある場合記入してください"></textarea>
 					</p>
 				</div>
 			</div>
