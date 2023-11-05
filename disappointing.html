@@ -5,6 +5,7 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <!-- Latest compiled and minified CSS -->
+
 <link
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -58,59 +59,6 @@ textarea {
 }
 label ~ label {
 	margin-left: 30px;
-}
-
-/* ベースのラジオボタン */
-.radio-btns input[type=radio] {
-  display: none;
-}
-
-.radio-btns label {
-  position: relative;
-  padding: 5px 15px 5px 50px;
-  display: inline-block;
-  color: #fff;
-  font-weight: bold;
-  background: #48d1cc;
-  letter-spacing: 0.1em;
-  border-radius: 10px;
-}
-
-.radio-btns input[type=radio]  + label::before,
-.radio-btns input[type=radio]  + label::after {
-  position: absolute;
-  content: '';
-  display: block;
-  left: 15px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-/* 下 */
-.radio-btns input[type=radio]  + label::before {
-  border-radius: 30px;
-}
-
-.radio-btns input[type=radio]  + label::after {
-  height: 15px;
-  width: 15px;
-  background: #fff;
-  border-radius: 15px;
-  transition: .1s;
-}
-
-.radio-btns input[type=radio]:checked + label::after {
-  left: 30px;
-  background: #ffa500;
-}
-
-.radio-btns input[type=radio]:checked + label {
-  background: #005580;
-}
-.input-group,
-.input-group__control,
-.input-group__addon {
-  box-sizing:border-box;
 }
 
 .input-group {
@@ -237,45 +185,113 @@ height:20px
     background-color: rgba(55 190 176 / 25%);
     width: 100%;
 }
+
+.modal-container {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.5);
+  overflow: auto;
+  opacity: 0;
+  visibility: hidden;
+  transition: .3s ease-out;
+  z-index: 9;
+}
+ 
+.modal-container::before {
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  height: 100%;
+}
+ 
+.modal-container.active {
+  opacity: 1;
+  visibility: visible;
+}
+ 
+.modal-body {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  max-width: 500px;
+  width: 90%;
+}
+ 
+.modal-close {
+  position: absolute;
+  top: -30px;
+  right: 0;
+  font-size: 14px;
+  color: #fff;
+  background: rgba(0,0,0,60%);
+  padding: 4px 15px;
+  cursor: pointer;
+  border-radius: 5px 5px 0 0;
+}
+ 
+.modal-content {
+  background: #fff;
+  border: 2px solid #000;
+  text-align: left;
+  padding: 30px;
+  font-weight: bold;
+}
 .btn_item {
   display: inline-block;
   padding: 10px 20px;
   text-decoration: none;
-  color: #fff;
   border-radius: 5px;
+  color: #fff;
   /* border-radius: 5px; 角の丸みのデザイン */
 }
 .btn_color1{
-  background: #808080;
+  background: #ffa500;
 }
 .btn_color2{
   background: #008000;
 }
 .btn_color3{
-  background: #00bfff;
+  background: #808080;
 }
 </style>
 </head>
 <body>
 	<div class="container">
 		<div class="navbar">
-			<h1>組声フォーム</h1>
+			<h1>がっかりフォーム</h1>
 		</div><br>
 <div>
-<a Class="btn_item btn_color1" href="./youbou.html">よかった</a>
+<a Class="btn_item btn_color1" href="./kumikoe.html">よかった</a>
 <a Class="btn_item btn_color2" href="./youbou.html">企画要望</a>
 <a Class="btn_item btn_color3" href="./disappointing.html">がっかり</a>
 		</div>
-		<div>
+	<br>
+<!-- モーダルエリアここから -->
+  <div id="easyModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1>≪ ご注意 ≫</h1>
+      </div>
+      <div class="modal-body">
+        <p>情報があいまい、少ないなどの場合</p>
+        <p>ご提案ができない場合があります。</p>
+      </div>
+<div>
+ <span class="sendFrom">はい</span>
+ <span class="modalClose" style="padding-left:65%">いいえ</span>
+</div>
+    </div>
+  </div>
+<!-- モーダルエリアここまで -->
+ <br>
+ <label for="upload">現物を写真で撮影する</label>
+ <input id="fileElem" name="fileElem" type="file" accept="image/*" capture="camera">
 
-			<br><p>＜提出様式＞</p>
-			<p class="radio-btns">
-			  <input type="radio" id="kumi" name="corres" value="0" onclick="formSwitch('#ffffff')" checked><label for="kumi"><span>組声</span></label>
-			  <input type="radio" id="tiiki" name="corres" value="1" onclick="formSwitch('#aecdd2')"><label for="tiiki">地域の声</label>
-			</p>
-		</div>
-
-
+<br><br>
 		<form id="content" name="content">
 			<div class="form-row">
 				<label class="col-sm-3 col-form-label">①回答：</label>
@@ -346,7 +362,6 @@ height:20px
 						    </label>
 						<input type="hidden" id="non-kikakunm">
 					</span></div>
-					</p>
 				</div>
 			</div>
 			<div class="form-row">
@@ -366,15 +381,67 @@ height:20px
 				</div>
 			</div>
 			<div class="form-row">
-				<label class="col-sm-3 col-form-label required">⑦お申し出内容：</label>
+				<label class="col-sm-3 col-form-label required">⑦要望内容：</label>
 				<div class="col-sm-9">
 					<p>
-						<textarea id="offer" rows="4" cols="34" placeholder="お申し出内容"></textarea>
+						代替商品のご提案：
+						<select class="custom-select w-50" id="ondo1" name="ondo1" onchange="">
+							<option value="0">要</option>
+							<option value="1" selected>不要</option>
+						</select>
+					</p>
+					<p>
+						温度帯：
+						<select class="custom-select w-50" id="ondo2" name="ond2o" onchange="">
+							<option value="0">選択できます</option>
+							<option value="1">常温</option>
+							<option value="2">冷蔵</option>
+							<option value="3">冷凍</option>
+						</select>
+					</p>
+					<p>
+						種類　：
+						<select class="custom-select w-50" id="ondo3" name="ondo3" onchange="">
+							<option value="0">選択できます</option>
+							<option value="1">野菜</option>
+							<option value="2">魚</option>
+							<option value="3">肉</option>
+							<option value="4">調味料</option>
+							<option value="5>惣菜</option>
+							<option value="6">冷凍食品</option>
+							<option value="7">インスタント食品</option>
+							<option value="8">お米</option>
+							<option value="9">お菓子</option>
+							<option value="10">飲料</option>
+							<option value="11">お酒</option>
+							<option value="12">雑貨</option>
+							<option value="13">化粧品</option>
+							<option value="14">スクロール</option>
+							<option value="15">くらしと生協</option>
+							<option value="15">その他</option>
+						</select>
+					</p>
+					<p>
+						サイズ：
+						<select class="custom-select w-50" id="ondo4" name="ondo4" onchange="">
+							<option value="0">選択できます</option>
+							<option value="1">大きい（形）</option>
+							<option value="2">標準（形）</option>
+							<option value="3">小さい（形）</option>
+							<option value="4">長い（形）</option>
+							<option value="5">短い（形）</option>
+							<option value="6">多い（量）</option>
+							<option value="7">標準（量）</option>
+							<option value="8">少ない（量）</option>
+						</select>
+					</p>
+					<p>
+						<textarea id="offer" rows="4" cols="34" placeholder="要望内容"></textarea>
 					</p>
 				</div>
 			</div>
 			<div class="form-row">
-				<label class="col-sm-3 col-form-label">⑧担当者のコメント：</label>
+				<label class="col-sm-3 col-form-label">⑧補足：</label>
 				<div class="col-sm-9">
 					<p>
 						<textarea id="comment" rows="4" cols="34" placeholder="補足がある場合記入してください"></textarea>
@@ -382,80 +449,41 @@ height:20px
 				</div>
 			</div>
 		</form>
-		<form id="area" name="area">
-			<div class="form-row">
-				<label class="col-sm-3 col-form-label">①回答：</label>
-				<div class="col-sm-9">
-					<p>
-						<select class="custom-select w-25" id="answer2">
-							<option value="0">要</option>
-							<option value="1" selected>不要</option>
-						</select> <span><input type="text" class="nontext" disabled></span>
-						<span><input type="button" class="btn btn-info" value="リセット" onclick="reload()"></span>
-					</p>
-				</div>
-			</div>
-			<div class="form-row">
-				<label class="col-sm-3 col-form-label">②支所：</label>
-				<div class="col-sm-9">
-					<p>
-						<select class="custom-select w-50" id="branch2" name="branch2" onchange="rekeep()">
-							<option value="101">枚方支所</option>
-							<option value="102">南寝屋川支所</option>
-							<option value="103">南寝屋川個配センター</option>
-							<option value="104">南枚方支所</option>
-							<option value="105">北枚方支所</option>
-							<option value="106">寝屋川支所</option>
-							<option value="107">門真支所</option>
-							<option value="108">樋之上支所</option>
-							<option value="301">港支所</option>
-							<option value="302">西成支所</option>
-							<option value="303">港個配センター</option>
-							<option value="304">生野支所</option>
-							<option value="305">南津守支所</option>
-							<option value="307">平野支所</option>
-							<option value="401">鶴見支所</option>
-							<option value="402">都島個配センター</option>
-                                                        <option value="403">安治川支所</option>
-							<option value="405">都島支所</option>
-						</select>
-					</p>
-				</div>
-			</div>
-			<div class="col-sm-9">
-				<p>
-				  <input type="hidden" id="kmcode" value="99999999">
-				</p>
-			</div>
-			<div class="form-row">
-				<label class="col-sm-3 col-form-label required">③要旨・商品名：</label>
-				<div class="col-sm-9">
-					<p>
-					  <input type="text" id="pname2" class="form-control" placeholder="要旨・商品名">
-					</p>
-				</div>
-			</div>
-			<div class="form-row">
-				<label class="col-sm-3 col-form-label required">④お申し出内容：</label>
-				<div class="col-sm-9">
-					<p>
-					  <textarea id="offer2" rows="4" cols="34" placeholder="お申し出内容"></textarea>
-					</p>
-				</div>
-			</div>
-			<div class="form-row">
-				<label class="col-sm-3 col-form-label">⑤担当者のコメント：</label>
-				<div class="col-sm-9">
-					<p>
-					  <textarea id="comment2" rows="4" cols="34" placeholder="担当者のコメント"></textarea>
-					</p>
-				</div>
-			</div>
-		</form>
-		<input type="button" id="sendFrom" value="メール作成"><br> <br>
+		<input type="button" id="modalOpen" value="メール作成"><br> <br>
+               <!-- <button id="" class="button">送信</button> -->
 	</div>
 </body>
+
 <script>
+
+const buttonOpen = document.getElementById('modalOpen');
+const buttonSend = document.getElementsByClassName('sendFrom')[0];
+const modal = document.getElementById('easyModal');
+const buttonClose = document.getElementsByClassName('modalClose')[0];
+
+
+// ボタンがクリックされた時
+buttonOpen.addEventListener('click', modalOpen);
+function modalOpen() {
+  modal.style.display = 'block';
+}
+
+// 「はい」印がクリックされた時
+buttonSend.addEventListener('click', modalClose);
+// 「いいえ」印がクリックされた時
+buttonClose.addEventListener('click', modalClose);
+function modalClose() {
+  modal.style.display = 'none';
+}
+
+// モーダルコンテンツ以外がクリックされた時
+addEventListener('click', outsideClose);
+function outsideClose(e) {
+  if (e.target == modal) {
+    modal.style.display = 'none';
+  }
+}
+
  function keep(){
     var text = document.getElementById("branch").value;
     localStorage.setItem('memo', text);
@@ -466,29 +494,6 @@ function rekeep(){
     localStorage.setItem('memo', text);
     alert('支所の変更を保存しました。');
 }
-
-function formSwitch(newColor) {
-        decided = document.getElementsByName('corres')
-        if (decided[0].checked) {
-            document.getElementById('content').style.display = "";
-            document.getElementById('area').style.display = "none";
-	    document.body.style.backgroundColor = newColor;
-	    var txt = localStorage.getItem('memo');
-            var f=document.getElementById("content");
-            checkSelect(f.elements["branch"],txt);
-        } else if (decided[1].checked) {
-            document.getElementById('content').style.display = "none";
-            document.getElementById('area').style.display = "";
-	    document.body.style.backgroundColor = newColor;
-            var txt = localStorage.getItem('memo');
-       	    var f=document.getElementById("area");
-            checkSelect(f.elements["branch2"],txt);
-        } else {
-            document.getElementById('content').style.display = "none";
-            document.getElementById('area').style.display = "none";
-        }
-    }
-    window.addEventListener('load', formSwitch());
 
 window.onload=function(){
 
@@ -638,12 +643,15 @@ function reload() {
 	let timer;
 	const ua = navigator.userAgent.toLowerCase();
 	const isSP = /iphone|ipod|ipad|android/.test(ua);
-	const b = document.getElementById('sendFrom');
+const b = document.getElementsByClassName('sendFrom')[0];
+	// const b = document.getElementById('sendFrom');
 	const eventStart = isSP ? 'touchstart' : 'mousedown';
 	const eventEnd   = isSP ? 'touchend' : 'mouseup';
 	const eventLeave = isSP ? 'touchmove' : 'mouseleave';
 
 	b.addEventListener(eventStart, e => {
+// console.log('クリック！')
+          modal.style.display = 'none';
 	  e.preventDefault();
 	  b.classList.add('active');
 	  timer = setInterval(() => {
@@ -657,114 +665,8 @@ function reload() {
 	    b.classList.remove('active');
 	    clearInterval(timer);
 	    let second = (count / 100);
-		var elements = document.getElementsByName('corres');
-		var len = elements.length;
-		var radioValue = '';
-		for (let i = 0; i < len; i++){
-			if (elements.item(i).checked){
-				radioValue = elements.item(i).value;
-			}
-		}
 		if(second > 0.0 && second < 0.6){
-			if(radioValue === '1'){
-				let str6 = document.getElementById("offer2").value.replace(regex, '');
-					if(str6.length === 0){
-						alert("内容は必須です\nお書きください")
-					}else{
-						let str7 = document.getElementById("pname2").value.replace(regex, ''); // 商品名チェック
-						if(str7.length === 0){
-							alert("商品名は必須です\nお書きください")
-						}else{
-							let kaitou2 = document.getElementById("answer2").value; // 回答チェック
-							if(kaitou2 == 1){
-							var success = window.confirm("回答:【 不要 】\nで、お間違いないでしょうか？");
-								if(success){
-							 var result = window.confirm("メールを作成しても宜しいですか？");
-								if( result ) {
-									var elements = document.getElementsByName('corres');
-									var len = elements.length;
-									var checkValue = '';
-										for (let i = 0; i < len; i++){
-											if (elements.item(i).checked){
-												checkValue = elements.item(i).value;
-											}
-										}
-									txtData = document.area;
-									answer = txtData[0].value;
-									branch = txtData[3].value;
-									kmcode = txtData[4].value;
-									pname = txtData[5].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-									offer = txtData[6].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-									comment = txtData[7].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-													kikakai = '';
-													pcode = '';
-													insday = '';
-													instime = '';
-													delfox = "0";
-									address = 'tos_oka2@palcoop.or.jp';
-									subject = '地域の声';
-									body = '{"body":{"answer":"'+answer+
-											'","branch":"'+branch+
-											'","kmcode":"'+kmcode+
-											'","corres":"'+checkValue+
-											'","pname":"'+pname+
-											'","offer":"'+offer+
-											'","comment":"'+comment+
-											'","kikakai":"'+kikakai+
-											'","pcode":"'+pcode+
-											'","insday":"'+insday+
-											'","instime":"'+instime+
-											'","delfox":"'+delfox+
-												'"}}';
-									location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
-								} else {
-							  	}
-							}
-							}else{
-								 var result = window.confirm("メールを作成しても宜しいですか？");
-									if( result ) {
-										var elements = document.getElementsByName('corres');
-										var len = elements.length;
-										var checkValue = '';
-											for (let i = 0; i < len; i++){
-												if (elements.item(i).checked){
-													checkValue = elements.item(i).value;
-												}
-											}
-										txtData = document.area;
-										answer = txtData[0].value;
-										branch = txtData[3].value;
-										kmcode = txtData[4].value;
-										pname = txtData[5].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-										offer = txtData[6].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-										comment = txtData[7].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-														kikakai = '';
-														pcode = '';
-														insday = '';
-														instime = '';
-														delfox = "0";
-										address = 'tos_oka2@palcoop.or.jp';
-										subject = '地域の声';
-										body = '{"body":{"answer":"'+answer+
-												'","branch":"'+branch+
-												'","kmcode":"'+kmcode+
-												'","corres":"'+checkValue+
-												'","pname":"'+pname+
-												'","offer":"'+offer+
-												'","comment":"'+comment+
-												'","kikakai":"'+kikakai+
-												'","pcode":"'+pcode+
-												'","insday":"'+insday+
-												'","instime":"'+instime+
-												'","delfox":"'+delfox+
-													'"}}';
-										location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
-									} else {
-								  	}
-							}
-						}
-					}
-			}else{
+
 			let str2 = document.getElementById("kmcode").value; // 組合員コードチェック
 					if(str2.length === 0){
 						alert("組合員コードは必須です。入力してください。")
@@ -812,17 +714,10 @@ function reload() {
 																	  }
 																	 return num;
 																	};
-																	var elements = document.getElementsByName('corres');
 																	var time1 =  document.getElementById('kikaku-year').value;
 																	var time2 =  toDoubleDigits(document.getElementById('kikaku-month').value);
 																	var time3 = document.getElementById('kai').value;
-																	var len = elements.length;
-																	var checkValue = '';
-																		for (let i = 0; i < len; i++){
-																			if (elements.item(i).checked){
-																				checkValue = elements.item(i).value;
-																			}
-																		}
+																	var checkValue = '0';
 																	txtData = document.content;
 																	answer = txtData[0].value;
 																	branch = txtData[3].value;
@@ -838,18 +733,18 @@ function reload() {
 																	address = 'tos_oka2@palcoop.or.jp';
 																	subject = '組合員の声';
 																	body = '{"body":{"answer":"'+answer+
-																			'","branch":"'+branch+
-																			'","kmcode":"'+kmcode+
-																			'","corres":"'+checkValue+
-																			'","kikakai":"'+kikakai+
-																			'","pcode":"'+pcode+
-																			'","pname":"'+pname+
-																			'","offer":"'+offer+
-																			'","comment":"'+comment+
-																			'","insday":"'+insday+
-																			'","instime":"'+instime+
-																			'","delfox":"'+delfox+
-																			'"}}';
+																	'","branch":"'+branch+
+																	'","kmcode":"'+kmcode+
+																	'","corres":"'+checkValue+
+																	'","kikakai":"'+kikakai+
+																	'","pcode":"'+pcode+
+																	'","pname":"'+pname+
+																	'","offer":"'+offer+
+																	'","comment":"'+comment+
+																	'","insday":"'+insday+
+																	'","instime":"'+instime+
+																	'","delfox":"'+delfox+
+																	'"}}';
 																	location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
 																} else {
 																}
@@ -864,17 +759,10 @@ function reload() {
 																  }
 																 return num;
 																};
-																var elements = document.getElementsByName('corres');
 																var time1 =  document.getElementById('kikaku-year').value;
 																var time2 =  toDoubleDigits(document.getElementById('kikaku-month').value);
 																var time3 = document.getElementById('kai').value;
-																var len = elements.length;
-																var checkValue = '';
-																	for (let i = 0; i < len; i++){
-																		if (elements.item(i).checked){
-																			checkValue = elements.item(i).value;
-																		}
-																	}
+																var checkValue = '0';
 																txtData = document.content;
 																answer = txtData[0].value;
 																branch = txtData[3].value;
@@ -927,7 +815,6 @@ function reload() {
 									}
 							}
 					}
-			}
 }
 		count = 0;
 		}
