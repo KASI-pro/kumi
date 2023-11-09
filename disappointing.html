@@ -383,48 +383,34 @@ height:20px
 				</div>
 			</div>
 			<div class="form-row">
-				<label class="col-sm-3 col-form-label required">⑦要望内容：</label>
+				<label class="col-sm-3 col-form-label required">⑦お申し出内容：</label>
 				<div class="col-sm-9">
 
 
 					<p>
-						種類 ：
 						<select class="custom-select w-50" id="ondo3" name="ondo3" onchange="myfunc(this.value)">
 							<option value="0">選択できます</option>
-							<option value="1">農産に関すること</option>
+							<option value="1">農産</option>
 							<option value="2">開発・独自商品</option>
 							<option value="3">その他食品</option>
 							<option value="4">雑貨商品</option>
 							<option value="5">商品以外</option>
 						</select>
+						に関すること
 					</p>
 
 					<p id="hidden2">
-						内容 ：
 						<select class="custom-select w-50" id="hidden1" name="hidden1">
 							<option value="1">傷み・腐り</option>
 							<option value="2">量目・サイズ</option>
 							<option value="3">食味（美味しくないなど）</option>
 							<option value="4">その他</option>
 						</select>
+						のこと
 					</p>
 
 					<p>
-						サイズ：
-						<select class="custom-select w-50" id="ondo4" name="ondo4" onchange="">
-							<option value="0">選択できます</option>
-							<option value="1">大きい（形）</option>
-							<option value="2">標準（形）</option>
-							<option value="3">小さい（形）</option>
-							<option value="4">長い（形）</option>
-							<option value="5">短い（形）</option>
-							<option value="6">多い（量）</option>
-							<option value="7">標準（量）</option>
-							<option value="8">少ない（量）</option>
-						</select>
-					</p>
-					<p>
-						<textarea id="offer" rows="4" cols="34" placeholder="要望内容"></textarea>
+						<textarea id="offer" rows="4" cols="34" placeholder="詳細"></textarea>
 					</p>
 				</div>
 			</div>
@@ -477,7 +463,6 @@ document.getElementById("hidden2").style.display ="none";
 function myfunc(value) {
   var check1 = document.getElementById("ondo3").value;
   var hidden1 = document.getElementById("hidden1");
-  console.log('check1 ----' + check1 )
   if(check1 == 1){
      hidden2.style.display ="block";
      }
