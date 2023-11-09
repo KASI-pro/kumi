@@ -200,19 +200,19 @@ height:20px
   transition: .3s ease-out;
   z-index: 9;
 }
- 
+
 .modal-container::before {
   content: "";
   display: inline-block;
   vertical-align: middle;
   height: 100%;
 }
- 
+
 .modal-container.active {
   opacity: 1;
   visibility: visible;
 }
- 
+
 .modal-body {
   position: relative;
   display: inline-block;
@@ -220,7 +220,7 @@ height:20px
   max-width: 500px;
   width: 90%;
 }
- 
+
 .modal-close {
   position: absolute;
   top: -30px;
@@ -232,7 +232,7 @@ height:20px
   cursor: pointer;
   border-radius: 5px 5px 0 0;
 }
- 
+
 .modal-content {
   background: #fff;
   border: 2px solid #000;
@@ -266,6 +266,7 @@ height:20px
 	<div class="container">
 		<div class="navbar">
 			<h1>組声フォーム</h1>
+			/*  がっかり */
 		</div><br>
 <div>
 <a Class="btn_item btn_color1" href="./kumikoe.html">よかった</a>
@@ -290,9 +291,6 @@ height:20px
     </div>
   </div>
 <!-- モーダルエリアここまで -->
- <br>
- <label for="upload">現物を写真で撮影する</label>
- <input id="fileElem" name="fileElem" type="file" accept="image/*" capture="camera">
 
 <br><br>
 		<form id="content" name="content">
@@ -326,6 +324,7 @@ height:20px
 							<option value="303">港個配センター</option>
 							<option value="304">生野支所</option>
 							<option value="305">南津守支所</option>
+							<option value="306">東住吉支所</option>
 							<option value="307">平野支所</option>
 							<option value="401">鶴見支所</option>
 							<option value="402">都島個配センター</option>
@@ -386,44 +385,30 @@ height:20px
 			<div class="form-row">
 				<label class="col-sm-3 col-form-label required">⑦要望内容：</label>
 				<div class="col-sm-9">
+
+
 					<p>
-						代替商品のご提案：
-						<select class="custom-select w-50" id="ondo1" name="ondo1" onchange="">
-							<option value="0">要</option>
-							<option value="1" selected>不要</option>
-						</select>
-					</p>
-					<p>
-						温度帯：
-						<select class="custom-select w-50" id="ondo2" name="ond2o" onchange="">
+						種類 ：
+						<select class="custom-select w-50" id="ondo3" name="ondo3" onchange="myfunc(this.value)">
 							<option value="0">選択できます</option>
-							<option value="1">常温</option>
-							<option value="2">冷蔵</option>
-							<option value="3">冷凍</option>
+							<option value="1">農産に関すること</option>
+							<option value="2">開発・独自商品</option>
+							<option value="3">その他食品</option>
+							<option value="4">雑貨商品</option>
+							<option value="5">商品以外</option>
 						</select>
 					</p>
-					<p>
-						種類　：
-						<select class="custom-select w-50" id="ondo3" name="ondo3" onchange="">
-							<option value="0">選択できます</option>
-							<option value="1">野菜</option>
-							<option value="2">魚</option>
-							<option value="3">肉</option>
-							<option value="4">調味料</option>
-							<option value="5>惣菜</option>
-							<option value="6">冷凍食品</option>
-							<option value="7">インスタント食品</option>
-							<option value="8">お米</option>
-							<option value="9">お菓子</option>
-							<option value="10">飲料</option>
-							<option value="11">お酒</option>
-							<option value="12">雑貨</option>
-							<option value="13">化粧品</option>
-							<option value="14">スクロール</option>
-							<option value="15">くらしと生協</option>
-							<option value="15">その他</option>
+
+					<p id="hidden2">
+						内容 ：
+						<select class="custom-select w-50" id="hidden1" name="hidden1">
+							<option value="1">傷み・腐り</option>
+							<option value="2">量目・サイズ</option>
+							<option value="3">食味（美味しくないなど）</option>
+							<option value="4">その他</option>
 						</select>
 					</p>
+
 					<p>
 						サイズ：
 						<select class="custom-select w-50" id="ondo4" name="ondo4" onchange="">
@@ -484,6 +469,20 @@ addEventListener('click', outsideClose);
 function outsideClose(e) {
   if (e.target == modal) {
     modal.style.display = 'none';
+  }
+}
+
+document.getElementById("hidden2").style.display ="none";
+
+function myfunc(value) {
+  var check1 = document.getElementById("ondo3").value;
+  var hidden1 = document.getElementById("hidden1");
+  console.log('check1 ----' + check1 )
+  if(check1 == 1){
+     hidden2.style.display ="block";
+     }
+  else{
+    hidden2.style.display ="none";
   }
 }
 
