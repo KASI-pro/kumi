@@ -187,8 +187,8 @@ height:20px
 }
 
 .modal-container {
-  width: 100%;
-  height: 100%;
+  /* width: 100%; */
+/*   height: 100%; */
   position: fixed;
   top: 0;
   left: 0;
@@ -218,7 +218,7 @@ height:20px
   display: inline-block;
   vertical-align: middle;
   max-width: 500px;
-  width: 90%;
+  /* width: 90%; */
 }
  
 .modal-close {
@@ -251,6 +251,17 @@ height:20px
   border-radius: 5px;
   /* border-radius: 5px; 角の丸みのデザイン */
 }
+.btn_item_a {
+  display: inline-block;
+  font-size: 25px;
+  width: 134px;
+  height: 50px;
+  padding: 10px 0px 0px 0px;
+  text-align:center;
+  text-decoration: none;
+  border-radius: 5px;
+  color: #fff;
+}
 .btn_color1{
   background: #808080;
 }
@@ -269,7 +280,7 @@ height:20px
 		</div><br>
 <div>
 <a Class="btn_item btn_color1" href="./kumikoe.html">よかった</a>
-<a Class="btn_item btn_color2" href="./youbou.html">企画要望</a>
+<a Class="btn_item_a btn_color2" href="./youbou.html">リクエスト</a>
 <a Class="btn_item btn_color3" href="./disappointing.html">がっかり</a>
 		</div>
 	<br>
@@ -297,7 +308,7 @@ height:20px
 <br><br>
 		<form id="content" name="content">
 			<div class="form-row">
-				<label class="col-sm-3 col-form-label">①回答：</label>
+				<label class="col-sm-3 col-form-label">①代替え商品の提案：</label>
 				<div class="col-sm-9">
 					<p>
 						<select class="custom-select w-25" id="answer">
@@ -326,6 +337,7 @@ height:20px
 							<option value="303">港個配センター</option>
 							<option value="304">生野支所</option>
 							<option value="305">南津守支所</option>
+							<option value="306">東住吉支所</option>
 							<option value="307">平野支所</option>
 							<option value="401">鶴見支所</option>
 							<option value="402">都島個配センター</option>
@@ -387,16 +399,9 @@ height:20px
 				<label class="col-sm-3 col-form-label required">⑦要望内容：</label>
 				<div class="col-sm-9">
 					<p>
-						代替商品のご提案：
-						<select class="custom-select w-50" id="ondo1" name="ondo1" onchange="">
-							<option value="0">要</option>
-							<option value="1" selected>不要</option>
-						</select>
-					</p>
-					<p>
 						温度帯：
 						<select class="custom-select w-50" id="ondo2" name="ond2o" onchange="">
-							<option value="0">選択できます</option>
+							<option value="0">選択して下さい</option>
 							<option value="1">常温</option>
 							<option value="2">冷蔵</option>
 							<option value="3">冷凍</option>
@@ -405,20 +410,15 @@ height:20px
 					<p>
 						種類　：
 						<select class="custom-select w-50" id="ondo3" name="ondo3" onchange="">
-							<option value="0">選択できます</option>
-							<option value="1">野菜</option>
-							<option value="2">魚</option>
-							<option value="3">肉</option>
-							<option value="4">調味料</option>
-							<option value="5>惣菜</option>
-							<option value="6">冷凍食品</option>
-							<option value="7">インスタント食品</option>
-							<option value="8">お米</option>
-							<option value="9">お菓子</option>
-							<option value="10">飲料</option>
-							<option value="11">お酒</option>
-							<option value="12">雑貨</option>
-							<option value="13">化粧品</option>
+							<option value="0">選択して下さい</option>
+							<option value="1">野菜・魚・お肉</option>
+							<option value="2">加工食品・パン・お米</option>
+							<option value="3">冷凍食品</option>
+							<option value="4">飲料・お酒</option>
+							<option value="5>化粧品</option>
+							<option value="6">衣類</option>
+							<option value="7">寝具</option>
+							<option value="8">その他雑貨・日用品</option>
 							<option value="14">スクロール</option>
 							<option value="15">くらしと生協</option>
 							<option value="15">その他</option>
@@ -427,7 +427,7 @@ height:20px
 					<p>
 						サイズ：
 						<select class="custom-select w-50" id="ondo4" name="ondo4" onchange="">
-							<option value="0">選択できます</option>
+							<option value="0">選択して下さい</option>
 							<option value="1">大きい（形）</option>
 							<option value="2">標準（形）</option>
 							<option value="3">小さい（形）</option>
