@@ -283,27 +283,10 @@ height:20px
 <a Class="btn_item btn_color1" href="./kumikoe.html">よかった</a>
 <a Class="btn_item btn_color2" href="./youbou.html">リクエスト</a>
 <a Class="btn_item_a btn_color3" href="./disappointing.html">がっかり</a>
-		</div>
-	<br>
-<!-- モーダルエリアここから -->
-  <div id="easyModal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1>≪ ご注意 ≫</h1>
-      </div>
-      <div class="modal-body">
-        <p>情報があいまい、少ないなどの場合</p>
-        <p>ご提案ができない場合があります。</p>
-      </div>
-<div>
- <span class="sendFrom">はい</span>
- <span class="modalClose" style="padding-left:65%">いいえ</span>
 </div>
-    </div>
-  </div>
-<!-- モーダルエリアここまで -->
-
-<br><br>
+<br>
+<a href="./koeden.html">明細</a>		
+<br>
 		<form id="content" name="content">
 			<div class="form-row">
 				<label class="col-sm-3 col-form-label">①回答：</label>
@@ -407,7 +390,7 @@ height:20px
 							<option value="4">雑貨商品</option>
 							<option value="5">商品以外</option>
 						</select>
-						に関すること
+						に関して
 					</p>
 
 					<p id="hidden2">
@@ -417,7 +400,7 @@ height:20px
 							<option value="3">食味（美味しくないなど）</option>
 							<option value="4">その他</option>
 						</select>
-						のこと
+						の事について
 					</p>
 
 					<p>
@@ -434,40 +417,12 @@ height:20px
 				</div>
 			</div>
 		</form>
-		<input type="button" id="modalOpen" value="メール作成"><br> <br>
+		<input type="button" id="sendFrom" value="メール作成"><br> <br>
                <!-- <button id="" class="button">送信</button> -->
 	</div>
 </body>
 
 <script>
-
-const buttonOpen = document.getElementById('modalOpen');
-const buttonSend = document.getElementsByClassName('sendFrom')[0];
-const modal = document.getElementById('easyModal');
-const buttonClose = document.getElementsByClassName('modalClose')[0];
-
-
-// ボタンがクリックされた時
-buttonOpen.addEventListener('click', modalOpen);
-function modalOpen() {
-  modal.style.display = 'block';
-}
-
-// 「はい」印がクリックされた時
-buttonSend.addEventListener('click', modalClose);
-// 「いいえ」印がクリックされた時
-buttonClose.addEventListener('click', modalClose);
-function modalClose() {
-  modal.style.display = 'none';
-}
-
-// モーダルコンテンツ以外がクリックされた時
-addEventListener('click', outsideClose);
-function outsideClose(e) {
-  if (e.target == modal) {
-    modal.style.display = 'none';
-  }
-}
 
 document.getElementById("hidden2").style.display ="none";
 
@@ -641,15 +596,13 @@ function reload() {
 	let timer;
 	const ua = navigator.userAgent.toLowerCase();
 	const isSP = /iphone|ipod|ipad|android/.test(ua);
-const b = document.getElementsByClassName('sendFrom')[0];
-	// const b = document.getElementById('sendFrom');
+// const b = document.getElementsByClassName('sendFrom')[0];
+	const b = document.getElementById('sendFrom');
 	const eventStart = isSP ? 'touchstart' : 'mousedown';
 	const eventEnd   = isSP ? 'touchend' : 'mouseup';
 	const eventLeave = isSP ? 'touchmove' : 'mouseleave';
 
-	b.addEventListener(eventStart, e => {
-// console.log('クリック！')
-          modal.style.display = 'none';
+        b.addEventListener(eventStart, e => {
 	  e.preventDefault();
 	  b.classList.add('active');
 	  timer = setInterval(() => {
@@ -663,6 +616,7 @@ const b = document.getElementsByClassName('sendFrom')[0];
 	    b.classList.remove('active');
 	    clearInterval(timer);
 	    let second = (count / 100);
+
 		if(second > 0.0 && second < 0.6){
 
 			let str2 = document.getElementById("kmcode").value; // 組合員コードチェック
