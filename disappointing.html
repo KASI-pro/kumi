@@ -443,7 +443,7 @@ height:20px
 
 
 					<p>
-						<select class="custom-select w-50" id="ondo3" name="ondo3" onchange="myfunc(this.value)">
+						<select class="custom-select w-50" id="category" name="ondo3" onchange="myfunc(this.value)">
 							<option value="0">選択して下さい</option>
 							<option value="1">農産</option>
 							<option value="2">開発・独自商品</option>
@@ -564,7 +564,7 @@ window.onload=function(){
 document.getElementById("hidden2").style.display ="none";
 
 function myfunc(value) {
-  var check1 = document.getElementById("ondo3").value;
+  var check1 = document.getElementById("category").value;
   var hidden1 = document.getElementById("hidden1");
   if(check1 == 1){
      hidden2.style.display ="block";
@@ -1080,7 +1080,7 @@ function reload() {
 												pcode = cyumon;
 												address = 'meisaiTest@palcoop.or.jp';
 												// address = 'meisai@palcoop.or.jp';
-												subject = '伝レス-返金';
+												subject = '明細 - 組声';
 												body = '{"body":{"kmcode":"'+kmcode+
 														'","kikakai":"'+kikakai+
 														'","kikakai2":"'+kikakai2+
@@ -1142,6 +1142,11 @@ function reload() {
 								alert("商品名は必須です\nお書きください")
 							}else{
 								let str5 = document.getElementById("offer").value.replace(regex, ''); // 内容チェック
+								let c1 = document.getElementById("category").value; // 内容チェック
+								let c2 = document.getElementById("hidden2").value; // 内容チェック
+								if(c1==0){
+									alert("⑦お申し出内容の\n『～関して』の欄の選択を行って下さい")
+								}else{
 									if(str5.length === 0){
 										alert("内容は必須です\nお書きください")
 									}else{
@@ -1192,8 +1197,14 @@ function reload() {
 																	kikakai = time1+time2+time3;
 																	pcode = txtData[11].value.replace(/ /g, '');
 																	pname = txtData[12].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-																	offer = txtData[13].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-																	comment = txtData[14].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+																	cate1 =  txtData[13].value;
+																	if(cate1 == 1){
+																		cate2 =  txtData[14].value;
+																	}else{
+																		cate2 =  0;
+																	}
+																	offer = txtData[15].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+																	comment = txtData[16].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 																	insday = '';
 																	instime = '';
 																	delfox = "0";
@@ -1206,6 +1217,8 @@ function reload() {
 																			'","kikakai":"'+kikakai+
 																			'","pcode":"'+pcode+
 																			'","pname":"'+pname+
+																			'","cate1":"'+cate1+
+																			'","cate2":"'+cate2+
 																			'","offer":"'+offer+
 																			'","comment":"'+comment+
 																			'","insday":"'+insday+
@@ -1244,8 +1257,14 @@ function reload() {
 																kikakai = time1+time2+time3;
 																pcode = txtData[11].value.replace(/ /g, '');
 																pname = txtData[12].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-																offer = txtData[13].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-																comment = txtData[14].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+																cate1 =  txtData[13].value;
+																if(cate1 == 1){
+																	cate2 =  txtData[14].value;
+																}else{
+																	cate2 =  0;
+																}
+																offer = txtData[15].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+																comment = txtData[16].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 																insday = '';
 																instime = '';
 																delfox = "0";
@@ -1258,6 +1277,8 @@ function reload() {
 																		'","kikakai":"'+kikakai+
 																		'","pcode":"'+pcode+
 																		'","pname":"'+pname+
+																		'","cate1":"'+cate1+
+																		'","cate2":"'+cate2+
 																		'","offer":"'+offer+
 																		'","comment":"'+comment+
 																		'","insday":"'+insday+
@@ -1288,6 +1309,7 @@ function reload() {
 											}
 									}
 							}
+						}
 					}
 			}
 }
