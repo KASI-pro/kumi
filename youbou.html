@@ -257,7 +257,7 @@ height:20px
   font-size: 23px;
   width: 130px;
   height: 50px;
-  padding: 12px 0px 0px 0px;
+  padding: 10px 0px 0px 0px;
   text-align:center;
   text-decoration: none;
   border-radius: 5px;
@@ -285,28 +285,6 @@ height:20px
 <a Class="btn_item btn_color3" href="./disappointing.html">がっかり</a>
 		</div>
 	<br>
-<!-- モーダルエリアここから -->
-  <div id="easyModal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1>≪ ご注意 ≫</h1>
-      </div>
-      <div class="modal-body">
-        <p>情報があいまい、少ないなどの場合</p>
-        <p>ご提案ができない場合があります。</p>
-      </div>
-<div>
- <span class="sendFrom">はい</span>
- <span class="modalClose" style="padding-left:65%">いいえ</span>
-</div>
-    </div>
-  </div>
-<!-- モーダルエリアここまで -->
- <br>
- <label for="upload">現物を写真で撮影する</label>
- <input id="fileElem" name="fileElem" type="file" accept="image/*" capture="camera">
-
-<br><br>
 		<form id="content" name="content">
 			<div class="form-row">
 				<label class="col-sm-3 col-form-label">①代替え商品の提案：</label>
@@ -397,50 +375,24 @@ height:20px
 				</div>
 			</div>
 			<div class="form-row">
-				<label class="col-sm-3 col-form-label required">⑦要望内容：</label>
+				<label class="col-sm-3 col-form-label required">⑦お申し出内容：</label>
 				<div class="col-sm-9">
 					<p>
-						温度帯：
+						テーマ：
 						<select class="custom-select w-50" id="ondo2" name="ond2o" onchange="">
-							<option value="0">選択して下さい</option>
-							<option value="1">常温</option>
-							<option value="2">冷蔵</option>
-							<option value="3">冷凍</option>
-						</select>
-					</p>
-					<p>
-						種類　：
-						<select class="custom-select w-50" id="ondo3" name="ondo3" onchange="">
 							<option value="0">選択して下さい</option>
 							<option value="1">野菜・魚・お肉</option>
 							<option value="2">加工食品・パン・お米</option>
 							<option value="3">冷凍食品</option>
 							<option value="4">飲料・お酒</option>
-							<option value="5>化粧品</option>
-							<option value="6">衣類</option>
+							<option value="5">化粧品</option>
+							<option value="6">衣類 </option>
 							<option value="7">寝具</option>
 							<option value="8">その他雑貨・日用品</option>
-							<option value="14">スクロール</option>
-							<option value="15">くらしと生協</option>
-							<option value="15">その他</option>
 						</select>
 					</p>
 					<p>
-						サイズ：
-						<select class="custom-select w-50" id="ondo4" name="ondo4" onchange="">
-							<option value="0">選択して下さい</option>
-							<option value="1">大きい（形）</option>
-							<option value="2">標準（形）</option>
-							<option value="3">小さい（形）</option>
-							<option value="4">長い（形）</option>
-							<option value="5">短い（形）</option>
-							<option value="6">多い（量）</option>
-							<option value="7">標準（量）</option>
-							<option value="8">少ない（量）</option>
-						</select>
-					</p>
-					<p>
-						<textarea id="offer" rows="4" cols="34" placeholder="要望内容"></textarea>
+						<textarea id="offer" rows="4" cols="34" placeholder="お申し出内容"></textarea>
 					</p>
 				</div>
 			</div>
@@ -453,42 +405,13 @@ height:20px
 				</div>
 			</div>
 		</form>
-		<input type="button" id="modalOpen" value="メール作成"><br> <br>
+		<input type="button" id="sendFrom" value="メール作成"><br> <br>
                <!-- <button id="" class="button">送信</button> -->
 	</div>
 </body>
 
 <script>
-
-const buttonOpen = document.getElementById('modalOpen');
-const buttonSend = document.getElementsByClassName('sendFrom')[0];
-const modal = document.getElementById('easyModal');
-const buttonClose = document.getElementsByClassName('modalClose')[0];
-
-
-// ボタンがクリックされた時
-buttonOpen.addEventListener('click', modalOpen);
-function modalOpen() {
-  modal.style.display = 'block';
-}
-
-// 「はい」印がクリックされた時
-buttonSend.addEventListener('click', modalClose);
-// 「いいえ」印がクリックされた時
-buttonClose.addEventListener('click', modalClose);
-function modalClose() {
-  modal.style.display = 'none';
-}
-
-// モーダルコンテンツ以外がクリックされた時
-addEventListener('click', outsideClose);
-function outsideClose(e) {
-  if (e.target == modal) {
-    modal.style.display = 'none';
-  }
-}
-
- function keep(){
+function keep(){
     var text = document.getElementById("branch").value;
     localStorage.setItem('memo', text);
     alert('支所の変更を保存しました。');
@@ -647,15 +570,13 @@ function reload() {
 	let timer;
 	const ua = navigator.userAgent.toLowerCase();
 	const isSP = /iphone|ipod|ipad|android/.test(ua);
-const b = document.getElementsByClassName('sendFrom')[0];
-	// const b = document.getElementById('sendFrom');
+// const b = document.getElementsByClassName('sendFrom')[0];
+	const b = document.getElementById('sendFrom');
 	const eventStart = isSP ? 'touchstart' : 'mousedown';
 	const eventEnd   = isSP ? 'touchend' : 'mouseup';
 	const eventLeave = isSP ? 'touchmove' : 'mouseleave';
 
 	b.addEventListener(eventStart, e => {
-// console.log('クリック！')
-          modal.style.display = 'none';
 	  e.preventDefault();
 	  b.classList.add('active');
 	  timer = setInterval(() => {
@@ -729,8 +650,9 @@ const b = document.getElementsByClassName('sendFrom')[0];
 																	kikakai = time1+time2+time3;
 																	pcode = txtData[11].value.replace(/ /g, '');
 																	pname = txtData[12].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-																	offer = txtData[13].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-																	comment = txtData[14].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+																	cate = txtData[13].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+																	offer = txtData[14].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+																	comment = txtData[15].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 																	insday = '';
 																	instime = '';
 																	delfox = "0";
@@ -743,6 +665,7 @@ const b = document.getElementsByClassName('sendFrom')[0];
 																	'","kikakai":"'+kikakai+
 																	'","pcode":"'+pcode+
 																	'","pname":"'+pname+
+																	'","cate":"'+cate+
 																	'","offer":"'+offer+
 																	'","comment":"'+comment+
 																	'","insday":"'+insday+
@@ -774,8 +697,9 @@ const b = document.getElementsByClassName('sendFrom')[0];
 																kikakai = time1+time2+time3;
 																pcode = txtData[11].value.replace(/ /g, '');
 																pname = txtData[12].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-																offer = txtData[13].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-																comment = txtData[14].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+																cate = txtData[13].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+																offer = txtData[14].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+																comment = txtData[15].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 																insday = '';
 																instime = '';
 																delfox = "0";
@@ -788,6 +712,7 @@ const b = document.getElementsByClassName('sendFrom')[0];
 																		'","kikakai":"'+kikakai+
 																		'","pcode":"'+pcode+
 																		'","pname":"'+pname+
+																		'","cate":"'+cate+
 																		'","offer":"'+offer+
 																		'","comment":"'+comment+
 																		'","insday":"'+insday+

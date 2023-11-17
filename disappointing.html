@@ -62,6 +62,59 @@ label ~ label {
 	margin-left: 30px;
 }
 
+/* ベースのラジオボタン */
+.radio-btns input[type=radio] {
+  display: none;
+}
+
+.radio-btns label {
+  position: relative;
+  padding: 5px 15px 5px 50px;
+  display: inline-block;
+  color: #fff;
+  font-weight: bold;
+  background: #48d1cc;
+  letter-spacing: 0.1em;
+  border-radius: 10px;
+}
+
+.radio-btns input[type=radio]  + label::before,
+.radio-btns input[type=radio]  + label::after {
+  position: absolute;
+  content: '';
+  display: block;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* 下 */
+.radio-btns input[type=radio]  + label::before {
+  border-radius: 30px;
+}
+
+.radio-btns input[type=radio]  + label::after {
+  height: 15px;
+  width: 15px;
+  background: #fff;
+  border-radius: 15px;
+  transition: .1s;
+}
+
+.radio-btns input[type=radio]:checked + label::after {
+  left: 30px;
+  background: #ffa500;
+}
+
+.radio-btns input[type=radio]:checked + label {
+  background: #005580;
+}
+.input-group,
+.input-group__control,
+.input-group__addon {
+  box-sizing:border-box;
+}
+
 .input-group {
   display:table;
   width:100%;
@@ -113,6 +166,7 @@ background:orange;
 width:20px;
 height:20px
 }
+
 .switch3__label {
     width: 37px;
     position: relative;
@@ -262,15 +316,6 @@ height:20px
   border-radius: 5px;
   color: #fff;
 }
-.btn_item_b {
-  display: inline-block;
-  width: 100px;
-  height: 40px;
-  padding: 7px 0px 0px 0px;
-  text-align:center;
-  text-decoration: none;
-  border-radius: 5px;
-}
 .btn_color1{
   background: #808080;
 }
@@ -279,9 +324,6 @@ height:20px
 }
 .btn_color3{
   background: #00bfff;
-}
-.btn_color4{
-  background: #ffffe0;
 }
 </style>
 </head>
@@ -297,9 +339,15 @@ height:20px
 <a Class="btn_item_a btn_color3" href="./disappointing.html">がっかり</a>
 </div>
 <br>
-<a Class="btn_item btn_color1" href="./koeden.html">明細検索</a>
-<a Class="btn_item_a btn_color3" href="./disappointing.html">フォーム</a>
-<br><br>
+		<div>
+			<br><p>＜提出様式＞</p>
+			<p class="radio-btns">
+			  <input type="radio" id="kumi" name="corres" value="0" onclick="formSwitch('#F0F8FF')" checked><label for="kumi"><span>フォーム</span></label>
+			  <input type="radio" id="tiiki" name="corres" value="1" onclick="formSwitch('#F0F8FF')"><label for="tiiki">明細検索</label>
+			</p>
+		</div><br>
+
+
 		<form id="content" name="content">
 			<div class="form-row">
 				<label class="col-sm-3 col-form-label">①回答：</label>
@@ -331,7 +379,6 @@ height:20px
 							<option value="303">港個配センター</option>
 							<option value="304">生野支所</option>
 							<option value="305">南津守支所</option>
-							<option value="306">東住吉支所</option>
 							<option value="307">平野支所</option>
 							<option value="401">鶴見支所</option>
 							<option value="402">都島個配センター</option>
@@ -354,9 +401,9 @@ height:20px
 				<label class="col-sm-3 col-form-label">④企画回：</label>
 				<div class="col-sm-9">
 					<div><span>
-						<select class="input-group__control w-25" id="kikaku-year" name="kikaku-year" disabled><option value="" selected>年</option></select>
-						<select class="input-group__control w-25" id="kikaku-month" name="kikaku-month" disabled><option value="" selected>月</option></select>
-						<select class="input-group__control w-25" id="kai" name="kai" disabled>
+						<select class="input-group__control w-25" id="kikaku-year0" name="kikaku-year" disabled><option value="" selected>年</option></select>
+						<select class="input-group__control w-25" id="kikaku-month0" name="kikaku-month" disabled><option value="" selected>月</option></select>
+						<select class="input-group__control w-25" id="kai0" name="kai" disabled>
 						<option value="" selected>回</option>
 						<option value="1">1回</option>
 						<option value="2">2回</option>
@@ -369,7 +416,7 @@ height:20px
 						        <span class="switch3__content"></span>
 						        <span class="switch3__circle"></span>
 						    </label>
-						<input type="hidden" id="non-kikakunm">
+						<input type="hidden" id="non-kikakunm0">
 					</span></div>
 				</div>
 			</div>
@@ -392,37 +439,13 @@ height:20px
 			<div class="form-row">
 				<label class="col-sm-3 col-form-label required">⑦お申し出内容：</label>
 				<div class="col-sm-9">
-
-
 					<p>
-						<select class="custom-select w-50" id="ondo3" name="ondo3" onchange="myfunc(this.value)">
-							<option value="0">選択して下さい</option>
-							<option value="1">農産</option>
-							<option value="2">開発・独自商品</option>
-							<option value="3">その他食品</option>
-							<option value="4">雑貨商品</option>
-							<option value="5">商品以外</option>
-						</select>
-						に関して
-					</p>
-
-					<p id="hidden2">
-						<select class="custom-select w-50" id="hidden1" name="hidden1">
-							<option value="1">傷み・腐り</option>
-							<option value="2">量目・サイズ</option>
-							<option value="3">食味（美味しくないなど）</option>
-							<option value="4">その他</option>
-						</select>
-						の事について
-					</p>
-
-					<p>
-						<textarea id="offer" rows="4" cols="34" placeholder="詳細"></textarea>
+						<textarea id="offer" rows="4" cols="34" placeholder="お申し出内容"></textarea>
 					</p>
 				</div>
 			</div>
 			<div class="form-row">
-				<label class="col-sm-3 col-form-label">⑧補足：</label>
+				<label class="col-sm-3 col-form-label">⑧担当者のコメント：</label>
 				<div class="col-sm-9">
 					<p>
 						<textarea id="comment" rows="4" cols="34" placeholder="補足がある場合記入してください"></textarea>
@@ -430,24 +453,87 @@ height:20px
 				</div>
 			</div>
 		</form>
+
+		<form id="area" name="area">
+			<div class="form-row">
+				<label class="col-sm-3 col-form-label required">①組合員コード：</label>
+
+				<div class="col-sm-9" style="display:inline-flex">
+						<p><input type="tel" id="kmcodemei" class="form-control" maxlength='8' placeholder="組合員コード"></p>
+				</div>
+			</div>
+			<div class="form-row">
+				<label class="col-sm-3 col-form-label required">②企画回：</label>
+				<div class="col-sm-9">
+					<div>　～<span>
+						<select class="input-group__control w-25" id="kikaku-year" name="kikaku-year" disabled><option value="" selected>年</option></select>
+						<select class="input-group__control w-25" id="kikaku-month" name="kikaku-month" disabled><option value="" selected>月</option></select>
+						<select class="input-group__control w-25" id="kai" name="kai" disabled>
+						<option value="" selected>回</option>
+						<option value="1">1回</option>
+						<option value="2">2回</option>
+						<option value="3">3回</option>
+						<option value="4">4回</option>
+						<option value="5">5回</option>
+						</select><span><input type="text" class="nontext wi" disabled></span>
+
+						<input type="hidden" id="non-kikakunm">
+					</span></div>
+				</div>
+			</div>
+
+
+
+
+			<div class="form-row">
+				<label class="col-sm-3 col-form-label"></label>
+				<div class="col-sm-9">
+					<div><span>
+						<select class="input-group__control w-25" id="kikaku-year2" name="kikaku-year2" disabled><option value="" selected>年</option></select>
+						<select class="input-group__control w-25" id="kikaku-month2" name="kikaku-month2" disabled><option value="" selected>月</option></select>
+						<select class="input-group__control w-25" id="kai2" name="kai2" disabled>
+						<option value="" selected>回</option>
+						<option value="1">1回</option>
+						<option value="2">2回</option>
+						<option value="3">3回</option>
+						<option value="4">4回</option>
+						<option value="5">5回</option>
+						</select><span><input type="text" class="nontext wi" disabled></span>
+						 <label class="switch3__label">
+						        <input type="checkbox" class="switch3__input" onclick="non2()"/>
+						        <span class="switch3__content"></span>
+						        <span class="switch3__circle"></span>
+						    </label>
+						<input type="hidden" id="non-kikakunm2">
+					</span></div>
+					<label class="h6">※配送回から過去3か月前までの<br>　明細を調べる事ができます。</label>
+				</div>
+			</div>
+			<div class="form-row">
+				<label class="col-sm-3 col-form-label">③注文番号：</label>
+				<div class="col-sm-9">
+					<p>
+						<input type="tel" id="pcodemei" class="form-control w-50" maxlength='6'	placeholder="注文番号">
+					</p>
+				</div>
+			</div>
+			<div class="form-row">
+				<label class="col-sm-3 col-form-label">④あいまい検索：</label>
+				<div class="col-sm-9">
+					<p>
+						<input type="text" id="pnamemei" class="form-control w-50"	placeholder="商品名">
+					</p>
+				</div>
+				<label class="h6">※商品名の一部から調べる事ができます。</label>
+			</div>
+
+		</form>
 		<input type="button" id="sendFrom" value="メール作成"><br> <br>
-               <!-- <button id="" class="button">送信</button> -->
 	</div>
 </body>
-
 <script>
-
-document.getElementById("hidden2").style.display ="none";
-
-function myfunc(value) {
-  var check1 = document.getElementById("ondo3").value;
-  var hidden1 = document.getElementById("hidden1");
-  if(check1 == 1){
-     hidden2.style.display ="block";
-     }
-  else{
-    hidden2.style.display ="none";
-  }
+window.onload=function(){
+	startmeth();
 }
 
  function keep(){
@@ -455,35 +541,202 @@ function myfunc(value) {
     localStorage.setItem('memo', text);
     alert('支所の変更を保存しました。');
 }
+
 function rekeep(){
     var text = document.getElementById("branch2").value;
     localStorage.setItem('memo', text);
     alert('支所の変更を保存しました。');
 }
 
-window.onload=function(){
+function formSwitch(newColor) {
+        decided = document.getElementsByName('corres')
+        if (decided[0].checked) {
+        	startmeth();
+            document.getElementById('content').style.display = "";
+            document.getElementById('area').style.display = "none";
+	    document.body.style.backgroundColor = newColor;
+	    var txt = localStorage.getItem('memo');
+            var f=document.getElementById("content");
+            checkSelect(f.elements["branch"],txt);
+        } else if (decided[1].checked) {
+        	startmei();
+            document.getElementById('content').style.display = "none";
+            document.getElementById('area').style.display = "";
+	    document.body.style.backgroundColor = newColor;
+            var txt = localStorage.getItem('memo');
+       	    var f=document.getElementById("area");
+        } else {
+            document.getElementById('content').style.display = "none";
+            document.getElementById('area').style.display = "none";
+        }
+ }
+ window.addEventListener('load', formSwitch());
 
-	var txt = localStorage.getItem('memo');
-       	var f=document.getElementById("content");
-	checkSelect(f.elements["branch"],txt);
-	for(var j = 1; j <= 12; j++) {
-		const selectMonth = document.getElementById('kikaku-month');
-		const option2 = document.createElement('option');
-		option2.value = j;
-		option2.textContent = j+"月";
-		selectMonth.appendChild(option2)
-	}
 
-	for(var i = 2000; i <= 2050; i++) {
-		const selectYear = document.getElementById('kikaku-year');
-		const option1 = document.createElement('option');
-		option1.value = i;
-		option1.textContent = i+"年";
-		selectYear.appendChild(option1)
+ function startmeth(){
+	　　var txt = localStorage.getItem('memo');
+	    var f = document.getElementById("content");
+	　　checkSelect(f.elements["branch"],txt);
+
+		for(var j = 1; j <= 12; j++) {
+			const selectMonth = document.getElementById('kikaku-month0');
+			const option2 = document.createElement('option');
+			option2.value = j;
+			option2.textContent = j+"月";
+			selectMonth.appendChild(option2)
+		}
+
+		for(var i = 2000; i <= 2050; i++) {
+			const selectYear = document.getElementById('kikaku-year0');
+			const option1 = document.createElement('option');
+			option1.value = i;
+			option1.textContent = i+"年";
+			selectYear.appendChild(option1)
+		}
+
+}
+
+ function startmei(){
+		for(var j = 1; j <= 12; j++) {
+			const selectMonth = document.getElementById('kikaku-month');
+			const option2 = document.createElement('option');
+			option2.value = j;
+			option2.textContent = j+"月";
+			selectMonth.appendChild(option2)
+		}
+
+		for(var i = 2000; i <= 2050; i++) {
+			const selectYear = document.getElementById('kikaku-year');
+			const option1 = document.createElement('option');
+			option1.value = i;
+			option1.textContent = i+"年";
+			selectYear.appendChild(option1)
+		}
+
+		for(var k = 1; k <= 12; k++) {
+			const selectMonth = document.getElementById('kikaku-month2');
+			const option2 = document.createElement('option');
+			option2.value = k;
+			option2.textContent = k+"月";
+			selectMonth.appendChild(option2)
+		}
+
+		for(var l = 2000; l <= 2050; l++) {
+			const selectYear = document.getElementById('kikaku-year2');
+			const option1 = document.createElement('option');
+			option1.value = l;
+			option1.textContent = l+"年";
+			selectYear.appendChild(option1)
+		}
+	nonmei();
+}
+
+
+function non(){
+	const button1 = document.getElementById("button1");
+
+	var p = new Date();
+	var monthL = p.getMonth() + 1;
+	  select = document.getElementById('kikaku-month0').options;
+
+	    for(let n = 0; n < select.length; n++ ){
+	        if(select[n].value == monthL){
+	            select[n].selected = true;
+	            break;
+	        }
+	    }
+
+	var yearL = p.getFullYear();
+	  select = document.getElementById('kikaku-year0').options;
+	    for(let m = 0; m < select.length; m++ ){
+	        if(select[m].value == yearL){
+	            select[m].selected = true;
+	            break;
+	        }
+	    }
+
+		var endday = new Date(p.getFullYear(),p.getMonth() + 1,0);
+		var endday2 = Number(endday.getDay());
+		var monthweek = Math.floor((endday.getDate() - endday2 + 12 ) / 7);
+		var nowwk = Math.floor((p.getDate() - p.getDay() + 12 ) / 7);
+		var firday = new Date(p.getFullYear(),p.getMonth(),1);
+		var firday2 = Number(firday.getDay());
+		var nowweek = null;
+			if(nowwk < monthweek){
+				if(firday2 === 4 || firday2 === 5){
+					if(Number(p.getDate()) < 3){
+						var refmon = new Date(p.getFullYear(), p.getMonth(), 0);
+						var nowweek = Math.floor((refmon.getDate() - refmon.getDay() + 12 ) / 7);
+						var remonthL = refmon.getMonth() + 1;
+						select = document.getElementById('kikaku-month0').options;
+						    for(let n = 0; n < select.length; n++ ){
+								if(select[n].value == remonthL){
+								    select[n].selected = true;
+								    break;
+								}
+						    }
+					}else{
+						var week = Math.floor((p.getDate() - p.getDay() + 12 ) / 7);
+						var nowweek = Number(week) - 1;
+					}
+				}else{
+					var nowweek = Math.floor((p.getDate() - p.getDay() + 12 ) / 7);
+				}
+			}else{
+				if(endday2 < 3){
+					var remonthL = p.getMonth() + 2;
+					select = document.getElementById('kikaku-month0').options;
+				    for(let n = 0; n < select.length; n++ ){
+						if(select[n].value == remonthL){
+						    select[n].selected = true;
+						    break;
+						}
+				    }
+				    var nowweek = 1;
+				}else{
+					if(firday2 === 4 || firday2 === 5){
+						if(Number(p.getDate()) < 3){
+							var refmon = new Date(p.getFullYear(), p.getMonth(), 0);
+							var nowweek = Math.floor((refmon.getDate() - refmon.getDay() + 12 ) / 7);
+							var remonthL = refmon.getMonth() + 1;
+							select = document.getElementById('kikaku-month0').options;
+							    for(let n = 0; n < select.length; n++ ){
+									if(select[n].value == remonthL){
+									    select[n].selected = true;
+									    break;
+									}
+							    }
+						}else{
+							var week = Math.floor((p.getDate() - p.getDay() + 12 ) / 7);
+							var nowweek = Number(week) - 1;
+						}
+					}else{
+						var nowweek = Math.floor((p.getDate() - p.getDay() + 12 ) / 7);
+					}
+				}
+			}
+		select = document.getElementById('kai0').options;
+		    for(let q = 0; q < select.length; q++ ){
+		        if(select[q].value == nowweek){
+		            select[q].selected = true;
+		            break;
+		        }
+		    }
+	if (document.getElementById("kikaku-year0").disabled === true){
+		document.getElementById("kikaku-year0").removeAttribute("disabled");
+		document.getElementById("kikaku-month0").removeAttribute("disabled");
+		document.getElementById("kai0").removeAttribute("disabled");
+	}else{
+		document.getElementById("kikaku-year0").setAttribute("disabled", true);
+		document.getElementById("kikaku-month0").setAttribute("disabled", true);
+		document.getElementById("kai0").setAttribute("disabled", true);
+		document.getElementById("kikaku-year0").value = '';
+		document.getElementById("kikaku-month0").value = '';
+		document.getElementById("kai0").value = '';
 	}
 }
 
-function non(){
+function nonmei(){
 	const button1 = document.getElementById("button1");
 
 	var p = new Date();
@@ -573,20 +826,116 @@ function non(){
 		            break;
 		        }
 		    }
-
-	if (document.getElementById("kikaku-year").disabled === true){
 		document.getElementById("kikaku-year").removeAttribute("disabled");
 		document.getElementById("kikaku-month").removeAttribute("disabled");
 		document.getElementById("kai").removeAttribute("disabled");
+}
+
+function non2(){
+	const button1 = document.getElementById("button1");
+
+	var p = new Date();
+	var monthL = p.getMonth() + 1;
+	  select = document.getElementById('kikaku-month2').options;
+
+	    for(let n = 0; n < select.length; n++ ){
+	        if(select[n].value == monthL){
+	            select[n].selected = true;
+	            break;
+	        }
+	    }
+
+	var yearL = p.getFullYear();
+	  select = document.getElementById('kikaku-year2').options;
+	    for(let m = 0; m < select.length; m++ ){
+	        if(select[m].value == yearL){
+	            select[m].selected = true;
+	            break;
+	        }
+	    }
+
+		var endday = new Date(p.getFullYear(),p.getMonth() + 1,0);
+		var endday2 = Number(endday.getDay());
+		var monthweek = Math.floor((endday.getDate() - endday2 + 12 ) / 7);
+		var nowwk = Math.floor((p.getDate() - p.getDay() + 12 ) / 7);
+		var firday = new Date(p.getFullYear(),p.getMonth(),1);
+		var firday2 = Number(firday.getDay());
+		var nowweek = null;
+			if(nowwk < monthweek){
+				if(firday2 === 4 || firday2 === 5){
+					if(Number(p.getDate()) < 3){
+						var refmon = new Date(p.getFullYear(), p.getMonth(), 0);
+						var nowweek = Math.floor((refmon.getDate() - refmon.getDay() + 12 ) / 7);
+						var remonthL = refmon.getMonth() + 1;
+						select = document.getElementById('kikaku-month2').options;
+						    for(let n = 0; n < select.length; n++ ){
+								if(select[n].value == remonthL){
+								    select[n].selected = true;
+								    break;
+								}
+						    }
+					}else{
+						var week = Math.floor((p.getDate() - p.getDay() + 12 ) / 7);
+						var nowweek = Number(week) - 1;
+					}
+				}else{
+					var nowweek = Math.floor((p.getDate() - p.getDay() + 12 ) / 7);
+				}
+			}else{
+				if(endday2 < 3){
+					var remonthL = p.getMonth() + 2;
+					select = document.getElementById('kikaku-month2').options;
+				    for(let n = 0; n < select.length; n++ ){
+						if(select[n].value == remonthL){
+						    select[n].selected = true;
+						    break;
+						}
+				    }
+				    var nowweek = 1;
+				}else{
+					if(firday2 === 4 || firday2 === 5){
+						if(Number(p.getDate()) < 3){
+							var refmon = new Date(p.getFullYear(), p.getMonth(), 0);
+							var nowweek = Math.floor((refmon.getDate() - refmon.getDay() + 12 ) / 7);
+							var remonthL = refmon.getMonth() + 1;
+							select = document.getElementById('kikaku-month2').options;
+							    for(let n = 0; n < select.length; n++ ){
+									if(select[n].value == remonthL){
+									    select[n].selected = true;
+									    break;
+									}
+							    }
+						}else{
+							var week = Math.floor((p.getDate() - p.getDay() + 12 ) / 7);
+							var nowweek = Number(week) - 1;
+						}
+					}else{
+						var nowweek = Math.floor((p.getDate() - p.getDay() + 12 ) / 7);
+					}
+				}
+			}
+		select = document.getElementById('kai2').options;
+		    for(let q = 0; q < select.length; q++ ){
+		        if(select[q].value == nowweek){
+		            select[q].selected = true;
+		            break;
+		        }
+		    }
+
+	if (document.getElementById("kikaku-year2").disabled === true){
+		document.getElementById("kikaku-year2").removeAttribute("disabled");
+		document.getElementById("kikaku-month2").removeAttribute("disabled");
+		document.getElementById("kai2").removeAttribute("disabled");
 	}else{
-		document.getElementById("kikaku-year").setAttribute("disabled", true);
-		document.getElementById("kikaku-month").setAttribute("disabled", true);
-		document.getElementById("kai").setAttribute("disabled", true);
-		document.getElementById("kikaku-year").value = '';
-		document.getElementById("kikaku-month").value = '';
-		document.getElementById("kai").value = '';
+		document.getElementById("kikaku-year2").setAttribute("disabled", true);
+		document.getElementById("kikaku-month2").setAttribute("disabled", true);
+		document.getElementById("kai2").setAttribute("disabled", true);
+		document.getElementById("kikaku-year2").value = '';
+		document.getElementById("kikaku-month2").value = '';
+		document.getElementById("kai2").value = '';
 	}
 }
+
 
 function checkSelect(obj,val){
 	for(var i=0;i<obj.length;i++){
@@ -609,13 +958,12 @@ function reload() {
 	let timer;
 	const ua = navigator.userAgent.toLowerCase();
 	const isSP = /iphone|ipod|ipad|android/.test(ua);
-// const b = document.getElementsByClassName('sendFrom')[0];
 	const b = document.getElementById('sendFrom');
 	const eventStart = isSP ? 'touchstart' : 'mousedown';
 	const eventEnd   = isSP ? 'touchend' : 'mouseup';
 	const eventLeave = isSP ? 'touchmove' : 'mouseleave';
 
-        b.addEventListener(eventStart, e => {
+	b.addEventListener(eventStart, e => {
 	  e.preventDefault();
 	  b.classList.add('active');
 	  timer = setInterval(() => {
@@ -629,9 +977,118 @@ function reload() {
 	    b.classList.remove('active');
 	    clearInterval(timer);
 	    let second = (count / 100);
-
+		var elements = document.getElementsByName('corres');
+		var len = elements.length;
+		var radioValue = '';
+		for (let i = 0; i < len; i++){
+			if (elements.item(i).checked){
+				radioValue = elements.item(i).value;
+			}
+		}
 		if(second > 0.0 && second < 0.6){
-
+			if(radioValue === '1'){
+				let str2 = document.getElementById("kmcodemei").value; // 組合員コードチェック
+					if(str2.length === 0){
+						alert("組合員コードは必須です。入力してください。")
+					}else if(str2 === "00000000" || str2 === "99999999"){
+						alert("対象外の組合員コードです。")
+					}else if(isNaN(str2)){
+						alert("組合員コードの欄に数字以外の字が入力されています。")
+					}else if(str2.length !== 8){
+						alert("組合員コードは8文字必要です")
+					}else{
+						let str8= document.getElementById("pcodemei").value; // 注文番チェック
+							if(isNaN(str8)){
+								alert("注文番号の欄に数字以外の字が入力されています。")
+							}else{
+								var toDoubleDigits = function(num) {
+									  num += "";
+									  if (num.length === 1) {
+									    num = "0" + num;
+									  }
+									 return num;
+									};
+								let str11= document.getElementById("kikaku-year").value; // 年
+								let str12= toDoubleDigits(document.getElementById('kikaku-month').value); // 月
+								let str13= document.getElementById("kai").value; // 回
+								let kikanm = str11+str12+str13;
+								if(kikanm.length === 0 || kikanm.length === 7){
+									let str14 = document.getElementById("kikaku-year2").value;
+									let str15 = toDoubleDigits(document.getElementById("kikaku-month2").value);
+									let str16 = document.getElementById("kai2").value;
+									let kikanm2 = str14+str15+str16;
+									if(kikanm2.length === 0 || kikanm2.length === 7){
+										var result = window.confirm("メールを作成しても宜しいですか？");
+											if( result ) {
+												var toDoubleDigits = function(num) {
+												  num += "";
+												  if (num.length === 1) {
+												    num = "0" + num;
+												  }
+												 return num;
+												};
+												var kumcd = document.getElementById('kmcodemei').value;
+												var time1 =  document.getElementById('kikaku-year').value;
+												var time2 =  toDoubleDigits(document.getElementById('kikaku-month').value);
+												var time3 = document.getElementById('kai').value;
+												var time4 =  document.getElementById('kikaku-year2').value;
+												var time5 =  toDoubleDigits(document.getElementById('kikaku-month2').value);
+												var time6 = document.getElementById('kai2').value;
+												var pname = document.getElementById('pnamemei').value;
+												var cyumon = document.getElementById('pcodemei').value;
+												kmcode = kumcd;
+												kikakai = time1+time2+time3;
+												kikakai2 = time4+time5+time6;
+												pcode = cyumon;
+												address = 'meisaiTest@palcoop.or.jp';
+												// address = 'meisai@palcoop.or.jp';
+												subject = '伝レス-返金';
+												body = '{"body":{"kmcode":"'+kmcode+
+														'","kikakai":"'+kikakai+
+														'","kikakai2":"'+kikakai2+
+														'","pcode":"'+pcode+
+														'","syonm":"'+pname+
+														'","flg":"1"}}';
+												location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
+											} else {
+											}
+									}else{
+										var emsg2;
+										if(str14.length === 0 && str15.length !== 0 && str16.length !== 0){
+											emsg2 = "年の";
+										}else if(str14.length !== 0 && str15.length === 0 && str16.length !== 0){
+											emsg2 = "月の";
+										}else if(str14.length !== 0 && str15.length !== 0 && str16.length === 0){
+											emsg2 = "回の";
+										}else if(str14.length === 0 && str15.length === 0 && str16.length !== 0){
+											emsg2 = "年と月の";
+										}else if(str14.length !== 0 && str15.length === 0 && str16.length === 0){
+											emsg2 = "月と回の";
+										}else if(str14.length === 0 && str15.length !== 0 && str16.length === 0){
+											emsg2 = "年と回の";
+										}
+										alert("企画回範囲選択の"+emsg+"欄が選択されていません。");
+									}
+								}else{
+									var emsg;
+									if(str11.length === 0 && str12.length !== 0 && str13.length !== 0){
+										emsg = "年の";
+									}else if(str11.length !== 0 && str12.length === 0 && str13.length !== 0){
+										emsg = "月の";
+									}else if(str11.length !== 0 && str12.length !== 0 && str13.length === 0){
+										emsg = "回の";
+									}else if(str11.length === 0 && str12.length === 0 && str13.length !== 0){
+										emsg = "年と月の";
+									}else if(str11.length !== 0 && str12.length === 0 && str13.length === 0){
+										emsg = "月と回の";
+									}else if(str11.length === 0 && str12.length !== 0 && str13.length === 0){
+										emsg = "年と回の";
+									}
+									alert("企画回の"+emsg+"欄が選択されていません。");
+								}
+					 }
+		}
+			}else{
 			let str2 = document.getElementById("kmcode").value; // 組合員コードチェック
 					if(str2.length === 0){
 						alert("組合員コードは必須です。入力してください。")
@@ -661,9 +1118,9 @@ function reload() {
 															  }
 															 return num;
 															};
-														let str11= document.getElementById("kikaku-year").value; // 年
-														let str12= toDoubleDigits(document.getElementById('kikaku-month').value); // 月
-														let str13= document.getElementById("kai").value; // 回
+														let str11= document.getElementById("kikaku-year0").value; // 年
+														let str12= toDoubleDigits(document.getElementById('kikaku-month0').value); // 月
+														let str13= document.getElementById("kai0").value; // 回
 														let kikanm = str11+str12+str13;
 												if(kikanm.length === 0 || kikanm.length === 7){
 													let kaitou = document.getElementById("answer").value; // 回答チェック
@@ -679,10 +1136,17 @@ function reload() {
 																	  }
 																	 return num;
 																	};
-																	var time1 =  document.getElementById('kikaku-year').value;
-																	var time2 =  toDoubleDigits(document.getElementById('kikaku-month').value);
-																	var time3 = document.getElementById('kai').value;
-																	var checkValue = '0';
+																	var elements = document.getElementsByName('corres');
+																	var time1 =  document.getElementById('kikaku-year0').value;
+																	var time2 =  toDoubleDigits(document.getElementById('kikaku-month0').value);
+																	var time3 = document.getElementById('kai0').value;
+																	var len = elements.length;
+																	var checkValue = '';
+																		for (let i = 0; i < len; i++){
+																			if (elements.item(i).checked){
+																				checkValue = elements.item(i).value;
+																			}
+																		}
 																	txtData = document.content;
 																	answer = txtData[0].value;
 																	branch = txtData[3].value;
@@ -698,18 +1162,18 @@ function reload() {
 																	address = 'tos_oka2@palcoop.or.jp';
 																	subject = '組合員の声';
 																	body = '{"body":{"answer":"'+answer+
-																	'","branch":"'+branch+
-																	'","kmcode":"'+kmcode+
-																	'","corres":"'+checkValue+
-																	'","kikakai":"'+kikakai+
-																	'","pcode":"'+pcode+
-																	'","pname":"'+pname+
-																	'","offer":"'+offer+
-																	'","comment":"'+comment+
-																	'","insday":"'+insday+
-																	'","instime":"'+instime+
-																	'","delfox":"'+delfox+
-																	'"}}';
+																			'","branch":"'+branch+
+																			'","kmcode":"'+kmcode+
+																			'","corres":"'+checkValue+
+																			'","kikakai":"'+kikakai+
+																			'","pcode":"'+pcode+
+																			'","pname":"'+pname+
+																			'","offer":"'+offer+
+																			'","comment":"'+comment+
+																			'","insday":"'+insday+
+																			'","instime":"'+instime+
+																			'","delfox":"'+delfox+
+																			'"}}';
 																	location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
 																} else {
 																}
@@ -724,10 +1188,17 @@ function reload() {
 																  }
 																 return num;
 																};
-																var time1 =  document.getElementById('kikaku-year').value;
-																var time2 =  toDoubleDigits(document.getElementById('kikaku-month').value);
-																var time3 = document.getElementById('kai').value;
-																var checkValue = '0';
+																var elements = document.getElementsByName('corres');
+																var time1 =  document.getElementById('kikaku-year0').value;
+																var time2 =  toDoubleDigits(document.getElementById('kikaku-month0').value);
+																var time3 = document.getElementById('kai0').value;
+																var len = elements.length;
+																var checkValue = '';
+																	for (let i = 0; i < len; i++){
+																		if (elements.item(i).checked){
+																			checkValue = elements.item(i).value;
+																		}
+																	}
 																txtData = document.content;
 																answer = txtData[0].value;
 																branch = txtData[3].value;
@@ -780,6 +1251,7 @@ function reload() {
 									}
 							}
 					}
+			}
 }
 		count = 0;
 		}
