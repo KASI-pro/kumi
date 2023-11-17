@@ -113,6 +113,7 @@ label ~ label {
 .input-group__control,
 .input-group__addon {
   box-sizing:border-box;
+  background: white;
 }
 
 .input-group {
@@ -439,13 +440,37 @@ height:20px
 			<div class="form-row">
 				<label class="col-sm-3 col-form-label required">⑦お申し出内容：</label>
 				<div class="col-sm-9">
+
+
 					<p>
-						<textarea id="offer" rows="4" cols="34" placeholder="お申し出内容"></textarea>
+						<select class="custom-select w-50" id="ondo3" name="ondo3" onchange="myfunc(this.value)">
+							<option value="0">選択して下さい</option>
+							<option value="1">農産</option>
+							<option value="2">開発・独自商品</option>
+							<option value="3">その他食品</option>
+							<option value="4">雑貨商品</option>
+							<option value="5">商品以外</option>
+						</select>
+						に関して
+					</p>
+
+					<p id="hidden2">
+						<select class="custom-select w-50" id="hidden1" name="hidden1">
+							<option value="1">傷み・腐り</option>
+							<option value="2">量目・サイズ</option>
+							<option value="3">食味（美味しくないなど）</option>
+							<option value="4">その他</option>
+						</select>
+						の事について
+					</p>
+
+					<p>
+						<textarea id="offer" rows="4" cols="34" placeholder=" 詳細"></textarea>
 					</p>
 				</div>
 			</div>
 			<div class="form-row">
-				<label class="col-sm-3 col-form-label">⑧担当者のコメント：</label>
+				<label class="col-sm-3 col-form-label">⑧補足：</label>
 				<div class="col-sm-9">
 					<p>
 						<textarea id="comment" rows="4" cols="34" placeholder="補足がある場合記入してください"></textarea>
@@ -521,7 +546,7 @@ height:20px
 				<label class="col-sm-3 col-form-label">④あいまい検索：</label>
 				<div class="col-sm-9">
 					<p>
-						<input type="text" id="pnamemei" class="form-control w-50"	placeholder="商品名">
+						<input type="text" id="pnamemei" class="form-control w-50" placeholder="商品名">
 					</p>
 				</div>
 				<label class="h6">※商品名の一部から調べる事ができます。</label>
@@ -534,6 +559,19 @@ height:20px
 <script>
 window.onload=function(){
 	startmeth();
+}
+
+document.getElementById("hidden2").style.display ="none";
+
+function myfunc(value) {
+  var check1 = document.getElementById("ondo3").value;
+  var hidden1 = document.getElementById("hidden1");
+  if(check1 == 1){
+     hidden2.style.display ="block";
+     }
+  else{
+    hidden2.style.display ="none";
+  }
 }
 
  function keep(){
