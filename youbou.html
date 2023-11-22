@@ -272,6 +272,9 @@ height:20px
 .btn_color3{
   background: #808080;
 }
+.caution{
+  color: #f00;
+}
 </style>
 </head>
 <body>
@@ -378,8 +381,8 @@ height:20px
 				<label class="col-sm-3 col-form-label required">⑦お申し出内容：</label>
 				<div class="col-sm-9">
 					<p>
-						テーマ：
-						<select class="custom-select w-50" id="ondo2" name="ond2o" onchange="">
+						ジャンル：
+						<select class="custom-select w-50" id="Genre" name="Genre" onchange="myfunc(this.value)">
 							<option value="0">選択して下さい</option>
 							<option value="1">野菜・魚・お肉</option>
 							<option value="2">加工食品・パン・お米</option>
@@ -391,6 +394,9 @@ height:20px
 							<option value="8">その他雑貨・日用品</option>
 						</select>
 					</p>
+					<p id="hidden1" class="caution"><strong>※ 『 男性用・女性用・子供用 』<br>&emsp;『 サイズ 』などをご記入ください</strong></p>
+					<p id="hidden2" class="caution"><strong>※ 『 どこで 』『 何に使うものか 』<br>&emsp;をご記入ください</strong></p>
+
 					<p>
 						<textarea id="offer" rows="4" cols="34" placeholder="お申し出内容"></textarea>
 					</p>
@@ -411,6 +417,25 @@ height:20px
 </body>
 
 <script>
+// 画面を開いた時は表示しない
+document.getElementById("hidden1").style.display ="none";
+document.getElementById("hidden2").style.display ="none";
+
+function myfunc(value) {
+  var check1 = document.getElementById("Genre").value;
+  var hidden1 = document.getElementById("hidden1");
+  var hidden2 = document.getElementById("hidden2");
+  if(check1 == 6){
+     hidden1.style.display ="block";
+     hidden2.style.display ="none";
+  }else if(check1 == 8){
+    hidden1.style.display ="none";
+    hidden2.style.display ="block";
+  }else{
+    hidden1.style.display ="none";
+    hidden2.style.display ="none";
+  }
+}
 function keep(){
     var text = document.getElementById("branch").value;
     localStorage.setItem('memo', text);
@@ -656,8 +681,7 @@ function reload() {
 																	insday = '';
 																	instime = '';
 																	delfox = "0";
-																	// address = 'tos_oka2@palcoop.or.jp';
-																	address = 'kumikoetest@palcoop.or.jp';
+																	address = 'tos_oka2@palcoop.or.jp';
 																	subject = '組合員の声';
 																	body = '{"body":{"answer":"'+answer+
 																	'","branch":"'+branch+
@@ -704,8 +728,7 @@ function reload() {
 																insday = '';
 																instime = '';
 																delfox = "0";
-																// address = 'tos_oka2@palcoop.or.jp';
-																address = 'kumikoetest@palcoop.or.jp';
+																address = 'tos_oka2@palcoop.or.jp';
 																subject = '組合員の声';
 																body = '{"body":{"answer":"'+answer+
 																		'","branch":"'+branch+
