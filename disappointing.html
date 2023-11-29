@@ -109,6 +109,55 @@ label ~ label {
 .radio-btns input[type=radio]:checked + label {
   background: #005580;
 }
+
+/* ベースのラジオボタン */
+.radio-btns2 input[type=radio] {
+  display: none;
+}
+
+.radio-btns2 label {
+  position: relative;
+  padding: 5px 15px 5px 50px;
+  display: inline-block;
+  color: #fff;
+  font-weight: bold;
+  background: #48d1cc;
+  letter-spacing: 0.1em;
+  border-radius: 10px;
+}
+
+.radio-btns2 input[type=radio]  + label::before,
+.radio-btns2 input[type=radio]  + label::after {
+  position: absolute;
+  content: '';
+  display: block;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* 下 */
+.radio-btns2 input[type=radio]  + label::before {
+  border-radius: 30px;
+}
+
+.radio-btns2 input[type=radio]  + label::after {
+  height: 15px;
+  width: 15px;
+  background: #fff;
+  border-radius: 15px;
+  transition: .1s;
+}
+
+.radio-btns2 input[type=radio]:checked + label::after {
+  left: 30px;
+  background: #ffa500;
+}
+
+.radio-btns2 input[type=radio]:checked + label {
+  background: #005580;
+}
+
 .input-group,
 .input-group__control,
 .input-group__addon {
@@ -192,7 +241,6 @@ height:20px
     content: "";
     display: block;
     position: absolute;
-
     width: 0;
     height: 100%;
     top: 0;
@@ -326,6 +374,14 @@ height:20px
 .btn_color3{
   background: #00bfff;
 }
+
+.radiobutton {
+  display: none;
+}
+.radiobutton:checked + label {
+  background-color: pink;
+}
+
 </style>
 </head>
 <body>
@@ -350,8 +406,15 @@ height:20px
 
 
 		<form id="content" name="content">
+<div class="form-row">
+<label class="col-sm-3 col-form-label">① 現品：</label>
+                        <p class="radio-btns2">
+			  <input type="radio" id="nashi" name="actual" value="1" checked><label for="nashi"><span>なし</span></label>
+			  <input type="radio" id="ari" name="actual" value="2" ><label for="ari">あり</label>
+			</p>
+</div>
 			<div class="form-row">
-				<label class="col-sm-3 col-form-label">①回答：</label>
+				<label class="col-sm-3 col-form-label">② 回答：</label>
 				<div class="col-sm-9">
 					<p>
 						<select class="custom-select w-25" id="answer">
@@ -363,7 +426,7 @@ height:20px
 				</div>
 			</div>
 			<div class="form-row">
-				<label class="col-sm-3 col-form-label">②支所：</label>
+				<p class="col-sm-3 col-form-label">③ 支所：</p>
 				<div class="col-sm-9">
 					<p>
 						<select class="custom-select w-50" id="branch" name="branch" onchange="keep()">
@@ -380,7 +443,6 @@ height:20px
 							<option value="303">港個配センター</option>
 							<option value="304">生野支所</option>
 							<option value="305">南津守支所</option>
-							<option value="306">東住吉支所</option>
 							<option value="307">平野支所</option>
 							<option value="401">鶴見支所</option>
 							<option value="402">都島個配センター</option>
@@ -391,7 +453,7 @@ height:20px
 				</div>
 			</div>
 			<div class="form-row">
-				<label class="col-sm-3 col-form-label required">③組合員コード：</label>
+				<label class="col-sm-3 col-form-label required">④ 組合員コード：</label>
 
 				<div class="col-sm-9">
 					<p>
@@ -400,7 +462,7 @@ height:20px
 				</div>
 			</div>
 			<div class="form-row">
-				<label class="col-sm-3 col-form-label">④企画回：</label>
+				<label class="col-sm-3 col-form-label">⑤ 企画回：</label>
 				<div class="col-sm-9">
 					<div><span>
 						<select class="input-group__control w-25" id="kikaku-year0" name="kikaku-year" disabled><option value="" selected>年</option></select>
@@ -423,7 +485,7 @@ height:20px
 				</div>
 			</div>
 			<div class="form-row">
-				<label class="col-sm-3 col-form-label">⑤注文番号：</label>
+				<label class="col-sm-3 col-form-label">⑥注文番号：</label>
 				<div class="col-sm-9">
 					<p>
 						<input type="tel" id="pcode" class="form-control" maxlength='6'	placeholder="注文番号">
@@ -431,7 +493,7 @@ height:20px
 				</div>
 			</div>
 			<div class="form-row">
-				<label class="col-sm-3 col-form-label required">⑥商品名：</label>
+				<label class="col-sm-3 col-form-label required">⑦商品名：</label>
 				<div class="col-sm-9">
 					<p>
 						<input type="text" id="pname" class="form-control" placeholder="商品名">
@@ -439,7 +501,7 @@ height:20px
 				</div>
 			</div>
 			<div class="form-row">
-				<label class="col-sm-3 col-form-label required">⑦お申し出内容：</label>
+				<label class="col-sm-3 col-form-label required">⑧お申し出内容：</label>
 				<div class="col-sm-9">
 
 
@@ -471,7 +533,7 @@ height:20px
 				</div>
 			</div>
 			<div class="form-row">
-				<label class="col-sm-3 col-form-label">⑧補足：</label>
+				<label class="col-sm-3 col-form-label">⑨補足：</label>
 				<div class="col-sm-9">
 					<p>
 						<textarea id="comment" rows="4" cols="34" placeholder="補足がある場合記入してください"></textarea>
@@ -1209,8 +1271,7 @@ function reload() {
 																	insday = '';
 																	instime = '';
 																	delfox = "0";
-																	// address = 'tos_oka2@palcoop.or.jp';
-																	address = 'kumikoetest@palcoop.or.jp';
+																	address = 'tos_oka2@palcoop.or.jp';
 																	subject = '組合員の声';
 																	body = '{"body":{"answer":"'+answer+
 																			'","branch":"'+branch+
@@ -1270,8 +1331,7 @@ function reload() {
 																insday = '';
 																instime = '';
 																delfox = "0";
-																// address = 'tos_oka2@palcoop.or.jp';
-																address = 'kumikoetest@palcoop.or.jp';
+																address = 'tos_oka2@palcoop.or.jp';
 																subject = '組合員の声';
 																body = '{"body":{"answer":"'+answer+
 																		'","branch":"'+branch+
