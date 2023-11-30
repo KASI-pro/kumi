@@ -8,10 +8,6 @@
 /*　画面サイズが480px以下の場合ここの記述が適用される　*/
 width: 200px;
 }
-.ffont{
-  font-family:"游ゴシック Medium",YuGothic,YuGothicM,"Hiragino Kaku Gothic ProN","Hiragino Kaku Gothic Pro",メイリオ,Meiryo,sans-serif;
-  
-}
 
 .hedersize{
   font-family: 'Londrina Shadow', cursive;
@@ -22,7 +18,7 @@ width: 200px;
 }
 
 .companyname{
-  font-family: '游ゴシック';
+  font-family:"游ゴシック Medium",YuGothic,YuGothicM,"Hiragino Kaku Gothic ProN","Hiragino Kaku Gothic Pro",メイリオ,Meiryo,sans-serif;s
   font-weight: bold;
   font-size: 15px;
   text-align: center;
@@ -30,6 +26,7 @@ width: 200px;
 }
 
 .cta_btn09 {
+  font-family:"游ゴシック Medium",YuGothic,YuGothicM,"Hiragino Kaku Gothic ProN","Hiragino Kaku Gothic Pro",メイリオ,Meiryo,sans-serif;
   font-weight: bold; /* 文字の太さ */
   text-align: center;
   letter-spacing: 0.1em;
@@ -43,6 +40,8 @@ width: 200px;
 }
 
 .cta_btn09-koe {
+  font-size: 20px;
+  margin-bottom: 10px;
   color: #fff; /* 文字色 */
   position: relative;
   display: inline-block;
@@ -55,6 +54,8 @@ width: 200px;
 }
 
 .cta_btn09-kikaku {
+  font-size: 20px;
+  margin-bottom: 10px;
   color: #fff; /* 文字色 */
   position: relative;
   display: inline-block;
@@ -67,6 +68,7 @@ width: 200px;
 }
 
 .cta_btn09-dame {
+  font-size: 20px;
   color: #fff; /* 文字色 */
   position: relative;
   display: inline-block;
@@ -93,7 +95,7 @@ width: 200px;
 .cta_btn09 .copy_txt {
   line-height: 1;
   display: inline-block;
-  padding: 0.2em 1.5em;
+  padding: 0.2em 0.1em;
   letter-spacing: 0;
   background: #fff; /* 下文字背景色 */
   font-size: 90%; /* 下文字サイズ */
@@ -124,25 +126,24 @@ width: 200px;
 </head>
 <body>
 <div class="cta_btn09">
-  <a onclick="location.href='kumikoe.html'" class="cta_btn09-koe ffont">
+  <a onclick="location.href='kumikoe.html'" class="cta_btn09-koe">
     よかった<br>
-    <span class="copy_txt ffont">よかったよ ! などの声なら</span>
-  </a><br>
-  <a onclick="location.href='youbou.html'" class="cta_btn09-kikaku ffont">
+    <span class="copy_txt">よかったよ ! などの声なら</span>
+  </a>
+  <a onclick="location.href='youbou.html'" class="cta_btn09-kikaku">
     リクエスト<br>
-    <span class="copy_txt ffont">あれが欲しい ! などの声なら</span>
-  </a><br>
-<a onclick="location.href='disappointing.html'" class="cta_btn09-dame ffont">
+    <span class="copy_txt">あれが欲しい ! などの声なら</span>
+  </a>
+<a onclick="location.href='disappointing.html'" class="cta_btn09-dame">
     がっかり<br>
-    <span class="copy_txt ffont">傷んでいたよ ! などの声なら</span>
+    <span class="copy_txt">傷んでいたよ ! などの声なら</span>
   </a>
 </div>
-<br>
 <div class="hedersize">
  <h1>クミコエ！ (TEST)</h1>
 </div>
-<div class="companyname ffont">
+<p class="companyname">
  PALCOOP
-</div>
+</p>
 </body>
 </html>
