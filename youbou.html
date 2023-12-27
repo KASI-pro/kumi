@@ -201,19 +201,19 @@ height:20px
   transition: .3s ease-out;
   z-index: 9;
 }
- 
+
 .modal-container::before {
   content: "";
   display: inline-block;
   vertical-align: middle;
   height: 100%;
 }
- 
+
 .modal-container.active {
   opacity: 1;
   visibility: visible;
 }
- 
+
 .modal-body {
   position: relative;
   display: inline-block;
@@ -221,7 +221,7 @@ height:20px
   max-width: 500px;
   /* width: 90%; */
 }
- 
+
 .modal-close {
   position: absolute;
   top: -30px;
@@ -233,7 +233,7 @@ height:20px
   cursor: pointer;
   border-radius: 5px 5px 0 0;
 }
- 
+
 .modal-content {
   background: #fff;
   border: 2px solid #000;
@@ -290,12 +290,14 @@ height:20px
 	<br>
 		<form id="content" name="content">
 			<div class="form-row">
-				<label class="col-sm-3 col-form-label">①類似品の提案：</label>
+				<label class="col-sm-3 col-form-label">①回答：</label>
 				<div class="col-sm-9">
 					<p>
 						<select class="custom-select w-25" id="answer">
-							<option value="0">要</option>
-							<option value="1" selected>不要</option>
+							<optgroup>
+								<option value="0">要</option>
+								<option value="1" selected>不要</option>
+							</optgroup>
 						</select> <span><input type="text" class="nontext" disabled></span>
 						<span><input type="button" class="btn btn-info"	value="リセット" onclick="reload()"></span>
 					</p>
@@ -306,25 +308,27 @@ height:20px
 				<div class="col-sm-9">
 					<p>
 						<select class="custom-select w-50" id="branch" name="branch" onchange="keep()">
-							<option value="101">枚方支所</option>
-							<option value="102">南寝屋川支所</option>
-							<option value="103">南寝屋川個配センター</option>
-							<option value="104">南枚方支所</option>
-							<option value="105">北枚方支所</option>
-							<option value="106">寝屋川支所</option>
-							<option value="107">門真支所</option>
-							<option value="108">樋之上支所</option>
-							<option value="301">港支所</option>
-							<option value="302">西成支所</option>
-							<option value="303">港個配センター</option>
-							<option value="304">生野支所</option>
-							<option value="305">南津守支所</option>
-							<option value="306">東住吉支所</option>
-							<option value="307">平野支所</option>
-							<option value="401">鶴見支所</option>
-							<option value="402">都島個配センター</option>
-                                                        <option value="403">安治川支所</option>
-							<option value="405">都島支所</option>
+							<optgroup>
+								<option value="101">枚方支所</option>
+								<option value="102">南寝屋川支所</option>
+								<option value="103">南寝屋川個配センター</option>
+								<option value="104">南枚方支所</option>
+								<option value="105">北枚方支所</option>
+								<option value="106">寝屋川支所</option>
+								<option value="107">門真支所</option>
+								<option value="108">樋之上支所</option>
+								<option value="301">港支所</option>
+								<option value="302">西成支所</option>
+								<option value="303">港個配センター</option>
+								<option value="304">生野支所</option>
+								<option value="305">南津守支所</option>
+								<option value="306">東住吉支所</option>
+								<option value="307">平野支所</option>
+								<option value="401">鶴見支所</option>
+								<option value="402">都島個配センター</option>
+                                                        	<option value="403">安治川支所</option>
+								<option value="405">都島支所</option>
+							</optgroup>
 						</select>
 					</p>
 				</div>
@@ -345,12 +349,14 @@ height:20px
 						<select class="input-group__control w-25" id="kikaku-year" name="kikaku-year" disabled><option value="" selected>年</option></select>
 						<select class="input-group__control w-25" id="kikaku-month" name="kikaku-month" disabled><option value="" selected>月</option></select>
 						<select class="input-group__control w-25" id="kai" name="kai" disabled>
-						<option value="" selected>回</option>
-						<option value="1">1回</option>
-						<option value="2">2回</option>
-						<option value="3">3回</option>
-						<option value="4">4回</option>
-						<option value="5">5回</option>
+						<optgroup>
+							<option value="" selected>回</option>
+							<option value="1">1回</option>
+							<option value="2">2回</option>
+							<option value="3">3回</option>
+							<option value="4">4回</option>
+							<option value="5">5回</option>
+						<optgroup>
 						</select><span><input type="text" class="nontext wi" disabled></span>
 						 <label class="switch3__label">
 						        <input type="checkbox" class="switch3__input" onclick="non()"/>
@@ -381,21 +387,33 @@ height:20px
 				<label class="col-sm-3 col-form-label required">⑦お申し出内容：</label>
 				<div class="col-sm-9">
 					<p>
+						類似商品の提案：
+						<select class="custom-select w-25" id="simil" name="simil">
+							<optgroup>
+								<option value="2">要</option>
+								<option value="1" selected>不要</option>
+							</optgroup>
+						</select>
+					</p>
+					<p>
 						ジャンル：
-						<select class="custom-select w-50" id="Genre" name="Genre" onchange="myfunc(this.value)">
-							<option value="0">選択して下さい</option>
-							<option value="1">野菜・魚・お肉</option>
-							<option value="2">加工食品・パン・お米</option>
-							<option value="3">冷凍食品</option>
-							<option value="4">飲料・お酒</option>
-							<option value="5">化粧品</option>
-							<option value="6">衣類 </option>
-							<option value="7">寝具</option>
-							<option value="8">その他雑貨・日用品</option>
+						<select class="custom-select w-50" id="genre" name="genre" onchange="myfunc(this.value)">
+							<optgroup>
+								<option value="0">選択して下さい</option>
+								<option value="1">野菜・魚・お肉</option>
+								<option value="2">加工食品・パン・お米</option>
+								<option value="3">冷凍食品</option>
+								<option value="4">飲料・お酒</option>
+								<option value="5">化粧品</option>
+								<option value="6">衣類 </option>
+								<option value="7">寝具</option>
+								<option value="8">その他雑貨・日用品</option>
+							</optgroup>
 						</select>
 					</p>
 					<p id="hidden1" class="caution"><strong>※ 『 男性用・女性用・子供用 』<br>&emsp;『 サイズ 』などもご記入ください</strong></p>
 					<p id="hidden2" class="caution"><strong>※ 『 どこで 』『 何に使うものか 』<br>&emsp;もご記入ください</strong></p>
+
 
 					<p>
 						<textarea id="offer" rows="4" cols="34" placeholder="お申し出内容"></textarea>
@@ -422,7 +440,7 @@ document.getElementById("hidden1").style.display ="none";
 document.getElementById("hidden2").style.display ="none";
 
 function myfunc(value) {
-  var check1 = document.getElementById("Genre").value;
+  var check1 = document.getElementById("genre").value;
   var hidden1 = document.getElementById("hidden1");
   var hidden2 = document.getElementById("hidden2");
   if(check1 == 6){
@@ -631,6 +649,11 @@ function reload() {
 							if(str7.length === 0){
 								alert("商品名は必須です\nお書きください")
 							}else{
+								var genre =  document.getElementById('genre').value;
+								if(genre == 0){
+									alert("⑦の「ジャンル」の選択は必須です")
+								}else{
+
 								let str5 = document.getElementById("offer").value.replace(regex, ''); // 内容チェック
 									if(str5.length === 0){
 										alert("内容は必須です\nお書きください")
@@ -653,6 +676,9 @@ function reload() {
 												if(kikanm.length === 0 || kikanm.length === 7){
 													let kaitou = document.getElementById("answer").value; // 回答チェック
 													if(kaitou == 1){
+														var simil =  document.getElementById('simil').value;
+														if(simil == 1){
+
 														var success = window.confirm("回答:【 不要 】\nで、お間違いないでしょうか？");
 														if(success){
 															var result = window.confirm("メールを作成しても宜しいですか？");
@@ -675,14 +701,12 @@ function reload() {
 																	kikakai = time1+time2+time3;
 																	pcode = txtData[11].value.replace(/ /g, '');
 																	pname = txtData[12].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-																	cate = txtData[13].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-																	offer = txtData[14].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-																	comment = txtData[15].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-																	insday = '';
-																	instime = '';
-																	delfox = "0";
+																	simil = txtData[13].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+																	cate = txtData[14].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+																	offer = txtData[15].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+																	comment = txtData[16].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 																	address = 'tos_oka2@palcoop.or.jp';
-																	subject = '組合員の声';
+																	subject = 'リクエストの声';
 																	body = '{"body":{"answer":"'+answer+
 																	'","branch":"'+branch+
 																	'","kmcode":"'+kmcode+
@@ -690,17 +714,25 @@ function reload() {
 																	'","kikakai":"'+kikakai+
 																	'","pcode":"'+pcode+
 																	'","pname":"'+pname+
+																	'","simil":"'+simil+
 																	'","cate":"'+cate+
 																	'","offer":"'+offer+
 																	'","comment":"'+comment+
-																	'","insday":"'+insday+
-																	'","instime":"'+instime+
-																	'","delfox":"'+delfox+
+																	'","insday":"'+''+
+																	'","instime":"'+''+
+																	'","delfox":"'+ 0 +
+																	'","kinds":"'+ 2 +
 																	'"}}';
 																	location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
 																} else {
 																}
 															}
+
+														}else if(simil == 2){
+															alert("回答不要になっているので、類似品の提案はできません")
+														}
+
+
 														}else{
 															var result = window.confirm("メールを作成しても宜しいですか？");
 															if( result ) {
@@ -722,14 +754,12 @@ function reload() {
 																kikakai = time1+time2+time3;
 																pcode = txtData[11].value.replace(/ /g, '');
 																pname = txtData[12].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-																cate = txtData[13].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-																offer = txtData[14].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-																comment = txtData[15].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-																insday = '';
-																instime = '';
-																delfox = "0";
+																simil = txtData[13].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+																cate = txtData[14].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+																offer = txtData[15].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+																comment = txtData[16].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 																address = 'tos_oka2@palcoop.or.jp';
-																subject = '組合員の声';
+																subject = 'リクエストの声';
 																body = '{"body":{"answer":"'+answer+
 																		'","branch":"'+branch+
 																		'","kmcode":"'+kmcode+
@@ -737,12 +767,14 @@ function reload() {
 																		'","kikakai":"'+kikakai+
 																		'","pcode":"'+pcode+
 																		'","pname":"'+pname+
+																		'","simil":"'+simil+
 																		'","cate":"'+cate+
 																		'","offer":"'+offer+
 																		'","comment":"'+comment+
-																		'","insday":"'+insday+
-																		'","instime":"'+instime+
-																		'","delfox":"'+delfox+
+																		'","insday":"'+''+
+																		'","instime":"'+''+
+																		'","delfox":"'+ 0 +
+																		'","kinds":"'+ 2 +
 																		'"}}';
 																location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
 															} else {
@@ -767,6 +799,15 @@ function reload() {
 														}
 											}
 									}
+								}
+
+
+
+
+
+
+
+
 							}
 					}
 }
