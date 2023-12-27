@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8" />
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <!-- Latest compiled and minified CSS -->
@@ -621,18 +622,30 @@ height:20px
 
 
 
-<form id="content" name="content">
+		<form id="content" name="content">
 			<div class="form-row">
-<label class="col-sm-3 col-form-label">① 現品：</label>
-                        <p class="radio-btns2">
-			  <input type="radio" id="nashi" name="actual" value="4" checked><label for="nashi"><span>なし</span></label>
-			  <input type="radio" id="ari" name="actual" value="5" ><label for="ari">あり</label>
-			</p>
-</div>
+				<label class="col-sm-3 col-form-label">① 現品：</label>
+                        		<p class="radio-btns2">
+			  			<input type="radio" id="nashi" name="actual" value="4" checked><label for="nashi"><span>なし</span></label>
+			  			<input type="radio" id="ari" name="actual" value="5" ><label for="ari">あり</label>
+					</p>
+			</div>
 
-			
 			<div class="form-row">
-				<label class="col-sm-3 col-form-label required">②お申し出内容：</label>
+				<label class="col-sm-3 col-form-label">②回答：</label>
+					<div class="col-sm-9">
+						<p>
+							<select class="custom-select w-25" id="answer">
+								<option value="0">要</option>
+								<option value="1" selected>不要</option>
+							</select>
+						</p>
+					</div>
+			</div>
+
+
+			<div class="form-row">
+				<label class="col-sm-3 col-form-label required">③お申し出内容：</label>
 				<div class="col-sm-9">
 					<p>
 						<textarea id="offer" rows="4" cols="34" placeholder="お申し出内容"></textarea>
@@ -641,7 +654,7 @@ height:20px
 			</div>
 			<div class="form-row">
 				<br>
-				<label class="col-sm-3 col-form-label">③補足：</label>
+				<label class="col-sm-3 col-form-label">④補足：</label>
 				<div class="col-sm-9">
 					<p>
 						<textarea id="comment" rows="4" cols="34" placeholder="補足がある場合は記入してください"></textarea>
@@ -652,7 +665,9 @@ height:20px
 		<input type="button" id="sendFrom" value="メール作成"><br> <br>
 	</div>
 </body>
+<script src="https://cdn.rawgit.com/alertifyjs/alertify.js/v1.0.10/dist/js/alertify.js"></script>
 <script>
+
 window.onload=function(){
 	// URLパラメータ文字列を取得する
 	var param = location.search
@@ -693,12 +708,6 @@ function getParam(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-function reload() {
-	var result = confirm('本当に入力内容を削除してもよろしいですか？');
-		if(result) {
-			location.reload();
-		}
-}
 
 	var regex = /(?:[\u2700-\u27bf]|(?:\ud83c[\udde6-\uddff]){2}|[\ud800-\udbff][\udc00-\udfff]|[\u0023-\u0039]\ufe0f?\u20e3|\u3299|\u3297|\u303d|\u3030|\u24c2|\ud83c[\udd70-\udd71]|\ud83c[\udd7e-\udd7f]|\ud83c\udd8e|\ud83c[\udd91-\udd9a]|\ud83c[\udde6-\uddff]|[\ud83c[\ude01\uddff]|\ud83c[\ude01-\ude02]|\ud83c\ude1a|\ud83c\ude2f|[\ud83c[\ude32\ude02]|\ud83c\ude1a|\ud83c\ude2f|\ud83c[\ude32-\ude3a]|[\ud83c[\ude50\ude3a]|\ud83c[\ude50-\ude51]|\u203c|\u2049|[\u25aa-\u25ab]|\u25b6|\u25c0|[\u25fb-\u25fe]|\u00a9|\u00ae|\u2122|\u2139|\ud83c\udc04|[\u2600-\u26FF]|\u2b05|\u2b06|\u2b07|\u2b1b|\u2b1c|\u2b50|\u2b55|\u231a|\u231b|\u2328|\u23cf|[\u23e9-\u23f3]|[\u23f8-\u23fa]|\ud83c\udccf|\u2934|\u2935|[\u2190-\u21ff])/g;
 	let count = 0;
@@ -719,100 +728,97 @@ function reload() {
 	})
 
 	b.addEventListener(eventEnd, e => {
-	  e.preventDefault();
-	  if (count) {
+	e.preventDefault();
+	if (count) {
 	    b.classList.remove('active');
 	    clearInterval(timer);
 	    let second = (count / 100);
 		if(second > 0.0 && second < 0.6){
 			let str6 = document.getElementById("offer").value.replace(regex, '');
-					if(str6.length === 0){
-						alert("内容は必須です\nお書きください")
-					}else{
+			if(str6.length === 0){
+				alertify.error('内容は必須です\nお書きください');
+			}else{
+				let act =0;
+				const f1 = document.getElementById("content");
+				const actual = f1.actual;
+			    for (let i = 0; i < actual.length; i++) {
+			      if (actual[i].checked) {
+			        act = actual[i].value;
+			        break;
+			      }
+			    }
 
-
-let act =0;
-  const f1 = document.getElementById("content");		
-    const actual = f1.actual;
-
-    for (let i = 0; i < actual.length; i++) {
-      if (actual[i].checked) {
-        act = actual[i].value;
-        break;
-      }
-    }
-
-
-
-
-						if(act == 4){
-						var success = window.confirm("現品:【 なし 】\nで、お間違いないでしょうか？");
-							if(success){
-						 var result = window.confirm("メールを作成しても宜しいですか？");
-							if( result ) {
-								answer = act;
-								branch = document.getElementById("hjigcd").value;
-								kmcode = document.getElementById("hkumcd").value;
-								pname = document.getElementById("hpname").value;
-								offer = document.getElementById("offer").value;
-								comment = document.getElementById("comment").value;
-								kikakai = document.getElementById("hkikaku").value;
-								pcode = document.getElementById("hpcode").value;
-								address = 'tos_oka@palcoop.or.jp';
-								subject = '組合員の声';
-								body = '{"body":{"answer":"'+answer+
-										'","branch":"'+branch+
-										'","kmcode":"'+kmcode+
-										'","corres":"'+ '' +
-										'","pname":"'+pname+
-										'","offer":"'+offer+
-										'","comment":"'+comment+
-										'","kikakai":"'+kikakai+
-										'","pcode":"'+pcode+
-										'","insday":"'+''+
-										'","instime":"'+''+
-										'","delfox":"'+ 0 +
-										'","kinds":"'+ 3 +
-											'"}}';
-								location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
-							} else {
-						  	}
-						}
-						}else{
-							 var result = window.confirm("メールを作成しても宜しいですか？");
-								if( result ) {
-									answer = act;
-								branch = document.getElementById("hjigcd").value;
-								kmcode = document.getElementById("hkumcd").value;
-								pname = document.getElementById("hpname").value;
-								offer = document.getElementById("offer").value;
-								comment = document.getElementById("comment").value;
-								kikakai = document.getElementById("hkikaku").value;
-								pcode = document.getElementById("hpcode").value;
-								address = 'tos_oka@palcoop.or.jp';
-								subject = '組合員の声';
-								body = '{"body":{"answer":"'+answer+
-										'","branch":"'+branch+
-										'","kmcode":"'+kmcode+
-										'","corres":"'+ 0 +
-										'","pname":"'+pname+
-										'","offer":"'+offer+
-										'","comment":"'+comment+
-										'","kikakai":"'+kikakai+
-										'","pcode":"'+pcode+
-										'","insday":"'+''+
-										'","instime":"'+''+
-										'","delfox":"'+ 0 +
-										'","kinds":"'+ 3 +
-										'"}}';
-									location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
-								} else {
-							  	}
-						}
+			if(act == 4){
+				alertify.confirm("現品:【 なし 】\nで、お間違いないでしょうか？", function (e) {
+					if (e) {
+						var result = window.confirm("メールを作成しても宜しいですか？");
+						if( result ) {
+							answer = act;
+							branch = document.getElementById("hjigcd").value;
+							kmcode = document.getElementById("hkumcd").value;
+							pname = document.getElementById("hpname").value;
+							offer = document.getElementById("offer").value;
+							comment = document.getElementById("comment").value;
+							kikakai = document.getElementById("hkikaku").value;
+							pcode = document.getElementById("hpcode").value;
+							address = 'tos_oka@palcoop.or.jp';
+							subject = 'がっかりの声';
+							body = '{"body":{"answer":"'+answer+
+									'","branch":"'+branch+
+									'","kmcode":"'+kmcode+
+									'","corres":"'+ '' +
+									'","pname":"'+pname+
+									'","offer":"'+offer+
+									'","simil":"'+simil+
+									'","cate":"'+cate+
+									'","comment":"'+comment+
+									'","kikakai":"'+kikakai+
+									'","pcode":"'+pcode+
+									'","insday":"'+''+
+									'","instime":"'+''+
+									'","delfox":"'+ 0 +
+									'","kinds":"'+ 3 +
+									'"}}';
+							location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
+						} else {
+					  	}
 					}
+				});
+			}else{
+				 var result = window.confirm("メールを作成しても宜しいですか？");
+					if( result ) {
+						answer = act;
+						branch = document.getElementById("hjigcd").value;
+						kmcode = document.getElementById("hkumcd").value;
+						pname = document.getElementById("hpname").value;
+						offer = document.getElementById("offer").value;
+						comment = document.getElementById("comment").value;
+						kikakai = document.getElementById("hkikaku").value;
+						pcode = document.getElementById("hpcode").value;
+						address = 'tos_oka@palcoop.or.jp';
+						subject = 'がっかりの声';
+						body = '{"body":{"answer":"'+answer+
+							'","branch":"'+branch+
+							'","kmcode":"'+kmcode+
+							'","corres":"'+ 0 +
+							'","pname":"'+pname+
+							'","offer":"'+offer+
+							'","comment":"'+comment+
+							'","kikakai":"'+kikakai+
+							'","pcode":"'+pcode+
+							'","insday":"'+''+
+							'","instime":"'+''+
+							'","delfox":"'+ 0 +
+							'","kinds":"'+ 3 +
+							'"}}';
+						location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
+					} else {
+				  	}
+				}
+			}
+		}
+		count = 0;
 	}
-	count = 0;
-}
 });
 
 b.addEventListener(eventLeave, e => {
