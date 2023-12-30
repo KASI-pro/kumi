@@ -402,34 +402,31 @@ height:20px
 			  <input type="radio" id="kumi" name="corres" value="0" onclick="formSwitch('#F0F8FF')" checked><label for="kumi"><span>フォーム</span></label>
 			  <input type="radio" id="tiiki" name="corres" value="1" onclick="formSwitch('#F0F8FF')"><label for="tiiki">明細検索</label>
 			</p>
-		</div>
+		</div><br>
 
 
 		<form id="content" name="content">
-<div class="form-row">
-<label class="col-sm-3 col-form-label">① 現品：</label>
-                        <p class="radio-btns2">
-			  <input type="radio" id="nashi" name="actual" value="1" checked><label for="nashi"><span>なし</span></label>
-			  <input type="radio" id="ari" name="actual" value="2" ><label for="ari">あり</label>
-			</p>
-</div>
+
 			<div class="form-row">
-				<label class="col-sm-3 col-form-label">② 回答：</label>
+				<label class="col-sm-3 col-form-label">① 回答：</label>
 				<div class="col-sm-9">
 					<p>
 						<select class="custom-select w-25" id="answer">
+						<optgroup>
 							<option value="0">要</option>
 							<option value="1" selected>不要</option>
+						</optgroup>
 						</select> <span><input type="text" class="nontext" disabled></span>
 						<span><input type="button" class="btn btn-info"	value="リセット" onclick="reload()"></span>
 					</p>
 				</div>
 			</div>
 			<div class="form-row">
-				<p class="col-sm-3 col-form-label">③ 支所：</p>
+				<p class="col-sm-3 col-form-label">② 支所：</p>
 				<div class="col-sm-9">
 					<p>
 						<select class="custom-select w-50" id="branch" name="branch" onchange="keep()">
+					    <optgroup>
 							<option value="101">枚方支所</option>
 							<option value="102">南寝屋川支所</option>
 							<option value="103">南寝屋川個配センター</option>
@@ -446,14 +443,15 @@ height:20px
 							<option value="307">平野支所</option>
 							<option value="401">鶴見支所</option>
 							<option value="402">都島個配センター</option>
-                                                        <option value="403">安治川支所</option>
+                            <option value="403">安治川支所</option>
 							<option value="405">都島支所</option>
+						</optgroup>
 						</select>
 					</p>
 				</div>
 			</div>
 			<div class="form-row">
-				<label class="col-sm-3 col-form-label required">④ 組合員コード：</label>
+				<label class="col-sm-3 col-form-label required">③ 組合員コード：</label>
 
 				<div class="col-sm-9">
 					<p>
@@ -462,18 +460,20 @@ height:20px
 				</div>
 			</div>
 			<div class="form-row">
-				<label class="col-sm-3 col-form-label">⑤ 企画回：</label>
+				<label class="col-sm-3 col-form-label">④ 企画回：</label>
 				<div class="col-sm-9">
 					<div><span>
 						<select class="input-group__control w-25" id="kikaku-year0" name="kikaku-year" disabled><option value="" selected>年</option></select>
 						<select class="input-group__control w-25" id="kikaku-month0" name="kikaku-month" disabled><option value="" selected>月</option></select>
 						<select class="input-group__control w-25" id="kai0" name="kai" disabled>
-						<option value="" selected>回</option>
-						<option value="1">1回</option>
-						<option value="2">2回</option>
-						<option value="3">3回</option>
-						<option value="4">4回</option>
-						<option value="5">5回</option>
+						<optgroup>
+							<option value="" selected>回</option>
+							<option value="1">1回</option>
+							<option value="2">2回</option>
+							<option value="3">3回</option>
+							<option value="4">4回</option>
+							<option value="5">5回</option>
+						</optgroup>
 						</select><span><input type="text" class="nontext wi" disabled></span>
 						 <label class="switch3__label">
 						        <input type="checkbox" class="switch3__input" onclick="non()"/>
@@ -485,7 +485,7 @@ height:20px
 				</div>
 			</div>
 			<div class="form-row">
-				<label class="col-sm-3 col-form-label">⑥注文番号：</label>
+				<label class="col-sm-3 col-form-label">⑤注文番号：</label>
 				<div class="col-sm-9">
 					<p>
 						<input type="tel" id="pcode" class="form-control" maxlength='6'	placeholder="注文番号">
@@ -493,36 +493,47 @@ height:20px
 				</div>
 			</div>
 			<div class="form-row">
-				<label class="col-sm-3 col-form-label required">⑦商品名：</label>
+				<label class="col-sm-3 col-form-label required">⑥商品名：</label>
 				<div class="col-sm-9">
 					<p>
 						<input type="text" id="pname" class="form-control" placeholder="商品名">
 					</p>
 				</div>
 			</div>
+
 			<div class="form-row">
-				<label class="col-sm-3 col-form-label required">⑧お申し出内容：</label>
-				<div class="col-sm-9">
+				<label class="col-sm-3 col-form-label required">⑦お申し出内容：</label>
+			</div><br>
 
-
+		<div class="form-row">
+                        <p class="radio-btns2">現品：
+			  <input type="radio" id="nashi" name="actual" value="1" checked><label for="nashi"><span>なし</span></label>
+			  <input type="radio" id="ari" name="actual" value="2" ><label for="ari">あり</label>
+			</p>
+		</div>
+				<div class="col-sm-9"><br>
 					<p>
 						<select class="custom-select w-50" id="category" name="ondo3" onchange="myfunc(this.value)">
+						<optgroup>
 							<option value="0">選択して下さい</option>
 							<option value="1">農産</option>
 							<option value="2">開発・独自商品</option>
 							<option value="3">その他食品</option>
 							<option value="4">雑貨商品</option>
 							<option value="5">商品以外</option>
+						</optgroup>
 						</select>
 						に関して
 					</p>
 
 					<p id="hidden2">
 						<select class="custom-select w-50" id="hidden1" name="hidden1">
+						<optgroup>
 							<option value="1">傷み・腐り</option>
 							<option value="2">量目・サイズ</option>
 							<option value="3">食味（美味しくないなど）</option>
 							<option value="4">その他</option>
+						</optgroup>
 						</select>
 						の事について
 					</p>
@@ -531,9 +542,9 @@ height:20px
 						<textarea id="offer" rows="4" cols="34" placeholder=" 詳細"></textarea>
 					</p>
 				</div>
-			</div>
+
 			<div class="form-row">
-				<label class="col-sm-3 col-form-label">⑨補足：</label>
+				<label class="col-sm-3 col-form-label">⑧補足：</label>
 				<div class="col-sm-9">
 					<p>
 						<textarea id="comment" rows="4" cols="34" placeholder="補足がある場合記入してください"></textarea>
@@ -557,12 +568,14 @@ height:20px
 						<select class="input-group__control w-25" id="kikaku-year" name="kikaku-year" disabled><option value="" selected>年</option></select>
 						<select class="input-group__control w-25" id="kikaku-month" name="kikaku-month" disabled><option value="" selected>月</option></select>
 						<select class="input-group__control w-25" id="kai" name="kai" disabled>
-						<option value="" selected>回</option>
-						<option value="1">1回</option>
-						<option value="2">2回</option>
-						<option value="3">3回</option>
-						<option value="4">4回</option>
-						<option value="5">5回</option>
+						<optgroup>
+							<option value="" selected>回</option>
+							<option value="1">1回</option>
+							<option value="2">2回</option>
+							<option value="3">3回</option>
+							<option value="4">4回</option>
+							<option value="5">5回</option>
+						</optgroup>
 						</select><span><input type="text" class="nontext wi" disabled></span>
 
 						<input type="hidden" id="non-kikakunm">
@@ -580,12 +593,14 @@ height:20px
 						<select class="input-group__control w-25" id="kikaku-year2" name="kikaku-year2" disabled><option value="" selected>年</option></select>
 						<select class="input-group__control w-25" id="kikaku-month2" name="kikaku-month2" disabled><option value="" selected>月</option></select>
 						<select class="input-group__control w-25" id="kai2" name="kai2" disabled>
-						<option value="" selected>回</option>
-						<option value="1">1回</option>
-						<option value="2">2回</option>
-						<option value="3">3回</option>
-						<option value="4">4回</option>
-						<option value="5">5回</option>
+						<optgroup>
+							<option value="" selected>回</option>
+							<option value="1">1回</option>
+							<option value="2">2回</option>
+							<option value="3">3回</option>
+							<option value="4">4回</option>
+							<option value="5">5回</option>
+						</optgroup>
 						</select><span><input type="text" class="nontext wi" disabled></span>
 						 <label class="switch3__label">
 						        <input type="checkbox" class="switch3__input" onclick="non2()"/>
@@ -619,6 +634,7 @@ height:20px
 		<input type="button" id="sendFrom" value="メール作成"><br> <br>
 	</div>
 </body>
+<script src="https://cdn.rawgit.com/alertifyjs/alertify.js/v1.0.10/dist/js/alertify.js"></script>
 <script>
 window.onload=function(){
 	startmeth();
@@ -1119,6 +1135,7 @@ function reload() {
 									let str16 = document.getElementById("kai2").value;
 									let kikanm2 = str14+str15+str16;
 									if(kikanm2.length === 0 || kikanm2.length === 7){
+
 										var result = window.confirm("メールを作成しても宜しいですか？");
 											if( result ) {
 												var toDoubleDigits = function(num) {
@@ -1229,146 +1246,47 @@ function reload() {
 														let str13= document.getElementById("kai0").value; // 回
 														let kikanm = str11+str12+str13;
 												if(kikanm.length === 0 || kikanm.length === 7){
-													let kaitou = document.getElementById("answer").value; // 回答チェック
-													if(kaitou == 1){
-														var success = window.confirm("回答:【 不要 】\nで、お間違いないでしょうか？");
-														if(success){
-															var result = window.confirm("メールを作成しても宜しいですか？");
-																if( result ) {
-																	var toDoubleDigits = function(num) {
-																	  num += "";
-																	  if (num.length === 1) {
-																	    num = "0" + num;
-																	  }
-																	 return num;
-																	};
-																	var elements = document.getElementsByName('corres');
-																	var time1 =  document.getElementById('kikaku-year0').value;
-																	var time2 =  toDoubleDigits(document.getElementById('kikaku-month0').value);
-																	var time3 = document.getElementById('kai0').value;
-																	var len = elements.length;
-																	var checkValue = '';
-																		for (let i = 0; i < len; i++){
-																			if (elements.item(i).checked){
-																				checkValue = elements.item(i).value;
-																			}
-																		}
-																	txtData = document.content;
-																	answer = txtData[0].value;
-																	branch = txtData[3].value;
-																	kmcode = txtData[4].value;
-																	kikakai = time1+time2+time3;
-																	pcode = txtData[11].value.replace(/ /g, '');
-																	pname = txtData[12].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-																	cate1 =  txtData[13].value;
-																	if(cate1 == 1){
-																		cate2 =  txtData[14].value;
-																	}else{
-																		cate2 =  0;
-																	}
-																	offer = txtData[15].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-																	comment = txtData[16].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-																	insday = '';
-																	instime = '';
-																	delfox = "0";
-																	address = 'kumikoetest@palcoop.or.jp';
-																	subject = '組合員の声';
-																	body = '{"body":{"answer":"'+answer+
-																			'","branch":"'+branch+
-																			'","kmcode":"'+kmcode+
-																			'","corres":"'+checkValue+
-																			'","kikakai":"'+kikakai+
-																			'","pcode":"'+pcode+
-																			'","pname":"'+pname+
-																			'","cate1":"'+cate1+
-																			'","cate2":"'+cate2+
-																			'","offer":"'+offer+
-																			'","comment":"'+comment+
-																			'","insday":"'+insday+
-																			'","instime":"'+instime+
-																			'","delfox":"'+delfox+
-																			'"}}';
-																	location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
-																} else {
-																}
+
+
+													let act =0;
+													let flg =0;
+													const f1 = document.getElementById("content");
+													const actual = f1.actual;
+												    for (let i = 0; i < actual.length; i++) {
+												      if (actual[i].checked) {
+												        act = actual[i].value;
+												        break;
+												      }
+												    }
+
+													if(act == 1 && flg == 0){
+														alertify.confirm("現品:【 なし 】\nで、お間違いないでしょうか？", function (e) {
+															if (e) {
+																sendmail();
+console.log('きた');
 															}
-														}else{
-															var result = window.confirm("メールを作成しても宜しいですか？");
-															if( result ) {
-																var toDoubleDigits = function(num) {
-																  num += "";
-																  if (num.length === 1) {
-																    num = "0" + num;
-																  }
-																 return num;
-																};
-																var elements = document.getElementsByName('corres');
-																var time1 =  document.getElementById('kikaku-year0').value;
-																var time2 =  toDoubleDigits(document.getElementById('kikaku-month0').value);
-																var time3 = document.getElementById('kai0').value;
-																var len = elements.length;
-																var checkValue = '';
-																	for (let i = 0; i < len; i++){
-																		if (elements.item(i).checked){
-																			checkValue = elements.item(i).value;
-																		}
-																	}
-																txtData = document.content;
-																answer = txtData[0].value;
-																branch = txtData[3].value;
-																kmcode = txtData[4].value;
-																kikakai = time1+time2+time3;
-																pcode = txtData[11].value.replace(/ /g, '');
-																pname = txtData[12].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-																cate1 =  txtData[13].value;
-																if(cate1 == 1){
-																	cate2 =  txtData[14].value;
-																}else{
-																	cate2 =  0;
-																}
-																offer = txtData[15].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-																comment = txtData[16].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-																insday = '';
-																instime = '';
-																delfox = "0";
-																address = 'kumikoetest@palcoop.or.jp';
-																subject = '組合員の声';
-																body = '{"body":{"answer":"'+answer+
-																		'","branch":"'+branch+
-																		'","kmcode":"'+kmcode+
-																		'","corres":"'+checkValue+
-																		'","kikakai":"'+kikakai+
-																		'","pcode":"'+pcode+
-																		'","pname":"'+pname+
-																		'","cate1":"'+cate1+
-																		'","cate2":"'+cate2+
-																		'","offer":"'+offer+
-																		'","comment":"'+comment+
-																		'","insday":"'+insday+
-																		'","instime":"'+instime+
-																		'","delfox":"'+delfox+
-																		'"}}';
-																location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
-															} else {
-															}
-														}
-														}else{
-															var emsg;
-															if(str11.length === 0 && str12.length !== 0 && str13.length !== 0){
-																emsg = "年の";
-															}else if(str11.length !== 0 && str12.length === 0 && str13.length !== 0){
-																emsg = "月の";
-															}else if(str11.length !== 0 && str12.length !== 0 && str13.length === 0){
-																emsg = "回の";
-															}else if(str11.length === 0 && str12.length === 0 && str13.length !== 0){
-																emsg = "年と月の";
-															}else if(str11.length !== 0 && str12.length === 0 && str13.length === 0){
-																emsg = "月と回の";
-															}else if(str11.length === 0 && str12.length !== 0 && str13.length === 0){
-																emsg = "年と回の";
-															}
-															alert("企画回を使用するボタンが\nチェックされているのですが\n"+emsg+"欄が選択されていません。");
-														}
+														});
+													}else{
+														sendmail();
+													}
+
+												}else{
+													var emsg;
+													if(str11.length === 0 && str12.length !== 0 && str13.length !== 0){
+														emsg = "年の";
+													}else if(str11.length !== 0 && str12.length === 0 && str13.length !== 0){
+														emsg = "月の";
+													}else if(str11.length !== 0 && str12.length !== 0 && str13.length === 0){
+														emsg = "回の";
+													}else if(str11.length === 0 && str12.length === 0 && str13.length !== 0){
+														emsg = "年と月の";
+													}else if(str11.length !== 0 && str12.length === 0 && str13.length === 0){
+														emsg = "月と回の";
+													}else if(str11.length === 0 && str12.length !== 0 && str13.length === 0){
+														emsg = "年と回の";
+													}
+													alert("企画回を使用するボタンが\nチェックされているのですが\n"+emsg+"欄が選択されていません。");
+												}
 											}
 									}
 							}
@@ -1379,6 +1297,161 @@ function reload() {
 		count = 0;
 		}
 	});
+
+
+
+	function sendmail(){
+		let kaitou = document.getElementById("answer").value; // 回答チェック
+		if(kaitou == 1){
+			var success = window.confirm("回答:【 不要 】\nで、お間違いないでしょうか？");
+			if(success){
+				var result = window.confirm("メールを作成しても宜しいですか？");
+					if( result ) {
+						var toDoubleDigits = function(num) {
+						  num += "";
+						  if (num.length === 1) {
+						    num = "0" + num;
+						  }
+						  return num;
+						};
+						var elements = document.getElementsByName('corres');
+						var aelements = document.getElementsByName('actual');
+						var time1 =  document.getElementById('kikaku-year0').value;
+						var time2 =  toDoubleDigits(document.getElementById('kikaku-month0').value);
+						var time3 = document.getElementById('kai0').value;
+						var len = elements.length;
+						var len2 = aelements.length;
+						var checkValue = '';
+							for (let i = 0; i < len; i++){
+								if (elements.item(i).checked){
+									checkValue = elements.item(i).value;
+								}
+							}
+						var actualValue = '';
+							for (let l = 0; l < len2; l++){
+								if (aelements.item(l).checked){
+									actualValue = aelements.item(l).value;
+								}
+							}
+						txtData = document.content;
+						answer = txtData[0].value;
+						branch = txtData[3].value;
+						kmcode = txtData[4].value;
+						kikakai = time1+time2+time3;
+						pcode = txtData[11].value.replace(/ /g, '');
+						pname = txtData[12].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+						cate1 =  txtData[15].value;
+						if(cate1 == 1){
+							cate2 =  txtData[16].value;
+						}else{
+							cate2 =  0;
+						}
+						offer = txtData[17].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+						comment = txtData[18].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+
+						// address = 'tos_oka2@palcoop.or.jp';
+						address = 'kumikoetest@palcoop.or.jp';
+						subject = 'がっかりの声';
+
+						body = '{"body":{"answer":"'+answer+        // 回答
+								'","branch":"'+branch+      // 支所
+								'","kmcode":"'+kmcode+      // 組合員番号
+								'","corres":"'+checkValue+  // 組声　or　地域
+								'","kikakai":"'+kikakai+    // 企画回
+								'","pcode":"'+pcode+        // 商品番号
+								'","pname":"'+pname+        // 商品名
+								'","simil":"'+ 0 +          // 類似品
+								'","genre":"'+ 0 +        // ジャンル
+								'","actual":"'+actualValue+      // 現品
+								'","cate1":"'+cate1+		// カテゴリ１
+								'","cate2":"'+cate2+		// カテゴリ２
+								'","offer":"'+offer+        // 内容
+								'","comment":"'+comment+    // 担当者のコメント（補足）
+								'","insday":"'+''+          // インサート日
+								'","instime":"'+''+         // インサート時間
+								'","delfox":"'+ 0 +         // 修正などの種類
+								'","kinds":"'+ 3 +          // 声の種類
+								'"}}';
+
+
+						location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
+					} else {
+					}
+				}
+			}else{
+				var result = window.confirm("メールを作成しても宜しいですか？");
+				if( result ) {
+					var toDoubleDigits = function(num) {
+					  num += "";
+					  if (num.length === 1) {
+					    num = "0" + num;
+					  }
+					  return num;
+					};
+					var elements = document.getElementsByName('corres');
+					var aelements = document.getElementsByName('actual');
+					var time1 =  document.getElementById('kikaku-year0').value;
+					var time2 =  toDoubleDigits(document.getElementById('kikaku-month0').value);
+					var time3 = document.getElementById('kai0').value;
+					var len = elements.length;
+					var len2 = aelements.length;
+					var checkValue = '';
+						for (let i = 0; i < len; i++){
+							if (elements.item(i).checked){
+								checkValue = elements.item(i).value;
+							}
+						}
+					var actualValue = '';
+						for (let l = 0; l < len2; l++){
+							if (aelements.item(l).checked){
+								actualValue = aelements.item(l).value;
+							}
+						}
+					txtData = document.content;
+					answer = txtData[0].value;
+					branch = txtData[3].value;
+					kmcode = txtData[4].value;
+					kikakai = time1+time2+time3;
+					pcode = txtData[11].value.replace(/ /g, '');
+					pname = txtData[12].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+					cate1 =  txtData[15].value;
+					if(cate1 == 1){
+						cate2 =  txtData[16].value;
+					}else{
+						cate2 =  0;
+					}
+					offer = txtData[17].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+					comment = txtData[18].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+
+					// address = 'tos_oka2@palcoop.or.jp';
+					address = 'kumikoetest@palcoop.or.jp';
+					subject = 'がっかりの声';
+
+					body = '{"body":{"answer":"'+answer+        // 回答
+							'","branch":"'+branch+      // 支所
+							'","kmcode":"'+kmcode+      // 組合員番号
+							'","corres":"'+checkValue+  // 組声　or　地域
+							'","kikakai":"'+kikakai+    // 企画回
+							'","pcode":"'+pcode+        // 商品番号
+							'","pname":"'+pname+        // 商品名
+							'","simil":"'+ 0 +          // 類似品
+							'","genre":"'+ 0 +	        // ジャンル
+							'","actual":"'+actualValue+      // 現品
+							'","cate1":"'+cate1+		// カテゴリ１
+							'","cate2":"'+cate2+		// カテゴリ２
+							'","offer":"'+offer+        // 内容
+							'","comment":"'+comment+    // 担当者のコメント（補足）
+							'","insday":"'+''+          // インサート日
+							'","instime":"'+''+         // インサート時間
+							'","delfox":"'+ 0 +         // 修正などの種類
+							'","kinds":"'+ 3 +          // 声の種類
+							'"}}';
+
+					location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
+				} else {
+				}
+			}
+	}
 
 b.addEventListener(eventLeave, e => {
   e.preventDefault();
