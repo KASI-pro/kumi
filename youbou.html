@@ -326,7 +326,7 @@ height:20px
 								<option value="307">平野支所</option>
 								<option value="401">鶴見支所</option>
 								<option value="402">都島個配センター</option>
-                                                        	<option value="403">安治川支所</option>
+                                <option value="403">安治川支所</option>
 								<option value="405">都島支所</option>
 							</optgroup>
 						</select>
@@ -356,7 +356,7 @@ height:20px
 							<option value="3">3回</option>
 							<option value="4">4回</option>
 							<option value="5">5回</option>
-						<optgroup>
+						</optgroup>
 						</select><span><input type="text" class="nontext wi" disabled></span>
 						 <label class="switch3__label">
 						        <input type="checkbox" class="switch3__input" onclick="non()"/>
@@ -702,27 +702,35 @@ function reload() {
 																	pcode = txtData[11].value.replace(/ /g, '');
 																	pname = txtData[12].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 																	simil = txtData[13].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-																	cate = txtData[14].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+																	genre = txtData[14].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 																	offer = txtData[15].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 																	comment = txtData[16].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+
 																	address = 'kumikoetest@palcoop.or.jp';
+																	// address = 'tos_oka2@palcoop.or.jp';
 																	subject = 'リクエストの声';
-																	body = '{"body":{"answer":"'+answer+
-																	'","branch":"'+branch+
-																	'","kmcode":"'+kmcode+
-																	'","corres":"'+checkValue+
-																	'","kikakai":"'+kikakai+
-																	'","pcode":"'+pcode+
-																	'","pname":"'+pname+
-																	'","simil":"'+simil+
-																	'","cate":"'+cate+
-																	'","offer":"'+offer+
-																	'","comment":"'+comment+
-																	'","insday":"'+''+
-																	'","instime":"'+''+
-																	'","delfox":"'+ 0 +
-																	'","kinds":"'+ 2 +
+
+																	body = '{"body":{"answer":"'+answer+        // 回答
+																		'","branch":"'+branch+      // 支所
+																		'","kmcode":"'+kmcode+      // 組合員番号
+																		'","corres":"'+checkValue+  // 組声　or　地域
+																		'","kikakai":"'+kikakai+   // 企画回
+																		'","pcode":"'+pcode+      // 商品番号
+																		'","pname":"'+pname+        // 商品名
+																		'","simil":"'+simil+     // 類似品
+																		'","genre":"'+genre+    // ジャンル
+																		'","actual":"'+ 0 +      // 現品
+																		'","cate1":"'+ 0 +          // カテゴリ１
+																		'","cate2":"'+ 0 +          // カテゴリ２
+																		'","offer":"'+offer+        // 内容
+																		'","comment":"'+comment+    // 担当者のコメント（補足）
+																		'","insday":"'+''+          // インサート日
+																		'","instime":"'+''+         // インサート時間
+																		'","delfox":"'+ 0 +         // 修正などの種類
+																		'","kinds":"'+ 2 +          // 声の種類
 																	'"}}';
+
+
 																	location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
 																} else {
 																}
@@ -758,24 +766,31 @@ function reload() {
 																cate = txtData[14].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 																offer = txtData[15].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 																comment = txtData[16].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+
 																address = 'kumikoetest@palcoop.or.jp';
+																// address = 'tos_oka2@palcoop.or.jp';
 																subject = 'リクエストの声';
-																body = '{"body":{"answer":"'+answer+
-																		'","branch":"'+branch+
-																		'","kmcode":"'+kmcode+
-																		'","corres":"'+checkValue+
-																		'","kikakai":"'+kikakai+
-																		'","pcode":"'+pcode+
-																		'","pname":"'+pname+
-																		'","simil":"'+simil+
-																		'","cate":"'+cate+
-																		'","offer":"'+offer+
-																		'","comment":"'+comment+
-																		'","insday":"'+''+
-																		'","instime":"'+''+
-																		'","delfox":"'+ 0 +
-																		'","kinds":"'+ 2 +
-																		'"}}';
+
+																body = '{"body":{"answer":"'+answer+        // 回答
+																	'","branch":"'+branch+      // 支所
+																	'","kmcode":"'+kmcode+      // 組合員番号
+																	'","corres":"'+checkValue+  // 組声　or　地域
+																	'","kikakai":"'+kikakai+   // 企画回
+																	'","pcode":"'+pcode+      // 商品番号
+																	'","pname":"'+pname+        // 商品名
+																	'","simil":"'+simil+     // 類似品
+																	'","genre":"'+genre+    // ジャンル
+																	'","actual":"'+ 0 +      // 現品
+																	'","cate1":"'+ 0 +          // カテゴリ１
+																	'","cate2":"'+ 0 +          // カテゴリ２
+																	'","offer":"'+offer+        // 内容
+																	'","comment":"'+comment+    // 担当者のコメント（補足）
+																	'","insday":"'+''+          // インサート日
+																	'","instime":"'+''+         // インサート時間
+																	'","delfox":"'+ 0 +         // 修正などの種類
+																	'","kinds":"'+ 2 +          // 声の種類
+																'"}}';
+
 																location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
 															} else {
 															}
