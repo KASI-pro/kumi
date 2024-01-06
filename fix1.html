@@ -321,10 +321,10 @@ padding: 50px 0 0 0;
 	     </form>
 
 		<form id="content" name="content">
-<div>
-<a Class="btn_item_a btn_color1" href="./fix1.html">よかった</a>
-<a Class="btn_item btn_color2" href="./fix2.html">リクエスト</a>
-<a Class="btn_item_b btn_color3" href="./fix3.html">がっかり</a>
+		<div>
+			<a Class="btn_item_a btn_color1" href="./fix1.html">よかった</a>
+			<a Class="btn_item btn_color2" href="./fix2.html">リクエスト</a>
+			<a Class="btn_item_b btn_color3" href="./fix3.html">がっかり</a>
 		</div><br>
 			<div class="form-row">
 				<label class="col-sm-3 col-form-label">①回答：</label>
@@ -880,6 +880,12 @@ b.addEventListener(eventEnd, e => {
 									'","kmcode":"'+kmcode+
 									'","corres":"'+checkValue+
 									'","pname":"'+pname+
+									'","pname":"'+pname+        // 商品名
+									'","simil":"'+ 0 +          // 類似品
+									'","genre":"'+ 0 +        // ジャンル
+									'","actual":"'+ 0 +      // 現品
+									'","cate1":"'+ 0 +          // カテゴリ１
+									'","cate2":"'+ 0 +          // カテゴリ２
 									'","offer":"'+offer+
 									'","comment":"'+comment+
 									'","kikakai":"'+kikakai+
@@ -887,6 +893,7 @@ b.addEventListener(eventEnd, e => {
 									'","insday":"'+insday+
 									'","instime":"'+instime+
 									'","delfox":"'+delfox+
+									'","kinds":"'+ 1 +          // 声の種類
 										'"}}';
 							location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
 						}
@@ -967,7 +974,8 @@ b.addEventListener(eventEnd, e => {
 										offer = txtData[13].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m}).replace(' ', '');
 										comment = txtData[14].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m}).replace(' ', '');
 										delfox = txtData[15].value;
-										address = 'tos_oka2@palcoop.or.jp';
+										address = 'kumikoetest@palcoop.or.jp';
+										// address = 'tos_oka2@palcoop.or.jp';
 										subject = '組合員の声（修正）';
 										body = '{"body":{"answer":"'+answer+
 												'","branch":"'+branch+
@@ -976,11 +984,18 @@ b.addEventListener(eventEnd, e => {
 												'","kikakai":"'+kikakai+
 												'","pcode":"'+pcode+
 												'","pname":"'+pname+
+												'","pname":"'+pname+        // 商品名
+												'","simil":"'+ 0 +          // 類似品
+												'","genre":"'+ 0 +        // ジャンル
+												'","actual":"'+ 0 +      // 現品
+												'","cate1":"'+ 0 +          // カテゴリ１
+												'","cate2":"'+ 0 +          // カテゴリ２
 												'","offer":"'+offer+
 												'","comment":"'+comment+
 												'","insday":"'+insday+
 												'","instime":"'+instime+
 												'","delfox":"'+delfox+
+												'","kinds":"'+ 1 +          // 声の種類
 												'"}}';
 										location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
 									}
