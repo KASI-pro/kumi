@@ -370,7 +370,7 @@ padding: 50px 0 0 0;
 
 		<form id="content" name="content">
 		<div>
-			<a Class="btn_item btn_color1"  onclick="">よかった</a>
+			<a Class="btn_item btn_color1" onclick="transfix()">よかった</a>
 <a Class="btn_item_a btn_color2" href="./fix2.html">リクエスト</a>
 <a Class="btn_item btn_color3" href="./fix3.html">がっかり</a>
 		</div><br>
@@ -590,6 +590,11 @@ padding: 50px 0 0 0;
 	</div>
 </body>
 <script>
+function transfix(){
+	console.log("きた")
+	window.location.replace("./fix1.html");
+}
+
 function formSwitch(newColor) {
 	decided = document.getElementsByName('corres');
     if (decided[0].checked) {
