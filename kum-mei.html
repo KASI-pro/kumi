@@ -628,17 +628,18 @@ height:20px
 					<div class="col-sm-9">
 						<p>
 							<select class="custom-select w-25" id="answer">
-								<option value="0">要</option>
-								<option value="1" selected>不要</option>
+								<optgroup>
+									<option value="0">要</option>
+									<option value="1" selected>不要</option>
+								</optgroup>
 							</select>
 						</p>
 					</div>
 			</div>
 
-		<br>
 			<div class="form-row">
 				<label class="col-sm-3 col-form-label required">②お申し出内容：</label>
-			</div><br>
+			</div>
 
 		<div class="form-row" id="content">
                         <p class="radio-btns2">現品：
@@ -649,26 +650,26 @@ height:20px
 				<div class="col-sm-9"><br>
 					<p>
 						<select class="custom-select w-50" id="category" name="ondo3" onchange="myfunc(this.value)">
-						<optgroup>
-							<option value="0">選択して下さい</option>
-							<option value="1">農産</option>
-							<option value="2">開発・独自商品</option>
-							<option value="3">その他食品</option>
-							<option value="4">雑貨商品</option>
-							<option value="5">商品以外</option>
-						</optgroup>
+							<optgroup>
+								<option value="0">選択して下さい</option>
+								<option value="1">農産</option>
+								<option value="2">開発・独自商品</option>
+								<option value="3">その他食品</option>
+								<option value="4">雑貨商品</option>
+								<option value="5">商品以外</option>
+							</optgroup>
 						</select>
 						に関して
 					</p>
 
 					<p id="hidden2">
 						<select class="custom-select w-50" id="hidden1" name="hidden1">
-						<optgroup>
-							<option value="1">傷み・腐り</option>
-							<option value="2">量目・サイズ</option>
-							<option value="3">食味（美味しくないなど）</option>
-							<option value="4">その他</option>
-						</optgroup>
+							<optgroup>
+								<option value="1">傷み・腐り</option>
+								<option value="2">量目・サイズ</option>
+								<option value="3">食味（美味しくないなど）</option>
+								<option value="4">その他</option>
+							</optgroup>
 						</select>
 						の事について
 					</p>
@@ -746,164 +747,192 @@ function myfunc(value) {
   }
 }
 
-	var regex = /(?:[\u2700-\u27bf]|(?:\ud83c[\udde6-\uddff]){2}|[\ud800-\udbff][\udc00-\udfff]|[\u0023-\u0039]\ufe0f?\u20e3|\u3299|\u3297|\u303d|\u3030|\u24c2|\ud83c[\udd70-\udd71]|\ud83c[\udd7e-\udd7f]|\ud83c\udd8e|\ud83c[\udd91-\udd9a]|\ud83c[\udde6-\uddff]|[\ud83c[\ude01\uddff]|\ud83c[\ude01-\ude02]|\ud83c\ude1a|\ud83c\ude2f|[\ud83c[\ude32\ude02]|\ud83c\ude1a|\ud83c\ude2f|\ud83c[\ude32-\ude3a]|[\ud83c[\ude50\ude3a]|\ud83c[\ude50-\ude51]|\u203c|\u2049|[\u25aa-\u25ab]|\u25b6|\u25c0|[\u25fb-\u25fe]|\u00a9|\u00ae|\u2122|\u2139|\ud83c\udc04|[\u2600-\u26FF]|\u2b05|\u2b06|\u2b07|\u2b1b|\u2b1c|\u2b50|\u2b55|\u231a|\u231b|\u2328|\u23cf|[\u23e9-\u23f3]|[\u23f8-\u23fa]|\ud83c\udccf|\u2934|\u2935|[\u2190-\u21ff])/g;
-	let count = 0;
-	let timer;
-	const ua = navigator.userAgent.toLowerCase();
-	const isSP = /iphone|ipod|ipad|android/.test(ua);
-	const b = document.getElementById('sendFrom');
-	const eventStart = isSP ? 'touchstart' : 'mousedown';
-	const eventEnd   = isSP ? 'touchend' : 'mouseup';
-	const eventLeave = isSP ? 'touchmove' : 'mouseleave';
+var regex = /(?:[\u2700-\u27bf]|(?:\ud83c[\udde6-\uddff]){2}|[\ud800-\udbff][\udc00-\udfff]|[\u0023-\u0039]\ufe0f?\u20e3|\u3299|\u3297|\u303d|\u3030|\u24c2|\ud83c[\udd70-\udd71]|\ud83c[\udd7e-\udd7f]|\ud83c\udd8e|\ud83c[\udd91-\udd9a]|\ud83c[\udde6-\uddff]|[\ud83c[\ude01\uddff]|\ud83c[\ude01-\ude02]|\ud83c\ude1a|\ud83c\ude2f|[\ud83c[\ude32\ude02]|\ud83c\ude1a|\ud83c\ude2f|\ud83c[\ude32-\ude3a]|[\ud83c[\ude50\ude3a]|\ud83c[\ude50-\ude51]|\u203c|\u2049|[\u25aa-\u25ab]|\u25b6|\u25c0|[\u25fb-\u25fe]|\u00a9|\u00ae|\u2122|\u2139|\ud83c\udc04|[\u2600-\u26FF]|\u2b05|\u2b06|\u2b07|\u2b1b|\u2b1c|\u2b50|\u2b55|\u231a|\u231b|\u2328|\u23cf|[\u23e9-\u23f3]|[\u23f8-\u23fa]|\ud83c\udccf|\u2934|\u2935|[\u2190-\u21ff])/g;
+let count = 0;
+let timer;
+const ua = navigator.userAgent.toLowerCase();
+const isSP = /iphone|ipod|ipad|android/.test(ua);
+const b = document.getElementById('sendFrom');
+const eventStart = isSP ? 'touchstart' : 'mousedown';
+const eventEnd   = isSP ? 'touchend' : 'mouseup';
+const eventLeave = isSP ? 'touchmove' : 'mouseleave';
 
-	b.addEventListener(eventStart, e => {
-	  e.preventDefault();
-	  b.classList.add('active');
-	  timer = setInterval(() => {
-	    count++;
-	  }, 10);
-	})
+b.addEventListener(eventStart, e => {
+  e.preventDefault();
+  b.classList.add('active');
+  timer = setInterval(() => {
+    count++;
+  }, 10);
+})
 
-	b.addEventListener(eventEnd, e => {
+b.addEventListener(eventEnd, e => {
 	e.preventDefault();
 	if (count) {
 	    b.classList.remove('active');
 	    clearInterval(timer);
 	    let second = (count / 100);
 		if(second > 0.0 && second < 0.6){
-			let str6 = document.getElementById("offer").value.replace(regex, '');
-			if(str6.length === 0){
-				alertify.error('内容は必須です\nお書きください');
-			}else{
-				var result = window.confirm("メールを作成しても宜しいですか？");
-				if( result ) {
 
-				let act =0;
-				const f1 = document.getElementById("content");
-				const actual = f1.actual;
-			    for (let i = 0; i < actual.length; i++) {
-			      if (actual[i].checked) {
-			        act = actual[i].value;
-			        break;
-			      }
-			    }
 
-			if(act == 1){
-				alertify.confirm("現品:【 なし 】\nで、お間違いないでしょうか？", function (e) {
-					if (e) {
-							answer = document.getElementById("answer").value;
-							branch = document.getElementById("hjigcd").value;
-							kmcode = document.getElementById("hkumcd").value;
-							pname = document.getElementById("hpname").value;
-							offer = document.getElementById("offer").value;
-							comment = document.getElementById("comment").value;
-							kikakai = document.getElementById("hkikaku").value;
-							pcode = document.getElementById("hpcode").value;
 
-							var elements = document.getElementsByName('actual');
-							var len = elements.length;
-							var checkValue = '';
-							for (let i = 0; i < len; i++){
-								if (elements.item(i).checked){
-									checkValue = elements.item(i).value;
-								}
-							}
 
-							txtData = document.content;
-							cate1 =  txtData[3].value;
-							if(cate1 == 1){
-								cate2 =  txtData[4].value;
-							}else{
-								cate2 =  0;
-							}
-
-							address = 'kumikoetest@palcoop.or.jp';
-							// address = 'tos_oka2@palcoop.or.jp';
-							subject = 'がっかりの声';
-
-							body = '{"body":{"answer":"'+answer+        // 回答
-							'","branch":"'+branch+      // 支所
-							'","kmcode":"'+kmcode+      // 組合員番号
-							'","corres":"'+ 0 +  // 組声　or　地域
-							'","kikakai":"'+kikakai+    // 企画回
-							'","pcode":"'+pcode+        // 商品番号
-							'","pname":"'+pname+        // 商品名
-							'","simil":"'+ 0 +          // 類似品
-							'","genre":"'+ 0 +        // ジャンル
-							'","actual":"'+checkValue+      // 現品
-							'","cate1":"'+cate1+		// カテゴリ１
-							'","cate2":"'+cate2+		// カテゴリ２
-							'","offer":"'+offer+        // 内容
-							'","comment":"'+comment+    // 担当者のコメント（補足）
-							'","insday":"'+''+          // インサート日
-							'","instime":"'+''+         // インサート時間
-							'","delfox":"'+ 0 +         // 修正などの種類
-							'","kinds":"'+ 3 +          // 声の種類
-							'"}}';
-
-							location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
-
-					}
-				});
-			}else{
-				 var result = window.confirm("メールを作成しても宜しいですか？");
-					if( result ) {
-						answer = document.getElementById("answer").value;
-						branch = document.getElementById("hjigcd").value;
-						kmcode = document.getElementById("hkumcd").value;
-						pname = document.getElementById("hpname").value;
-						offer = document.getElementById("offer").value;
-						comment = document.getElementById("comment").value;
-						kikakai = document.getElementById("hkikaku").value;
-						pcode = document.getElementById("hpcode").value;
-
-						var elements = document.getElementsByName('actual');
-						var len = elements.length;
-						var checkValue = '';
-						for (let i = 0; i < len; i++){
-							if (elements.item(i).checked){
-								checkValue = elements.item(i).value;
-							}
-						}
-
-						txtData = document.content;
-						cate1 =  txtData[3].value;
-						if(cate1 == 1){
-							cate2 =  txtData[4].value;
-						}else{
-							cate2 =  0;
-						}
-
-						address = 'kumikoetest@palcoop.or.jp';
-						// address = 'tos_oka2@palcoop.or.jp';
-						subject = 'がっかりの声';
-
-						body = '{"body":{"answer":"'+answer+        // 回答
-						'","branch":"'+branch+      // 支所
-						'","kmcode":"'+kmcode+      // 組合員番号
-						'","corres":"'+ 0 +  // 組声　or　地域
-						'","kikakai":"'+kikakai+    // 企画回
-						'","pcode":"'+pcode+        // 商品番号
-						'","pname":"'+pname+        // 商品名
-						'","simil":"'+ 0 +          // 類似品
-						'","genre":"'+ 0 +        // ジャンル
-						'","actual":"'+checkValue+      // 現品
-						'","cate1":"'+cate1+		// カテゴリ１
-						'","cate2":"'+cate2+		// カテゴリ２
-						'","offer":"'+offer+        // 内容
-						'","comment":"'+comment+    // 担当者のコメント（補足）
-						'","insday":"'+''+          // インサート日
-						'","instime":"'+''+         // インサート時間
-						'","delfox":"'+ 0 +         // 修正などの種類
-						'","kinds":"'+ 3 +          // 声の種類
-						'"}}';
-
-						location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
-					} else {
-				  	}
+			let c1 = document.getElementById("category").value; // カテゴリーチェック
+			let c2 = document.getElementById("hidden1").value; // カテゴリーチェック
+			let cate = 0;
+			if(c1 == 0){
+				alert("⑦お申し出内容の\n『～関して』の欄の選択を行って下さい")
+			}else if(c1 == 1){
+				if(c2 == 0){
+					alert("⑦お申し出内容の\n 選択欄 2つ目『～の事について』の選択を行って下さい")
+				}else{
+					cate = 1;
 				}
-						} else {
-					  	}
+			}else{
+				cate = 1;
+			}
+			// カテゴリー欄チェック
+			if(cate == 1){
+				let str6 = document.getElementById("offer").value.replace(regex, '');
+				if(str6.length === 0){
+					alertify.error('内容は必須です\nお書きください');
+				}else{
+					var result = window.confirm("メールを作成しても宜しいですか？");
+					if( result ) {
+						 // 回答チェック
+						let kai = 0;
+						let kaitou = document.getElementById("answer").value;
+						if(kaitou == 1){
+							var success = window.confirm("回答:【 不要 】\nで、お間違いないでしょうか？");
+							if(success){
+								kai = 1;
+							}
+						}else{
+							kai = 1;
+						}
+
+						if(kai == 1){
+						    // 回答チェックOKなら　現品有無チェック
+							let act =0;
+							const f1 = document.getElementById("content");
+							const actual = f1.actual;
+						    for (let i = 0; i < actual.length; i++) {
+						      if (actual[i].checked) {
+						        act = actual[i].value;
+						        break;
+						      }
+						    }
+							if(act == 1){ // 現品無選択
+								alertify.confirm("現品:【 なし 】\nで、お間違いないでしょうか？", function (e) {
+									if (e) {
+										answer = document.getElementById("answer").value;
+										branch = document.getElementById("hjigcd").value;
+										kmcode = document.getElementById("hkumcd").value;
+										pname = document.getElementById("hpname").value;
+										offer = document.getElementById("offer").value;
+										comment = document.getElementById("comment").value;
+										kikakai = document.getElementById("hkikaku").value;
+										pcode = document.getElementById("hpcode").value;
+
+										var elements = document.getElementsByName('actual');
+										var len = elements.length;
+										var checkValue = '';
+										for (let i = 0; i < len; i++){
+											if (elements.item(i).checked){
+												checkValue = elements.item(i).value;
+											}
+										}
+
+										txtData = document.content;
+										cate1 =  txtData[3].value;
+										if(cate1 == 1){
+											cate2 =  txtData[4].value;
+										}else{
+											cate2 =  0;
+										}
+
+										address = 'kumikoetest@palcoop.or.jp';
+										// address = 'tos_oka2@palcoop.or.jp';
+										subject = 'がっかりの声';
+
+										body = '{"body":{"answer":"'+answer+        // 回答
+											'","branch":"'+branch+      // 支所
+											'","kmcode":"'+kmcode+      // 組合員番号
+											'","corres":"'+ 0 +  // 組声　or　地域
+											'","kikakai":"'+kikakai+    // 企画回
+											'","pcode":"'+pcode+        // 商品番号
+											'","pname":"'+pname+        // 商品名
+											'","simil":"'+ 0 +          // 類似品
+											'","genre":"'+ 0 +        // ジャンル
+											'","actual":"'+checkValue+      // 現品
+											'","cate1":"'+cate1+		// カテゴリ１
+											'","cate2":"'+cate2+		// カテゴリ２
+											'","offer":"'+offer+        // 内容
+											'","comment":"'+comment+    // 担当者のコメント（補足）
+											'","insday":"'+''+          // インサート日
+											'","instime":"'+''+         // インサート時間
+											'","delfox":"'+ 0 +         // 修正などの種類
+											'","kinds":"'+ 3 +          // 声の種類
+										'"}}';
+
+										location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
+									}
+								});
+							}else{ // 現品有選択
+								answer = document.getElementById("answer").value;
+								branch = document.getElementById("hjigcd").value;
+								kmcode = document.getElementById("hkumcd").value;
+								pname = document.getElementById("hpname").value;
+								offer = document.getElementById("offer").value;
+								comment = document.getElementById("comment").value;
+								kikakai = document.getElementById("hkikaku").value;
+								pcode = document.getElementById("hpcode").value;
+
+								var elements = document.getElementsByName('actual');
+								var len = elements.length;
+								var checkValue = '';
+								for (let i = 0; i < len; i++){
+									if (elements.item(i).checked){
+										checkValue = elements.item(i).value;
+									}
+								}
+
+								txtData = document.content;
+								cate1 =  txtData[3].value;
+								if(cate1 == 1){
+									cate2 =  txtData[4].value;
+								}else{
+									cate2 =  0;
+								}
+
+								address = 'kumikoetest@palcoop.or.jp';
+								// address = 'tos_oka2@palcoop.or.jp';
+								subject = 'がっかりの声';
+
+								body = '{"body":{"answer":"'+answer+        // 回答
+									'","branch":"'+branch+      // 支所
+									'","kmcode":"'+kmcode+      // 組合員番号
+									'","corres":"'+ 0 +  // 組声　or　地域
+									'","kikakai":"'+kikakai+    // 企画回
+									'","pcode":"'+pcode+        // 商品番号
+									'","pname":"'+pname+        // 商品名
+									'","simil":"'+ 0 +          // 類似品
+									'","genre":"'+ 0 +        // ジャンル
+									'","actual":"'+checkValue+      // 現品
+									'","cate1":"'+cate1+		// カテゴリ１
+									'","cate2":"'+cate2+		// カテゴリ２
+									'","offer":"'+offer+        // 内容
+									'","comment":"'+comment+    // 担当者のコメント（補足）
+									'","insday":"'+''+          // インサート日
+									'","instime":"'+''+         // インサート時間
+									'","delfox":"'+ 0 +         // 修正などの種類
+									'","kinds":"'+ 3 +          // 声の種類
+								'"}}';
+
+								location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
+							}
+						}
+					} // メール作成上
+				}
 			}
 		}
 		count = 0;
