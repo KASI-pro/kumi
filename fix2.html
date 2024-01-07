@@ -419,9 +419,18 @@ height:20px
 			<div class="form-row">
 				<label class="col-sm-3 col-form-label required">⑦お申し出内容：</label>
 				<div class="col-sm-9">
-<p>
+					<p>
+						類似商品の提案：
+						<select class="custom-select w-25" id="simil" name="simil">
+							<optgroup>
+								<option value="2">要</option>
+								<option value="1" selected>不要</option>
+							</optgroup>
+						</select>
+					</p>
+					<p>
 						ジャンル：
-						<select class="custom-select w-50" id="Genre" name="Genre" onchange="myfunc(this.value)">
+						<select class="custom-select w-50" id="genre" name="genre" onchange="myfunc(this.value)">
 							<optgroup>
 								<option value="0">選択して下さい</option>
 								<option value="1">野菜・魚・お肉</option>
@@ -437,6 +446,7 @@ height:20px
 					</p>
 					<p id="hidden1" class="caution"><strong>※ 『 男性用・女性用・子供用 』<br>&emsp;『 サイズ 』などもご記入ください</strong></p>
 					<p id="hidden2" class="caution"><strong>※ 『 どこで 』『 何に使うものか 』<br>&emsp;もご記入ください</strong></p>
+
 					<p>
 						<textarea id="offer" rows="4" cols="34" placeholder="詳細"></textarea>
 					</p>
@@ -517,7 +527,8 @@ window.onload=function(){
 		document.getElementById("offer").value = params.get('offer');
 		document.getElementById("comment").value = params.get('comment');
 		document.getElementById("answer").value = params.get('answer');
-		document.getElementById("Genre").value = params.get('genre');
+		document.getElementById("simil").value = params.get('simil');
+		document.getElementById("genre").value = params.get('genre');
 		var reparam = params.get('branch');
 		checkSelect(f.elements["branch"],reparam);
 		var reparam2 = params.get('answer');
@@ -559,7 +570,7 @@ window.onload=function(){
 				document.getElementById("kai").value = '';
 			}
 		}
-		
+
 	}else if(cor == 6 && nisd == ind){
 		let element2 = document.getElementsByName('corres');
 		element2[1].checked = true;
@@ -780,73 +791,14 @@ b.addEventListener(eventEnd, e => {
 		};
 		var nowday1 = p.getFullYear();
 		var nowday2 = toDoubleDigits(p.getMonth()+1);
-		var nowday3 = p.getDate()
+		var nowday3 = ('00' + p.getDate()).slice( -2 );
 		var nisd = nowday1 + nowday2 + nowday3;
 		var url = new URL(window.location.href);
 		var params = url.searchParams;
 		var cor = Number(params.get('corres'));
 		var ind = params.get('insday');
-			if(radioValue === '6' && nisd == ind){
-				let str6 = document.getElementById("offer2").value.replace(regex, '');
-					if(str6.length === 0){
-						alert("内容は必須です\nお書きください");
-					}else{
-						let str21 = document.getElementById("delete2").value; // 添付削除
-						var result;
-						if(str21 != 0){
-							result = window.confirm("添付画像全て削除に\nチェックされていますが\nメールを作成しても宜しいですか？");
-						}else{
-							result = window.confirm("メールを作成しても宜しいですか？");
-						}
-						if( result ) {
-							var elements = document.getElementsByName('corres');
-							var len = elements.length;
-							var checkValue = '';
-								for (let i = 0; i < len; i++){
-									if (elements.item(i).checked){
-										checkValue = elements.item(i).value;
-									}
-								}
-							var url = new URL(window.location.href);
-							var params = url.searchParams;
-							var insday = params.get('insday');
-							var instime = params.get('instime');
-							txtData = document.area;
-							answer = txtData[0].value;
-							branch = txtData[3].value;
-							kmcode = txtData[4].value;
-							pname = txtData[5].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m}).replace(' ', '');
-							offer = txtData[6].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m}).replace(' ', '');
-							comment = txtData[7].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m}).replace(' ', '');
-							delfox = txtData[8].value;
-											kikakai = '';
-											pcode = '';
-							address = 'tos_oka2@palcoop.or.jp';
-							subject = '地域の声（修正）';
-							body = '{"body":{"answer":"'+answer+
-									'","branch":"'+branch+
-									'","kmcode":"'+kmcode+
-									'","corres":"'+checkValue+
-									'","pname":"'+pname+
-									'","pname":"'+pname+        // 商品名
-									'","simil":"'+ 0 +          // 類似品
-									'","genre":"'+ 0 +        // ジャンル
-									'","actual":"'+ 0 +      // 現品
-									'","cate1":"'+ 0 +          // カテゴリ１
-									'","cate2":"'+ 0 +          // カテゴリ２
-									'","offer":"'+offer+
-									'","comment":"'+comment+
-									'","kikakai":"'+kikakai+
-									'","pcode":"'+pcode+
-									'","insday":"'+insday+
-									'","instime":"'+instime+
-									'","delfox":"'+delfox+
-									'","kinds":"'+ 1 +          // 声の種類
-										'"}}';
-							location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
-						}
-					}
-			}else if(radioValue === '5' && nisd == ind){
+
+			if(nisd == ind){
 				let str2 = document.getElementById("kmcode").value; // 組合員コードチェック
 				if(str2.length === 0){
 					alert("組合員コードは必須です。入力してください。");
@@ -919,31 +871,33 @@ b.addEventListener(eventEnd, e => {
 										kikakai = time1+time2+time3;
 										pcode = txtData[11].value;
 										pname = txtData[12].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m}).replace(' ', '');
-										offer = txtData[13].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m}).replace(' ', '');
-										comment = txtData[14].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m}).replace(' ', '');
-										delfox = txtData[15].value;
+										simil = txtData[13].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+										genre = txtData[14].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+										offer = txtData[15].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+										comment = txtData[16].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+										delfox = txtData[17].value;
 										address = 'kumikoetest@palcoop.or.jp';
 										// address = 'tos_oka2@palcoop.or.jp';
 										subject = '組合員の声（修正）';
 										body = '{"body":{"answer":"'+answer+
-												'","branch":"'+branch+
-												'","kmcode":"'+kmcode+
-												'","corres":"'+checkValue+
-												'","kikakai":"'+kikakai+
-												'","pcode":"'+pcode+
-												'","pname":"'+pname+
-												'","pname":"'+pname+        // 商品名
-												'","simil":"'+ 0 +          // 類似品
-												'","genre":"'+ 0 +        // ジャンル
-												'","actual":"'+ 0 +      // 現品
-												'","cate1":"'+ 0 +          // カテゴリ１
-												'","cate2":"'+ 0 +          // カテゴリ２
-												'","offer":"'+offer+
-												'","comment":"'+comment+
-												'","insday":"'+insday+
-												'","instime":"'+instime+
-												'","delfox":"'+delfox+
-												'","kinds":"'+ 1 +          // 声の種類
+													'","branch":"'+branch+
+													'","kmcode":"'+kmcode+
+													'","corres":"'+checkValue+
+													'","kikakai":"'+kikakai+
+													'","pcode":"'+pcode+
+													'","pname":"'+pname+
+													'","pname":"'+pname+        // 商品名
+													'","simil":"'+simil+     // 類似品
+													'","genre":"'+genre+    // ジャンル
+													'","actual":"'+ 0 +      // 現品
+													'","cate1":"'+ 0 +          // カテゴリ１
+													'","cate2":"'+ 0 +          // カテゴリ２
+													'","offer":"'+offer+
+													'","comment":"'+comment+
+													'","insday":"'+insday+
+													'","instime":"'+instime+
+													'","delfox":"'+delfox+
+													'","kinds":"'+ 2 +          // 声の種類
 												'"}}';
 										location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
 									}
@@ -970,9 +924,7 @@ b.addEventListener(eventEnd, e => {
 				}
 			}else{
 				document.getElementById('content').style.display = "none";
-        			document.getElementById('area').style.display = "none";
-        			document.getElementById('down').style.display = "none";
-				document.getElementById('up').style.display = "none";
+        		document.getElementById('down').style.display = "none";
 				alert("修正できる期限が過ぎています。\n修正できません。");
 			}
 		}
