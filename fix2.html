@@ -271,15 +271,15 @@ height:20px
 }
 .btn_color1{
   background: #808080;
-  color: #fff;
+  color: #ffffff;
 }
 .btn_color2{
   background: #008000;
-  color: #fff;
+  color: #ffffff;
 }
 .btn_color3{
   background: #808080;
-  color: #fff;
+  color: #ffffff;
 }
 .caution{
   color: #f00;
@@ -319,9 +319,9 @@ height:20px
 	</header>
 		<form id="content" name="content">
 		<div>
-			<a Class="btn_item btn_color1" onclick="transfix1()">よかった</a>
-			<a Class="btn_item_a btn_color2">リクエスト</a>
-			<a Class="btn_item btn_color3" onclick="transfix3()">がっかり</a>
+			<a class="btn_item btn_color1" style="color: #fff;" onclick="transfix1()">よかった</a>
+			<a class="btn_item_a btn_color2" style="color: #fff;">リクエスト</a>
+			<a class="btn_item btn_color3" style="color: #fff;" onclick="transfix3()">がっかり</a>
 		</div><br>
 			<div class="form-row">
 				<label class="col-sm-3 col-form-label">①回答：</label>
@@ -559,7 +559,7 @@ window.onload=function(){
 				document.getElementById("kai").value = '';
 			}
 		}
-		document.getElementById('up').style.display = "none";
+		
 	}else if(cor == 6 && nisd == ind){
 		let element2 = document.getElementsByName('corres');
 		element2[1].checked = true;
