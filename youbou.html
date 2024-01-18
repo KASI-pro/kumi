@@ -326,7 +326,7 @@ height:20px
 								<option value="307">平野支所</option>
 								<option value="401">鶴見支所</option>
 								<option value="402">都島個配センター</option>
-                                <option value="403">安治川支所</option>
+                                				<option value="403">安治川支所</option>
 								<option value="405">都島支所</option>
 							</optgroup>
 						</select>
@@ -401,13 +401,14 @@ height:20px
 							<optgroup>
 								<option value="0">選択して下さい</option>
 								<option value="1">野菜・魚・お肉</option>
-								<option value="2">加工食品・パン・お米</option>
+								<option value="2">パン・お米</option>
 								<option value="3">冷凍食品</option>
-								<option value="4">飲料・お酒</option>
-								<option value="5">化粧品</option>
-								<option value="6">衣類 </option>
-								<option value="7">寝具</option>
-								<option value="8">その他雑貨・日用品</option>
+								<option value="4">加工食品（レトルト・調味料など）</option>
+								<option value="5">飲料・お酒</option>
+								<option value="6">化粧品</option>
+								<option value="7">衣類 </option>
+								<option value="8">寝具</option>
+								<option value="9">その他雑貨・日用品</option>
 							</optgroup>
 						</select>
 					</p>
@@ -443,10 +444,10 @@ function myfunc(value) {
   var check1 = document.getElementById("genre").value;
   var hidden1 = document.getElementById("hidden1");
   var hidden2 = document.getElementById("hidden2");
-  if(check1 == 6){
+  if(check1 === 7){
      hidden1.style.display ="block";
      hidden2.style.display ="none";
-  }else if(check1 == 8){
+  }else if(check1 === 9){
     hidden1.style.display ="none";
     hidden2.style.display ="block";
   }else{
