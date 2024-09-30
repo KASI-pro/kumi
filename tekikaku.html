@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<!-- Latest compiled and minified CSS -->
+<link
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+	crossorigin="anonymous">
+<link rel="apple-touch-icon" href="https://kasi-pro.github.io/kumi/favicon.ico" sizes="180x180">
+
+</head>
+<body>
+	<div class="container">
+
+
+	</div>
+</body>
+<script>
+
+window.onload=function(){
+const url = 'https://web-api.invoice-kohyo.nta.go.jp/1/num?id=KJpQqkBPNPK8P&number=T8040001999011&type=21&history=0'
+      var xhr = new XMLHttpRequest()
+      xhr.open('GET', url)
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          var response = JSON.parse(xhr.responseText)
+          console.log(response) // JSONデータをJavaScriptオブジェクトとして利用
+        } else {
+          console.error('Request failed.  Returned status of ' + xhr.status)
+        }
+      }
+      xhr.send()
+}
+
+</script>
+</html>
