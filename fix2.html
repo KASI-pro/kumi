@@ -588,10 +588,8 @@ window.onload=function(){
 		document.getElementById('up').style.display = "none";
 	}else{
      	document.getElementById('content').style.display = "none";
-        document.getElementById('area').style.display = "none";
         document.getElementById('down').style.display = "none";
-		document.getElementById('up').style.display = "none";
-		alert("修正できる期限が過ぎているため\n表示できません");
+	alert("修正できる期限が過ぎているため\n表示できません");
 	}
 }
 
@@ -813,108 +811,113 @@ b.addEventListener(eventEnd, e => {
 					if(str7.length === 0){
 						alert("商品名は必須です\nお書きください");
 					}else{
-						let str5 = document.getElementById("offer").value.replace(regex, ''); // 内容チェック
-						if(str5.length === 0){
-							alert("内容は必須です\nお書きください");
+						var genre =  document.getElementById('genre').value;
+						if(genre == 0){
+							alert("⑦の「ジャンル」の選択は必須です")
 						}else{
-							let str8= document.getElementById("pcode").value; // 注文番チェック
-							if(isNaN(str8)){
-								alert("注文番号の欄に数字以外の字が入力されています。");
+							let str5 = document.getElementById("offer").value.replace(regex, ''); // 内容チェック
+							if(str5.length === 0){
+								alert("内容は必須です\nお書きください");
 							}else{
-								var toDoubleDigits = function(num) {
-									num += "";
-									if (num.length === 1) {
-										num = "0" + num;
-									}
-									return num;
-								};
-								let str11= document.getElementById("kikaku-year").value; // 年
-								let str12= toDoubleDigits(document.getElementById('kikaku-month').value); // 月
-								let str13= document.getElementById("kai").value; // 回
-								let kikanm = str11+str12+str13;
-								if(kikanm.length === 0 || kikanm.length === 7){
-									let str20 = document.getElementById("delete").value; // 添付削除
-									var result;
-									if(str20 != 0){
-										result = window.confirm("添付画像全て削除に\nチェックされていますが\nメールを作成しても宜しいですか？");
-									}else{
-										result = window.confirm("メールを作成しても宜しいですか？");
-									}
-
-									if( result ) {
-										var toDoubleDigits = function(num) {
-										  num += "";
-										  if (num.length === 1) {
-										    num = "0" + num;
-										  }
-										 return num;
-										};
-										var elements = document.getElementsByName('corres');
-										var time1 =  document.getElementById('kikaku-year').value;
-										var time2 =  toDoubleDigits(document.getElementById('kikaku-month').value);
-										var time3 = document.getElementById('kai').value;
-										var len = elements.length;
-										var checkValue = '';
-											for (let i = 0; i < len; i++){
-												if (elements.item(i).checked){
-													checkValue = elements.item(i).value;
-												}
-											}
-										var url = new URL(window.location.href);
-										var params = url.searchParams;
-										var insday = params.get('insday');
-										var instime = params.get('instime');
-										txtData = document.content;
-										answer = txtData[0].value;
-										branch = txtData[3].value;
-										kmcode = txtData[4].value;
-										kikakai = time1+time2+time3;
-										pcode = txtData[11].value;
-										pname = txtData[12].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m}).replace(' ', '');
-										simil = txtData[13].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-										genre = txtData[14].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-										offer = txtData[15].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-										comment = txtData[16].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-										delfox = txtData[17].value;
-										address = 'tos_oka2@palcoop.or.jp';
-										subject = '組合員の声（修正）';
-										body = '{"body":{"answer":"'+answer+
-													'","branch":"'+branch+
-													'","kmcode":"'+kmcode+
-													'","corres":"'+ 5 +
-													'","kikakai":"'+kikakai+
-													'","pcode":"'+pcode+
-													'","pname":"'+pname+        // 商品名
-													'","simil":"'+simil+     // 類似品
-													'","genre":"'+genre+    // ジャンル
-													'","actual":"'+ 0 +      // 現品
-													'","cate1":"'+ 0 +          // カテゴリ１
-													'","cate2":"'+ 0 +          // カテゴリ２
-													'","offer":"'+offer+
-													'","comment":"'+comment+
-													'","insday":"'+insday+
-													'","instime":"'+instime+
-													'","delfox":"'+delfox+
-													'","kinds":"'+ 2 +          // 声の種類
-												'"}}';
-										location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
-									}
+								let str8= document.getElementById("pcode").value; // 注文番チェック
+								if(isNaN(str8)){
+									alert("注文番号の欄に数字以外の字が入力されています。");
 								}else{
-									var emsg;
-									if(str11.length === 0 && str12.length !== 0 && str13.length !== 0){
-										emsg = "年の";
-									}else if(str11.length !== 0 && str12.length === 0 && str13.length !== 0){
-										emsg = "月の";
-									}else if(str11.length !== 0 && str12.length !== 0 && str13.length === 0){
-										emsg = "回の";
-									}else if(str11.length === 0 && str12.length === 0 && str13.length !== 0){
-										emsg = "年と月の";
-									}else if(str11.length !== 0 && str12.length === 0 && str13.length === 0){
-										emsg = "月と回の";
-									}else if(str11.length === 0 && str12.length !== 0 && str13.length === 0){
-										emsg = "年と回の";
+									var toDoubleDigits = function(num) {
+										num += "";
+										if (num.length === 1) {
+											num = "0" + num;
+										}
+										return num;
+									};
+									let str11= document.getElementById("kikaku-year").value; // 年
+									let str12= toDoubleDigits(document.getElementById('kikaku-month').value); // 月
+									let str13= document.getElementById("kai").value; // 回
+									let kikanm = str11+str12+str13;
+									if(kikanm.length === 0 || kikanm.length === 7){
+										let str20 = document.getElementById("delete").value; // 添付削除
+										var result;
+										if(str20 != 0){
+											result = window.confirm("添付画像全て削除に\nチェックされていますが\nメールを作成しても宜しいですか？");
+										}else{
+											result = window.confirm("メールを作成しても宜しいですか？");
+										}
+
+										if( result ) {
+											var toDoubleDigits = function(num) {
+											  num += "";
+											  if (num.length === 1) {
+											    num = "0" + num;
+											  }
+											 return num;
+											};
+											var elements = document.getElementsByName('corres');
+											var time1 =  document.getElementById('kikaku-year').value;
+											var time2 =  toDoubleDigits(document.getElementById('kikaku-month').value);
+											var time3 = document.getElementById('kai').value;
+											var len = elements.length;
+											var checkValue = '';
+												for (let i = 0; i < len; i++){
+													if (elements.item(i).checked){
+														checkValue = elements.item(i).value;
+													}
+												}
+											var url = new URL(window.location.href);
+											var params = url.searchParams;
+											var insday = params.get('insday');
+											var instime = params.get('instime');
+											txtData = document.content;
+											answer = txtData[0].value;
+											branch = txtData[3].value;
+											kmcode = txtData[4].value;
+											kikakai = time1+time2+time3;
+											pcode = txtData[11].value;
+											pname = txtData[12].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m}).replace(' ', '');
+											simil = txtData[13].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+											genre = txtData[14].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+											offer = txtData[15].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+											comment = txtData[16].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+											delfox = txtData[17].value;
+											address = 'tos_oka2@palcoop.or.jp';
+											subject = '組合員の声（修正）';
+											body = '{"body":{"answer":"'+answer+
+														'","branch":"'+branch+
+														'","kmcode":"'+kmcode+
+														'","corres":"'+ 5 +
+														'","kikakai":"'+kikakai+
+														'","pcode":"'+pcode+
+														'","pname":"'+pname+        // 商品名
+														'","simil":"'+simil+     // 類似品
+														'","genre":"'+genre+    // ジャンル
+														'","actual":"'+ 0 +      // 現品
+														'","cate1":"'+ 0 +          // カテゴリ１
+														'","cate2":"'+ 0 +          // カテゴリ２
+														'","offer":"'+offer+
+														'","comment":"'+comment+
+														'","insday":"'+insday+
+														'","instime":"'+instime+
+														'","delfox":"'+delfox+
+														'","kinds":"'+ 2 +          // 声の種類
+													'"}}';
+											location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
+										}
+									}else{
+										var emsg;
+										if(str11.length === 0 && str12.length !== 0 && str13.length !== 0){
+											emsg = "年の";
+										}else if(str11.length !== 0 && str12.length === 0 && str13.length !== 0){
+											emsg = "月の";
+										}else if(str11.length !== 0 && str12.length !== 0 && str13.length === 0){
+											emsg = "回の";
+										}else if(str11.length === 0 && str12.length === 0 && str13.length !== 0){
+											emsg = "年と月の";
+										}else if(str11.length !== 0 && str12.length === 0 && str13.length === 0){
+											emsg = "月と回の";
+										}else if(str11.length === 0 && str12.length !== 0 && str13.length === 0){
+											emsg = "年と回の";
+										}
+										alert("企画回を使用するボタンが\nチェックされているのですが\n"+emsg+"欄が選択されていません。");
 									}
-									alert("企画回を使用するボタンが\nチェックされているのですが\n"+emsg+"欄が選択されていません。");
 								}
 							}
 						}
