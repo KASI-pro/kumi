@@ -969,6 +969,10 @@ b.addEventListener(eventEnd, e => {
 										pcode = txtData[11].value;
 										pname = txtData[12].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m}).replace(' ', '');
 										cate1 =  txtData[15].value;
+										if (cate1 === "") {
+                                            						alert("「を関して」の欄でどれか選択してください。");
+                                            						return;
+                                        					}
 										if(cate1 == 1){
 											cate2 =  txtData[16].value;
 										}else{
