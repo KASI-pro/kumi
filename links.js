@@ -1,11 +1,19 @@
+/*
+// 本番
+const address = "tos_oka2@palcoop.or.jp";
 const voiceLinks = {
-  koe: "./youbou.html",
+  koe: "./kumikoe.html",
   request: "./youbou.html",
   disappointing: "./disappointing.html"
 };
+*/
 
-// 本番
-// const address = "tos_oka2@palcoop.or.jp";
 
 // テスト
 const address = "kumikoetest@palcoop.or.jp";
+
+const voiceLinks = {
+  koe: "./kumikoeTest.html",
+  request: "./youbouTest.html",
+  disappointing: "./disappointingTest.html"
+};
