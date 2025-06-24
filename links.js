@@ -4,6 +4,10 @@ const address = isTest
   ? 'kumikoetest@palcoop.or.jp'
   : 'tos_oka2@palcoop.or.jp';
 
+const meisaiadd = isTest
+  ? 'meisaiTest@palcoop.or.jp'
+  : 'meisai@palcoop.or.jp';
+
 const voiceLinks = isTest
   ? {
       koe: "./kumikoeTest.html",
