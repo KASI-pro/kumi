@@ -1,4 +1,4 @@
-const isTest = false; // ← ここが true だとテスト、false だと本番！
+const isTest = true; // ← ここが true だとテスト、false だと本番！
 
 const address = isTest
   ? 'kumikoetest@palcoop.or.jp'
