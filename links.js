@@ -11,7 +11,6 @@ const voiceLinks = {
 
 // テスト
 const address = "kumikoetest@palcoop.or.jp";
-
 const voiceLinks = {
   koe: "./kumikoeTest.html",
   request: "./youbouTest.html",
