@@ -1,6 +1,6 @@
 /*
 // 本番
-const address = "tos_oka2@palcoop.or.jp";
+const address = 'tos_oka2@palcoop.or.jp';
 const voiceLinks = {
   koe: "./kumikoe.html",
   request: "./youbou.html",
@@ -10,7 +10,8 @@ const voiceLinks = {
 
 
 // テスト
-const address = "kumikoetest@palcoop.or.jp";
+const address = 'kumikoetest@palcoop.or.jp';
+
 const voiceLinks = {
   koe: "./kumikoeTest.html",
   request: "./youbouTest.html",

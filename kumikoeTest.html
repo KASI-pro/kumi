@@ -594,6 +594,35 @@ window.onload=function(){
             pname2Input.value = params.shinn;
         }
     }
+
+if (params.kikakukai) {
+    const kikakukaiStr = params.kikakukai;
+    
+    if (kikakukaiStr.length === 7) {
+        const year = kikakukaiStr.substring(0, 4); // 2025
+        const month = kikakukaiStr.substring(4, 6); // 07
+        const kai = kikakukaiStr.substring(6); // 3
+
+        // 各セレクトボックスに代入
+        const yearSelect = document.getElementById("kikaku-year");
+        const monthSelect = document.getElementById("kikaku-month");
+        const kaiSelect = document.getElementById("kai");
+
+        if (yearSelect) checkSelect(yearSelect, year);
+        if (monthSelect) checkSelect(monthSelect, parseInt(month).toString());
+        if (kaiSelect) checkSelect(kaiSelect, kai);
+
+        // セレクトボックスが無効なら有効に（チェックボックスもONにする）
+        document.getElementById("kikaku-year").removeAttribute("disabled");
+        document.getElementById("kikaku-month").removeAttribute("disabled");
+        document.getElementById("kai").removeAttribute("disabled");
+
+        const switchInput = document.querySelector(".switch3__input");
+        if (switchInput) switchInput.checked = true;
+    }
+}
+
+
     // ★★★ 追加したコードここまで ★★★
 }
 

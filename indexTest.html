@@ -124,6 +124,142 @@ width: 200px;
 .cta_btn09-kikaku:hover {
   transform: scale(1.05);
 }
+/* テーブル全体 */
+.table-styled {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto;
+  font-family: 'Helvetica Neue', sans-serif;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* ヘッダー */
+.table-styled thead {
+  background-color: #4D9BC1;
+  color: #fff;
+}
+
+/* セルの基本 */
+.table-styled th,
+.table-styled td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+/* 最終行だけボーダーを消す */
+.table-styled tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* 偶数行に背景色 */
+.table-styled tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* ホバー時に色変更 */
+.table-styled tbody tr:hover {
+  background-color: #e3f2fd;
+}
+
+.table-styled th,
+.table-styled td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.table-styled thead th {
+  border: none; /* ←ここでヘッダーの罫線をオフに */
+  border-bottom: 2px solid #4D9BC1; /* 必要なら下だけ残す */
+}
+
+
+.table-styled td:nth-child(2) {
+  border-left: 2px solid #ccc;
+}
+.table-styled th:first-child,
+.table-styled td:first-child {
+  width: 90px;          /* 項目列を固定幅にする（お好みで調整） */
+  min-width: 90px;
+  white-space: nowrap;   /* 折り返さない */
+}
+.voice-option {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.voice-option a {
+  display: block;
+  padding: 1.4em;
+  border-radius: 12px;
+  background-color: #f0f0f0;
+  font-weight: bold;
+  font-size: 1.1em;
+  text-align: center;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  color: #333;
+}
+
+.button-table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 16px 0;
+}
+
+.button-table td {
+  border: none;
+  padding: 10px 0;
+}
+
+.voice-btn {
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-align: center;
+  background-color: #f4f4f4;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.voice-btn:hover {
+  transform: scale(1.03);
+}
+
+.voice-btn span {
+  display: block;
+  font-size: 0.9em;
+  color: #666;
+  margin-top: 6px;
+}
+
+.voice-btn-koe { background-color: #F88400; color: white; }
+.voice-btn-request { background-color: #009900; color: white; }
+.voice-btn-disappointing { background-color: #4D9BC1; color: white; }
+.voice-btn span {
+  color: #fff;          /* 白にして控えめに */
+  font-size: 0.9em;     /* 少し小さめ */
+  opacity: 0.8;         /* うっすら表示 */
+}
+.voice-btn span {
+  color: #e0e0e0;
+}
+
+
+
 </style>
   <meta charset="UTF-8">
   <title>組合員の声フォーム</title>
@@ -131,29 +267,43 @@ width: 200px;
 <body>
 
 <div id="content-with-params">
-    <h2>パラメータを受け取りました！</h2>
-    <p>URLから受け取った情報です。</p>
-    <ul>
-        <li>支所: <span id="sibu-param"></span></li>
-        <li>組合員番号: <span id="kumicd-param"></span></li>
-        <li>注文番号: <span id="chuno-param"></span></li>
-        <li>商品名: <span id="shinn-param"></span></li>
-    </ul>
+    <table class="table-styled">
+  <thead>
+    <tr><th colspan="2">内容のご確認</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>支所</td><td><span id="sibu-param"></span></td></tr>
+    <tr><td>組合員番号</td><td><span id="kumicd-param"></span></td></tr>
+    <tr><td>組合員名</td><td><span id="kuminn-param"></span> さん</td></tr>
+    <tr><td>企画回</td><td><span id="kikakukai-param"></span></td></tr>
+    <tr><td>注文番号</td><td><span id="chuno-param"></span></td></tr>
+    <tr><td>商品名</td><td><span id="shinn-param"></span></td></tr>
+  </tbody>
+</table>
 
-    <div class="cta_btn09">
-        <a id="link-koe" class="cta_btn09-koe">
-            よかった<br>
-            <span class="copy_txt">よかったよ ! などの声なら</span>
-        </a>
-        <a id="link-request" class="cta_btn09-kikaku">
-            リクエスト<br>
-            <span class="copy_txt">あれが欲しい ! などの声なら</span>
-        </a>
-        <a id="link-disappointing" class="cta_btn09-dame">
-            がっかり<br>
-            <span class="copy_txt">傷んでいたよ ! などの声なら</span>
-        </a>
-    </div>
+<table class="button-table">
+<tr>
+    <td>
+      <p style="text-align:center;">■ 該当するものを選んでタップしてください ■</p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <button class="voice-btn voice-btn-koe" id="link-koe">😊 よかった<br><span>よかったよ！などの声</span></button>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <button class="voice-btn voice-btn-request" id="link-request">📝 リクエスト<br><span>あれが欲しい！などの声</span></button>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <button class="voice-btn voice-btn-disappointing" id="link-disappointing">😢 がっかり<br><span>傷んでいたよ！などの声</span></button>
+    </td>
+  </tr>
+</table>
+
 </div>
 
 <div id="content-without-params">
@@ -181,6 +331,7 @@ width: 200px;
  PALCOOP
 </p>
 
+<script src="./links.js"></script>
 <script>
   // URLパラメータを取得する関数
   function getUrlParams() {
@@ -225,27 +376,29 @@ width: 200px;
       if (chunoParam) chunoParam.textContent = params.chuno || 'N/A';
       const shinnParam = document.getElementById('shinn-param');
       if (shinnParam) shinnParam.textContent = params.shinn || 'N/A';
+      const kikakukaiParam = document.getElementById('kikakukai-param');
+      if (kikakukaiParam) kikakukaiParam.textContent = params.kikakukai || 'N/A';
+      const kuminnParam = document.getElementById('kuminn-param');
+      if (kuminnParam) kuminnParam.textContent = params.kuminn || 'N/A';
+
 
       // パラメータありコンテンツ内のリンクにイベントリスナーを設定
       // 各要素がnullでないことを確認してからイベントリスナーを追加
-      const linkKoe = document.getElementById('link-koe');
-      if (linkKoe) {
-          linkKoe.onclick = function() {
-              location.href = 'kumikoeTest.html' + queryString;
-          };
-      }
-      const linkRequest = document.getElementById('link-request');
-      if (linkRequest) {
-          linkRequest.onclick = function() {
-              location.href = 'youbou.html' + queryString;
-          };
-      }
-      const linkDisappointing = document.getElementById('link-disappointing');
-      if (linkDisappointing) {
-          linkDisappointing.onclick = function() {
-              location.href = 'disappointing.html' + queryString;
-          };
-      }
+
+document.getElementById("link-koe").onclick = function() {
+  const query = window.location.search;
+  location.href = voiceLinks.koe + query;
+};
+
+document.getElementById("link-request").onclick = function() {
+  const query = window.location.search;
+  location.href = voiceLinks.request + query;
+};
+
+document.getElementById("link-disappointing").onclick = function() {
+  const query = window.location.search;
+  location.href = voiceLinks.disappointing + query;
+};
 
     } else {
       // パラメータがない場合
