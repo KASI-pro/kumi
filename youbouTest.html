@@ -246,9 +246,9 @@ height:20px
   width: 100px;
   height: 40px;
   padding: 7px 0px 0px 0px;
-  text-align:center;
+  text-align: center;
   text-decoration: none;
-  color: #fff;
+  **color: #fff !important;** /* ここに !important を追加 */
   border-radius: 5px;
   /* border-radius: 5px; 角の丸みのデザイン */
 }
@@ -258,10 +258,10 @@ height:20px
   width: 130px;
   height: 50px;
   padding: 10px 0px 0px 0px;
-  text-align:center;
+  text-align: center;
   text-decoration: none;
   border-radius: 5px;
-  color: #fff;
+  **color: #fff !important;** /* ここに !important を追加 */
 }
 .btn_color1{
   background: #808080;
@@ -275,6 +275,14 @@ height:20px
 .caution{
   color: #f00;
 }
+a {
+    color: inherit; /* 親要素から色を継承 */
+    text-decoration: none; /* 下線をなくす場合 */
+}
+
+a.btn_item, a.btn_item_a {
+    color: #fff !important; /* ボタンの文字色を強制的に白に */
+}
 </style>
 </head>
 <body>
@@ -283,9 +291,9 @@ height:20px
 			<h1>組声フォーム</h1>
 		</div><br>
 <div>
-<a Class="btn_item btn_color1" href="./kumikoe.html">よかった</a>
-<a Class="btn_item_a btn_color2" href="./youbou.html">リクエスト</a>
-<a Class="btn_item btn_color3" href="./disappointing.html">がっかり</a>
+<a Class="btn_item btn_color1" id="link-koe">よかった</a>
+<a Class="btn_item_a btn_color2" id="link-request">リクエスト</a>
+<a Class="btn_item btn_color3" id="link-disappointing">がっかり</a>
 		</div>
 	<br>
 		<form id="content" name="content">
@@ -440,75 +448,160 @@ document.getElementById("hidden1").style.display ="none";
 document.getElementById("hidden2").style.display ="none";
 
 function myfunc(value) {
-  var check1 = document.getElementById("genre").value;
-  var hidden1 = document.getElementById("hidden1");
-  var hidden2 = document.getElementById("hidden2");
-  if(check1 === 7){
-     hidden1.style.display ="block";
-     hidden2.style.display ="none";
-  }else if(check1 === 9){
-    hidden1.style.display ="none";
-    hidden2.style.display ="block";
-  }else{
-    hidden1.style.display ="none";
-    hidden2.style.display ="none";
-  }
+  var check1 = document.getElementById("genre").value;
+  var hidden1 = document.getElementById("hidden1");
+  var hidden2 = document.getElementById("hidden2");
+  if(check1 === 7){
+     hidden1.style.display ="block";
+     hidden2.style.display ="none";
+  }else if(check1 === 9){
+    hidden1.style.display ="none";
+    hidden2.style.display ="block";
+  }else{
+    hidden1.style.display ="none";
+    hidden2.style.display ="none";
+  }
 }
+
+// URLパラメータを取得する関数
+function getUrlParams() {
+    const params = {};
+    window.location.search.substring(1).split('&').forEach(param => {
+        const parts = param.split('=');
+        if (parts[0]) {
+            params[parts[0]] = decodeURIComponent(parts[1] || '');
+        }
+    });
+    return params;
+}
+
 function keep(){
-    var text = document.getElementById("branch").value;
-    localStorage.setItem('memo', text);
-    alert('支所の変更を保存しました。');
+    var text = document.getElementById("branch").value;
+    localStorage.setItem('memo', text);
+    alert('支所の変更を保存しました。');
 }
+
+// HTMLにid="branch2"が存在しないため、この関数は現状動作しません。
+// 必要であればHTMLを修正してください。
 function rekeep(){
-    var text = document.getElementById("branch2").value;
-    localStorage.setItem('memo', text);
-    alert('支所の変更を保存しました。');
+    var text = document.getElementById("branch2").value;
+    localStorage.setItem('memo', text);
+    alert('支所の変更を保存しました。');
 }
 
 window.onload=function(){
+    // リンク遷移の処理をDOMContentLoadedからこちらに移動
+    document.getElementById("link-koe").onclick = function() {
+        const query = window.location.search;
+        location.href = voiceLinks.koe + query;
+    };
 
-	var txt = localStorage.getItem('memo');
-       	var f=document.getElementById("content");
-	checkSelect(f.elements["branch"],txt);
-	for(var j = 1; j <= 12; j++) {
-		const selectMonth = document.getElementById('kikaku-month');
-		const option2 = document.createElement('option');
-		option2.value = j;
-		option2.textContent = j+"月";
-		selectMonth.appendChild(option2)
-	}
+    document.getElementById("link-request").onclick = function() {
+        const query = window.location.search;
+        location.href = voiceLinks.request + query;
+    };
 
-	for(var i = 2000; i <= 2050; i++) {
-		const selectYear = document.getElementById('kikaku-year');
-		const option1 = document.createElement('option');
-		option1.value = i;
-		option1.textContent = i+"年";
-		selectYear.appendChild(option1)
-	}
+    document.getElementById("link-disappointing").onclick = function() {
+        const query = window.location.search;
+        location.href = voiceLinks.disappointing + query;
+    };
+
+    // 既存の初期化処理
+    var txt = localStorage.getItem('memo');
+    var f=document.getElementById("content");
+    checkSelect(f.elements["branch"],txt);
+
+    for(var j = 1; j <= 12; j++) {
+        const selectMonth = document.getElementById('kikaku-month');
+        const option2 = document.createElement('option');
+        option2.value = j;
+        option2.textContent = j+"月";
+        selectMonth.appendChild(option2)
+    }
+
+    for(var i = 2000; i <= 2050; i++) {
+        const selectYear = document.getElementById('kikaku-year');
+        const option1 = document.createElement('option');
+        option1.value = i;
+        option1.textContent = i+"年";
+        selectYear.appendChild(option1)
+    }
+
+    // URLパラメータ反映のコード
+    const params = getUrlParams();
+
+    if (params.sibu) {
+        const branchSelect = document.getElementById('branch');
+        if (branchSelect) {
+            checkSelect(branchSelect, params.sibu);
+        }
+    }
+    if (params.kumicd) {
+        const kmcodeInput = document.getElementById('kmcode');
+        if (kmcodeInput) {
+            kmcodeInput.value = params.kumicd;
+        }
+    }
+    if (params.chuno) {
+        const pcodeInput = document.getElementById('pcode');
+        if (pcodeInput) {
+            pcodeInput.value = params.chuno;
+        }
+    }
+    if (params.shinn) {
+        const pnameInput = document.getElementById('pname');
+        if (pnameInput) {
+            pnameInput.value = params.shinn;
+        }
+    }
+    if (params.kikakukai) {
+        const kikakukaiStr = params.kikakukai;
+
+        if (kikakukaiStr.length === 7) {
+            const year = kikakukaiStr.substring(0, 4);
+            const month = kikakukaiStr.substring(4, 6);
+            const kai = kikakukaiStr.substring(6);
+
+            const yearSelect = document.getElementById("kikaku-year");
+            const monthSelect = document.getElementById("kikaku-month");
+            const kaiSelect = document.getElementById("kai");
+
+            if (yearSelect) checkSelect(yearSelect, year);
+            if (monthSelect) checkSelect(monthSelect, parseInt(month).toString());
+            if (kaiSelect) checkSelect(kaiSelect, kai);
+
+            document.getElementById("kikaku-year").removeAttribute("disabled");
+            document.getElementById("kikaku-month").removeAttribute("disabled");
+            document.getElementById("kai").removeAttribute("disabled");
+
+            const switchInput = document.querySelector(".switch3__input");
+            if (switchInput) switchInput.checked = true;
+        }
+    }
 }
 
 function non(){
-	const button1 = document.getElementById("button1");
+	const button1 = document.getElementById("button1"); // このIDはHTMLに存在しません
 
 	var p = new Date();
 	var monthL = p.getMonth() + 1;
-	  select = document.getElementById('kikaku-month').options;
+	  select = document.getElementById('kikaku-month').options;
 
-	    for(let n = 0; n < select.length; n++ ){
-	        if(select[n].value == monthL){
-	            select[n].selected = true;
-	            break;
-	        }
-	    }
+	    for(let n = 0; n < select.length; n++ ){
+	        if(select[n].value == monthL){
+	            select[n].selected = true;
+	            break;
+	        }
+	    }
 
 	var yearL = p.getFullYear();
-	  select = document.getElementById('kikaku-year').options;
-	    for(let m = 0; m < select.length; m++ ){
-	        if(select[m].value == yearL){
-	            select[m].selected = true;
-	            break;
-	        }
-	    }
+	  select = document.getElementById('kikaku-year').options;
+	    for(let m = 0; m < select.length; m++ ){
+	        if(select[m].value == yearL){
+	            select[m].selected = true;
+	            break;
+	        }
+	    }
 
 		var endday = new Date(p.getFullYear(),p.getMonth() + 1,0);
 		var endday2 = Number(endday.getDay());
@@ -524,12 +617,12 @@ function non(){
 						var nowweek = Math.floor((refmon.getDate() - refmon.getDay() + 12 ) / 7);
 						var remonthL = refmon.getMonth() + 1;
 						select = document.getElementById('kikaku-month').options;
-						    for(let n = 0; n < select.length; n++ ){
+						    for(let n = 0; n < select.length; n++ ){
 								if(select[n].value == remonthL){
-								    select[n].selected = true;
-								    break;
+								    select[n].selected = true;
+								    break;
 								}
-						    }
+						    }
 					}else{
 						var week = Math.floor((p.getDate() - p.getDay() + 12 ) / 7);
 						var nowweek = Number(week) - 1;
@@ -541,13 +634,13 @@ function non(){
 				if(endday2 < 3){
 					var remonthL = p.getMonth() + 2;
 					select = document.getElementById('kikaku-month').options;
-				    for(let n = 0; n < select.length; n++ ){
+				    for(let n = 0; n < select.length; n++ ){
 						if(select[n].value == remonthL){
-						    select[n].selected = true;
-						    break;
+						    select[n].selected = true;
+						    break;
 						}
-				    }
-				    var nowweek = 1;
+				    }
+				    var nowweek = 1;
 				}else{
 					if(firday2 === 4 || firday2 === 5){
 						if(Number(p.getDate()) < 3){
@@ -555,12 +648,12 @@ function non(){
 							var nowweek = Math.floor((refmon.getDate() - refmon.getDay() + 12 ) / 7);
 							var remonthL = refmon.getMonth() + 1;
 							select = document.getElementById('kikaku-month').options;
-							    for(let n = 0; n < select.length; n++ ){
+							    for(let n = 0; n < select.length; n++ ){
 									if(select[n].value == remonthL){
-									    select[n].selected = true;
-									    break;
+									    select[n].selected = true;
+									    break;
 									}
-							    }
+							    }
 						}else{
 							var week = Math.floor((p.getDate() - p.getDay() + 12 ) / 7);
 							var nowweek = Number(week) - 1;
@@ -571,12 +664,12 @@ function non(){
 				}
 			}
 		select = document.getElementById('kai').options;
-		    for(let q = 0; q < select.length; q++ ){
-		        if(select[q].value == nowweek){
-		            select[q].selected = true;
-		            break;
-		        }
-		    }
+		    for(let q = 0; q < select.length; q++ ){
+		        if(select[q].value == nowweek){
+		            select[q].selected = true;
+		            break;
+		        }
+		    }
 
 	if (document.getElementById("kikaku-year").disabled === true){
 		document.getElementById("kikaku-year").removeAttribute("disabled");
@@ -616,23 +709,23 @@ function reload() {
 // const b = document.getElementsByClassName('sendFrom')[0];
 	const b = document.getElementById('sendFrom');
 	const eventStart = isSP ? 'touchstart' : 'mousedown';
-	const eventEnd   = isSP ? 'touchend' : 'mouseup';
+	const eventEnd   = isSP ? 'touchend' : 'mouseup';
 	const eventLeave = isSP ? 'touchmove' : 'mouseleave';
 
 	b.addEventListener(eventStart, e => {
-	  e.preventDefault();
-	  b.classList.add('active');
-	  timer = setInterval(() => {
-	    count++;
-	  }, 10);
+	  e.preventDefault();
+	  b.classList.add('active');
+	  timer = setInterval(() => {
+	    count++;
+	  }, 10);
 	})
 
 	b.addEventListener(eventEnd, e => {
-	  e.preventDefault();
-	  if (count) {
-	    b.classList.remove('active');
-	    clearInterval(timer);
-	    let second = (count / 100);
+	  e.preventDefault();
+	  if (count) {
+	    b.classList.remove('active');
+	    clearInterval(timer);
+	    let second = (count / 100);
 		if(second > 0.0 && second < 0.6){
 
 			let str2 = document.getElementById("kmcode").value; // 組合員コードチェック
@@ -649,7 +742,7 @@ function reload() {
 							if(str7.length === 0){
 								alert("商品名は必須です\nお書きください")
 							}else{
-								var genre =  document.getElementById('genre').value;
+								var genre =  document.getElementById('genre').value;
 								if(genre == 0){
 									alert("⑦の「ジャンル」の選択は必須です")
 								}else{
@@ -663,10 +756,10 @@ function reload() {
 														alert("注文番号の欄に数字以外の字が入力されています。")
 													}else{
 														var toDoubleDigits = function(num) {
-															  num += "";
-															  if (num.length === 1) {
-															    num = "0" + num;
-															  }
+															  num += "";
+															  if (num.length === 1) {
+															    num = "0" + num;
+															  }
 															 return num;
 															};
 														let str11= document.getElementById("kikaku-year").value; // 年
@@ -676,7 +769,7 @@ function reload() {
 												if(kikanm.length === 0 || kikanm.length === 7){
 													let kaitou = document.getElementById("answer").value; // 回答チェック
 													if(kaitou == 1){
-														var simil =  document.getElementById('simil').value;
+														var simil =  document.getElementById('simil').value;
 														if(simil == 1){
 
 														var success = window.confirm("回答:【 不要 】\nで、お間違いないでしょうか？");
@@ -684,14 +777,14 @@ function reload() {
 															var result = window.confirm("メールを作成しても宜しいですか？");
 																if( result ) {
 																	var toDoubleDigits = function(num) {
-																	  num += "";
-																	  if (num.length === 1) {
-																	    num = "0" + num;
-																	  }
+																	  num += "";
+																	  if (num.length === 1) {
+																	    num = "0" + num;
+																	  }
 																	 return num;
 																	};
-																	var time1 =  document.getElementById('kikaku-year').value;
-																	var time2 =  toDoubleDigits(document.getElementById('kikaku-month').value);
+																	var time1 =  document.getElementById('kikaku-year').value;
+																	var time2 =  toDoubleDigits(document.getElementById('kikaku-month').value);
 																	var time3 = document.getElementById('kai').value;
 																	var checkValue = '0';
 																	txtData = document.content;
@@ -708,24 +801,24 @@ function reload() {
 
 																	subject = 'リクエストの声';
 
-																	body = '{"body":{"answer":"'+answer+        // 回答
-																		'","branch":"'+branch+      // 支所
-																		'","kmcode":"'+kmcode+      // 組合員番号
-																		'","corres":"'+checkValue+  // 組声　or　地域
-																		'","kikakai":"'+kikakai+   // 企画回
-																		'","pcode":"'+pcode+      // 商品番号
-																		'","pname":"'+pname+        // 商品名
-																		'","simil":"'+simil+     // 類似品
-																		'","genre":"'+genre+    // ジャンル
-																		'","actual":"'+ 0 +      // 現品
-																		'","cate1":"'+ 0 +          // カテゴリ１
-																		'","cate2":"'+ 0 +          // カテゴリ２
-																		'","offer":"'+offer+        // 内容
-																		'","comment":"'+comment+    // 担当者のコメント（補足）
-																		'","insday":"'+''+          // インサート日
-																		'","instime":"'+''+         // インサート時間
-																		'","delfox":"'+ 0 +         // 修正などの種類
-																		'","kinds":"'+ 2 +          // 声の種類
+																	body = '{"body":{"answer":"'+answer+        // 回答
+																		'","branch":"'+branch+      // 支所
+																		'","kmcode":"'+kmcode+      // 組合員番号
+																		'","corres":"'+checkValue+  // 組声　or　地域
+																		'","kikakai":"'+kikakai+   // 企画回
+																		'","pcode":"'+pcode+      // 商品番号
+																		'","pname":"'+pname+        // 商品名
+																		'","simil":"'+simil+     // 類似品
+																		'","genre":"'+genre+    // ジャンル
+																		'","actual":"'+ 0 +      // 現品
+																		'","cate1":"'+ 0 +          // カテゴリ１
+																		'","cate2":"'+ 0 +          // カテゴリ２
+																		'","offer":"'+offer+        // 内容
+																		'","comment":"'+comment+    // 担当者のコメント（補足）
+																		'","insday":"'+''+          // インサート日
+																		'","instime":"'+''+         // インサート時間
+																		'","delfox":"'+ 0 +         // 修正などの種類
+																		'","kinds":"'+ 2 +          // 声の種類
 																	'"}}';
 
 
@@ -743,14 +836,14 @@ function reload() {
 															var result = window.confirm("メールを作成しても宜しいですか？");
 															if( result ) {
 																var toDoubleDigits = function(num) {
-																  num += "";
-																  if (num.length === 1) {
-																    num = "0" + num;
-																  }
+																  num += "";
+																  if (num.length === 1) {
+																    num = "0" + num;
+																  }
 																 return num;
 																};
-																var time1 =  document.getElementById('kikaku-year').value;
-																var time2 =  toDoubleDigits(document.getElementById('kikaku-month').value);
+																var time1 =  document.getElementById('kikaku-year').value;
+																var time2 =  toDoubleDigits(document.getElementById('kikaku-month').value);
 																var time3 = document.getElementById('kai').value;
 																var checkValue = '0';
 																txtData = document.content;
@@ -761,30 +854,30 @@ function reload() {
 																pcode = txtData[11].value.replace(/ /g, '');
 																pname = txtData[12].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 																simil = txtData[13].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-																cate = txtData[14].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+																genre = txtData[14].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 																offer = txtData[15].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 																comment = txtData[16].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 
 																subject = 'リクエストの声';
 
-																body = '{"body":{"answer":"'+answer+        // 回答
-																	'","branch":"'+branch+      // 支所
-																	'","kmcode":"'+kmcode+      // 組合員番号
-																	'","corres":"'+checkValue+  // 組声　or　地域
-																	'","kikakai":"'+kikakai+   // 企画回
-																	'","pcode":"'+pcode+      // 商品番号
-																	'","pname":"'+pname+        // 商品名
-																	'","simil":"'+simil+     // 類似品
-																	'","genre":"'+genre+    // ジャンル
-																	'","actual":"'+ 0 +      // 現品
-																	'","cate1":"'+ 0 +          // カテゴリ１
-																	'","cate2":"'+ 0 +          // カテゴリ２
-																	'","offer":"'+offer+        // 内容
-																	'","comment":"'+comment+    // 担当者のコメント（補足）
-																	'","insday":"'+''+          // インサート日
-																	'","instime":"'+''+         // インサート時間
-																	'","delfox":"'+ 0 +         // 修正などの種類
-																	'","kinds":"'+ 2 +          // 声の種類
+																body = '{"body":{"answer":"'+answer+        // 回答
+																	'","branch":"'+branch+      // 支所
+																	'","kmcode":"'+kmcode+      // 組合員番号
+																	'","corres":"'+checkValue+  // 組声　or　地域
+																	'","kikakai":"'+kikakai+   // 企画回
+																	'","pcode":"'+pcode+      // 商品番号
+																	'","pname":"'+pname+        // 商品名
+																	'","simil":"'+simil+     // 類似品
+																	'","genre":"'+genre+    // ジャンル
+																	'","actual":"'+ 0 +      // 現品
+																	'","cate1":"'+ 0 +          // カテゴリ１
+																	'","cate2":"'+ 0 +          // カテゴリ２
+																	'","offer":"'+offer+        // 内容
+																	'","comment":"'+comment+    // 担当者のコメント（補足）
+																	'","insday":"'+''+          // インサート日
+																	'","instime":"'+''+         // インサート時間
+																	'","delfox":"'+ 0 +         // 修正などの種類
+																	'","kinds":"'+ 2 +          // 声の種類
 																'"}}';
 
 																location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
@@ -827,15 +920,15 @@ function reload() {
 	});
 
 b.addEventListener(eventLeave, e => {
-  e.preventDefault();
-  let el;
-  el = isSP ? document.elementFromPoint(e.touches[0].clientX, e.touches[0].clientY) : b;
-  if (!isSP || el !== b) {
-    b.classList.remove('active');
-    clearInterval(timer);
-     e.preventDefault();
-    count = 0;
-  }
+  e.preventDefault();
+  let el;
+  el = isSP ? document.elementFromPoint(e.touches[0].clientX, e.touches[0].clientY) : b;
+  if (!isSP || el !== b) {
+    b.classList.remove('active');
+    clearInterval(timer);
+     e.preventDefault();
+    count = 0;
+  }
 });
 </script>
 </html>

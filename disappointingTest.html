@@ -391,9 +391,9 @@ height:20px
 			<!--  がっかり -->
 		</div><br>
 <div>
-<a Class="btn_item btn_color1" href="./kumikoe.html">よかった</a>
-<a Class="btn_item btn_color2" href="./youbou.html">リクエスト</a>
-<a Class="btn_item_a btn_color3" href="./disappointing.html">がっかり</a>
+<a Class="btn_item btn_color1" id="link-koe">よかった</a>
+<a Class="btn_item btn_color2" id="link-request">リクエスト</a>
+<a Class="btn_item_a btn_color3" id="link-disappointing">がっかり</a>
 </div>
 <br>
 		<div>
@@ -636,8 +636,68 @@ height:20px
 <script src="https://cdn.rawgit.com/alertifyjs/alertify.js/v1.0.10/dist/js/alertify.js"></script>
 <script src="./links.js"></script>
 <script>
+function fillFormFromUrlParams() {
+    const params = new URLSearchParams(window.location.search);
+// URL上の旧パラメータ名 → スクリプト側で使っているIDに変換
+const kmcode = params.get('kumicd');     // 組合員コード
+if (kmcode) document.getElementById('kmcode').value = kmcode;
+
+const branch = params.get('sibu');       // 支所コード
+if (branch) document.getElementById('branch').value = branch;
+
+const kikakukai = params.get('kikakukai'); // 例: "2025053"
+
+if (kikakukai && kikakukai.length === 7) {
+  const year = kikakukai.slice(0, 4);       // "2025"
+  const month = kikakukai.slice(4, 6);      // "05"
+  const kai = kikakukai.slice(6, 7);        // "3"
+
+  document.getElementById("kikaku-year0").value = year;
+  document.getElementById("kikaku-month0").value = Number(month);
+  document.getElementById("kai0").value = kai;
+
+  // 年月回が与えられたので、disabled解除も忘れずに
+  document.getElementById("kikaku-year0").removeAttribute("disabled");
+  document.getElementById("kikaku-month0").removeAttribute("disabled");
+  document.getElementById("kai0").removeAttribute("disabled");
+
+const switchInput = document.querySelector(".switch3__input");
+            if (switchInput) switchInput.checked = true;
+}
+
+const pcode = params.get('chuno');       // 注文番号
+if (pcode) document.getElementById('pcode').value = pcode;
+
+const pname = params.get('shinn');       // 商品名
+if (pname) document.getElementById('pname').value = pname;
+
+    // デフォルトで「フォーム」タブが選択されるように設定
+    document.getElementById('kumi').checked = true;
+    formSwitch('#F0F8FF');
+}
+
+// ページ読み込み時にフォームにURLパラメータを反映
+
+window.addEventListener('DOMContentLoaded', fillFormFromUrlParams);
+window.addEventListener('load', formSwitch);
+
 window.onload=function(){
-	startmeth();
+// リンク遷移の処理をDOMContentLoadedからこちらに移動
+    document.getElementById("link-koe").onclick = function() {
+        const query = window.location.search;
+        location.href = voiceLinks.koe + query;
+    };
+
+    document.getElementById("link-request").onclick = function() {
+        const query = window.location.search;
+        location.href = voiceLinks.request + query;
+    };
+
+    document.getElementById("link-disappointing").onclick = function() {
+        const query = window.location.search;
+        location.href = voiceLinks.disappointing + query;
+    };
+    startmeth();
 }
 
 document.getElementById("hidden2").style.display ="none";
@@ -663,6 +723,18 @@ function rekeep(){
     var text = document.getElementById("branch2").value;
     localStorage.setItem('memo', text);
     alert('支所の変更を保存しました。');
+}
+
+// URLパラメータを取得する関数
+function getUrlParams() {
+    const params = {};
+    window.location.search.substring(1).split('&').forEach(param => {
+        const parts = param.split('=');
+        if (parts[0]) {
+            params[parts[0]] = decodeURIComponent(parts[1] || '');
+        }
+    });
+    return params;
 }
 
 function formSwitch(newColor) {
