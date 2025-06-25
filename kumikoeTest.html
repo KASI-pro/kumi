@@ -622,22 +622,26 @@ window.onload=function(){
         const kmcodeInput = document.getElementById('kmcode');
         if (kmcodeInput) {
             kmcodeInput.value = params.kumicd;
+  kmcodeInput.setAttribute('readonly', true); // 入力不可に
         }
     }
     if (params.chuno) {
         const pcodeInput = document.getElementById('pcode');
         if (pcodeInput) {
             pcodeInput.value = params.chuno;
+pcodeInput.setAttribute('readonly', true); // 入力不可に
         }
     }
     if (params.shinn) {
         const pnameInput = document.getElementById('pname');
         if (pnameInput) {
             pnameInput.value = params.shinn;
+pnameInput.setAttribute('readonly', true); // 入力不可に
         }
         const pname2Input = document.getElementById('pname2'); // 'area' フォームの商品名
         if (pname2Input) {
             pname2Input.value = params.shinn;
+pname2Input.setAttribute('readonly', true); // 入力不可に
         }
     }
 
@@ -658,13 +662,16 @@ if (params.kikakukai) {
         if (monthSelect) checkSelect(monthSelect, parseInt(month).toString());
         if (kaiSelect) checkSelect(kaiSelect, kai);
 
-        // セレクトボックスが無効なら有効に（チェックボックスもONにする）
-        document.getElementById("kikaku-year").removeAttribute("disabled");
-        document.getElementById("kikaku-month").removeAttribute("disabled");
-        document.getElementById("kai").removeAttribute("disabled");
+// 表示上は有効にし、選択肢は操作不可にする（disabled）
+        yearSelect.setAttribute("disabled", true);
+        monthSelect.setAttribute("disabled", true);
+        kaiSelect.setAttribute("disabled", true);
 
         const switchInput = document.querySelector(".switch3__input");
-        if (switchInput) switchInput.checked = true;
+if (switchInput) {
+  switchInput.checked = false;
+  switchInput.setAttribute('disabled', true);
+}
     }
 }
 
