@@ -527,7 +527,7 @@ window.onload=function(){
         selectYear.appendChild(option1)
     }
 
-    // URLパラメータ反映のコード
+    // ★★★ URLパラメータ反映のコード ★★★
     const params = getUrlParams();
 
     if (params.sibu) {
@@ -540,18 +540,21 @@ window.onload=function(){
         const kmcodeInput = document.getElementById('kmcode');
         if (kmcodeInput) {
             kmcodeInput.value = params.kumicd;
+  kmcodeInput.setAttribute('readonly', true); // 入力不可に
         }
     }
     if (params.chuno) {
         const pcodeInput = document.getElementById('pcode');
         if (pcodeInput) {
             pcodeInput.value = params.chuno;
+pcodeInput.setAttribute('readonly', true); // 入力不可に
         }
     }
     if (params.shinn) {
         const pnameInput = document.getElementById('pname');
         if (pnameInput) {
             pnameInput.value = params.shinn;
+pnameInput.setAttribute('readonly', true); // 入力不可に
         }
     }
     if (params.kikakukai) {
@@ -570,14 +573,19 @@ window.onload=function(){
             if (monthSelect) checkSelect(monthSelect, parseInt(month).toString());
             if (kaiSelect) checkSelect(kaiSelect, kai);
 
-            document.getElementById("kikaku-year").removeAttribute("disabled");
-            document.getElementById("kikaku-month").removeAttribute("disabled");
-            document.getElementById("kai").removeAttribute("disabled");
+            // 表示上は有効にし、選択肢は操作不可にする（disabled）
+        yearSelect.setAttribute("disabled", true);
+        monthSelect.setAttribute("disabled", true);
+        kaiSelect.setAttribute("disabled", true);
 
             const switchInput = document.querySelector(".switch3__input");
-            if (switchInput) switchInput.checked = true;
+            if (switchInput) {
+  switchInput.checked = false;
+  switchInput.setAttribute('disabled', true);
+}
         }
     }
+    // ★★★ コードここまで ★★★
 }
 
 function non(){
