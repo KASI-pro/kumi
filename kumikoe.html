@@ -238,11 +238,19 @@ height:20px
     background-color: rgba(55 190 176 / 25%);
     width: 100%;
 }
+
+.button-container {
+  display: flex;
+  align-items: flex-end; /* ボタンを下揃えにするプロパティ */
+  justify-content: center; /* これがボタンを中央に配置するプロパティです */
+  gap: 13px; /* ボタン間のスペースを調整したい場合 */
+}
 .btn_item {
   display: inline-block;
-  width: 100px;
+  font-size: 16px;
+  width: 90px;
   height: 40px;
-  padding: 7px 0px 0px 0px;
+  padding: 8px 2px 0px 2px;
   text-align:center;
   text-decoration: none;
   color: #fff;
@@ -251,10 +259,10 @@ height:20px
 }
 .btn_item_a {
   display: inline-block;
-  font-size: 27px;
-  width: 120px;
+  font-size: 20px;
+  width: 100px;
   height: 50px;
-  padding: 7px 0px 0px 0px;
+  padding: 8px 0px 0px 0px;
   text-align:center;
   text-decoration: none;
   border-radius: 5px;
@@ -262,7 +270,8 @@ height:20px
 }
 .btn_item_b {
   display: inline-block;
-  width: 100px;
+  font-size: 18px;
+  width: 80px;
   height: 40px;
   padding: 7px 0px 0px 0px;
   text-align:center;
@@ -288,10 +297,10 @@ height:20px
 		<div class="navbar">
 			<h1>組声フォーム</h1>
 		</div><br>
-<div>
-<a Class="btn_item_a btn_color1" href="./youbou.html">よかった</a>
-<a Class="btn_item btn_color2" href="./youbou.html">リクエスト</a>
-<a Class="btn_item_b btn_color3" href="./disappointing.html">がっかり</a>
+		<div class="button-container">
+			<a Class="btn_item_a btn_color1" href="./youbou.html">よかった</a>
+			<a Class="btn_item btn_color2" href="./youbou.html">リクエスト</a>
+			<a Class="btn_item_b btn_color3" href="./disappointing.html">がっかり</a>
 		</div>
 		<div>
 			<br><br><p>＜提出様式＞</p>
