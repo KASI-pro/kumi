@@ -69,7 +69,7 @@ label ~ label {
 
 .radio-btns label {
   position: relative;
-  padding: 5px 15px 5px 50px;
+  padding: 5px 8px 5px 40px; /* ★ここを調整しました */
   display: inline-block;
   color: #fff;
   font-weight: bold;
@@ -78,22 +78,22 @@ label ~ label {
   border-radius: 10px;
 }
 
-.radio-btns input[type=radio]  + label::before,
-.radio-btns input[type=radio]  + label::after {
+.radio-btns input[type=radio] + label::before,
+.radio-btns input[type=radio] + label::after {
   position: absolute;
   content: '';
   display: block;
-  left: 15px;
+  left: 10px;
   top: 50%;
   transform: translateY(-50%);
 }
 
 /* 下 */
-.radio-btns input[type=radio]  + label::before {
+.radio-btns input[type=radio] + label::before {
   border-radius: 30px;
 }
 
-.radio-btns input[type=radio]  + label::after {
+.radio-btns input[type=radio] + label::after {
   height: 15px;
   width: 15px;
   background: #fff;
@@ -102,7 +102,7 @@ label ~ label {
 }
 
 .radio-btns input[type=radio]:checked + label::after {
-  left: 30px;
+  left: 20px;
   background: #ffa500;
 }
 
@@ -110,14 +110,14 @@ label ~ label {
   background: #005580;
 }
 
-/* ベースのラジオボタン */
+/* ベースのラジオボタン2 */
 .radio-btns2 input[type=radio] {
   display: none;
 }
 
 .radio-btns2 label {
   position: relative;
-  padding: 5px 15px 5px 50px;
+  padding: 5px 8px 5px 40px; /* ★ここも調整しました */
   display: inline-block;
   color: #fff;
   font-weight: bold;
@@ -126,8 +126,8 @@ label ~ label {
   border-radius: 10px;
 }
 
-.radio-btns2 input[type=radio]  + label::before,
-.radio-btns2 input[type=radio]  + label::after {
+.radio-btns2 input[type=radio] + label::before,
+.radio-btns2 input[type=radio] + label::after {
   position: absolute;
   content: '';
   display: block;
@@ -137,11 +137,11 @@ label ~ label {
 }
 
 /* 下 */
-.radio-btns2 input[type=radio]  + label::before {
+.radio-btns2 input[type=radio] + label::before {
   border-radius: 30px;
 }
 
-.radio-btns2 input[type=radio]  + label::after {
+.radio-btns2 input[type=radio] + label::after {
   height: 15px;
   width: 15px;
   background: #fff;
