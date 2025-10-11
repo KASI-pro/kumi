@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>血圧・体温 記録ツール (外部API連携)</title>
+  <style>
+    /* 1. 基本設定（PC/スマホ共通） - (uuu.txt の内容を流用) */
+    body { 
+        font-family: sans-serif; 
+        padding: 20px; 
+        max-width: 600px; /* PCでもコンテンツが広がりすぎないように制限 */
+        margin: 0 auto; /* 中央寄せ */
+        background-color: #f4f4f4; /* 背景色を追加 */
+    }
+    h1 { 
+        font-size: 1.8em; /* 見出しを大きく */
+        color: #333;
+    }
+    label { 
+        display: block; 
+        margin-top: 15px; 
+        font-weight: bold; 
+        font-size: 1.1em; /* ラベルを少し大きく */
+    }
+    select, input[type="text"], input[type="number"] {
+        width: 100%; 
+        padding: 12px; /* パディングを増やしてタッチしやすく */
+        margin-top: 8px; 
+        box-sizing: border-box; 
+        border: 1px solid #ccc; 
+        border-radius: 6px; /* 角を丸く */
+        font-size: 1.1em; /* 文字を大きく */
+    }
+    
+    /* 2. ボタン設定 */
+    button { 
+        width: 100%; 
+        padding: 15px; /* ボタンを大きく */
+        margin-top: 25px; 
+        box-sizing: border-box; 
+        color: white; 
+        border: none; 
+        border-radius: 6px; 
+        cursor: pointer; 
+        font-size: 1.1em; /* 文字を大きく */
+        font-weight: bold;
+        transition: background-color 0.3s;
+    }
+    button:active { opacity: 0.8; }
+    button:disabled { background-color: #cccccc !important; cursor: not-allowed; }
+    #authButton { background-color: #4CAF50; }
+    #recordButton { background-color: #007bff; }
+    
+    /* 3. 血圧入力グループ (今回は体温のみなので省略) */
+    
+    /* 4. 出力エリア */
+    #output { 
+        margin-top: 30px; 
+        padding: 15px; 
+        border: 1px solid #ddd; 
+        white-space: pre-wrap; 
+        background-color: #ffffff; /* 背景を白に */
+        border-left: 5px solid #007bff; 
+        border-radius: 6px;
+        font-size: 1em;
+    }
+    .status { 
+        color: gray; 
+        background-color: #f9f9f9; 
+        border-left: 5px solid #ccc; 
+    }
+    .hidden { display: none; }
+
+
+    /* --- 5. メディアクエリ (スマホ縦画面など狭い画面への対応) --- */
+    /* ビューポートメタタグの追加が重要です。外部デプロイ時は<head>に直接記述します。 */
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    @media (max-width: 480px) {
+        body {
+            padding: 15px;
+        }
+    }
+</style>
+</head>
+<body>
+  <h1>血圧・体温 記録ツール</h1>
+  
+  <label for="attendeeSelect">利用者 選択</label>
+  <select id="attendeeSelect" disabled>
+    <option value="">-- リストを読み込み中 --</option>
+  </select>
+  
+  <label for="staffSelect">測定者 選択</label>
+  <select id="staffSelect" disabled>
+    <option value="">-- リストを読み込み中 --</option>
+  </select>
+
+  <label for="temperatureInput">体温 (E列)</label>
+  <input type="number" id="temperatureInput" step="0.1" min="30.0" max="42.0" placeholder="例: 36.5">
+  
+  <button id="authButton" onclick="handleAuth()">HealthPlanetで認証</button>
+  <button id="recordButton" onclick="handleRecord()" disabled>選択した利用者のバイタルを記録</button>
+  
+  <div id="output" class="status">初期情報を読み込み中...</div>
+  
+  <script>
+    // ------------------------------------------
+    // 💥 必須: GAS API URL に置き換えてください 💥
+    // ------------------------------------------
+    const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbx03kHLVR3IFb3ZrBWNFU_0Q8nI_1EDCa0mzyrsUQVKIOoLJEmvi1X9SOIFpqs4gQgi9A/exec'; 
+
+    // DOM要素
+    const authButton = document.getElementById('authButton');
+    const recordButton = document.getElementById('recordButton');
+    const attendeeSelect = document.getElementById('attendeeSelect');
+    const staffSelect = document.getElementById('staffSelect');
+    const temperatureInput = document.getElementById('temperatureInput');
+    const outputDiv = document.getElementById('output');
+
+    const API_TIMEOUT = 15000; // 15秒
+
+    // ------------------------------------------
+    // ユーティリティ関数: fetchApiWithTimeout
+    // ------------------------------------------
+    
+    /** GAS APIへのフェッチ処理とエラー/タイムアウト制御 */
+    async function fetchApiWithTimeout(url, options, timeoutMsg = 'リクエストがタイムアウトしました。') {
+        const controller = new AbortController();
+        const id = setTimeout(() => controller.abort(), API_TIMEOUT);
+
+        try {
+            const response = await fetch(url, { ...options, signal: controller.signal });
+            clearTimeout(id);
+            
+            if (!response.ok) {
+                // CORS設定やGAS API側の問題でHTTPエラーの場合
+                throw new Error(`HTTPエラー ${response.status}: GASサーバーへの接続に失敗しました。CORS設定を確認してください。`);
+            }
+
+            const json = await response.json();
+            
+            // GAS API (createJsonResponse) から返されたエラー応答処理
+            if (json.status === 'error') {
+                throw new Error(json.message);
+            }
+            
+            return json;
+
+        } catch (error) {
+            clearTimeout(id);
+            if (error.name === 'AbortError') {
+                throw new Error(timeoutMsg);
+            }
+            throw error;
+        }
+    }
+
+
+    // ------------------------------------------
+    // 初期処理：利用者リストと職員リストの取得 (GET API)
+    // ------------------------------------------
+    async function loadInitialData() {
+        outputDiv.innerHTML = '利用者リストと職員リストを取得中...';
+        
+        try {
+            // 利用者リスト取得: GET ?action=get_attendees を呼び出す
+            const attendeeUrl = `${GAS_API_URL}?action=get_attendees`;
+            const attendeeResponse = await fetchApiWithTimeout(
+                attendeeUrl, { method: 'GET' }, '利用者リストの読み込みがタイムアウトしました。');
+            populateAttendees(attendeeResponse.data);
+
+            // 職員リスト取得: GET ?action=get_staffs を呼び出す
+            const staffUrl = `${GAS_API_URL}?action=get_staffs`;
+            const staffResponse = await fetchApiWithTimeout(
+                staffUrl, { method: 'GET' }, '職員リストの読み込みがタイムアウトしました。');
+            populateStaffs(staffResponse.data);
+
+            // リスト取得成功後、認証状態をチェック
+            checkAuthorizationStatus();
+
+        } catch (error) {
+            showError(error);
+        }
+    }
+
+    // ------------------------------------------
+    // 認証処理 (GET API)
+    // ------------------------------------------
+    async function handleAuth() {
+        outputDiv.innerHTML = '認証URLを生成中...';
+        
+        try {
+            // 認証URL取得: GET ?action=get_auth_url を呼び出す
+            const authUrl = `${GAS_API_URL}?action=get_auth_url`;
+            const response = await fetchApiWithTimeout(
+                authUrl, { method: 'GET' }, '認証URLの生成がタイムアウトしました。');
+            
+            openAuthWindow(response.data.url);
+
+        } catch (error) {
+            showError(error);
+        }
+    }
+
+    // ------------------------------------------
+    // 記録処理 (POST API)
+    // ------------------------------------------
+    async function handleRecord() {
+        const userId = attendeeSelect.value;
+        const measurerId = staffSelect.value;
+        const temp = temperatureInput.value;
+
+        if (!userId || !measurerId || !temp || isNaN(temp) || Number(temp) < 30 || Number(temp) > 42) {
+             alert('利用者、測定者を選択し、有効な体温 (30.0℃～42.0℃) を入力してください。');
+             return;
+        }
+
+        outputDiv.innerHTML = `利用者 ${userId} のバイタルを記録中... (POSTリクエスト)`;
+        recordButton.disabled = true;
+        
+        try {
+            const postData = {
+                userId: userId,
+                measurerId: measurerId,
+                temperature: Number(temp)
+            };
+
+            // POST /exec を呼び出し、JSONを送信
+            const response = await fetchApiWithTimeout(
+                GAS_API_URL, 
+                {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(postData)
+                },
+                '記録処理がタイムアウトしました。再試行してください。'
+            );
+            
+            showResult(response.message);
+
+        } catch (error) {
+            showError(error);
+            recordButton.disabled = false;
+        }
+    }
+
+    // ------------------------------------------
+    // 認証状態チェック (GET API)
+    // ------------------------------------------
+    async function checkAuthorizationStatus() {
+        outputDiv.innerHTML = 'HealthPlanet認証状態を確認中...';
+
+        try {
+            // サーバー側で認証状態をチェックする専用のAPIエンドポイントを呼び出すことを想定
+            // (GAS側: doGet?action=check_auth_status)
+            const authCheckUrl = `${GAS_API_URL}?action=check_auth_status`;
+            const response = await fetchApiWithTimeout(
+                authCheckUrl, { method: 'GET' }, '認証状態の確認がタイムアウトしました。');
+            
+            // サーバー側のレスポンスを基に処理
+            if (response.data && response.data.authorized) {
+                recordButton.disabled = false;
+                authButton.style.display = 'none'; 
+                outputDiv.innerHTML = '認証済みです。利用者、測定者を選択し、体温を入力して記録ボタンを押してください。';
+            } else {
+                recordButton.disabled = true;
+                authButton.style.display = 'block'; 
+                outputDiv.innerHTML = 'まだHealthPlanetの認証がされていません。「HealthPlanetで認証」を押してください。';
+            }
+            
+        } catch(error) {
+            // エラーが発生した場合も、未認証として扱うか、エラーを表示
+            recordButton.disabled = true;
+            authButton.style.display = 'block'; 
+            outputDiv.innerHTML = `認証状態のチェック中にエラーが発生しました: ${error.message}。「HealthPlanetで認証」を押してください。`;
+        }
+    }
+
+
+    // ------------------------------------------
+    // UI更新とヘルパー関数 (既存のロジックを流用)
+    // ------------------------------------------
+    
+    function populateAttendees(attendees) {
+      if (attendees.length === 0) {
+        attendeeSelect.innerHTML = '<option value="">-- 本日のご利用者はいません --</option>';
+      } else {
+        attendeeSelect.innerHTML = '<option value="">-- ご利用者を選択してください --</option>';
+        attendees.forEach(function(attendant) {
+          const option = document.createElement('option');
+          option.value = attendant.id;
+          option.textContent = `${attendant.name} (${attendant.id})`;
+          attendeeSelect.appendChild(option);
+        });
+      }
+      attendeeSelect.disabled = false;
+    }
+    
+    function populateStaffs(staffs) {
+      if (staffs.length === 0) {
+        staffSelect.innerHTML = '<option value="">-- 本日の出勤職員はいません --</option>';
+      } else {
+        staffSelect.innerHTML = '<option value="">-- 測定者を選択してください --</option>';
+        staffs.forEach(function(staff) {
+          const option = document.createElement('option');
+          option.value = staff.id;
+          option.textContent = `${staff.name} (${staff.id})`;
+          staffSelect.appendChild(option);
+        });
+      }
+      staffSelect.disabled = false;
+    }
+
+    function openAuthWindow(url) {
+      outputDiv.innerHTML = '新しいウィンドウで認証を完了し、ウィンドウを閉じてください。';
+      const authWindow = window.open(url, 'HealthPlanetAuth', 'width=600,height=800');
+      const checkAuth = setInterval(() => {
+        if (authWindow.closed) {
+          clearInterval(checkAuth);
+          // 認証ウィンドウが閉じたら、認証状態を再チェック
+          checkAuthorizationStatus(); 
+        }
+      }, 500);
+    }
+    
+    function showResult(result) {
+      outputDiv.classList.remove('status');
+      outputDiv.innerHTML = result;
+      recordButton.disabled = false;
+      // 成功したら入力項目をリセット
+      attendeeSelect.value = '';
+      staffSelect.value = '';
+      temperatureInput.value = '';
+    }
+    
+    function showError(error) {
+      outputDiv.classList.add('status');
+      outputDiv.innerHTML = `🔴 実行エラー:\n${error.message}`;
+      recordButton.disabled = false;
+    }
+    
+    // ページロード時の開始処理
+    loadInitialData();
+  </script>
+</body>
+</html>
