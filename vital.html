@@ -2,46 +2,49 @@
 <html>
 <head>
   <title>血圧・体温 記録ツール (外部API連携)</title>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
   <style>
-    /* 1. 基本設定（PC/スマホ共通） - (uuu.txt の内容を流用) */
+    /* 1. 基本設定（PC/スマホ共通） */
     body { 
         font-family: sans-serif; 
         padding: 20px; 
-        max-width: 600px; /* PCでもコンテンツが広がりすぎないように制限 */
-        margin: 0 auto; /* 中央寄せ */
-        background-color: #f4f4f4; /* 背景色を追加 */
+        max-width: 600px; 
+        margin: 0 auto; 
+        background-color: #f4f4f4; 
     }
     h1 { 
-        font-size: 1.8em; /* 見出しを大きく */
+        font-size: 1.8em; 
         color: #333;
     }
     label { 
         display: block; 
         margin-top: 15px; 
         font-weight: bold; 
-        font-size: 1.1em; /* ラベルを少し大きく */
+        font-size: 1.1em; 
     }
     select, input[type="text"], input[type="number"] {
         width: 100%; 
-        padding: 12px; /* パディングを増やしてタッチしやすく */
+        padding: 12px; 
         margin-top: 8px; 
         box-sizing: border-box; 
         border: 1px solid #ccc; 
-        border-radius: 6px; /* 角を丸く */
-        font-size: 1.1em; /* 文字を大きく */
+        border-radius: 6px; 
+        font-size: 1.1em; 
     }
     
     /* 2. ボタン設定 */
     button { 
         width: 100%; 
-        padding: 15px; /* ボタンを大きく */
+        padding: 15px; 
         margin-top: 25px; 
         box-sizing: border-box; 
         color: white; 
         border: none; 
         border-radius: 6px; 
         cursor: pointer; 
-        font-size: 1.1em; /* 文字を大きく */
+        font-size: 1.1em; 
         font-weight: bold;
         transition: background-color 0.3s;
     }
@@ -50,15 +53,13 @@
     #authButton { background-color: #4CAF50; }
     #recordButton { background-color: #007bff; }
     
-    /* 3. 血圧入力グループ (今回は体温のみなので省略) */
-    
-    /* 4. 出力エリア */
+    /* 3. 出力エリア */
     #output { 
         margin-top: 30px; 
         padding: 15px; 
         border: 1px solid #ddd; 
         white-space: pre-wrap; 
-        background-color: #ffffff; /* 背景を白に */
+        background-color: #ffffff; 
         border-left: 5px solid #007bff; 
         border-radius: 6px;
         font-size: 1em;
@@ -70,11 +71,6 @@
     }
     .hidden { display: none; }
 
-
-    /* --- 5. メディアクエリ (スマホ縦画面など狭い画面への対応) --- */
-    /* ビューポートメタタグの追加が重要です。外部デプロイ時は<head>に直接記述します。 */
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    
     @media (max-width: 480px) {
         body {
             padding: 15px;
@@ -107,7 +103,7 @@
     // ------------------------------------------
     // 💥 必須: GAS API URL に置き換えてください 💥
     // ------------------------------------------
-    const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbx03kHLVR3IFb3ZrBWNFU_0Q8nI_1EDCa0mzyrsUQVKIOoLJEmvi1X9SOIFpqs4gQgi9A/exec'; 
+    const GAS_API_URL = 'YOUR_GAS_WEB_APP_URL_HERE/exec'; 
 
     // DOM要素
     const authButton = document.getElementById('authButton');
@@ -120,7 +116,7 @@
     const API_TIMEOUT = 15000; // 15秒
 
     // ------------------------------------------
-    // ユーティリティ関数: fetchApiWithTimeout
+    // ユーティリティ関数: fetchApiWithTimeout (リダイレクト対応済み)
     // ------------------------------------------
     
     /** GAS APIへのフェッチ処理とエラー/タイムアウト制御 */
@@ -129,12 +125,14 @@
         const id = setTimeout(() => controller.abort(), API_TIMEOUT);
 
         try {
-            const response = await fetch(url, { ...options, signal: controller.signal });
+            // 💥 リダイレクトを追跡するために 'redirect: "follow"' を追加
+            const defaultOptions = { redirect: 'follow' }; 
+            
+            const response = await fetch(url, { ...defaultOptions, ...options, signal: controller.signal });
             clearTimeout(id);
             
             if (!response.ok) {
-                // CORS設定やGAS API側の問題でHTTPエラーの場合
-                throw new Error(`HTTPエラー ${response.status}: GASサーバーへの接続に失敗しました。CORS設定を確認してください。`);
+                throw new Error(`HTTPエラー ${response.status}: GASサーバーへの接続に失敗しました。CORS/権限設定を確認してください。`);
             }
 
             const json = await response.json();
@@ -175,7 +173,7 @@
                 staffUrl, { method: 'GET' }, '職員リストの読み込みがタイムアウトしました。');
             populateStaffs(staffResponse.data);
 
-            // リスト取得成功後、認証状態をチェック
+            // 認証状態のチェック
             checkAuthorizationStatus();
 
         } catch (error) {
@@ -252,12 +250,12 @@
 
         try {
             // サーバー側で認証状態をチェックする専用のAPIエンドポイントを呼び出すことを想定
-            // (GAS側: doGet?action=check_auth_status)
-            const authCheckUrl = `${GAS_API_URL}?action=check_auth_status`;
+            // GAS側で getService().hasAccess() を実行し、結果をJSONで返します。
+            const authCheckUrl = `${GAS_API_URL}?action=check_auth_status`; 
             const response = await fetchApiWithTimeout(
                 authCheckUrl, { method: 'GET' }, '認証状態の確認がタイムアウトしました。');
             
-            // サーバー側のレスポンスを基に処理
+            // サーバー側のレスポンスを基に処理 (GAS側で {authorized: true/false} を返す必要があります)
             if (response.data && response.data.authorized) {
                 recordButton.disabled = false;
                 authButton.style.display = 'none'; 
@@ -269,7 +267,6 @@
             }
             
         } catch(error) {
-            // エラーが発生した場合も、未認証として扱うか、エラーを表示
             recordButton.disabled = true;
             authButton.style.display = 'block'; 
             outputDiv.innerHTML = `認証状態のチェック中にエラーが発生しました: ${error.message}。「HealthPlanetで認証」を押してください。`;
@@ -278,7 +275,7 @@
 
 
     // ------------------------------------------
-    // UI更新とヘルパー関数 (既存のロジックを流用)
+    // UI更新とヘルパー関数
     // ------------------------------------------
     
     function populateAttendees(attendees) {
