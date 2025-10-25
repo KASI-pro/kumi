@@ -1,881 +1,832 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <!-- Latest compiled and minified CSS -->
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-  <link rel="apple-touch-icon" href="https://kasi-pro.github.io/kumi/favicon.ico" sizes="180x180">
-  <style>
-  body {
-  	font-family:"游ゴシック", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
-  	font-weight: bolder
-  	line-height:25px;
-  	font-size:1.2em;
-  	background-color: #F0F8FF;
-  }
-  
-  textarea {
-  	width: 100%;
-  }
-  
-  #sendFrom {
-  	margin: 15px auto;
-  	width: 100%;
-  	height: 100px;
-  	border: solid 1px black;
-  	background-color: #ddd;
-  	line-height: 100px;
-  	text-align: center;
-  }
-  
-  .nontext {
-  	border: none;
-  	width: 130px;
-  	background: white;
-  	opacity: 0;
-  }
-  
-  .required::after {
-  	content: "必須";
-  	background-color: #f0ad4e;
-  	color: #fff;
-  	font-size: 12px;
-  	font-weight: bold;
-  	min-width: 10px;
-  	padding: 3px 7px;
-  	margin: 0px 5px;
-  	line-height: 1;
-  	vertical-align: middle;
-  	white-space: nowrap;
-  	text-align: center;
-  	border-radius: 10px;
-  	display: inline-block;
-  }
-  label ~ label {
-  	margin-left: 30px;
-  }
-  
-  /* ベースのラジオボタン */
-  .radio-btns input[type=radio] {
-    display: none;
-  }
-  
-  .radio-btns label {
-    position: relative;
-    padding: 5px 15px 5px 50px;
-    display: inline-block;
-    color: #fff;
-    font-weight: bold;
-    background: #48d1cc;
-    letter-spacing: 0.1em;
-    border-radius: 10px;
-  }
-  
-  .radio-btns input[type=radio]  + label::before,
-  .radio-btns input[type=radio]  + label::after {
-    position: absolute;
-    content: '';
-    display: block;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-  
-  /* 下 */
-  .radio-btns input[type=radio]  + label::before {
-    border-radius: 30px;
-  }
-  
-  .radio-btns input[type=radio]  + label::after {
-    height: 15px;
-    width: 15px;
-    background: #fff;
-    border-radius: 15px;
-    transition: .1s;
-  }
-  
-  .radio-btns input[type=radio]:checked + label::after {
-    left: 30px;
-    background: #ffa500;
-  }
-  
-  .radio-btns input[type=radio]:checked + label {
-    background: #005580;
-  }
-  
-  /* ベースのラジオボタン */
-  .radio-btns2 input[type=radio] {
-    display: none;
-  }
-  
-  .radio-btns2 label {
-    position: relative;
-    padding: 5px 15px 5px 50px;
-    display: inline-block;
-    color: #fff;
-    font-weight: bold;
-    background: #48d1cc;
-    letter-spacing: 0.1em;
-    border-radius: 10px;
-  }
-  
-  .radio-btns2 input[type=radio]  + label::before,
-  .radio-btns2 input[type=radio]  + label::after {
-    position: absolute;
-    content: '';
-    display: block;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-  
-  /* 下 */
-  .radio-btns2 input[type=radio]  + label::before {
-    border-radius: 30px;
-  }
-  
-  .radio-btns2 input[type=radio]  + label::after {
-    height: 15px;
-    width: 15px;
-    background: #fff;
-    border-radius: 15px;
-    transition: .1s;
-  }
-  
-  .radio-btns2 input[type=radio]:checked + label::after {
-    left: 30px;
-    background: #ffa500;
-  }
-  
-  .radio-btns2 input[type=radio]:checked + label {
-    background: #005580;
-  }
-  
-  .input-group,
-  .input-group__control,
-  .input-group__addon {
-    box-sizing:border-box;
-    background: white;
-  }
-  
-  .input-group {
-    display:table;
-    width:100%;
-    border-collapse:separate;
-    font-size:14px;
-  }
-  
-  .input-group__control,
-  .input-group__addon {
-    display:table-cell;
-    height:40px;
-    padding:8px 14px;
-  }
-  
-  .input-group__control {
-    float:left;
-    width:100%;
-    margin:0;
-    border:1px solid #D3D3D3;
-    border-radius:5px;
-    font-size:14px;
-    font-family:inherit;
-    line-height:1.5;
-    -webkit-appearance:none;
-            appearance:none;
-  }
-  
-  .input-group__addon {
-    width:1%;
-    border-width:1px 0 1px 1px;
-    border-style:solid;
-    border-color:#C0C0C0;
-    white-space:nowrap;
-    vertical-align:middle;
-    text-align:center;
-    line-height:1;
-  }
-  
-  .input-group__control + .input-group__addon {
-    border-width:1px 1px 1px 0;
-  }
-  
-  .wi{
-   width: 10px;
-  }
-  .button1{
-  border-radius:30px;
-  background:orange;
-  width:20px;
-  height:20px
-  }
-  
-  .switch3__label {
-      width: 37px;
-      position: relative;
-      display: inline-block;
-      padding-top: 3px;
-  }
-  .switch3__content {
-      display: block;
-      cursor: pointer;
-      position: relative;
-      border-radius: 7px;
-      height: 14px;
-      background-color: rgba(34,31,31,.26);
-      -webkit-transition: all .1s .4s;
-         -moz-transition: all .1s .4s;
-          -ms-transition: all .1s .4s;
-           -o-transition: all .1s .4s;
-              transition: all .1s .4s;
-      overflow: hidden;
-  }
-  .switch3__content:after {
-      content: "";
-      display: block;
-      position: absolute;
-      width: 0;
-      height: 100%;
-      top: 0;
-      left: 0;
-      border-radius: 7px;
-      -webkit-transition: all .5s;
-         -moz-transition: all .5s;
-          -ms-transition: all .5s;
-           -o-transition: all .5s;
-              transition: all .5s;
-  }
-  .switch3__input {
-      display: none;
-  }
-  .switch3__circle {
-      display: block;
-      top: 0px;
-      left: 0px;
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      -webkit-border-radius: 10px;
-              border-radius: 10px;
-      background-color: #F1F1F1;
-      -webkit-transition: all .2s;
-         -moz-transition: all .2s;
-          -ms-transition: all .2s;
-           -o-transition: all .2s;
-              transition: all .2s;
-      -webkit-box-shadow: 0 2px 2px #ccc;
-              box-shadow: 0 2px 2px #ccc;
-  }
-  .switch3__input:checked ~ .switch3__circle {
-      left: 18px;
-      background-color: #00c4cc;
-  }
-  .switch3__input:checked ~ .switch3__content {
-      border-color: transparent;
-      -webkit-transition: all 0s;
-         -moz-transition: all 0s;
-          -ms-transition: all 0s;
-           -o-transition: all 0s;
-              transition: all 0s;
-  }
-  .switch3__input:checked ~ .switch3__content:after {
-      background-color: rgba(55 190 176 / 25%);
-      width: 100%;
-  }
-  
-  .modal-container {
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    text-align: center;
-    background: rgba(0, 0, 0, 0.5);
-    overflow: auto;
-    opacity: 0;
-    visibility: hidden;
-    transition: .3s ease-out;
-    z-index: 9;
-  }
-  
-  .modal-container::before {
-    content: "";
-    display: inline-block;
-    vertical-align: middle;
-    height: 100%;
-  }
-  
-  .modal-container.active {
-    opacity: 1;
-    visibility: visible;
-  }
-  
-  .modal-body {
-    position: relative;
-    display: inline-block;
-    vertical-align: middle;
-    max-width: 500px;
-    width: 90%;
-  }
-  
-  .modal-close {
-    position: absolute;
-    top: -30px;
-    right: 0;
-    font-size: 14px;
-    color: #fff;
-    background: rgba(0,0,0,60%);
-    padding: 4px 15px;
-    cursor: pointer;
-    border-radius: 5px 5px 0 0;
-  }
-  
-  .modal-content {
-    background: #fff;
-    border: 2px solid #000;
-    text-align: left;
-    padding: 30px;
-    font-weight: bold;
-  }
-  .btn_item {
-    display: inline-block;
-    width: 100px;
-    height: 40px;
-    padding: 7px 0px 0px 0px;
-    text-align:center;
-    text-decoration: none;
-    border-radius: 5px;
-    color: #fff;
-  }
-  .btn_item_a {
-    display: inline-block;
-    font-size: 27px;
-    width: 120px;
-    height: 50px;
-    padding: 7px 0px 0px 0px;
-    text-align:center;
-    text-decoration: none;
-    border-radius: 5px;
-    color: #fff;
-  }
-  .btn_color1{
-    background: #808080;
-  }
-  .btn_color2{
-    background: #808080;
-  }
-  .btn_color3{
-    background: #00bfff;
-  }
-  
-  .radiobutton {
-    display: none;
-  }
-  .radiobutton:checked + label {
-    background-color: pink;
-  }
-
-.btn_item,
-.btn_item_a,
-.btn_item_b {
-  flex-shrink: 1;
-  min-width: 0;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<link rel="apple-touch-icon" href="https://kasi-pro.github.io/kumi/favicon.ico" sizes="180x180">
+<style>
+* {
+  box-sizing: border-box;
 }
-  </style>
+
+body {
+  font-family: "游ゴシック", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, "MS Pゴシック", "MS PGothic", sans-serif;
+  font-weight: 500;
+  line-height: 1.6;
+  font-size: 16px;
+  background-color: #F0F8FF;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  padding: 10px 15px;
+  max-width: 100%;
+}
+
+.navbar {
+  margin-bottom: 15px;
+  padding: 10px 0;
+  border-bottom: 3px solid #00bfff;
+}
+
+.navbar h1 {
+  font-size: 24px;
+  margin: 0;
+  color: #333;
+  font-weight: bold;
+}
+
+/* ボタングループ */
+.btn-group-mobile {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.btn_item_a {
+  flex: 1;
+  min-width: 100px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border-radius: 8px;
+  color: #fff !important;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.btn_item {
+  flex: 1;
+  min-width: 90px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border-radius: 8px;
+  color: #fff !important;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.btn_color1 { background: #808080; }
+.btn_color2 { background: #808080; }
+.btn_color3 { background: #00bfff; }
+
+/* ラジオボタン */
+.radio-btns {
+  margin: 15px 0;
+}
+
+.radio-btns input[type=radio] {
+  display: none;
+}
+
+.radio-btns label {
+  position: relative;
+  padding: 8px 15px 8px 45px;
+  display: inline-block;
+  color: #fff;
+  font-weight: bold;
+  background: #48d1cc;
+  letter-spacing: 0.1em;
+  border-radius: 8px;
+  font-size: 15px;
+  margin-right: 10px;
+  margin-bottom: 5px;
+}
+
+.radio-btns input[type=radio] + label::before,
+.radio-btns input[type=radio] + label::after {
+  position: absolute;
+  content: '';
+  display: block;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.radio-btns input[type=radio] + label::before {
+  border-radius: 30px;
+}
+
+.radio-btns input[type=radio] + label::after {
+  height: 14px;
+  width: 14px;
+  background: #fff;
+  border-radius: 15px;
+  transition: .1s;
+}
+
+.radio-btns input[type=radio]:checked + label::after {
+  left: 27px;
+  background: #ffa500;
+}
+
+.radio-btns input[type=radio]:checked + label {
+  background: #005580;
+}
+
+/* ラジオボタン2 */
+.radio-btns2 {
+  margin: 15px 0;
+}
+
+.radio-btns2 input[type=radio] {
+  display: none;
+}
+
+.radio-btns2 label {
+  position: relative;
+  padding: 8px 15px 8px 45px;
+  display: inline-block;
+  color: #fff;
+  font-weight: bold;
+  background: #48d1cc;
+  letter-spacing: 0.1em;
+  border-radius: 8px;
+  font-size: 15px;
+  margin-right: 10px;
+  margin-bottom: 5px;
+}
+
+.radio-btns2 input[type=radio] + label::before,
+.radio-btns2 input[type=radio] + label::after {
+  position: absolute;
+  content: '';
+  display: block;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.radio-btns2 input[type=radio] + label::before {
+  border-radius: 30px;
+}
+
+.radio-btns2 input[type=radio] + label::after {
+  height: 14px;
+  width: 14px;
+  background: #fff;
+  border-radius: 15px;
+  transition: .1s;
+}
+
+.radio-btns2 input[type=radio]:checked + label::after {
+  left: 27px;
+  background: #ffa500;
+}
+
+.radio-btns2 input[type=radio]:checked + label {
+  background: #005580;
+}
+
+/* フォーム項目 */
+.form-row {
+  margin-bottom: 18px;
+}
+
+.form-row label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+  font-size: 15px;
+  color: #333;
+}
+
+.required::after {
+  content: "必須";
+  background-color: #f0ad4e;
+  color: #fff;
+  font-size: 11px;
+  font-weight: bold;
+  padding: 2px 6px;
+  margin-left: 5px;
+  border-radius: 4px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.form-control, .custom-select {
+  width: 100%;
+  height: 46px;
+  padding: 10px 12px;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px;
+  background: #fff;
+  line-height: normal;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.custom-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 35px;
+}
+
+textarea {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px;
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.5;
+}
+
+/* 回答行の調整 */
+.answer-group {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.answer-group select {
+  width: 110px;
+  flex-shrink: 0;
+}
+
+.nontext {
+  border: none;
+  width: 130px;
+  background: transparent;
+  opacity: 0;
+  flex-grow: 1;
+}
+
+.answer-group .btn-info {
+  padding: 10px 20px;
+  font-size: 15px;
+  white-space: nowrap;
+  background: #17a2b8;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  height: 46px;
+  margin-left: auto;
+}
+
+/* 企画回の特殊レイアウト */
+.kikaku-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.kikaku-row select {
+  flex: 1;
+  min-width: 65px;
+  height: 46px;
+  padding: 10px 8px;
+  line-height: normal;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px;
+  background: #fff;
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-right: 28px;
+}
+
+/* トグルスイッチ */
+.switch3__label {
+  width: 37px;
+  position: relative;
+  display: inline-block;
+  padding-top: 3px;
+}
+
+.switch3__content {
+  display: block;
+  cursor: pointer;
+  position: relative;
+  border-radius: 7px;
+  height: 14px;
+  background-color: rgba(34,31,31,.26);
+  transition: all .1s .4s;
+  overflow: hidden;
+}
+
+.switch3__content:after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 0;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border-radius: 7px;
+  transition: all .5s;
+}
+
+.switch3__input {
+  display: none;
+}
+
+.switch3__circle {
+  display: block;
+  top: 0px;
+  left: 0px;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background-color: #F1F1F1;
+  transition: all .2s;
+  box-shadow: 0 2px 2px #ccc;
+}
+
+.switch3__input:checked ~ .switch3__circle {
+  left: 18px;
+  background-color: #00c4cc;
+}
+
+.switch3__input:checked ~ .switch3__content {
+  border-color: transparent;
+  transition: all 0s;
+}
+
+.switch3__input:checked ~ .switch3__content:after {
+  background-color: rgba(55 190 176 / 25%);
+  width: 100%;
+}
+
+/* 送信ボタン */
+#sendFrom {
+  width: 100%;
+  height: 60px;
+  margin: 25px 0;
+  border: none;
+  background: linear-gradient(135deg, #00bfff 0%, #1e90ff 100%);
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.wi {
+  width: 10px;
+}
+
+.col-sm-3, .col-sm-9 {
+  padding: 0;
+}
+
+.w-25 {
+  width: 25% !important;
+}
+
+.w-50 {
+  width: 50% !important;
+}
+
+.h6 {
+  font-size: 14px;
+  color: #666;
+  margin-top: 5px;
+}
+</style>
 </head>
 
 <body>
-  <div class="container">
-    <div class="navbar">
-      <h1>組声フォーム</h1>
-      <!--  がっかり -->
+<div class="container">
+  <div class="navbar">
+    <h1>組声フォーム</h1>
+  </div>
+
+  <div class="btn-group-mobile">
+    <a class="btn_item btn_color1" id="link-koe">よかった</a>
+    <a class="btn_item btn_color2" id="link-request">リクエスト</a>
+    <a class="btn_item_a btn_color3" id="link-disappointing">がっかり</a>
+  </div>
+
+  <div>
+    <p style="margin: 10px 0 5px 0; font-weight: bold;">〈提出様式〉</p>
+    <p class="radio-btns">
+      <input type="radio" id="kumi" name="corres" value="0" onclick="formSwitch('#F0F8FF')" checked>
+      <label for="kumi"><span>フォーム</span></label>
+      <input type="radio" id="tiiki" name="corres" value="1" onclick="formSwitch('#F0F8FF')">
+      <label for="tiiki">明細検索</label>
+    </p>
+  </div>
+
+  <form id="content" name="content">
+    <div class="form-row">
+      <label>① 回答:</label>
+      <div class="answer-group">
+        <select class="custom-select" id="answer">
+          <option value="0">要</option>
+          <option value="1" selected>不要</option>
+        </select>
+        <span><input type="text" class="nontext" disabled></span>
+        <span><input type="button" class="btn btn-info" value="リセット" onclick="reload()"></span>
+      </div>
     </div>
-    <br>
-    <div>
-      <a class="btn_item btn_color1" id="link-koe">よかった</a>
-      <a class="btn_item btn_color2" id="link-request">リクエスト</a>
-      <a class="btn_item_a btn_color3" id="link-disappointing">がっかり</a>
+
+    <div class="form-row">
+      <label>② 支所:</label>
+      <select class="custom-select" id="branch" name="branch" onchange="keep()">
+        <option value="101">枚方支所</option>
+        <option value="102">南寝屋川支所</option>
+        <option value="103">南寝屋川個配センター</option>
+        <option value="104">南枚方支所</option>
+        <option value="105">北枚方支所</option>
+        <option value="106">寝屋川支所</option>
+        <option value="107">門真支所</option>
+        <option value="108">樋之上支所</option>
+        <option value="301">港支所 第一</option>
+        <option value="303">港支所 第二</option>
+        <option value="304">生野支所</option>
+        <option value="305">南津守支所</option>
+        <option value="306">東住吉支所</option>
+        <option value="307">平野支所</option>
+        <option value="401">鶴見支所</option>
+        <option value="403">安治川支所</option>
+        <option value="405">都島支所</option>
+      </select>
     </div>
-    <br>
-    <div>
-      <br>
-      <p>＜提出様式＞</p>
-      <p class="radio-btns">
-        <input type="radio" id="kumi" name="corres" value="0" onclick="formSwitch('#F0F8FF')" checked>
-        <label for="kumi">
-          <span>フォーム</span>
+
+    <div class="form-row">
+      <label class="required">③ 組合員コード:</label>
+      <input type="tel" id="kmcode" class="form-control" maxlength="8" placeholder="組合員コード">
+    </div>
+
+    <div class="form-row">
+      <label>④ 企画回:</label>
+      <div class="kikaku-row">
+        <select id="kikaku-year0" name="kikaku-year" disabled>
+          <option value="" selected>年</option>
+        </select>
+        <select id="kikaku-month0" name="kikaku-month" disabled>
+          <option value="" selected>月</option>
+        </select>
+        <select id="kai0" name="kai" disabled>
+          <option value="" selected>回</option>
+          <option value="1">1回</option>
+          <option value="2">2回</option>
+          <option value="3">3回</option>
+          <option value="4">4回</option>
+          <option value="5">5回</option>
+        </select>
+        <span><input type="text" class="nontext wi" disabled></span>
+        <label class="switch3__label">
+          <input type="checkbox" class="switch3__input" onclick="non()"/>
+          <span class="switch3__content"></span>
+          <span class="switch3__circle"></span>
         </label>
-        <input type="radio" id="tiiki" name="corres" value="1" onclick="formSwitch('#F0F8FF')">
-        <label for="tiiki">明細検索</label>
+        <input type="hidden" id="non-kikakunm0">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <label>⑤ 注文番号:</label>
+      <input type="tel" id="pcode" class="form-control" maxlength="6" placeholder="注文番号">
+    </div>
+
+    <div class="form-row">
+      <label class="required">⑥ 商品名:</label>
+      <input type="text" id="pname" class="form-control" placeholder="商品名">
+    </div>
+
+    <div class="form-row">
+      <label class="required">⑦ お申し出内容:</label>
+    </div>
+
+    <div class="form-row">
+      <p class="radio-btns2">現品:
+        <input type="radio" id="nashi" name="actual" value="1" checked>
+        <label for="nashi"><span>なし</span></label>
+        <input type="radio" id="ari" name="actual" value="2">
+        <label for="ari">あり</label>
       </p>
     </div>
-    <br>
-    <form id="content" name="content">
-      <div class="form-row">
-        <label class="col-sm-3 col-form-label">① 回答：</label>
-        <div class="col-sm-9">
-          <p>
-            <select class="custom-select w-25" id="answer">
-              <optgroup>
-                <option value="0">要</option>
-                <option value="1" selected>不要</option>
-              </optgroup>
-            </select>
-            <span>
-              <input type="text" class="nontext" disabled>
-            </span>
-            <span>
-              <input type="button" class="btn btn-info" value="リセット" onclick="reload()">
-            </span>
-          </p>
-        </div>
+
+    <div class="form-row">
+      <select class="custom-select w-50" id="category" name="ondo3" onchange="myfunc(this.value)">
+        <option value="0">選択して下さい</option>
+        <option value="1">農産</option>
+        <option value="2">開発・独自商品</option>
+        <option value="3">その他食品</option>
+        <option value="4">雑貨商品</option>
+        <option value="5">商品以外</option>
+      </select>に関して
+    </div>
+
+    <div class="form-row" id="hidden2" style="display:none;">
+      <select class="custom-select w-50" id="hidden1" name="hidden1">
+        <option value="1">傷み・腐り</option>
+        <option value="2">重目・サイズ</option>
+        <option value="3">食味(美味しくないなど)</option>
+        <option value="4">その他</option>
+      </select>の事について
+    </div>
+
+    <div class="form-row">
+      <textarea id="offer" placeholder=" 詳細"></textarea>
+    </div>
+
+    <div class="form-row">
+      <label>⑧ 補足:</label>
+      <textarea id="comment" placeholder="補足がある場合記入してください"></textarea>
+    </div>
+  </form>
+
+  <form id="area" name="area" style="display:none;">
+    <div class="form-row">
+      <label class="required">① 組合員コード:</label>
+      <input type="tel" id="kmcodemei" class="form-control" maxlength="8" placeholder="組合員コード">
+    </div>
+
+    <div class="form-row">
+      <label class="required">② 企画回:</label>
+      <div>　～</div>
+      <div class="kikaku-row">
+        <select id="kikaku-year" name="kikaku-year" disabled>
+          <option value="" selected>年</option>
+        </select>
+        <select id="kikaku-month" name="kikaku-month" disabled>
+          <option value="" selected>月</option>
+        </select>
+        <select id="kai" name="kai" disabled>
+          <option value="" selected>回</option>
+          <option value="1">1回</option>
+          <option value="2">2回</option>
+          <option value="3">3回</option>
+          <option value="4">4回</option>
+          <option value="5">5回</option>
+        </select>
+        <span><input type="text" class="nontext wi" disabled></span>
+        <input type="hidden" id="non-kikakunm">
       </div>
-      <div class="form-row">
-        <p class="col-sm-3 col-form-label">② 支所：</p>
-        <div class="col-sm-9">
-          <p>
-            <select class="custom-select w-50" id="branch" name="branch" onchange="keep()">
-              <optgroup>
-                <option value="101">枚方支所</option>
-                <option value="102">南寝屋川支所</option>
-                <option value="103">南寝屋川個配センター</option>
-                <option value="104">南枚方支所</option>
-                <option value="105">北枚方支所</option>
-                <option value="106">寝屋川支所</option>
-                <option value="107">門真支所</option>
-                <option value="108">樋之上支所</option>
-                <option value="301">港支所 第一</option>
-                <option value="303">港支所 第二</option>
-                <option value="304">生野支所</option>
-                <option value="305">南津守支所</option>
-                <option value="306">東住吉支所</option>
-                <option value="307">平野支所</option>
-                <option value="401">鶴見支所</option>
-                <option value="403">安治川支所</option>
-                <option value="405">都島支所</option>
-              </optgroup>
-            </select>
-          </p>
-        </div>
-      </div>
-      <div class="form-row">
-        <label class="col-sm-3 col-form-label required">③ 組合員コード：</label>
-        <div class="col-sm-9">
-          <p>
-            <input type="tel" id="kmcode" class="form-control" maxlength="8" placeholder="組合員コード">
-          </p>
-        </div>
-      </div>
-      <div class="form-row">
-        <label class="col-sm-3 col-form-label">④ 企画回：</label>
-        <div class="col-sm-9">
-          <div>
-            <span>
-              <select class="input-group__control w-25" id="kikaku-year0" name="kikaku-year" disabled>
-                <option value="" selected>年</option>
-              </select>
-              <select class="input-group__control w-25" id="kikaku-month0" name="kikaku-month" disabled>
-                <option value="" selected>月</option>
-              </select>
-              <select class="input-group__control w-25" id="kai0" name="kai" disabled>
-                <optgroup>
-                  <option value="" selected>回</option>
-                  <option value="1">1回</option>
-                  <option value="2">2回</option>
-                  <option value="3">3回</option>
-                  <option value="4">4回</option>
-                  <option value="5">5回</option>
-                </optgroup>
-              </select>
-              <span>
-                <input type="text" class="nontext wi" disabled>
-              </span>
-              <label class="switch3__label">
-                <input type="checkbox" class="switch3__input" onclick="non()">
-                <span class="switch3__content">
-                </span>
-                <span class="switch3__circle">
-                </span>
-              </label>
-              <input type="hidden" id="non-kikakunm0">
-            </span>
-          </div>
-        </div>
-      </div>
-      <div class="form-row">
-        <label class="col-sm-3 col-form-label">⑤注文番号：</label>
-        <div class="col-sm-9">
-          <p>
-            <input type="tel" id="pcode" class="form-control" maxlength="6" placeholder="注文番号">
-          </p>
-        </div>
-      </div>
-      <div class="form-row">
-        <label class="col-sm-3 col-form-label required">⑥商品名：</label>
-        <div class="col-sm-9">
-          <p>
-            <input type="text" id="pname" class="form-control" placeholder="商品名">
-          </p>
-        </div>
-      </div>
-      <div class="form-row">
-        <label class="col-sm-3 col-form-label required">⑦お申し出内容：</label>
-      </div>
-      <br>
-      <div class="form-row">
-        <p class="radio-btns2">現品：
-          <input type="radio" id="nashi" name="actual" value="1" checked>
-          <label for="nashi">
-            <span>なし</span>
-          </label>
-          <input type="radio" id="ari" name="actual" value="2">
-          <label for="ari">あり</label>
-        </p>
-      </div>
-      <div class="col-sm-9">
-        <br>
-        <p>
-          <select class="custom-select w-50" id="category" name="ondo3" onchange="myfunc(this.value)">
-            <optgroup>
-              <option value="0">選択して下さい</option>
-              <option value="1">農産</option>
-              <option value="2">開発・独自商品</option>
-              <option value="3">その他食品</option>
-              <option value="4">雑貨商品</option>
-              <option value="5">商品以外</option>
-            </optgroup>
-          </select>に関して</p>
-        <p id="hidden2">
-          <select class="custom-select w-50" id="hidden1" name="hidden1">
-            <optgroup>
-              <option value="1">傷み・腐り</option>
-              <option value="2">量目・サイズ</option>
-              <option value="3">食味（美味しくないなど）</option>
-              <option value="4">その他</option>
-            </optgroup>
-          </select>の事について</p>
-        <p>
-          <textarea id="offer" rows="4" cols="34" placeholder=" 詳細"></textarea>
-        </p>
-      </div>
-      <div class="form-row">
-        <label class="col-sm-3 col-form-label">⑧補足：</label>
-        <div class="col-sm-9">
-          <p>
-            <textarea id="comment" rows="4" cols="34" placeholder="補足がある場合記入してください"></textarea>
-          </p>
-        </div>
-      </div>
-    </form>
-    <form id="area" name="area">
-      <div class="form-row">
-        <label class="col-sm-3 col-form-label required">①組合員コード：</label>
-        <div class="col-sm-9" style="display:inline-flex">
-          <p>
-            <input type="tel" id="kmcodemei" class="form-control" maxlength="8" placeholder="組合員コード">
-          </p>
-        </div>
-      </div>
-      <div class="form-row">
-        <label class="col-sm-3 col-form-label required">②企画回：</label>
-        <div class="col-sm-9">
-          <div>　～
-            <span>
-              <select class="input-group__control w-25" id="kikaku-year" name="kikaku-year" disabled>
-                <option value="" selected>年</option>
-              </select>
-              <select class="input-group__control w-25" id="kikaku-month" name="kikaku-month" disabled>
-                <option value="" selected>月</option>
-              </select>
-              <select class="input-group__control w-25" id="kai" name="kai" disabled>
-                <optgroup>
-                  <option value="" selected>回</option>
-                  <option value="1">1回</option>
-                  <option value="2">2回</option>
-                  <option value="3">3回</option>
-                  <option value="4">4回</option>
-                  <option value="5">5回</option>
-                </optgroup>
-              </select>
-              <span>
-                <input type="text" class="nontext wi" disabled>
-              </span>
-              <input type="hidden" id="non-kikakunm">
-            </span>
-          </div>
-        </div>
-      </div>
-      <div class="form-row">
-        <label class="col-sm-3 col-form-label">
+    </div>
+
+    <div class="form-row">
+      <div class="kikaku-row">
+        <select id="kikaku-year2" name="kikaku-year2" disabled>
+          <option value="" selected>年</option>
+        </select>
+        <select id="kikaku-month2" name="kikaku-month2" disabled>
+          <option value="" selected>月</option>
+        </select>
+        <select id="kai2" name="kai2" disabled>
+          <option value="" selected>回</option>
+          <option value="1">1回</option>
+          <option value="2">2回</option>
+          <option value="3">3回</option>
+          <option value="4">4回</option>
+          <option value="5">5回</option>
+        </select>
+        <span><input type="text" class="nontext wi" disabled></span>
+        <label class="switch3__label">
+          <input type="checkbox" class="switch3__input" onclick="non2()"/>
+          <span class="switch3__content"></span>
+          <span class="switch3__circle"></span>
         </label>
-        <div class="col-sm-9">
-          <div>
-            <span>
-              <select class="input-group__control w-25" id="kikaku-year2" name="kikaku-year2" disabled>
-                <option value="" selected>年</option>
-              </select>
-              <select class="input-group__control w-25" id="kikaku-month2" name="kikaku-month2" disabled>
-                <option value="" selected>月</option>
-              </select>
-              <select class="input-group__control w-25" id="kai2" name="kai2" disabled>
-                <optgroup>
-                  <option value="" selected>回</option>
-                  <option value="1">1回</option>
-                  <option value="2">2回</option>
-                  <option value="3">3回</option>
-                  <option value="4">4回</option>
-                  <option value="5">5回</option>
-                </optgroup>
-              </select>
-              <span>
-                <input type="text" class="nontext wi" disabled>
-              </span>
-              <label class="switch3__label">
-                <input type="checkbox" class="switch3__input" onclick="non2()">
-                <span class="switch3__content">
-                </span>
-                <span class="switch3__circle">
-                </span>
-              </label>
-              <input type="hidden" id="non-kikakunm2">
-            </span>
-          </div>
-          <label class="h6">※配送回から過去3か月前までの
-            <br>　明細を調べる事ができます。</label>
-        </div>
+        <input type="hidden" id="non-kikakunm2">
       </div>
-      <div class="form-row">
-        <label class="col-sm-3 col-form-label">③注文番号：</label>
-        <div class="col-sm-9">
-          <p>
-            <input type="tel" id="pcodemei" class="form-control w-50" maxlength="6" placeholder="注文番号">
-          </p>
-        </div>
-      </div>
-      <div class="form-row">
-        <label class="col-sm-3 col-form-label">④あいまい検索：</label>
-        <div class="col-sm-9">
-          <p>
-            <input type="text" id="pnamemei" class="form-control w-50" placeholder="商品名">
-          </p>
-        </div>
-        <label class="h6">※商品名の一部から調べる事ができます。</label>
-      </div>
-    </form>
-    <input type="button" id="sendFrom" value="メール作成">
-    <br>
-    <br>
-  </div>
-</body>
+      <label class="h6">※配送回から過去3か月前までの<br>　明細を調べる事ができます。</label>
+    </div>
+
+    <div class="form-row">
+      <label>③ 注文番号:</label>
+      <input type="tel" id="pcodemei" class="form-control w-50" maxlength="6" placeholder="注文番号">
+    </div>
+
+    <div class="form-row">
+      <label>④ あいまい検索:</label>
+      <input type="text" id="pnamemei" class="form-control w-50" placeholder="商品名">
+      <label class="h6">※商品名の一部から調べる事ができます。</label>
+    </div>
+  </form>
+
+  <input type="button" id="sendFrom" value="メール作成">
+</div>
+
 <script src="https://cdn.rawgit.com/alertifyjs/alertify.js/v1.0.10/dist/js/alertify.js"></script>
 <script src="./links.js"></script>
 <script>
-	// URLパラメータを取得する関数
-	function getUrlParams() {
-		const params = {};
-		window.location.search.substring(1).split('&').forEach(param => {
-			const parts = param.split('=');
-			if (parts[0]) {
-				params[parts[0]] = decodeURIComponent(parts[1] || '');
-			}
-		});
-		return params;
+// JavaScriptは元のdisappointingtestから一切変更なし
+// URLパラメータを取得する関数
+function getUrlParams() {
+	const params = {};
+	window.location.search.substring(1).split('&').forEach(param => {
+		const parts = param.split('=');
+		if (parts[0]) {
+			params[parts[0]] = decodeURIComponent(parts[1] || '');
+		}
+	});
+	return params;
+}
+
+function fillFormFromUrlParams() {
+	// ★★★ URLパラメータ反映のコード ★★★
+	const params = new URLSearchParams(window.location.search);
+
+	const branch = params.get('sibu');       // 支所コード
+	if (branch) document.getElementById('branch').value = branch;
+
+	const kmcode = params.get('kumicd');     // 組合員コード
+	if (kmcode){
+		document.getElementById('kmcode').value = kmcode;
+		const kmcodeInput = document.getElementById('kmcode');
+		kmcodeInput.setAttribute('readonly', true); // 入力不可に
 	}
 
-	function fillFormFromUrlParams() {
-		// ★★★ URLパラメータ反映のコード ★★★
-		const params = new URLSearchParams(window.location.search);
+	const kikakukai = params.get('kikakukai'); // 例: "2025053"
+	if (kikakukai && kikakukai.length === 7) {
+		const year = kikakukai.slice(0, 4);       // "2025"
+		const month = kikakukai.slice(4, 6);      // "05"
+		const kai = kikakukai.slice(6, 7);        // "3"
 
-		const branch = params.get('sibu');       // 支所コード
-		if (branch) document.getElementById('branch').value = branch;
+		document.getElementById("kikaku-year0").value = year;
+		document.getElementById("kikaku-month0").value = Number(month);
+		document.getElementById("kai0").value = kai;
 
-		const kmcode = params.get('kumicd');     // 組合員コード
-		if (kmcode){
-			document.getElementById('kmcode').value = kmcode;
-			const kmcodeInput = document.getElementById('kmcode');
-			kmcodeInput.setAttribute('readonly', true); // 入力不可に
-		}
+		// 表示上は有効にし、選択肢は操作不可にする(disabled)
+		const yearSelect = document.getElementById("kikaku-year0");
+		const monthSelect = document.getElementById("kikaku-month0");
+		const kaiSelect = document.getElementById("kai0");
+		yearSelect.setAttribute("disabled", true);
+		monthSelect.setAttribute("disabled", true);
+		kaiSelect.setAttribute("disabled", true);
 
-		const kikakukai = params.get('kikakukai'); // 例: "2025053"
-		if (kikakukai && kikakukai.length === 7) {
-			const year = kikakukai.slice(0, 4);       // "2025"
-			const month = kikakukai.slice(4, 6);      // "05"
-			const kai = kikakukai.slice(6, 7);        // "3"
-
-			document.getElementById("kikaku-year0").value = year;
-			document.getElementById("kikaku-month0").value = Number(month);
-			document.getElementById("kai0").value = kai;
-
-			// 表示上は有効にし、選択肢は操作不可にする（disabled）
-			const yearSelect = document.getElementById("kikaku-year0");
-			const monthSelect = document.getElementById("kikaku-month0");
-			const kaiSelect = document.getElementById("kai0");
-			yearSelect.setAttribute("disabled", true);
-			monthSelect.setAttribute("disabled", true);
-			kaiSelect.setAttribute("disabled", true);
-
-			const switchInput = document.querySelector(".switch3__input");
-			if (switchInput) {
-			switchInput.checked = false;
-			switchInput.setAttribute('disabled', true);
-			}
-		}
-
-		const pcode = params.get('chuno');       // 注文番号
-		if (pcode) {
-			const pcodeInput = document.getElementById('pcode');
-			document.getElementById('pcode').value = pcode;
-			pcodeInput.setAttribute('readonly', true); // 入力不可に
-		}
-
-		const pname = params.get('shinn');       // 商品名
-		if (pname) {
-			document.getElementById('pname').value = pname;
-			const pnameInput = document.getElementById('pname');
-			pnameInput.setAttribute('readonly', true); // 入力不可に
-		}
-
-		// デフォルトで「フォーム」タブが選択されるように設定
-		document.getElementById('kumi').checked = true;
-		formSwitch('#F0F8FF');
-	}
-
-	// ページ読み込み時にフォームにURLパラメータを反映
-	window.addEventListener('DOMContentLoaded', fillFormFromUrlParams);
-	window.addEventListener('load', formSwitch);
-
-	// ★★★ コードここまで ★★★
-
-	window.onload=function(){
-		// リンク遷移の処理をDOMContentLoadedからこちらに移動
-		document.getElementById("link-koe").onclick = function() {
-			const query = window.location.search;
-			location.href = voiceLinks.koe + query;
-		};
-
-		document.getElementById("link-request").onclick = function() {
-			const query = window.location.search;
-			location.href = voiceLinks.request + query;
-		};
-
-		document.getElementById("link-disappointing").onclick = function() {
-			const query = window.location.search;
-			location.href = voiceLinks.disappointing + query;
-		};
-		startmeth();
-	}
-
-	document.getElementById("hidden2").style.display ="none";
-
-	function myfunc(value) {
-		var check1 = document.getElementById("category").value;
-		var hidden1 = document.getElementById("hidden1");
-		if(check1 == 1){
-			hidden2.style.display ="block";
-		}else{
-			hidden2.style.display ="none";
+		const switchInput = document.querySelector(".switch3__input");
+		if (switchInput) {
+		switchInput.checked = false;
+		switchInput.setAttribute('disabled', true);
 		}
 	}
 
-   function keep(){
-      var text = document.getElementById("branch").value;
-      localStorage.setItem('memo', text);
-      alert('支所の変更を保存しました。');
-  }
+	const pcode = params.get('chuno');       // 注文番号
+	if (pcode) {
+		const pcodeInput = document.getElementById('pcode');
+		document.getElementById('pcode').value = pcode;
+		pcodeInput.setAttribute('readonly', true); // 入力不可に
+	}
 
-  function rekeep(){
-      var text = document.getElementById("branch2").value;
-      localStorage.setItem('memo', text);
-      alert('支所の変更を保存しました。');
-  }
+	const pname = params.get('shinn');       // 商品名
+	if (pname) {
+		document.getElementById('pname').value = pname;
+		const pnameInput = document.getElementById('pname');
+		pnameInput.setAttribute('readonly', true); // 入力不可に
+	}
 
-  function formSwitch(newColor) {
-          decided = document.getElementsByName('corres')
-          if (decided[0].checked) {
-          	startmeth();
-              document.getElementById('content').style.display = "";
-              document.getElementById('area').style.display = "none";
-  	    document.body.style.backgroundColor = newColor;
-  	    var txt = localStorage.getItem('memo');
-              var f=document.getElementById("content");
-              checkSelect(f.elements["branch"],txt);
-          } else if (decided[1].checked) {
-          	startmei();
-              document.getElementById('content').style.display = "none";
-              document.getElementById('area').style.display = "";
-  	    document.body.style.backgroundColor = newColor;
-              var txt = localStorage.getItem('memo');
-         	    var f=document.getElementById("area");
-          } else {
-              document.getElementById('content').style.display = "none";
-              document.getElementById('area').style.display = "none";
-          }
-   }
-   window.addEventListener('load', formSwitch());
+	// デフォルトで「フォーム」タブが選択されるように設定
+	document.getElementById('kumi').checked = true;
+	formSwitch('#F0F8FF');
+}
 
+// ページ読み込み時にフォームにURLパラメータを反映
+window.addEventListener('DOMContentLoaded', fillFormFromUrlParams);
+window.addEventListener('load', formSwitch);
 
-   function startmeth(){
-  		var txt = localStorage.getItem('memo');
-  	    var f = document.getElementById("content");
-  		checkSelect(f.elements["branch"],txt);
+// ★★★ コードここまで ★★★
 
-  		for(var j = 1; j <= 12; j++) {
-  			const selectMonth = document.getElementById('kikaku-month0');
-  			const option2 = document.createElement('option');
-  			option2.value = j;
-  			option2.textContent = j+"月";
-  			selectMonth.appendChild(option2)
-  		}
+window.onload=function(){
+	// リンク遷移の処理をDOMContentLoadedからこちらに移動
+	document.getElementById("link-koe").onclick = function() {
+		const query = window.location.search;
+		location.href = voiceLinks.koe + query;
+	};
 
-  		for(var i = 2000; i <= 2050; i++) {
-  			const selectYear = document.getElementById('kikaku-year0');
-  			const option1 = document.createElement('option');
-  			option1.value = i;
-  			option1.textContent = i+"年";
-  			selectYear.appendChild(option1)
-  		}
+	document.getElementById("link-request").onclick = function() {
+		const query = window.location.search;
+		location.href = voiceLinks.request + query;
+	};
 
-  }
+	document.getElementById("link-disappointing").onclick = function() {
+		const query = window.location.search;
+		location.href = voiceLinks.disappointing + query;
+	};
+	startmeth();
+}
 
-   function startmei(){
-  		for(var j = 1; j <= 12; j++) {
-  			const selectMonth = document.getElementById('kikaku-month');
-  			const option2 = document.createElement('option');
-  			option2.value = j;
-  			option2.textContent = j+"月";
-  			selectMonth.appendChild(option2)
-  		}
+document.getElementById("hidden2").style.display ="none";
 
-  		for(var i = 2000; i <= 2050; i++) {
-  			const selectYear = document.getElementById('kikaku-year');
-  			const option1 = document.createElement('option');
-  			option1.value = i;
-  			option1.textContent = i+"年";
-  			selectYear.appendChild(option1)
-  		}
+function myfunc(value) {
+	var check1 = document.getElementById("category").value;
+	var hidden1 = document.getElementById("hidden1");
+	if(check1 == 1){
+		hidden2.style.display ="block";
+	}else{
+		hidden2.style.display ="none";
+	}
+}
 
-  		for(var k = 1; k <= 12; k++) {
-  			const selectMonth = document.getElementById('kikaku-month2');
-  			const option2 = document.createElement('option');
-  			option2.value = k;
-  			option2.textContent = k+"月";
-  			selectMonth.appendChild(option2)
-  		}
+function keep(){
+   var text = document.getElementById("branch").value;
+   localStorage.setItem('memo', text);
+   alert('支所の変更を保存しました。');
+}
 
-  		for(var l = 2000; l <= 2050; l++) {
-  			const selectYear = document.getElementById('kikaku-year2');
-  			const option1 = document.createElement('option');
-  			option1.value = l;
-  			option1.textContent = l+"年";
-  			selectYear.appendChild(option1)
-  		}
-  	nonmei();
-  }
+function rekeep(){
+   var text = document.getElementById("branch2").value;
+   localStorage.setItem('memo', text);
+   alert('支所の変更を保存しました。');
+}
+
+function formSwitch(newColor) {
+       decided = document.getElementsByName('corres')
+       if (decided[0].checked) {
+       	startmeth();
+           document.getElementById('content').style.display = "";
+           document.getElementById('area').style.display = "none";
+   document.body.style.backgroundColor = newColor;
+   var txt = localStorage.getItem('memo');
+           var f=document.getElementById("content");
+           checkSelect(f.elements["branch"],txt);
+       } else if (decided[1].checked) {
+       	startmei();
+           document.getElementById('content').style.display = "none";
+           document.getElementById('area').style.display = "";
+   document.body.style.backgroundColor = newColor;
+           var txt = localStorage.getItem('memo');
+      	    var f=document.getElementById("area");
+       } else {
+           document.getElementById('content').style.display = "none";
+           document.getElementById('area').style.display = "none";
+       }
+}
+window.addEventListener('load', formSwitch());
 
 
-  function non(){
+function startmeth(){
+		var txt = localStorage.getItem('memo');
+	    var f = document.getElementById("content");
+		checkSelect(f.elements["branch"],txt);
+
+		for(var j = 1; j <= 12; j++) {
+			const selectMonth = document.getElementById('kikaku-month0');
+			const option2 = document.createElement('option');
+			option2.value = j;
+			option2.textContent = j+"月";
+			selectMonth.appendChild(option2)
+		}
+
+		for(var i = 2000; i <= 2050; i++) {
+			const selectYear = document.getElementById('kikaku-year0');
+			const option1 = document.createElement('option');
+			option1.value = i;
+			option1.textContent = i+"年";
+			selectYear.appendChild(option1)
+		}
+
+}
+
+function startmei(){
+		for(var j = 1; j <= 12; j++) {
+			const selectMonth = document.getElementById('kikaku-month');
+			const option2 = document.createElement('option');
+			option2.value = j;
+			option2.textContent = j+"月";
+			selectMonth.appendChild(option2)
+		}
+
+		for(var i = 2000; i <= 2050; i++) {
+			const selectYear = document.getElementById('kikaku-year');
+			const option1 = document.createElement('option');
+			option1.value = i;
+			option1.textContent = i+"年";
+			selectYear.appendChild(option1)
+		}
+
+		for(var k = 1; k <= 12; k++) {
+			const selectMonth = document.getElementById('kikaku-month2');
+			const option2 = document.createElement('option');
+			option2.value = k;
+			option2.textContent = k+"月";
+			selectMonth.appendChild(option2)
+		}
+
+		for(var l = 2000; l <= 2050; l++) {
+			const selectYear = document.getElementById('kikaku-year2');
+			const option1 = document.createElement('option');
+			option1.value = l;
+			option1.textContent = l+"年";
+			selectYear.appendChild(option1)
+		}
+	nonmei();
+}
+
+
+function non(){
   	const button1 = document.getElementById("button1");
 
   	var p = new Date();
@@ -1594,6 +1545,4 @@
     }
   });
 </script>
-
 </html>
-
