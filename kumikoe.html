@@ -21,7 +21,7 @@ body {
 }
 
 .container {
-  padding: 10px 12px;
+  padding: 10px 15px;
   max-width: 100%;
 }
 
@@ -49,7 +49,7 @@ body {
 .btn_item_a {
   flex: 1;
   min-width: 100px;
-  height: 48px;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -58,13 +58,12 @@ body {
   color: #fff !important;
   font-weight: bold;
   font-size: 16px;
-  transition: opacity 0.2s;
 }
 
 .btn_item {
   flex: 1;
   min-width: 90px;
-  height: 44px;
+  height: 46px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -73,16 +72,11 @@ body {
   color: #fff !important;
   font-weight: bold;
   font-size: 14px;
-  transition: opacity 0.2s;
 }
 
 .btn_color1 { background: #ffa500; }
 .btn_color2 { background: #808080; }
 .btn_color3 { background: #808080; }
-
-.btn_item_a:active, .btn_item:active {
-  opacity: 0.7;
-}
 
 /* ラジオボタン */
 .radio-btns {
@@ -140,12 +134,12 @@ body {
 
 /* フォーム項目 */
 .form-row {
-  margin-bottom: 15px;
+  margin-bottom: 18px;
 }
 
 .form-row label {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 6px;
   font-weight: bold;
   font-size: 15px;
   color: #333;
@@ -161,43 +155,79 @@ body {
   margin-left: 5px;
   border-radius: 4px;
   display: inline-block;
+  vertical-align: middle;
 }
 
 .form-control, .custom-select {
   width: 100%;
-  padding: 12px 10px;
+  height: 46px;
+  padding: 10px 12px;
   border: 2px solid #ddd;
   border-radius: 6px;
   font-size: 16px;
   background: #fff;
-  line-height: 1.5;
-  height: 44px;
+  line-height: normal;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.custom-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 35px;
 }
 
 textarea {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   border: 2px solid #ddd;
   border-radius: 6px;
   font-size: 16px;
   resize: vertical;
-  min-height: 100px;
+  min-height: 120px;
+  line-height: 1.5;
+}
+
+/* 回答行の調整 */
+.answer-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.answer-group select {
+  width: 110px;
+  flex-shrink: 0;
+}
+
+.answer-group .btn-info {
+  padding: 10px 20px;
+  font-size: 15px;
+  white-space: nowrap;
+  background: #17a2b8;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  height: 46px;
 }
 
 /* 企画回の特殊レイアウト */
 .kikaku-row {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
   flex-wrap: wrap;
 }
 
 .kikaku-row select {
   flex: 1;
-  min-width: 70px;
-  padding: 12px 8px;
-  height: 44px;
-  line-height: 1.5;
+  min-width: 65px;
+  height: 46px;
+  padding: 10px 8px;
+  line-height: normal;
 }
 
 .kikaku-row .btn-info {
@@ -273,7 +303,7 @@ textarea {
 #sendFrom {
   width: 100%;
   height: 60px;
-  margin: 20px 0;
+  margin: 25px 0;
   border: none;
   background: linear-gradient(135deg, #ffa500 0%, #ff8c00 100%);
   color: #fff;
@@ -282,65 +312,10 @@ textarea {
   border-radius: 10px;
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  transition: all 0.2s;
-}
-
-#sendFrom:active {
-  transform: scale(0.98);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-  background: linear-gradient(135deg, #ff8c00 0%, #ffa500 100%);
 }
 
 .nontext {
   display: none;
-}
-
-/* リセットボタン調整 */
-.btn-info {
-  background: #17a2b8;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 6px;
-  color: #fff;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-/* 選択ボックスの調整 */
-.answer-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.answer-row select {
-  flex: 0 0 auto;
-  width: 100px;
-}
-
-.answer-row .btn-info {
-  margin-left: auto;
-}
-
-/* スマホ最適化 */
-@media (max-width: 480px) {
-  body {
-    font-size: 15px;
-  }
-  
-  .navbar h1 {
-    font-size: 22px;
-  }
-  
-  .btn_item_a {
-    font-size: 15px;
-    height: 46px;
-  }
-  
-  .btn_item {
-    font-size: 13px;
-    height: 42px;
-  }
 }
 </style>
 </head>
@@ -369,7 +344,7 @@ textarea {
   <form id="content" name="content">
     <div class="form-row">
       <label>①回答：</label>
-      <div class="answer-row">
+      <div class="answer-group">
         <select class="custom-select" id="answer">
           <option value="0">要</option>
           <option value="1" selected>不要</option>
@@ -456,7 +431,7 @@ textarea {
   <form id="area" name="area" style="display:none;">
     <div class="form-row">
       <label>①回答：</label>
-      <div class="answer-row">
+      <div class="answer-group">
         <select class="custom-select" id="answer2">
           <option value="0">要</option>
           <option value="1" selected>不要</option>
@@ -794,7 +769,7 @@ const eventLeave = isSP ? 'touchmove' : 'mouseleave';
 
 b.addEventListener(eventStart, e => {
   e.preventDefault();
-  b.style.opacity = '0.8';
+  b.classList.add('active');
   timer = setInterval(() => {
     count++;
   }, 10);
@@ -803,7 +778,7 @@ b.addEventListener(eventStart, e => {
 b.addEventListener(eventEnd, e => {
   e.preventDefault();
   if (count) {
-    b.style.opacity = '1';
+    b.classList.remove('active');
     clearInterval(timer);
     let second = (count / 100);
     var elements = document.getElementsByName('corres');
@@ -1099,7 +1074,7 @@ b.addEventListener(eventLeave, e => {
   let el;
   el = isSP ? document.elementFromPoint(e.touches[0].clientX, e.touches[0].clientY) : b;
   if (!isSP || el !== b) {
-    b.style.opacity = '1';
+    b.classList.remove('active');
     clearInterval(timer);
     e.preventDefault();
     count = 0;
