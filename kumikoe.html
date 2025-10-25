@@ -11,7 +11,7 @@
 }
 
 body {
-  font-family: "游ゴシック", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, " MS Pゴシック", "MS PGothic", sans-serif;
+  font-family: "游ゴシック", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
   font-weight: 500;
   line-height: 1.6;
   font-size: 16px;
@@ -193,21 +193,13 @@ textarea {
 .answer-group {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   gap: 10px;
 }
 
 .answer-group select {
   width: 110px;
   flex-shrink: 0;
-}
-
-.answer-group .nontext {
-  border: none;
-  width: 130px;
-  background: transparent;
-  opacity: 0;
-  flex-grow: 1;
 }
 
 .answer-group .btn-info {
@@ -220,7 +212,6 @@ textarea {
   color: #fff;
   cursor: pointer;
   height: 46px;
-  margin-left: auto;
 }
 
 /* 企画回の特殊レイアウト */
@@ -326,10 +317,6 @@ textarea {
 .nontext {
   display: none;
 }
-
-.wi {
-  width: 10px;
-}
 </style>
 </head>
 <body>
@@ -345,7 +332,7 @@ textarea {
   </div>
 
   <div>
-    <p style="margin: 10px 0 5px 0; font-weight: bold;">〈提出様式〉</p>
+    <p style="margin: 10px 0 5px 0; font-weight: bold;">＜提出様式＞</p>
     <p class="radio-btns">
       <input type="radio" id="kumi" name="corres" value="0" onclick="formSwitch('#FFFFEE')" checked>
       <label for="kumi"><span>組声</span></label>
@@ -356,19 +343,18 @@ textarea {
 
   <form id="content" name="content">
     <div class="form-row">
-      <label>① 回答:</label>
+      <label>①回答：</label>
       <div class="answer-group">
         <select class="custom-select" id="answer">
           <option value="0">要</option>
           <option value="1" selected>不要</option>
         </select>
-        <input type="text" class="nontext" disabled>
         <input type="button" class="btn btn-info" value="リセット" onclick="reload()">
       </div>
     </div>
 
     <div class="form-row">
-      <label>② 支所:</label>
+      <label>②支所：</label>
       <select class="custom-select" id="branch" name="branch" onchange="keep()">
         <option value="101">枚方支所</option>
         <option value="102">南寝屋川支所</option>
@@ -391,12 +377,12 @@ textarea {
     </div>
 
     <div class="form-row">
-      <label class="required">③ 組合員コード:</label>
+      <label class="required">③組合員コード：</label>
       <input type="tel" id="kmcode" class="form-control" maxlength="8" placeholder="組合員コード">
     </div>
 
     <div class="form-row">
-      <label>④ 企画回:</label>
+      <label>④企画回：</label>
       <div class="kikaku-row">
         <select class="custom-select" id="kikaku-year" name="kikaku-year" disabled>
           <option value="" selected>年</option>
@@ -422,41 +408,40 @@ textarea {
     </div>
 
     <div class="form-row">
-      <label>⑤ 注文番号:</label>
+      <label>⑤注文番号：</label>
       <input type="tel" id="pcode" class="form-control" maxlength="6" placeholder="注文番号">
     </div>
 
     <div class="form-row">
-      <label class="required">⑥ 商品名:</label>
+      <label class="required">⑥商品名：</label>
       <input type="text" id="pname" class="form-control" placeholder="商品名">
     </div>
 
     <div class="form-row">
-      <label class="required">⑦ お申し出内容:</label>
+      <label class="required">⑦お申し出内容：</label>
       <textarea id="offer" placeholder="お申し出内容"></textarea>
     </div>
 
     <div class="form-row">
-      <label>⑧ 担当者のコメント:</label>
+      <label>⑧担当者のコメント：</label>
       <textarea id="comment" placeholder="補足がある場合記入してください"></textarea>
     </div>
   </form>
 
   <form id="area" name="area" style="display:none;">
     <div class="form-row">
-      <label>① 回答:</label>
+      <label>①回答：</label>
       <div class="answer-group">
         <select class="custom-select" id="answer2">
           <option value="0">要</option>
           <option value="1" selected>不要</option>
         </select>
-        <input type="text" class="nontext" disabled>
         <input type="button" class="btn btn-info" value="リセット" onclick="reload()">
       </div>
     </div>
 
     <div class="form-row">
-      <label>② 支所:</label>
+      <label>②支所：</label>
       <select class="custom-select" id="branch2" name="branch2" onchange="rekeep()">
         <option value="101">枚方支所</option>
         <option value="102">南寝屋川支所</option>
@@ -481,17 +466,17 @@ textarea {
     <input type="hidden" id="kmcode2" value="99999999">
 
     <div class="form-row">
-      <label class="required">③ 要旨・商品名:</label>
+      <label class="required">③要旨・商品名：</label>
       <input type="text" id="pname2" class="form-control" placeholder="要旨・商品名">
     </div>
 
     <div class="form-row">
-      <label class="required">④ お申し出内容:</label>
+      <label class="required">④お申し出内容：</label>
       <textarea id="offer2" placeholder="お申し出内容"></textarea>
     </div>
 
     <div class="form-row">
-      <label>⑤ 担当者のコメント:</label>
+      <label>⑤担当者のコメント：</label>
       <textarea id="comment2" placeholder="担当者のコメント"></textarea>
     </div>
   </form>
@@ -501,9 +486,6 @@ textarea {
 
 <script src="./links.js"></script>
 <script>
-// メールアドレスの定義(kumikoetestから追加)
-var address = "example@example.com"; // ★実際のメールアドレスに変更してください★
-
 function keep(){
   var text = document.getElementById("branch").value;
   localStorage.setItem('memo', text);
@@ -769,7 +751,7 @@ function checkSelect(obj,val){
 }
 
 function reload() {
-  var result = confirm('本当に入力内容を削除してもよろしいですか?');
+  var result = confirm('本当に入力内容を削除してもよろしいですか？');
   if(result) {
     location.reload();
   }
@@ -819,9 +801,9 @@ b.addEventListener(eventEnd, e => {
           }else{
             let kaitou2 = document.getElementById("answer2").value;
             if(kaitou2 == 1){
-              var success = window.confirm("回答:『 不要 』\nで、お間違いないでしょうか?");
+              var success = window.confirm("回答:【 不要 】\nで、お間違いないでしょうか？");
               if(success){
-                var result = window.confirm("メールを作成してもよかったでしょうか?");
+                var result = window.confirm("メールを作成してもよかったでしょうか？");
                 if( result ) {
                   var elements = document.getElementsByName('corres');
                   var len = elements.length;
@@ -833,11 +815,11 @@ b.addEventListener(eventEnd, e => {
                   }
                   txtData = document.area;
                   answer = txtData[0].value;
-                  branch = txtData[1].value;
-                  kmcode = txtData[2].value;
-                  pname = txtData[3].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-                  offer = txtData[4].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-                  comment = txtData[5].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+                  branch = txtData[3].value;
+                  kmcode = txtData[4].value;
+                  pname = txtData[5].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+                  offer = txtData[6].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+                  comment = txtData[7].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 
                   subject = '地域の声';
 
@@ -865,7 +847,7 @@ b.addEventListener(eventEnd, e => {
                 }
               }
             }else{
-              var result = window.confirm("メールを作成してもよかったでしょうか?");
+              var result = window.confirm("メールを作成してもよかったでしょうか？");
               if( result ) {
                 var elements = document.getElementsByName('corres');
                 var len = elements.length;
@@ -877,11 +859,11 @@ b.addEventListener(eventEnd, e => {
                 }
                 txtData = document.area;
                 answer = txtData[0].value;
-                branch = txtData[1].value;
-                kmcode = txtData[2].value;
-                pname = txtData[3].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-                offer = txtData[4].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-                comment = txtData[5].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+                branch = txtData[3].value;
+                kmcode = txtData[4].value;
+                pname = txtData[5].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+                offer = txtData[6].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+                comment = txtData[7].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 
                 subject = '地域の声';
 
@@ -947,9 +929,9 @@ b.addEventListener(eventEnd, e => {
                 if(kikanm.length === 0 || kikanm.length === 7){
                   let kaitou = document.getElementById("answer").value;
                   if(kaitou == 1){
-                    var success = window.confirm("回答:『 不要 』\nで、お間違いないでしょうか?");
+                    var success = window.confirm("回答:【 不要 】\nで、お間違いないでしょうか？");
                     if(success){
-                      var result = window.confirm("メールを作成してもよかったでしょうか?");
+                      var result = window.confirm("メールを作成してもよかったでしょうか？");
                       if( result ) {
                         var toDoubleDigits = function(num) {
                           num += "";
@@ -971,13 +953,13 @@ b.addEventListener(eventEnd, e => {
                         }
                         txtData = document.content;
                         answer = txtData[0].value;
-                        branch = txtData[1].value;
-                        kmcode = txtData[2].value;
+                        branch = txtData[3].value;
+                        kmcode = txtData[4].value;
                         kikakai = time1+time2+time3;
-                        pcode = txtData[5].value.replace(/ /g, '');
-                        pname = txtData[6].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-                        offer = txtData[7].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-                        comment = txtData[8].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+                        pcode = txtData[11].value.replace(/ /g, '');
+                        pname = txtData[12].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+                        offer = txtData[13].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+                        comment = txtData[14].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 
                         subject = 'よかったの声';
 
@@ -1005,7 +987,7 @@ b.addEventListener(eventEnd, e => {
                       }
                     }
                   }else{
-                    var result = window.confirm("メールを作成してもよかったでしょうか?");
+                    var result = window.confirm("メールを作成してもよかったでしょうか？");
                     if( result ) {
                       var toDoubleDigits = function(num) {
                         num += "";
@@ -1027,13 +1009,13 @@ b.addEventListener(eventEnd, e => {
                       }
                       txtData = document.content;
                       answer = txtData[0].value;
-                      branch = txtData[1].value;
-                      kmcode = txtData[2].value;
+                      branch = txtData[3].value;
+                      kmcode = txtData[4].value;
                       kikakai = time1+time2+time3;
-                      pcode = txtData[5].value.replace(/ /g, '');
-                      pname = txtData[6].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-                      offer = txtData[7].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
-                      comment = txtData[8].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+                      pcode = txtData[11].value.replace(/ /g, '');
+                      pname = txtData[12].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+                      offer = txtData[13].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
+                      comment = txtData[14].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 
                       subject = 'よかったの声';
 
