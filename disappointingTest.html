@@ -610,9 +610,107 @@ textarea {
 
 <script src="https://cdn.rawgit.com/alertifyjs/alertify.js/v1.0.10/dist/js/alertify.js"></script>
 <script>
-window.onload=function(){
-	startmeth();
+
+// ★★★ kumikoe から getUrlParams 関数を移植 ★★★
+function getUrlParams() {
+    const params = {};
+    window.location.search.substring(1).split('&').forEach(param => {
+        const parts = param.split('=');
+        if (parts[0]) {
+            params[parts[0]] = decodeURIComponent(parts[1] || '');
+        }
+    });
+    return params;
 }
+
+window.onload=function(){
+	startmeth(); // 元の処理
+
+    // ★★★ kumikoe から パラメータ処理ロジックを移植・修正 ★★★
+    const params = getUrlParams();
+    
+    // パラメータをフォームに自動入力
+    if (params.sibu) {
+        // 'branch' (contentフォーム) に反映
+        const branchSelect1 = document.getElementById('branch');
+        if (branchSelect1) {
+            checkSelect(branchSelect1, params.sibu);
+        }
+        // 'disappointing' には branch2 がないので、kumikoeのbranch2処理は不要
+    }
+    if (params.kumicd) {
+        // 'kmcode' (contentフォーム) に反映
+        const kmcodeInput = document.getElementById('kmcode');
+        if (kmcodeInput) {
+            kmcodeInput.value = params.kumicd;
+            kmcodeInput.setAttribute('readonly', true); // 入力不可に
+        }
+        // 'kmcodemei' (areaフォーム) にも反映
+        const kmcodeMeiInput = document.getElementById('kmcodemei');
+            if (kmcodeMeiInput) {
+            kmcodeMeiInput.value = params.kumicd;
+            // こちらは readonly にしない（明細検索なので）
+        }
+    }
+    if (params.chuno) {
+        // 'pcode' (contentフォーム) に反映
+        const pcodeInput = document.getElementById('pcode');
+        if (pcodeInput) {
+            pcodeInput.value = params.chuno;
+            pcodeInput.setAttribute('readonly', true); // 入力不可に
+        }
+            // 'pcodemei' (areaフォーム) にも反映
+        const pcodeMeiInput = document.getElementById('pcodemei');
+        if (pcodeMeiInput) {
+            pcodeMeiInput.value = params.chuno;
+        }
+    }
+    if (params.shinn) {
+        // 'pname' (contentフォーム) に反映
+        const pnameInput = document.getElementById('pname');
+        if (pnameInput) {
+            pnameInput.value = params.shinn;
+            pnameInput.setAttribute('readonly', true); // 入力不可に
+        }
+        // 'pnamemei' (areaフォーム) にも反映
+        const pnameMeiInput = document.getElementById('pnamemei');
+        if (pnameMeiInput) {
+            pnameMeiInput.value = params.shinn;
+        }
+    }
+
+    if (params.kikakukai) {
+        const kikakukaiStr = params.kikakukai;
+        if (kikakukaiStr.length === 7) {
+            const year = kikakukaiStr.substring(0, 4);
+            const month = kikakukaiStr.substring(4, 6);
+            const kai = kikakukaiStr.substring(6);
+
+            // 各セレクトボックスに代入 (contentフォームのID *0 を使用)
+            const yearSelect = document.getElementById("kikaku-year0");
+            const monthSelect = document.getElementById("kikaku-month0");
+            const kaiSelect = document.getElementById("kai0");
+
+            if (yearSelect) checkSelect(yearSelect, year);
+            if (monthSelect) checkSelect(monthSelect, parseInt(month).toString());
+            if (kaiSelect) checkSelect(kaiSelect, kai);
+            
+            // 表示上は有効にし、選択肢は操作不可にする(disabled)
+            yearSelect.setAttribute("disabled", true);
+            monthSelect.setAttribute("disabled", true);
+            kaiSelect.setAttribute("disabled", true);
+
+            const switchInput = document.querySelector("#content .switch3__input"); // #content内のスイッチを指定
+            if (switchInput) {
+                switchInput.checked = false;
+                switchInput.setAttribute('disabled', true);
+            }
+        }
+    }
+    // ★★★ 移植ここまで ★★★
+}
+
+// ▼▼▼ 以下、disappointing.txt の元のJavaScript ▼▼▼
 
 document.getElementById("hidden2").style.display ="none";
 
