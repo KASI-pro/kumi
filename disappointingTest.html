@@ -256,6 +256,14 @@ textarea {
   flex-shrink: 0;
 }
 
+.nontextre {
+  border: none;
+  width: 80px;
+  background: transparent;
+  opacity: 0;
+  flex-grow: 1;
+}
+
 .nontext {
   border: none;
   width: 130px;
@@ -435,7 +443,7 @@ textarea {
           <option value="0">要</option>
           <option value="1" selected>不要</option>
         </select>
-        <span><input type="text" class="nontext" disabled></span>
+        <span><input type="text" class="nontextre" disabled></span>
         <span><input type="button" class="btn btn-info" value="リセット" onclick="reload()"></span>
       </div>
     </div>
@@ -1546,3 +1554,4 @@ function non(){
   });
 </script>
 </html>
+
