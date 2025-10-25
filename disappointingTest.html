@@ -154,7 +154,8 @@ body {
   display: inline-block;
   color: #fff;
   font-weight: bold;
-  background: #48d1cc;
+  /* ★★★ 変更点：デフォルト（非選択時）の色 ★★★ */
+  background: #005580; /* 濃い青 */
   letter-spacing: 0.1em;
   border-radius: 8px;
   font-size: 15px;
@@ -190,7 +191,8 @@ body {
 }
 
 .radio-btns2 input[type=radio]:checked + label {
-  background: #005580;
+  /* ★★★ 変更点：選択時の色 ★★★ */
+  background: #48d1cc; /* 水色 */
 }
 
 
@@ -264,14 +266,6 @@ textarea {
   flex-shrink: 0;
 }
 
-.nontextre {
-  border: none;
-  width: 80px;
-  background: transparent;
-  opacity: 0;
-  flex-grow: 1;
-}
-	
 .nontext {
   border: none;
   width: 130px;
@@ -416,7 +410,7 @@ textarea {
 <body>
 	<div class="container">
 		<div class="navbar">
-			<h1>組声フォーム１</h1>
+			<h1>組声フォーム</h1>
 			</div>
 
 		<div class="btn-group-mobile">
@@ -443,7 +437,7 @@ textarea {
 						<option value="0">要</option>
 						<option value="1" selected>不要</option>
 					</select>
-					<span><input type="text" class="nontextre" disabled></span>
+					<span><input type="text" class="nontext" disabled></span>
 					<span><input type="button" class="btn btn-info"	value="リセット" onclick="reload()"></span>
 				</div>
 			</div>
@@ -514,14 +508,14 @@ textarea {
 				</div>
 
 			<div class="form-row" style="margin-top: -10px;">
-				<p class="radio-btns2">現品：
+				<label style="margin-bottom: 8px;">現品：</label>
+				<div class="radio-btns2" style="display: flex; gap: 0px; margin: 0;">
 				  <input type="radio" id="nashi" name="actual" value="1" checked><label for="nashi"><span>なし</span></label>
 				  <input type="radio" id="ari" name="actual" value="2" ><label for="ari">あり</label>
-				</p>
+				</div>
 			</div>
 			
-			<div class="form-row" style="margin-top: -10px;">
-				<select class="custom-select" id="category" name="ondo3" onchange="myfunc(this.value)" style="width: 100%;">
+			<div class="form-row" style="margin-top: 10px;"> <select class="custom-select" id="category" name="ondo3" onchange="myfunc(this.value)" style="width: 100%;">
 					<option value="0">選択して下さい</option>
 					<option value="1">農産</option>
 					<option value="2">開発・独自商品</option>
@@ -1550,5 +1544,3 @@ b.addEventListener(eventLeave, e => {
 });
 </script>
 </html>
-
-
