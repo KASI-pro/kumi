@@ -477,9 +477,8 @@ textarea {
 				<label class="required">③ 組合員コード：</label>
 				<input type="tel" id="kmcode" class="form-control" maxlength='8' placeholder="組合員コード">
 			</div>
-
+<div>				<label>④ 企画回：</label></div>
 			<div class="form-row">
-				<label>④ 企画回：</label>
 				<div class="kikaku-row">
 					<select id="kikaku-year0" name="kikaku-year" disabled><option value="" selected>年</option></select>
 					<select id="kikaku-month0" name="kikaku-month" disabled><option value="" selected>月</option></select>
@@ -559,9 +558,9 @@ textarea {
 				<label class="required">① 組合員コード：</label>
 				<input type="tel" id="kmcodemei" class="form-control" maxlength='8' placeholder="組合員コード">
 			</div>
-			
+				<div><label class="required">② 企画回：</label></div>			
 			<div class="form-row">
-				<label class="required">② 企画回：</label>
+
 				<div class="kikaku-row">
 					<select id="kikaku-year" name="kikaku-year" disabled><option value="" selected>年</option></select>
 					<select id="kikaku-month" name="kikaku-month" disabled><option value="" selected>月</option></select>
@@ -575,7 +574,7 @@ textarea {
 					</select>
 					<input type="hidden" id="non-kikakunm">
 				</div>
-				<p style="margin: -5px 0 5px 0;">　～</p>
+				<p style="padding: 10px 0 0 0;">　～</p>
 			</div>
 
 			<div class="form-row">
@@ -600,9 +599,9 @@ textarea {
 				</div>
 				<p class="form-text text-muted" style="font-size: 14px; margin-top: 8px;">※配送回から過去3か月前までの<br>　明細を調べる事ができます。</p>
 			</div>
-
+<div><label>③ 注文番号：</label></div>
 			<div class="form-row">
-				<label>③ 注文番号：</label>
+				
 				<input type="tel" id="pcodemei" class="form-control" maxlength='6'	placeholder="注文番号" style="width: 70%;">
 			</div>
 			
@@ -1552,12 +1551,3 @@ b.addEventListener(eventLeave, e => {
 });
 </script>
 </html>
-
-
-
-
-
-
-
-
-
