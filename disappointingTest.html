@@ -416,7 +416,7 @@ textarea {
 <body>
 <div class="container">
   <div class="navbar">
-    <h1>組声フォーム１</h1>
+    <h1>組声フォーム</h1>
   </div>
 
   <div class="btn-group-mobile">
@@ -753,20 +753,21 @@ function rekeep(){
 function formSwitch(newColor) {
        decided = document.getElementsByName('corres')
        if (decided[0].checked) {
-       	startmeth();
+       	startmeth(); // ★この関数からは支所設定ロジックを削除済み★
            document.getElementById('content').style.display = "";
            document.getElementById('area').style.display = "none";
    document.body.style.backgroundColor = newColor;
-   var txt = localStorage.getItem('memo');
-           var f=document.getElementById("content");
-           checkSelect(f.elements["branch"],txt);
 
-            // ★★★ URLパラメータをLocal Storageより優先して再適用するロジック（追記箇所） ★★★ [cite: 69]
-            const params = new URLSearchParams(window.location.search); [cite: 69]
-            const branch = params.get('sibu');       // 支所コード 
-            if (branch) document.getElementById('branch').value = branch; [cite: 70]
-            // ★★★ 追記箇所 ここまで ★★★
-            
+    // ★★★ 支所設定ロジックをここに統一 ★★★
+    var txt = localStorage.getItem('memo');
+    var f = document.getElementById("content");
+    checkSelect(f.elements["branch"], txt); // 1. Local Storageの値をまず適用
+
+    const params = new URLSearchParams(window.location.search);
+    const branch = params.get('sibu');       // 支所コード
+    if (branch) document.getElementById('branch').value = branch; // 2. URLパラメータで上書き（優先）
+    // ★★★ 支所設定ロジックここまで ★★★
+
        } else if (decided[1].checked) {
        	startmei();
            document.getElementById('content').style.display = "none";
@@ -779,12 +780,12 @@ function formSwitch(newColor) {
            document.getElementById('area').style.display = "none";
        }
 }
-window.addEventListener('load', formSwitch); // loadイベントでformSwitchが呼ばれています
+window.addEventListener('load', formSwitch);
 
 function startmeth(){
-		var txt = localStorage.getItem('memo');
-	    var f = document.getElementById("content");
-		checkSelect(f.elements["branch"],txt);
+		// var txt = localStorage.getItem('memo');
+	    // var f = document.getElementById("content");
+		// checkSelect(f.elements["branch"],txt);
 
 		for(var j = 1; j <= 12; j++) {
 			const selectMonth = document.getElementById('kikaku-month0');
@@ -1560,4 +1561,3 @@ function non(){
   });
 </script>
 </html>
-
