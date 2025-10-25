@@ -214,6 +214,32 @@ textarea {
   height: 46px;
 }
 
+  /* 既存の .answer-group の修正 */
+.answer-group {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* flex-startに変更 */
+  gap: 10px;
+}
+
+/* ★追加するCSS★ リセットボタンのコンテナを右端に寄せる */
+.reset-button-container {
+  margin-left: auto; /* 左側の要素との間に最大の余白を取り、右に寄せる */
+}
+
+/* セレクトボックスの幅を固定したい場合は以下を追加 */
+.answer-group select {
+  width: 110px;
+  flex-shrink: 0;
+}
+
+/* ボタンのスタイルは既存のまま */
+.answer-group .btn-info {
+  padding: 10px 20px; [cite: 23]
+  /* ... 他のスタイル ... */
+  height: 46px; [cite: 24]
+}
+  
 /* 企画回の特殊レイアウト */
 .kikaku-row {
   display: flex;
@@ -343,15 +369,17 @@ textarea {
 
   <form id="content" name="content">
     <div class="form-row">
-      <label>①回答：</label>
-      <div class="answer-group">
-        <select class="custom-select" id="answer">
-          <option value="0">要</option>
-          <option value="1" selected>不要</option>
-        </select>
-        <input type="button" class="btn btn-info" value="リセット" onclick="reload()">
-      </div>
+  <label>①回答：</label>
+  <div class="answer-group">
+    <select class="custom-select" id="answer">
+      <option value="0">要</option>
+      <option value="1" selected>不要</option>
+    </select>
+    <div class="reset-button-container">
+      <input type="button" class="btn btn-info" value="リセット" onclick="reload()">
     </div>
+    </div>
+</div>
 
     <div class="form-row">
       <label>②支所：</label>
@@ -842,7 +870,7 @@ b.addEventListener(eventEnd, e => {
                   '","delfox":"'+ 0 +
                   '","kinds":"'+ 1 +
                   '"}}';
-
+const encodedBody = encodeURIComponent(body);
                   location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
                 }
               }
@@ -1082,3 +1110,4 @@ b.addEventListener(eventLeave, e => {
 });
 </script>
 </html>
+
