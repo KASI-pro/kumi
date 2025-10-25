@@ -165,11 +165,13 @@ body {
 
 .form-control, .custom-select {
   width: 100%;
-  padding: 10px;
+  padding: 12px 10px;
   border: 2px solid #ddd;
   border-radius: 6px;
   font-size: 16px;
   background: #fff;
+  line-height: 1.5;
+  height: 44px;
 }
 
 textarea {
@@ -193,6 +195,9 @@ textarea {
 .kikaku-row select {
   flex: 1;
   min-width: 70px;
+  padding: 12px 8px;
+  height: 44px;
+  line-height: 1.5;
 }
 
 .kikaku-row .btn-info {
@@ -306,6 +311,7 @@ textarea {
   display: flex;
   align-items: center;
   gap: 10px;
+  justify-content: space-between;
 }
 
 .answer-row select {
@@ -314,6 +320,7 @@ textarea {
 
 .answer-row .btn-info {
   flex: 0 0 auto;
+  margin-left: auto;
 }
 
 /* スマホ最適化 */
@@ -503,8 +510,15 @@ textarea {
   <input type="button" id="sendFrom" value="メール作成">
 </div>
 
-<script src="./links.js"></script>
 <script>
+// links.js の内容を想定（実際のアドレスに置き換えてください）
+const voiceLinks = {
+  koe: './index.html',
+  request: './request.html',
+  disappointing: './disappointing.html'
+};
+const address = 'example@example.com'; // 実際のメールアドレスに置き換えてください
+
 function keep(){
   var text = document.getElementById("branch").value;
   localStorage.setItem('memo', text);
