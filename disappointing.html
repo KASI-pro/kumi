@@ -761,11 +761,11 @@ function formSwitch(newColor) {
            var f=document.getElementById("content");
            checkSelect(f.elements["branch"],txt);
 
-            // ★★★ 追記: URLパラメータがLocal Storageより優先されるように、ここで再適用 ★★★
-            const params = new URLSearchParams(window.location.search);
-            const branch = params.get('sibu');       // 支所コード
-            if (branch) document.getElementById('branch').value = branch;
-            // ★★★ 追記ここまで ★★★
+            // ★★★ URLパラメータをLocal Storageより優先して再適用するロジック（追記箇所） ★★★ [cite: 69]
+            const params = new URLSearchParams(window.location.search); [cite: 69]
+            const branch = params.get('sibu');       // 支所コード 
+            if (branch) document.getElementById('branch').value = branch; [cite: 70]
+            // ★★★ 追記箇所 ここまで ★★★
             
        } else if (decided[1].checked) {
        	startmei();
@@ -779,7 +779,7 @@ function formSwitch(newColor) {
            document.getElementById('area').style.display = "none";
        }
 }
-window.addEventListener('load', formSwitch());
+window.addEventListener('load', formSwitch); // loadイベントでformSwitchが呼ばれています
 
 function startmeth(){
 		var txt = localStorage.getItem('memo');
