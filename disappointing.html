@@ -647,8 +647,8 @@ function fillFormFromUrlParams() {
 	// ★★★ URLパラメータ反映のコード ★★★
 	const params = new URLSearchParams(window.location.search);
 
-	const branch = params.get('sibu');       // 支所コード
-	if (branch) document.getElementById('branch').value = branch;
+	// const branch = params.get('sibu');       // 支所コード
+	// if (branch) document.getElementById('branch').value = branch;
 
 	const kmcode = params.get('kumicd');     // 組合員コード
 	if (kmcode){
@@ -751,29 +751,35 @@ function rekeep(){
 }
 
 function formSwitch(newColor) {
-       decided = document.getElementsByName('corres')
-       if (decided[0].checked) {
-       	startmeth();
-           document.getElementById('content').style.display = "";
-           document.getElementById('area').style.display = "none";
-   document.body.style.backgroundColor = newColor;
-   var txt = localStorage.getItem('memo');
-           var f=document.getElementById("content");
-           checkSelect(f.elements["branch"],txt);
-       } else if (decided[1].checked) {
-       	startmei();
-           document.getElementById('content').style.display = "none";
-           document.getElementById('area').style.display = "";
-   document.body.style.backgroundColor = newColor;
-           var txt = localStorage.getItem('memo');
-      	    var f=document.getElementById("area");
-       } else {
-           document.getElementById('content').style.display = "none";
-           document.getElementById('area').style.display = "none";
-       }
+       decided = document.getElementsByName('corres')
+       if (decided[0].checked) {
+       	startmeth();
+           document.getElementById('content').style.display = "";
+           document.getElementById('area').style.display = "none";
+   document.body.style.backgroundColor = newColor;
+   var txt = localStorage.getItem('memo');
+           var f=document.getElementById("content");
+           checkSelect(f.elements["branch"],txt);
+
+            // ★★★ 追記: URLパラメータがLocal Storageより優先されるように、ここで再適用 ★★★
+            const params = new URLSearchParams(window.location.search);
+            const branch = params.get('sibu');       // 支所コード
+            if (branch) document.getElementById('branch').value = branch;
+            // ★★★ 追記ここまで ★★★
+            
+       } else if (decided[1].checked) {
+       	startmei();
+           document.getElementById('content').style.display = "none";
+           document.getElementById('area').style.display = "";
+   document.body.style.backgroundColor = newColor;
+           var txt = localStorage.getItem('memo');
+      	    var f=document.getElementById("area");
+       } else {
+           document.getElementById('content').style.display = "none";
+           document.getElementById('area').style.display = "none";
+       }
 }
 window.addEventListener('load', formSwitch());
-
 
 function startmeth(){
 		var txt = localStorage.getItem('memo');
@@ -1554,5 +1560,3 @@ function non(){
   });
 </script>
 </html>
-
-
