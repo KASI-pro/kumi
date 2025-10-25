@@ -283,6 +283,13 @@ a {
 a.btn_item, a.btn_item_a {
     color: #fff !important; /* ボタンの文字色を強制的に白に */
 }
+
+	.btn_item,
+.btn_item_a,
+.btn_item_b {
+  flex-shrink: 1;
+  min-width: 0;
+}
 </style>
 </head>
 <body>
@@ -940,3 +947,4 @@ b.addEventListener(eventLeave, e => {
 });
 </script>
 </html>
+
