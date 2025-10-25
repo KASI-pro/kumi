@@ -842,7 +842,7 @@ b.addEventListener(eventEnd, e => {
                   '","delfox":"'+ 0 +
                   '","kinds":"'+ 1 +
                   '"}}';
-
+const encodedBody = encodeURIComponent(body);
                   location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
                 }
               }
@@ -1082,3 +1082,4 @@ b.addEventListener(eventLeave, e => {
 });
 </script>
 </html>
+
