@@ -495,10 +495,26 @@ window.onload=function(){
         location.href = voiceLinks.disappointing + query;
     };
 
-    // 既存の初期化処理
-    var txt = localStorage.getItem('memo');
-    var f=document.getElementById("content");
-    checkSelect(f.elements["branch"],txt);
+
+// ★★★ 修正箇所 ★★★
+	const params = getUrlParams(); // ★ 先にURLパラメータを取得
+
+	if (params.sibu) {
+		// URLパラメータ 'sibu' がある場合、優先的に設定
+		const branchSelect = document.getElementById('branch');
+		if (branchSelect) {
+			checkSelect(branchSelect, params.sibu);
+		}
+	} else {
+		// URLパラメータ 'sibu' がない場合のみ、localStorage の値を設定
+		var txt = localStorage.getItem('memo');
+		var f=document.getElementById("content");
+		checkSelect(f.elements["branch"],txt);
+	}
+// ★★★ 修正箇所ココマデ ★★★
+
+
+
     for(var j = 1; j <= 12; j++) {
         const selectMonth = document.getElementById('kikaku-month');
         const option2 = document.createElement('option');
@@ -515,14 +531,17 @@ window.onload=function(){
         selectYear.appendChild(option1)
     }
 
+    // 'sibu' の処理は上で完了しているため、このブロックは削除
     // ★★★ URLパラメータ反映のコード ★★★
-    const params = getUrlParams();
-    if (params.sibu) {
-        const branchSelect = document.getElementById('branch');
-        if (branchSelect) {
-            checkSelect(branchSelect, params.sibu);
-        }
-    }
+    //const params = getUrlParams();
+    //if (params.sibu) {
+        //const branchSelect = document.getElementById('branch');
+        //if (branchSelect) {
+            //checkSelect(branchSelect, params.sibu);
+        //}
+    //}
+
+
     if (params.kumicd) {
         const kmcodeInput = document.getElementById('kmcode');
         if (kmcodeInput) {
@@ -560,9 +579,9 @@ pnameInput.setAttribute('readonly', true);
             if (kaiSelect) checkSelect(kaiSelect, kai);
 
             // 表示上は有効にし、選択肢は操作不可にする（disabled）
-        yearSelect.setAttribute("disabled", true);
-        monthSelect.setAttribute("disabled", true);
-        kaiSelect.setAttribute("disabled", true);
+yearSelect.setAttribute("disabled", true);
+monthSelect.setAttribute("disabled", true);
+kaiSelect.setAttribute("disabled", true);
 
             const switchInput = document.querySelector(".switch3__input");
             if (switchInput) {
