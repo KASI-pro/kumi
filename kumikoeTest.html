@@ -548,47 +548,31 @@ function getUrlParams() {
 
 function formSwitch(newColor) {
         decided = document.getElementsByName('corres')
-
-// ★★★ 修正箇所 ★★★
 	    var params = getUrlParams(); // パラメータを先に取得
-// ★★★ 修正箇所ココマデ ★★★
-
 
         if (decided[0].checked) {
             document.getElementById('content').style.display = "";
             document.getElementById('area').style.display = "none";
-	    document.body.style.backgroundColor = newColor;
+	    	document.body.style.backgroundColor = newColor;
 
-
-// ★★★ 修正箇所 ★★★
-	    if (!params.sibu) { // sibu がない場合のみ localStorage を読み込む
-	        var txt = localStorage.getItem('memo');
-	        var f=document.getElementById("content");
-	        checkSelect(f.elements["branch"],txt);
-	    }
-// ★★★ 修正箇所ココマデ ★★★
-
+		    if (!params.sibu) { // sibu がない場合のみ localStorage を読み込む
+		        var txt = localStorage.getItem('memo');
+		        var f=document.getElementById("content");
+		        checkSelect(f.elements["branch"],txt);
+		    }
 
         } else if (decided[1].checked) {
             document.getElementById('content').style.display = "none";
             document.getElementById('area').style.display = "";
-	    document.body.style.backgroundColor = newColor;
+	    	document.body.style.backgroundColor = newColor;
 
-
-
-// ★★★ 修正箇所 ★★★
-	    if (!params.sibu) { // sibu がない場合のみ localStorage を読み込む
-	        var txt = localStorage.getItem('memo');
-       	    var f=document.getElementById("area");
-checkSelect(f.elements["branch2"],txt);
-	    }
-// ★★★ 修正箇所ココマデ ★★★
-
+		    if (!params.sibu) { // sibu がない場合のみ localStorage を読み込む
+		        var txt = localStorage.getItem('memo');
+	       	    var f=document.getElementById("area");
+				checkSelect(f.elements["branch2"],txt);
+		    }
 
         } else {
-
-
-
 
             document.getElementById('content').style.display = "none";
             document.getElementById('area').style.display = "none";
@@ -600,23 +584,19 @@ window.onload=function(){
 
  // リンク遷移の処理をDOMContentLoadedからこちらに移動
     document.getElementById("link-koe").onclick = function() {
-        const query = window.location.search;
+        const query = window.location.search + window.location.hash;
         location.href = voiceLinks.koe + query;
     };
 
     document.getElementById("link-request").onclick = function() {
-        const query = window.location.search;
+        const query = window.location.search + window.location.hash;
         location.href = voiceLinks.request + query;
     };
 
     document.getElementById("link-disappointing").onclick = function() {
-        const query = window.location.search;
+        const query = window.location.search + window.location.hash;
         location.href = voiceLinks.disappointing + query;
     };
-
-
-
-	// ★★★ 修正箇所 ★★★
 	// (この関数の後半で params.sibu がチェックされるため、ここでは先に params を取得して分岐する)
         var params = getUrlParams(); 
 
@@ -625,9 +605,6 @@ window.onload=function(){
 	    var f=document.getElementById("content");
 	    checkSelect(f.elements["branch"],txt);
 	}
-	// ★★★ 修正箇所ココマデ ★★★
-
-
 
 	for(var j = 1; j <= 12; j++) {
 		const selectMonth = document.getElementById('kikaku-month');
@@ -664,58 +641,58 @@ window.onload=function(){
         const kmcodeInput = document.getElementById('kmcode');
         if (kmcodeInput) {
             kmcodeInput.value = params.kumicd;
-  kmcodeInput.setAttribute('readonly', true); // 入力不可に
+  			kmcodeInput.setAttribute('readonly', true); // 入力不可に
         }
     }
     if (params.chuno) {
         const pcodeInput = document.getElementById('pcode');
         if (pcodeInput) {
             pcodeInput.value = params.chuno;
-pcodeInput.setAttribute('readonly', true); // 入力不可に
+			pcodeInput.setAttribute('readonly', true); // 入力不可に
         }
     }
     if (params.shinn) {
         const pnameInput = document.getElementById('pname');
         if (pnameInput) {
             pnameInput.value = params.shinn;
-pnameInput.setAttribute('readonly', true); // 入力不可に
+			pnameInput.setAttribute('readonly', true); // 入力不可に
         }
         const pname2Input = document.getElementById('pname2'); // 'area' フォームの商品名
         if (pname2Input) {
             pname2Input.value = params.shinn;
-pname2Input.setAttribute('readonly', true); // 入力不可に
+			pname2Input.setAttribute('readonly', true); // 入力不可に
         }
     }
-
-if (params.kikakukai) {
-    const kikakukaiStr = params.kikakukai;
-    
-    if (kikakukaiStr.length === 7) {
-        const year = kikakukaiStr.substring(0, 4); // 2025
-        const month = kikakukaiStr.substring(4, 6); // 07
-        const kai = kikakukaiStr.substring(6); // 3
-
-        // 各セレクトボックスに代入
-        const yearSelect = document.getElementById("kikaku-year");
-        const monthSelect = document.getElementById("kikaku-month");
-        const kaiSelect = document.getElementById("kai");
-
-        if (yearSelect) checkSelect(yearSelect, year);
-        if (monthSelect) checkSelect(monthSelect, parseInt(month).toString());
-        if (kaiSelect) checkSelect(kaiSelect, kai);
-
-// 表示上は有効にし、選択肢は操作不可にする(disabled)
-        yearSelect.setAttribute("disabled", true);
-        monthSelect.setAttribute("disabled", true);
-        kaiSelect.setAttribute("disabled", true);
-
-        const switchInput = document.querySelector(".switch3__input");
-if (switchInput) {
-  switchInput.checked = false;
-  switchInput.setAttribute('disabled', true);
-}
-    }
-}
+	
+	if (params.kikakukai) {
+	    const kikakukaiStr = params.kikakukai;
+	    
+	    if (kikakukaiStr.length === 7) {
+	        const year = kikakukaiStr.substring(0, 4);
+	        const month = kikakukaiStr.substring(4, 6);
+	        const kai = kikakukaiStr.substring(6);
+	
+	        // 各セレクトボックスに代入
+	        const yearSelect = document.getElementById("kikaku-year");
+	        const monthSelect = document.getElementById("kikaku-month");
+	        const kaiSelect = document.getElementById("kai");
+	
+	        if (yearSelect) checkSelect(yearSelect, year);
+	        if (monthSelect) checkSelect(monthSelect, parseInt(month).toString());
+	        if (kaiSelect) checkSelect(kaiSelect, kai);
+	
+	// 表示上は有効にし、選択肢は操作不可にする(disabled)
+	        yearSelect.setAttribute("disabled", true);
+	        monthSelect.setAttribute("disabled", true);
+	        kaiSelect.setAttribute("disabled", true);
+	
+	        const switchInput = document.querySelector(".switch3__input");
+			if (switchInput) {
+			  switchInput.checked = false;
+			  switchInput.setAttribute('disabled', true);
+			}
+	    }
+	}
 
     // ★★★ コードここまで ★★★
 }
