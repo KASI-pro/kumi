@@ -20,7 +20,7 @@ body {
   font-weight: 500;
   line-height: 1.6;
   font-size: 16px;
-  background-color: #F0F8FF; /* disappointing.txt の指定色 */
+  background-color: #F0F8FF;
   margin: 0;
   padding: 0;
 }
@@ -33,7 +33,7 @@ body {
 .navbar {
   margin-bottom: 15px;
   padding: 10px 0;
-  border-bottom: 3px solid #00bfff; /* disappointing.txt のキーカラー */
+  border-bottom: 3px solid #00bfff;
 }
 
 .navbar h1 {
@@ -51,7 +51,7 @@ body {
   flex-wrap: wrap;
 }
 
-.btn_item_a { /* アクティブボタン (disappointing.txt の定義を優先) */
+.btn_item_a {
   flex: 1;
   min-width: 100px;
   height: 50px;
@@ -62,13 +62,13 @@ body {
   border-radius: 8px;
   color: #fff !important;
   font-weight: bold;
-  font-size: 16px; /* kumikoeのbtn_item_aのサイズに合わせる */
+  font-size: 16px;
 }
 
-.btn_item { /* 非アクティブボタン (disappointing.txt の定義を優先) */
+.btn_item { /* 非アクティブボタン */
   flex: 1;
   min-width: 90px;
-  height: 46px; /* kumikoeのbtn_itemのサイズに合わせる */
+  height: 46px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -76,16 +76,15 @@ body {
   border-radius: 8px;
   color: #fff !important;
   font-weight: bold;
-  font-size: 14px; /* kumikoeのbtn_itemのサイズに合わせる */
+  font-size: 14px;
 }
 
-/* disappointing.txt のボタン色指定 */
 .btn_color1 { background: #808080; }
 .btn_color2 { background: #808080; }
 .btn_color3 { background: #00bfff; }
 
 
-/* ラジオボタン (kumikoeベース) */
+/* ラジオボタン */
 .radio-btns {
   margin: 15px 0;
 }
@@ -132,14 +131,14 @@ body {
 
 .radio-btns input[type=radio]:checked + label::after {
   left: 27px;
-  background: #ffa500; /* 元のdisappointing.txtでも使われていた色 */
+  background: #ffa500;
 }
 
 .radio-btns input[type=radio]:checked + label {
-  background: #005580; /* 元のdisappointing.txtでも使われていた色 */
+  background: #005580;
 }
 
-/* ラジオボタン2 (kumikoeベース) */
+/* ラジオボタン2 */
 .radio-btns2 {
   margin: 15px 0;
 }
@@ -154,7 +153,6 @@ body {
   display: inline-block;
   color: #fff;
   font-weight: bold;
-  /* ★★★ 変更点:デフォルト(非選択時)の色 ★★★ */
   background: #005580; /* 濃い青 */
   letter-spacing: 0.1em;
   border-radius: 8px;
@@ -191,12 +189,11 @@ body {
 }
 
 .radio-btns2 input[type=radio]:checked + label {
-  /* ★★★ 変更点:選択時の色 ★★★ */
   background: #48d1cc; /* 水色 */
 }
 
 
-/* フォーム項目 (kumikoeベース) */
+/* フォーム項目 */
 .form-row {
   margin-bottom: 18px;
 }
@@ -261,7 +258,7 @@ textarea {
   line-height: 1.5;
 }
 
-/* 回答行の調整 (kumikoeベース) */
+/* 回答行の調整 */
 .answer-group {
   display: flex;
   align-items: center;
@@ -303,7 +300,7 @@ textarea {
   margin-left: auto;
 }
 
-/* 企画回の特殊レイアウト (kumikoeベース) */
+/* 企画回の特殊レイアウト */
 .kikaku-row {
   display: flex;
   align-items: center;
@@ -329,7 +326,7 @@ textarea {
   padding-right: 28px;
 }
 
-/* トグルスイッチ (kumikoeベース) */
+/* トグルスイッチ */
 .switch3__label {
   width: 37px;
   position: relative;
@@ -379,7 +376,7 @@ textarea {
 
 .switch3__input:checked ~ .switch3__circle {
   left: 18px;
-  background-color: #00c4cc; /* 元のdisappointing.txtでも使われていた色 */
+  background-color: #00c4cc;
 }
 
 .switch3__input:checked ~ .switch3__content {
@@ -392,13 +389,12 @@ textarea {
   width: 100%;
 }
 
-/* 送信ボタン (kumikoeベース + disappointing.txt の色) */
+/* 送信ボタン */
 #sendFrom {
   width: 100%;
   height: 60px;
   margin: 25px 0;
   border: none;
-  /* disappointing.txt のキーカラーでグラデーション */
   background: linear-gradient(135deg, #00bfff 0%, #00aeee 100%); 
   color: #fff;
   font-size: 18px;
@@ -414,11 +410,6 @@ textarea {
 
 .col-sm-3, .col-sm-9 {
   padding: 0;
-}
-
-/* 元のdisappointing.txtにあったスタイル(JSで使われていないものは削除) */
-.input-group__control {
-    /* kumikoeの.kikaku-row select に移行 */
 }
 
 </style>
@@ -640,7 +631,7 @@ function getUrlParams() {
 }
 
 window.onload=function(){
-	startmeth(); // 元の処理
+	startmeth();
     var params = getUrlParams();
     
     // パラメータをフォームに自動入力
@@ -690,7 +681,7 @@ window.onload=function(){
             var month = kikakukaiStr.substring(4, 6);
             var kai = kikakukaiStr.substring(6);
 
-            // contentフォームの企画回に反映（ID *0 を使用）
+            // contentフォームの企画回に反映
             var yearSelect = document.getElementById("kikaku-year0");
             var monthSelect = document.getElementById("kikaku-month0");
             var kaiSelect = document.getElementById("kai0");
@@ -726,7 +717,7 @@ window.onload=function(){
         }
     }
 
-    // ★★★ ナビゲーションリンクへのパラメータ+ハッシュ維持機能を追加 ★★★
+    // ★★★ ナビゲーションリンクへのパラメータ維持機能　★★★
     document.getElementById("link-koe").onclick = function(e) {
         e.preventDefault();
         var query = window.location.search + window.location.hash;
@@ -744,7 +735,7 @@ window.onload=function(){
         var query = window.location.search + window.location.hash;
         location.href = this.href + query;
     };
-    // ★★★ ナビゲーションリンク機能追加ここまで ★★★
+    // ★★★ ナビゲーションリンク機能ここまで ★★★
 }
 
 document.getElementById("hidden2").style.display ="none";
@@ -778,18 +769,14 @@ function formSwitch(newColor) {
         	startmeth();
             document.getElementById('content').style.display = "";
             document.getElementById('area').style.display = "none";
-	    document.body.style.backgroundColor = newColor;
+	    	document.body.style.backgroundColor = newColor;
 
-
-	    // ★★★ 修正箇所 ★★★
-	    var params = getUrlParams(); // パラメータを取得
-	    if (!params.sibu) { // URLパラメータ 'sibu' が無い場合のみ実行
-	        var txt = localStorage.getItem('memo');
-	        var f=document.getElementById("content");
-	        checkSelect(f.elements["branch"],txt);
-	    }
-	    // ★★★ 修正箇所ココマデ ★★★
-
+	    	var params = getUrlParams(); // パラメータを取得
+	    	if (!params.sibu) { // URLパラメータ 'sibu' が無い場合のみ実行
+	        	var txt = localStorage.getItem('memo');
+	        	var f=document.getElementById("content");
+	        	checkSelect(f.elements["branch"],txt);
+	    	}
 
         } else if (decided[1].checked) {
         	startmei();
@@ -808,19 +795,13 @@ function formSwitch(newColor) {
 
  function startmeth(){
 
-// ★★★ パラメータ処理修正箇所 ★★★
 	　　var params = getUrlParams(); // パラメータを取得
-	if (!params.sibu) { // URLパラメータ 'sibu' が無い場合のみ実行
-	    var txt = localStorage.getItem('memo');
-	    var f = document.getElementById("content");
-	　　checkSelect(f.elements["branch"],txt);
-	}
-// ★★★ 修正箇所ココマデ ★★★
-
+		if (!params.sibu) { // URLパラメータ 'sibu' が無い場合のみ実行
+		    var txt = localStorage.getItem('memo');
+		    var f = document.getElementById("content");
+		　　checkSelect(f.elements["branch"],txt);
+		}
 		for(var j = 1; j <= 12; j++) {
-
-
-
 			var selectMonth = document.getElementById('kikaku-month0');
 			var option2 = document.createElement('option');
 			option2.value = j;
@@ -835,7 +816,6 @@ function formSwitch(newColor) {
 			option1.textContent = i+"年";
 			selectYear.appendChild(option1)
 		}
-
 }
 
  function startmei(){
@@ -876,7 +856,6 @@ function formSwitch(newColor) {
 
 function non(){
 	var button1 = document.getElementById("button1");
-
 	var p = new Date();
 	var monthL = p.getMonth() + 1;
 	  select = document.getElementById('kikaku-month0').options;
@@ -1240,7 +1219,7 @@ b.addEventListener(eventEnd, function(e) {
 					alert("組合員コードは8文字必要です")
 				}else{
 					var str8= document.getElementById("pcodemei").value;
-// 注文番チェック
+			// 注文番チェック
 					if(isNaN(str8)){
 						alert("注文番号の欄に数字以外の字が入力されています。")
 					}else{
@@ -1284,8 +1263,8 @@ b.addEventListener(eventEnd, function(e) {
 									kikakai = time1+time2+time3;
 									kikakai2 = time4+time5+time6;
 									pcode = cyumon;
-									address = 'meisaiTest@palcoop.or.jp';
-									// address = 'meisai@palcoop.or.jp';
+									// address = 'meisaiTest@palcoop.or.jp';
+									address = 'meisai@palcoop.or.jp';
 									subject = '明細 - 組声';
 									body = '{"body":{"kmcode":"'+kmcode+
 											'","kikakai":"'+kikakai+
@@ -1333,7 +1312,7 @@ b.addEventListener(eventEnd, function(e) {
 				}
 			}else{
 				var str2 = document.getElementById("kmcode").value;
-// 組合員コードチェック
+		// 組合員コードチェック
 				if(str2.length === 0){
 					alert("組合員コードは必須です。入力してください。")
 				}else if(str2 === "00000000" || str2 === "99999999"){
@@ -1344,7 +1323,7 @@ b.addEventListener(eventEnd, function(e) {
 					alert("組合員コードは8文字です")
 				}else{
 					var str7 = document.getElementById("pname").value.replace(regex, '');
-// 商品名チェック
+		// 商品名チェック
 					if(str7.length === 0){
 						alert("商品名は必須です\nお書きください")
 					}else{
@@ -1369,7 +1348,7 @@ b.addEventListener(eventEnd, function(e) {
 								alert("内容は必須です\nお書きください")
 							}else{
 								var str8= document.getElementById("pcode").value;
-// 注文番チェック
+		// 注文番チェック
 								if(isNaN(str8)){
 											alert("注文番号の欄に数字以外の字が入力されています。")
 								}else{
@@ -1486,7 +1465,7 @@ function sendmail(){
 
 						address = 'tos_oka2@palcoop.or.jp'
 						subject = 'がっかりの声';
-						body = '{"body":{"answer":"'+answer+        // 回答
+						body = '{"body":{"answer":"'+answer+ // 回答
 								'","branch":"'+branch+      // 支所
 								'","kmcode":"'+kmcode+      // 組合員番号
 								'","corres":"'+checkValue+  // 組声　or　地域
@@ -1494,14 +1473,13 @@ function sendmail(){
 								'","pcode":"'+pcode+        // 商品番号
 								'","pname":"'+pname+        // 商品名
 								'","simil":"'+ 0 +          // 類似品
-								'","genre":"'+ 0 +        // ジャンル
-								'","actual":"'+actualValue+      // 現品
+								'","genre":"'+ 0 +          // ジャンル
+								'","actual":"'+actualValue+ // 現品
 								'","cate1":"'+cate1+		// カテゴリ1
 								'","cate2":"'+cate2+		// カテゴリ2
 								'","offer":"'+offer+        // 内容
 								'","comment":"'+comment+    // 担当者のコメント(補足)
-								'","insday":"'+''+  
-				// インサート日
+								'","insday":"'+''+          // インサート日
 								'","instime":"'+''+         // インサート時間
 								'","delfox":"'+ 0 +         // 修正などの種類
 								'","kinds":"'+ 3 +          // 声の種類
@@ -1555,9 +1533,9 @@ function sendmail(){
 					offer = txtData[17].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 					comment = txtData[18].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 
-					address = 'tos_oka2@palcoop.or.jp'
+	address = 'tos_oka2@palcoop.or.jp'
 					subject = 'がっかりの声';
-					body = '{"body":{"answer":"'+answer+        // 回答
+					body = '{"body":{"answer":"'+answer+ // 回答
 							'","branch":"'+branch+      // 支所
 							'","kmcode":"'+kmcode+      // 組合員番号
 							'","corres":"'+checkValue+  // 組声　or　地域
@@ -1566,13 +1544,12 @@ function sendmail(){
 							'","pname":"'+pname+        // 商品名
 							'","simil":"'+ 0 +          // 類似品
 							'","genre":"'+ 0 +	        // ジャンル
-							'","actual":"'+actualValue+      // 現品
+							'","actual":"'+actualValue+ // 現品
 							'","cate1":"'+cate1+		// カテゴリ1
 							'","cate2":"'+cate2+		// カテゴリ2
 							'","offer":"'+offer+        // 内容
 							'","comment":"'+comment+    // 担当者のコメント(補足)
-							'","insday":"'+''+  
-				// インサート日
+							'","insday":"'+''+          // インサート日
 							'","instime":"'+''+         // インサート時間
 							'","delfox":"'+ 0 +         // 修正などの種類
 							'","kinds":"'+ 3 +          // 声の種類
@@ -1596,3 +1573,4 @@ b.addEventListener(eventLeave, function(e) {
 });
 </script>
 </html>
+
