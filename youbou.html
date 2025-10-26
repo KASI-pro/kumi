@@ -481,17 +481,17 @@ function keep(){
 window.onload=function(){
     // リンク遷移の処理をDOMContentLoadedからこちらに移動
     document.getElementById("link-koe").onclick = function() {
-        const query = window.location.search;
+        const query = window.location.search + window.location.hash;
         location.href = voiceLinks.koe + query;
     };
 
     document.getElementById("link-request").onclick = function() {
-        const query = window.location.search;
+        const query = window.location.search + window.location.hash;
         location.href = voiceLinks.request + query;
     };
 
     document.getElementById("link-disappointing").onclick = function() {
-        const query = window.location.search;
+        const query = window.location.search + window.location.hash;
         location.href = voiceLinks.disappointing + query;
     };
 
@@ -931,3 +931,4 @@ function reload() {
 	});
 </script>
 </html>
+
