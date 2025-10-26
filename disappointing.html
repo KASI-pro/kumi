@@ -665,30 +665,22 @@ window.onload=function(){
         }
     }
     if (params.chuno) {
-        // 'pcode' (contentフォーム) に反映
+        // 'pcode' (contentフォーム) のみに反映（明細検索には反映させない）
         var pcodeInput = document.getElementById('pcode');
         if (pcodeInput) {
             pcodeInput.value = params.chuno;
             pcodeInput.setAttribute('readonly', true); // 入力不可に
         }
-            // 'pcodemei' (areaフォーム) にも反映
-        var pcodeMeiInput = document.getElementById('pcodemei');
-        if (pcodeMeiInput) {
-            pcodeMeiInput.value = params.chuno;
-        }
+        // 'pcodemei' (areaフォーム) には反映しない
     }
     if (params.shinn) {
-        // 'pname' (contentフォーム) に反映
+        // 'pname' (contentフォーム) のみに反映（明細検索には反映させない）
         var pnameInput = document.getElementById('pname');
         if (pnameInput) {
             pnameInput.value = params.shinn;
             pnameInput.setAttribute('readonly', true); // 入力不可に
         }
-        // 'pnamemei' (areaフォーム) にも反映
-        var pnameMeiInput = document.getElementById('pnamemei');
-        if (pnameMeiInput) {
-            pnameMeiInput.value = params.shinn;
-        }
+        // 'pnamemei' (areaフォーム) には反映しない
     }
 
     if (params.kikakukai) {
@@ -698,7 +690,7 @@ window.onload=function(){
             var month = kikakukaiStr.substring(4, 6);
             var kai = kikakukaiStr.substring(6);
 
-            // 各セレクトボックスに代入 (contentフォームのID *0 を使用)
+            // contentフォームの企画回に反映（ID *0 を使用）
             var yearSelect = document.getElementById("kikaku-year0");
             var monthSelect = document.getElementById("kikaku-month0");
             var kaiSelect = document.getElementById("kai0");
@@ -717,6 +709,20 @@ window.onload=function(){
                 switchInput.checked = false;
                 switchInput.setAttribute('disabled', true);
             }
+
+            // areaフォームの企画回にも反映（明細検索の開始日）
+            var yearSelectArea = document.getElementById("kikaku-year");
+            var monthSelectArea = document.getElementById("kikaku-month");
+            var kaiSelectArea = document.getElementById("kai");
+
+            if (yearSelectArea) checkSelect(yearSelectArea, year);
+            if (monthSelectArea) checkSelect(monthSelectArea, parseInt(month).toString());
+            if (kaiSelectArea) checkSelect(kaiSelectArea, kai);
+            
+            // 明細検索側は操作可能にする
+            yearSelectArea.setAttribute("disabled", true);
+            monthSelectArea.setAttribute("disabled", true);
+            kaiSelectArea.setAttribute("disabled", true);
         }
     }
 
