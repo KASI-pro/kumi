@@ -4,8 +4,6 @@
 <meta charset="UTF-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<!-- Latest compiled and minified CSS -->
-
 <link
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -13,438 +11,426 @@
 	crossorigin="anonymous">
 <link rel="apple-touch-icon" href="https://kasi-pro.github.io/kumi/favicon.ico" sizes="180x180">
 <style>
+/* * 修正後disappointing.txt のスタイルをベースに
+ * 111.txt の基調色（緑）を適用
+ */
+
+* {
+  box-sizing: border-box;
+}
+
 body {
-	font-family:"游ゴシック", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
-	font-weight: bolder
-	line-height:25px;
-	font-size:1.2em;
-	background-color: #F5FFFA;
+  font-family: "游ゴシック", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, "MS Pゴシック", "MS PGothic", sans-serif;
+  /* 111.txt の font-weight: bolder ではなく 500 を採用 (disappointing.txt 準拠) */
+  font-weight: 500;
+  line-height: 1.6; /* disappointing.txt 準拠 */
+  font-size: 16px; /* disappointing.txt 準拠 */
+  background-color: #F5FFFA; /* 111.txt の基調色 */
+  margin: 0;
+  padding: 0;
 }
 
-textarea {
-	width: 100%;
+.container {
+  padding: 10px 15px;
+  max-width: 100%;
 }
 
-#sendFrom {
-	margin: 15px auto;
-	width: 100%;
-	height: 100px;
-	border: solid 1px black;
-	background-color: #ddd;
-	line-height: 100px;
-	text-align: center;
+.navbar {
+  margin-bottom: 15px;
+  padding: 10px 0;
+  /* 111.txt のキーカラー（緑）に変更 */
+  border-bottom: 3px solid #008000;
 }
 
-.nontext {
-	border: none;
-	width: 130px;
-	background: white;
-	opacity: 0;
+.navbar h1 {
+  font-size: 24px;
+  margin: 0;
+  color: #333;
+  font-weight: bold;
+}
+
+/* ボタングループ (disappointing.txt 準拠) */
+.btn-group-mobile {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.btn_item_a { /* アクティブボタン */
+  flex: 1;
+  min-width: 100px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border-radius: 8px;
+  color: #fff !important;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.btn_item { /* 非アクティブボタン */
+  flex: 1;
+  min-width: 90px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border-radius: 8px;
+  color: #fff !important;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* 111.txt のボタン色指定 (リクエストをアクティブに) */
+.btn_color1 { background: #808080; }
+.btn_color2 { background: #008000; } /* 111.txt キーカラー */
+.btn_color3 { background: #808080; }
+
+
+/* フォーム項目 (disappointing.txt 準拠) */
+.form-row {
+  margin-bottom: 18px;
+}
+
+.form-row label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+  font-size: 15px;
+  color: #333;
 }
 
 .required::after {
-	content: "必須";
-	background-color: #f0ad4e;
-	color: #fff;
-	font-size: 12px;
-	font-weight: bold;
-	min-width: 10px;
-	padding: 3px 7px;
-	margin: 0px 5px;
-	line-height: 1;
-	vertical-align: middle;
-	white-space: nowrap;
-	text-align: center;
-	border-radius: 10px;
-	display: inline-block;
-}
-label ~ label {
-	margin-left: 30px;
+  content: "必須";
+  background-color: #f0ad4e;
+  color: #fff;
+  font-size: 11px; /* disappointing.txt 準拠 */
+  font-weight: bold;
+  padding: 2px 6px; /* disappointing.txt 準拠 */
+  margin-left: 5px;
+  border-radius: 4px; /* disappointing.txt 準拠 */
+  display: inline-block;
+  vertical-align: middle;
 }
 
-.input-group {
-  display:table;
-  width:100%;
-  border-collapse:separate;
-  font-size:14px;
+.form-control, .custom-select {
+  width: 100%;
+  height: 46px;
+  padding: 10px 12px;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px;
+  background: #fff;
+  line-height: normal;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
-.input-group__control,
-.input-group__addon {
-  display:table-cell;
-  height:40px;
-  padding:8px 14px;
+.custom-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 35px;
 }
 
-.input-group__control {
-  float:left;
-  width:100%;
-  margin:0;
-  border:1px solid #D3D3D3;
-  border-radius:5px;
-  font-size:14px;
-  font-family:inherit;
-  line-height:1.5;
-  -webkit-appearance:none;
-          appearance:none;
+textarea {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px;
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.5;
 }
 
-.input-group__addon {
-  width:1%;
-  border-width:1px 0 1px 1px;
-  border-style:solid;
-  border-color:#C0C0C0;
-  white-space:nowrap;
-  vertical-align:middle;
-  text-align:center;
-  line-height:1;
+/* 回答行の調整 (disappointing.txt 準拠) */
+.answer-group {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
 }
 
-.input-group__control + .input-group__addon {
-  border-width:1px 1px 1px 0;
+.answer-group select {
+  width: 110px;
+  flex-shrink: 0;
 }
 
+/* 111.txt の .nontext に disappointing.txt のスタイルを適用 */
+.nontext {
+  border: none;
+  background: transparent;
+  opacity: 0;
+  flex-grow: 1;
+  /* 111.txt の固有スタイルをマージ */
+  width: 130px;
+}
+
+.answer-group .btn-info {
+  padding: 10px 20px;
+  font-size: 15px;
+  white-space: nowrap;
+  background: #17a2b8;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  height: 46px;
+  margin-left: auto;
+}
+
+/* 企画回の特殊レイアウト (disappointing.txt 準拠) */
+.kikaku-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.kikaku-row select {
+  flex: 1;
+  min-width: 65px;
+  height: 46px;
+  padding: 10px 8px;
+  line-height: normal;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px;
+  background: #fff;
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-right: 28px;
+}
+
+/* トグルスイッチ (111.txt の定義を disappointing.txt のスタイルで上書き) */
+.switch3__label {
+  width: 37px;
+  position: relative;
+  display: inline-block;
+  padding-top: 3px;
+}
+.switch3__content {
+  display: block;
+  cursor: pointer;
+  position: relative;
+  border-radius: 7px;
+  height: 14px;
+  background-color: rgba(34,31,31,.26);
+  transition: all .1s .4s;
+  overflow: hidden;
+}
+.switch3__content:after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 0;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border-radius: 7px;
+  transition: all .5s;
+}
+.switch3__input {
+  display: none;
+}
+.switch3__circle {
+  display: block;
+  top: 0px;
+  left: 0px;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background-color: #F1F1F1;
+  transition: all .2s;
+  box-shadow: 0 2px 2px #ccc;
+}
+.switch3__input:checked ~ .switch3__circle {
+  left: 18px;
+  background-color: #00c4cc; /* (共通色) */
+}
+.switch3__input:checked ~ .switch3__content {
+  border-color: transparent;
+  transition: all 0s;
+}
+.switch3__input:checked ~ .switch3__content:after {
+  background-color: rgba(55 190 176 / 25%);
+  width: 100%;
+}
+
+/* 送信ボタン (disappointing.txt 準拠 ＋ 111.txt キーカラー) */
+#sendFrom {
+  width: 100%;
+  height: 60px; /* disappointing.txt 準拠 (111.txt は 100px) */
+  margin: 25px 0;
+  border: none;
+  /* 111.txt のキーカラーでグラデーション */
+  background: linear-gradient(135deg, #008000 0%, #006400 100%); 
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  /* 111.txt の line-height, text-align は不要なので削除 */
+}
+
+/* 111.txt 固有スタイル */
 .wi{
  width: 10px;
 }
-.button1{
-border-radius:30px;
-background:orange;
-width:20px;
-height:20px
-}
-.switch3__label {
-    width: 37px;
-    position: relative;
-    display: inline-block;
-    padding-top: 3px;
-}
-.switch3__content {
-    display: block;
-    cursor: pointer;
-    position: relative;
-    border-radius: 7px;
-    height: 14px;
-    background-color: rgba(34,31,31,.26);
-    -webkit-transition: all .1s .4s;
-       -moz-transition: all .1s .4s;
-        -ms-transition: all .1s .4s;
-         -o-transition: all .1s .4s;
-            transition: all .1s .4s;
-    overflow: hidden;
-}
-.switch3__content:after {
-    content: "";
-    display: block;
-    position: absolute;
-
-    width: 0;
-    height: 100%;
-    top: 0;
-    left: 0;
-    border-radius: 7px;
-    -webkit-transition: all .5s;
-       -moz-transition: all .5s;
-        -ms-transition: all .5s;
-         -o-transition: all .5s;
-            transition: all .5s;
-}
-.switch3__input {
-    display: none;
-}
-.switch3__circle {
-    display: block;
-    top: 0px;
-    left: 0px;
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    -webkit-border-radius: 10px;
-            border-radius: 10px;
-    background-color: #F1F1F1;
-    -webkit-transition: all .2s;
-       -moz-transition: all .2s;
-        -ms-transition: all .2s;
-         -o-transition: all .2s;
-            transition: all .2s;
-    -webkit-box-shadow: 0 2px 2px #ccc;
-            box-shadow: 0 2px 2px #ccc;
-}
-.switch3__input:checked ~ .switch3__circle {
-    left: 18px;
-    background-color: #00c4cc;
-}
-.switch3__input:checked ~ .switch3__content {
-    border-color: transparent;
-    -webkit-transition: all 0s;
-       -moz-transition: all 0s;
-        -ms-transition: all 0s;
-         -o-transition: all 0s;
-            transition: all 0s;
-}
-.switch3__input:checked ~ .switch3__content:after {
-    background-color: rgba(55 190 176 / 25%);
-    width: 100%;
-}
-
-.modal-container {
-  /* width: 100%; */
-/*   height: 100%; */
-  position: fixed;
-  top: 0;
-  left: 0;
-  text-align: center;
-  background: rgba(0, 0, 0, 0.5);
-  overflow: auto;
-  opacity: 0;
-  visibility: hidden;
-  transition: .3s ease-out;
-  z-index: 9;
-}
-
-.modal-container::before {
-  content: "";
-  display: inline-block;
-  vertical-align: middle;
-  height: 100%;
-}
-
-.modal-container.active {
-  opacity: 1;
-  visibility: visible;
-}
-
-.modal-body {
-  position: relative;
-  display: inline-block;
-  vertical-align: middle;
-  max-width: 500px;
-  /* width: 90%; */
-}
-
-.modal-close {
-  position: absolute;
-  top: -30px;
-  right: 0;
-  font-size: 14px;
-  color: #fff;
-  background: rgba(0,0,0,60%);
-  padding: 4px 15px;
-  cursor: pointer;
-  border-radius: 5px 5px 0 0;
-}
-
-.modal-content {
-  background: #fff;
-  border: 2px solid #000;
-  text-align: left;
-  padding: 30px;
-  font-weight: bold;
-}
-.btn_item {
-  display: inline-block;
-  width: 100px;
-  height: 40px;
-  padding: 7px 0px 0px 0px;
-  text-align: center;
-  text-decoration: none;
-  **color: #fff !important;** /* ここに !important を追加 */
-  border-radius: 5px;
-  /* border-radius: 5px; 角の丸みのデザイン */
-}
-.btn_item_a {
-  display: inline-block;
-  font-size: 23px;
-  width: 130px;
-  height: 50px;
-  padding: 10px 0px 0px 0px;
-  text-align: center;
-  text-decoration: none;
-  border-radius: 5px;
-  **color: #fff !important;** /* ここに !important を追加 */
-}
-.btn_color1{
-  background: #808080;
-}
-.btn_color2{
-  background: #008000;
-}
-.btn_color3{
-  background: #808080;
-}
 .caution{
   color: #f00;
-}
-a {
-    color: inherit; /* 親要素から色を継承 */
-    text-decoration: none; /* 下線をなくす場合 */
+  font-weight: bold;
+  margin: 10px 0; /* pタグの代わりのマージン */
 }
 
-a.btn_item, a.btn_item_a {
-    color: #fff !important; /* ボタンの文字色を強制的に白に */
-}
-
-.btn_item,
-.btn_item_a,
-.btn_item_b {
-  flex-shrink: 1;
-  min-width: 0;
-}
 </style>
 </head>
 <body>
 	<div class="container">
 		<div class="navbar">
 			<h1>組声フォーム</h1>
-		</div><br>
-<div>
-<a Class="btn_item btn_color1" id="link-koe">よかった</a>
-<a Class="btn_item_a btn_color2" id="link-request">リクエスト</a>
-<a Class="btn_item btn_color3" id="link-disappointing">がっかり</a>
 		</div>
-	<br>
+		
+		<div class="btn-group-mobile">
+			<a Class="btn_item btn_color1" id="link-koe">よかった</a>
+			<a Class="btn_item_a btn_color2" id="link-request">リクエスト</a>
+			<a Class="btn_item btn_color3" id="link-disappointing">がっかり</a>
+		</div>
+	
 		<form id="content" name="content">
-			<div class="form-row">
-				<label class="col-sm-3 col-form-label">①回答：</label>
-				<div class="col-sm-9">
-					<p>
-						<select class="custom-select w-25" id="answer">
-							<optgroup>
-								<option value="0">要</option>
-								<option value="1" selected>不要</option>
-							</optgroup>
-						</select> <span><input type="text" class="nontext" disabled></span>
-						<span><input type="button" class="btn btn-info"	value="リセット" onclick="reload()"></span>
-					</p>
-				</div>
-			</div>
-			<div class="form-row">
-				<label class="col-sm-3 col-form-label">②支所：</label>
-				<div class="col-sm-9">
-					<p>
-						<select class="custom-select w-50" id="branch" name="branch" onchange="keep()">
-							<optgroup>
-								<option value="101">枚方支所</option>
-								<option value="102">南寝屋川支所</option>
-								<option value="103">南寝屋川個配センター</option>
-								<option value="104">南枚方支所</option>
-								<option value="105">北枚方支所</option>
-								<option value="106">寝屋川支所</option>
-								<option value="107">門真支所</option>
-								<option value="108">樋之上支所</option>
-								<option value="301">港支所 第一</option>
-								<option value="303">港支所 第二</option>
-								<option value="304">生野支所</option>
-								<option value="305">南津守支所</option>
-								<option value="306">東住吉支所</option>
-								<option value="307">平野支所</option>
-								<option value="401">鶴見支所</option>
-                                				<option value="403">安治川支所</option>
-								<option value="405">都島支所</option>
-							</optgroup>
-						</select>
-					</p>
-				</div>
-			</div>
-			<div class="form-row">
-				<label class="col-sm-3 col-form-label required">③組合員コード：</label>
 
-				<div class="col-sm-9">
-					<p>
-						<input type="tel" id="kmcode" class="form-control" maxlength='8' placeholder="組合員コード">
-					</p>
-				</div>
-			</div>
 			<div class="form-row">
-				<label class="col-sm-3 col-form-label">④企画回：</label>
-				<div class="col-sm-9">
-					<div><span>
-						<select class="input-group__control w-25" id="kikaku-year" name="kikaku-year" disabled><option value="" selected>年</option></select>
-						<select class="input-group__control w-25" id="kikaku-month" name="kikaku-month" disabled><option value="" selected>月</option></select>
-						<select class="input-group__control w-25" id="kai" name="kai" disabled>
+				<label>①回答：</label>
+				<div class="answer-group">
+					<select class="custom-select" id="answer">
 						<optgroup>
-							<option value="" selected>回</option>
-							<option value="1">1回</option>
-							<option value="2">2回</option>
-							<option value="3">3回</option>
-							<option value="4">4回</option>
-							<option value="5">5回</option>
+							<option value="0">要</option>
+							<option value="1" selected>不要</option>
 						</optgroup>
-						</select><span><input type="text" class="nontext wi" disabled></span>
-						 <label class="switch3__label">
-						        <input type="checkbox" class="switch3__input" onclick="non()"/>
-						        <span class="switch3__content"></span>
-						        <span class="switch3__circle"></span>
-						    </label>
-						<input type="hidden" id="non-kikakunm">
-					</span></div>
+					</select>
+					<span><input type="text" class="nontext" disabled></span>
+					<span><input type="button" class="btn btn-info"	value="リセット" onclick="reload()"></span>
 				</div>
 			</div>
-			<div class="form-row">
-				<label class="col-sm-3 col-form-label">⑤注文番号：</label>
-				<div class="col-sm-9">
-					<p>
-						<input type="tel" id="pcode" class="form-control" maxlength='6'	placeholder="注文番号">
-					</p>
-				</div>
-			</div>
-			<div class="form-row">
-				<label class="col-sm-3 col-form-label required">⑥商品名：</label>
-				<div class="col-sm-9">
-					<p>
-						<input type="text" id="pname" class="form-control" placeholder="商品名">
-					</p>
-				</div>
-			</div>
-			<div class="form-row">
-				<label class="col-sm-3 col-form-label required">⑦お申し出内容：</label>
-				<div class="col-sm-9">
-					<p>
-						類似商品の提案：
-						<select class="custom-select w-25" id="simil" name="simil">
-							<optgroup>
-								<option value="2">要</option>
-								<option value="1" selected>不要</option>
-							</optgroup>
-						</select>
-					</p>
-					<p>
-						ジャンル：
-						<select class="custom-select w-50" id="genre" name="genre" onchange="myfunc(this.value)">
-							<optgroup>
-								<option value="0">選択して下さい</option>
-								<option value="1">野菜・魚・お肉</option>
-								<option value="2">パン・お米</option>
-								<option value="3">冷凍食品</option>
-								<option value="4">加工食品（レトルト・調味料など）</option>
-								<option value="5">飲料・お酒</option>
-								<option value="6">化粧品</option>
-								<option value="7">衣類 </option>
-								<option value="8">寝具</option>
-								<option value="9">その他雑貨・日用品</option>
-							</optgroup>
-						</select>
-					</p>
-					<p id="hidden1" class="caution"><strong>※ 『 男性用・女性用・子供用 』<br>&emsp;『 サイズ 』などもご記入ください</strong></p>
-					<p id="hidden2" class="caution"><strong>※ 『 どこで 』『 何に使うものか 』<br>&emsp;もご記入ください</strong></p>
 
+			<div class="form-row">
+				<label>②支所：</label>
+				<select class="custom-select" id="branch" name="branch" onchange="keep()">
+					<optgroup>
+						<option value="101">枚方支所</option>
+						<option value="102">南寝屋川支所</option>
+						<option value="103">南寝屋川個配センター</option>
+						<option value="104">南枚方支所</option>
+						<option value="105">北枚方支所</option>
+						<option value="106">寝屋川支所</option>
+						<option value="107">門真支所</option>
+						<option value="108">樋之上支所</option>
+						<option value="301">港支所 第一</option>
+						<option value="303">港支所 第二</option>
+						<option value="304">生野支所</option>
+						<option value="305">南津守支所</option>
+						<option value="306">東住吉支所</option>
+						<option value="307">平野支所</option>
+						<option value="401">鶴見支所</option>
+						<option value="403">安治川支所</option>
+						<option value="405">都島支所</option>
+					</optgroup>
+				</select>
+			</div>
+			
+			<div class="form-row">
+				<label class="required">③組合員コード：</label>
+				<input type="tel" id="kmcode" class="form-control" maxlength='8' placeholder="組合員コード">
+			</div>
 
-					<p>
-						<textarea id="offer" rows="4" cols="34" placeholder="お申し出内容"></textarea>
-					</p>
+			<div class="form-row">
+				<label>④企画回：</label>
+				<div class="kikaku-row">
+					<select id="kikaku-year" name="kikaku-year" disabled><option value="" selected>年</option></select>
+					<select id="kikaku-month" name="kikaku-month" disabled><option value="" selected>月</option></select>
+					<select id="kai" name="kai" disabled>
+					<optgroup>
+						<option value="" selected>回</option>
+						<option value="1">1回</option>
+						<option value="2">2回</option>
+						<option value="3">3回</option>
+						<option value="4">4回</option>
+						<option value="5">5回</option>
+					</optgroup>
+					</select>
+					<span><input type="text" class="nontext wi" disabled></span>
+					 <label class="switch3__label">
+					        <input type="checkbox" class="switch3__input" onclick="non()"/>
+					        <span class="switch3__content"></span>
+					        <span class="switch3__circle"></span>
+					    </label>
+					<input type="hidden" id="non-kikakunm">
 				</div>
 			</div>
+
 			<div class="form-row">
-				<label class="col-sm-3 col-form-label">⑧補足：</label>
-				<div class="col-sm-9">
-					<p>
-						<textarea id="comment" rows="4" cols="34" placeholder="補足がある場合記入してください"></textarea>
-					</p>
+				<label>⑤注文番号：</label>
+				<input type="tel" id="pcode" class="form-control" maxlength='6'	placeholder="注文番号">
+			</div>
+
+			<div class="form-row">
+				<label class="required">⑥商品名：</label>
+				<input type="text" id="pname" class="form-control" placeholder="商品名">
+			</div>
+
+			<div class="form-row">
+				<label class="required">⑦お申し出内容：</label>
+				
+				<div style="margin-bottom: 15px;">
+					類似商品の提案：
+					<select class="custom-select" id="simil" name="simil" style="width: 130px; display: inline-block; height: 40px; padding: 5px 10px; font-size: 15px;">
+						<optgroup>
+							<option value="2">要</option>
+							<option value="1" selected>不要</option>
+						</optgroup>
+					</select>
 				</div>
+				
+				<div style="margin-bottom: 15px;">
+					ジャンル：
+					<select class="custom-select" id="genre" name="genre" onchange="myfunc(this.value)" style="width: 220px; display: inline-block; height: 40px; padding: 5px 10px; font-size: 15px;">
+						<optgroup>
+							<option value="0">選択して下さい</option>
+							<option value="1">野菜・魚・お肉</option>
+							<option value="2">パン・お米</option>
+							<option value="3">冷凍食品</option>
+							<option value="4">加工食品（レトルト・調味料など）</option>
+							<option value="5">飲料・お酒</option>
+							<option value="6">化粧品</option>
+							<option value="7">衣類 </option>
+							<option value="8">寝具</option>
+							<option value="9">その他雑貨・日用品</option>
+						</optgroup>
+					</select>
+				</div>
+				
+				<div id="hidden1" class="caution"><strong>※ 『 男性用・女性用・子供用 』<br>&emsp;『 サイズ 』などもご記入ください</strong></div>
+				<div id="hidden2" class="caution"><strong>※ 『 どこで 』『 何に使うものか 』<br>&emsp;もご記入ください</strong></div>
+
+				<textarea id="offer" rows="4" cols="34" placeholder="お申し出内容" style="margin-top: 10px;"></textarea>
+			</div>
+
+			<div class="form-row">
+				<label>⑧補足：</label>
+				<textarea id="comment" rows="4" cols="34" placeholder="補足がある場合記入してください"></textarea>
 			</div>
 		</form>
 		<input type="button" id="sendFrom" value="メール作成"><br> <br>
-               <!-- <button id="" class="button">送信</button> -->
 	</div>
 </body>
 
@@ -458,10 +444,10 @@ function myfunc(value) {
   var check1 = document.getElementById("genre").value;
   var hidden1 = document.getElementById("hidden1");
   var hidden2 = document.getElementById("hidden2");
-  if(check1 === 7){
+  if(check1 == 7){ // 111.txt では文字列の '7' だが、disappointing.txt では数値の 7。111.txt の仕様(==)を維持
      hidden1.style.display ="block";
      hidden2.style.display ="none";
-  }else if(check1 === 9){
+  }else if(check1 == 9){ // 同上
     hidden1.style.display ="none";
     hidden2.style.display ="block";
   }else{
@@ -517,7 +503,6 @@ window.onload=function(){
     var txt = localStorage.getItem('memo');
     var f=document.getElementById("content");
     checkSelect(f.elements["branch"],txt);
-
     for(var j = 1; j <= 12; j++) {
         const selectMonth = document.getElementById('kikaku-month');
         const option2 = document.createElement('option');
@@ -536,7 +521,6 @@ window.onload=function(){
 
     // ★★★ URLパラメータ反映のコード ★★★
     const params = getUrlParams();
-
     if (params.sibu) {
         const branchSelect = document.getElementById('branch');
         if (branchSelect) {
@@ -547,26 +531,25 @@ window.onload=function(){
         const kmcodeInput = document.getElementById('kmcode');
         if (kmcodeInput) {
             kmcodeInput.value = params.kumicd;
-  kmcodeInput.setAttribute('readonly', true); // 入力不可に
+  kmcodeInput.setAttribute('readonly', true);
         }
     }
     if (params.chuno) {
         const pcodeInput = document.getElementById('pcode');
         if (pcodeInput) {
             pcodeInput.value = params.chuno;
-pcodeInput.setAttribute('readonly', true); // 入力不可に
+pcodeInput.setAttribute('readonly', true);
         }
     }
     if (params.shinn) {
         const pnameInput = document.getElementById('pname');
         if (pnameInput) {
             pnameInput.value = params.shinn;
-pnameInput.setAttribute('readonly', true); // 入力不可に
+pnameInput.setAttribute('readonly', true);
         }
     }
     if (params.kikakukai) {
         const kikakukaiStr = params.kikakukai;
-
         if (kikakukaiStr.length === 7) {
             const year = kikakukaiStr.substring(0, 4);
             const month = kikakukaiStr.substring(4, 6);
@@ -589,20 +572,19 @@ pnameInput.setAttribute('readonly', true); // 入力不可に
             if (switchInput) {
   switchInput.checked = false;
   switchInput.setAttribute('disabled', true);
-}
+            }
         }
     }
     // ★★★ コードここまで ★★★
 }
 
 function non(){
-	const button1 = document.getElementById("button1"); // このIDはHTMLに存在しません
+	const button1 = document.getElementById("button1");
 
 	var p = new Date();
 	var monthL = p.getMonth() + 1;
 	  select = document.getElementById('kikaku-month').options;
-
-	    for(let n = 0; n < select.length; n++ ){
+	  for(let n = 0; n < select.length; n++ ){
 	        if(select[n].value == monthL){
 	            select[n].selected = true;
 	            break;
@@ -611,7 +593,7 @@ function non(){
 
 	var yearL = p.getFullYear();
 	  select = document.getElementById('kikaku-year').options;
-	    for(let m = 0; m < select.length; m++ ){
+	  for(let m = 0; m < select.length; m++ ){
 	        if(select[m].value == yearL){
 	            select[m].selected = true;
 	            break;
@@ -632,7 +614,7 @@ function non(){
 						var nowweek = Math.floor((refmon.getDate() - refmon.getDay() + 12 ) / 7);
 						var remonthL = refmon.getMonth() + 1;
 						select = document.getElementById('kikaku-month').options;
-						    for(let n = 0; n < select.length; n++ ){
+						for(let n = 0; n < select.length; n++ ){
 								if(select[n].value == remonthL){
 								    select[n].selected = true;
 								    break;
@@ -663,7 +645,7 @@ function non(){
 							var nowweek = Math.floor((refmon.getDate() - refmon.getDay() + 12 ) / 7);
 							var remonthL = refmon.getMonth() + 1;
 							select = document.getElementById('kikaku-month').options;
-							    for(let n = 0; n < select.length; n++ ){
+							for(let n = 0; n < select.length; n++ ){
 									if(select[n].value == remonthL){
 									    select[n].selected = true;
 									    break;
@@ -679,7 +661,7 @@ function non(){
 				}
 			}
 		select = document.getElementById('kai').options;
-		    for(let q = 0; q < select.length; q++ ){
+		for(let q = 0; q < select.length; q++ ){
 		        if(select[q].value == nowweek){
 		            select[q].selected = true;
 		            break;
@@ -721,12 +703,11 @@ function reload() {
 	let timer;
 	const ua = navigator.userAgent.toLowerCase();
 	const isSP = /iphone|ipod|ipad|android/.test(ua);
-// const b = document.getElementsByClassName('sendFrom')[0];
+	// const b = document.getElementsByClassName('sendFrom')[0];
 	const b = document.getElementById('sendFrom');
 	const eventStart = isSP ? 'touchstart' : 'mousedown';
 	const eventEnd   = isSP ? 'touchend' : 'mouseup';
 	const eventLeave = isSP ? 'touchmove' : 'mouseleave';
-
 	b.addEventListener(eventStart, e => {
 	  e.preventDefault();
 	  b.classList.add('active');
@@ -762,7 +743,8 @@ function reload() {
 									alert("⑦の「ジャンル」の選択は必須です")
 								}else{
 
-								let str5 = document.getElementById("offer").value.replace(regex, ''); // 内容チェック
+								let str5 = document.getElementById("offer").value.replace(regex, '');
+									// 内容チェック
 									if(str5.length === 0){
 										alert("内容は必須です\nお書きください")
 									}else{
@@ -777,11 +759,12 @@ function reload() {
 															  }
 															 return num;
 															};
-														let str11= document.getElementById("kikaku-year").value; // 年
+														let str11= document.getElementById("kikaku-year").value;
+														// 年
 														let str12= toDoubleDigits(document.getElementById('kikaku-month').value); // 月
 														let str13= document.getElementById("kai").value; // 回
 														let kikanm = str11+str12+str13;
-												if(kikanm.length === 0 || kikanm.length === 7){
+														if(kikanm.length === 0 || kikanm.length === 7){
 													let kaitou = document.getElementById("answer").value; // 回答チェック
 													if(kaitou == 1){
 														var simil =  document.getElementById('simil').value;
@@ -790,7 +773,7 @@ function reload() {
 														var success = window.confirm("回答:【 不要 】\nで、お間違いないでしょうか？");
 														if(success){
 															var result = window.confirm("メールを作成しても宜しいですか？");
-																if( result ) {
+															if( result ) {
 																	var toDoubleDigits = function(num) {
 																	  num += "";
 																	  if (num.length === 1) {
@@ -815,7 +798,6 @@ function reload() {
 																	comment = txtData[16].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 
 																	subject = 'リクエストの声';
-
 																	body = '{"body":{"answer":"'+answer+        // 回答
 																		'","branch":"'+branch+      // 支所
 																		'","kmcode":"'+kmcode+      // 組合員番号
@@ -835,8 +817,6 @@ function reload() {
 																		'","delfox":"'+ 0 +         // 修正などの種類
 																		'","kinds":"'+ 2 +          // 声の種類
 																	'"}}';
-
-
 																	location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
 																} else {
 																}
@@ -874,7 +854,6 @@ function reload() {
 																comment = txtData[16].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 
 																subject = 'リクエストの声';
-
 																body = '{"body":{"answer":"'+answer+        // 回答
 																	'","branch":"'+branch+      // 支所
 																	'","kmcode":"'+kmcode+      // 組合員番号
@@ -894,7 +873,6 @@ function reload() {
 																	'","delfox":"'+ 0 +         // 修正などの種類
 																	'","kinds":"'+ 2 +          // 声の種類
 																'"}}';
-
 																location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
 															} else {
 															}
@@ -919,33 +897,22 @@ function reload() {
 											}
 									}
 								}
-
-
-
-
-
-
-
-
 							}
 					}
 }
 		count = 0;
 		}
 	});
-
-b.addEventListener(eventLeave, e => {
-  e.preventDefault();
-  let el;
-  el = isSP ? document.elementFromPoint(e.touches[0].clientX, e.touches[0].clientY) : b;
-  if (!isSP || el !== b) {
-    b.classList.remove('active');
-    clearInterval(timer);
-     e.preventDefault();
-    count = 0;
-  }
-});
+	b.addEventListener(eventLeave, e => {
+	  e.preventDefault();
+	  let el;
+	  el = isSP ? document.elementFromPoint(e.touches[0].clientX, e.touches[0].clientY) : b;
+	  if (!isSP || el !== b) {
+	    b.classList.remove('active');
+	    clearInterval(timer);
+	     e.preventDefault();
+	    count = 0;
+	  }
+	});
 </script>
 </html>
-
-
