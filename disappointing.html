@@ -209,6 +209,14 @@ body {
   color: #333;
 }
 
+.form-row2 label, .form-row2 p.label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+  font-size: 15px;
+  color: #333;
+}
+
 .required::after {
   content: "必須";
   background-color: #f0ad4e;
@@ -477,8 +485,9 @@ textarea {
 				<label class="required">③ 組合員コード：</label>
 				<input type="tel" id="kmcode" class="form-control" maxlength='8' placeholder="組合員コード">
 			</div>
-				<label style="font-weight: 500;">④ 企画回：</label>
+
 			<div class="form-row">
+				<label>④ 企画回：</label>
 				<div class="kikaku-row">
 					<select id="kikaku-year0" name="kikaku-year" disabled><option value="" selected>年</option></select>
 					<select id="kikaku-month0" name="kikaku-month" disabled><option value="" selected>月</option></select>
@@ -501,7 +510,7 @@ textarea {
 			</div>
 
 			<div class="form-row">
-				<label style="font-weight: 500;">⑤ 注文番号：</label>
+				<div style="font-weight: 500;"><label>⑤ 注文番号：</label></div>
 				<input type="tel" id="pcode" class="form-control" maxlength='6'	placeholder="注文番号">
 			</div>
 
@@ -558,7 +567,7 @@ textarea {
 				<label class="required">① 組合員コード：</label>
 				<input type="tel" id="kmcodemei" class="form-control" maxlength='8' placeholder="組合員コード">
 			</div>
-				<div><label class="required">② 企画回：</label></div>			
+				<div class="form-row2"><label class="required">② 企画回：</label></div>			
 			<div class="form-row">
 
 				<div class="kikaku-row">
@@ -599,9 +608,8 @@ textarea {
 				</div>
 				<p class="form-text text-muted" style="font-size: 14px; margin-top: 8px;">※配送回から過去3か月前までの<br>　明細を調べる事ができます。</p>
 			</div>
-<div><label>③ 注文番号：</label></div>
+				<div class="form-row2"><label>③ 注文番号：</label></div>
 			<div class="form-row">
-				
 				<input type="tel" id="pcodemei" class="form-control" maxlength='6'	placeholder="注文番号" style="width: 70%;">
 			</div>
 			
@@ -620,7 +628,6 @@ textarea {
 <script src="https://cdn.rawgit.com/alertifyjs/alertify.js/v1.0.10/dist/js/alertify.js"></script>
 <script>
 
-// ★★★ kumikoe から getUrlParams 関数を移植 ★★★
 function getUrlParams() {
     const params = {};
     window.location.search.substring(1).split('&').forEach(param => {
@@ -634,8 +641,6 @@ function getUrlParams() {
 
 window.onload=function(){
 	startmeth(); // 元の処理
-
-    // ★★★ kumikoe から パラメータ処理ロジックを移植・修正 ★★★
     const params = getUrlParams();
     
     // パラメータをフォームに自動入力
@@ -645,7 +650,6 @@ window.onload=function(){
         if (branchSelect1) {
             checkSelect(branchSelect1, params.sibu);
         }
-        // 'disappointing' には branch2 がないので、kumikoeのbranch2処理は不要
     }
     if (params.kumicd) {
         // 'kmcode' (contentフォーム) に反映
@@ -658,7 +662,6 @@ window.onload=function(){
         const kmcodeMeiInput = document.getElementById('kmcodemei');
             if (kmcodeMeiInput) {
             kmcodeMeiInput.value = params.kumicd;
-            // こちらは readonly にしない（明細検索なので）
         }
     }
     if (params.chuno) {
@@ -716,10 +719,7 @@ window.onload=function(){
             }
         }
     }
-    // ★★★ 移植ここまで ★★★
 }
-
-// ▼▼▼ 以下、disappointing.txt の元のJavaScript ▼▼▼
 
 document.getElementById("hidden2").style.display ="none";
 
@@ -1551,4 +1551,3 @@ b.addEventListener(eventLeave, e => {
 });
 </script>
 </html>
-
