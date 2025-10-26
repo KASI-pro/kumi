@@ -145,6 +145,14 @@ body {
   color: #333;
 }
 
+.form-row2 label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+  font-size: 15px;
+  color: #333;
+}
+
 .required::after {
   content: "必須";
   background-color: #f0ad4e;
@@ -366,8 +374,8 @@ textarea {
     </p>
   </div>
 
-    <div class="form-row"><label>① 回答:</label></div>
   <form id="content" name="content">
+    <div class="form-row2"><label>① 回答:</label></div>
 		<div class="form-row">
       <div class="answer-group">
         <select class="custom-select" id="answer">
@@ -456,8 +464,8 @@ textarea {
   </form>
 
   <form id="area" name="area">
+      <div class="form-row2"><label>① 回答:</label></div>
     <div class="form-row">
-      <label>① 回答:</label>
       <div class="answer-group">
         <select class="custom-select" id="answer2">
           <option value="0">要</option>
@@ -1124,6 +1132,7 @@ b.addEventListener(eventLeave, e => {
 });
 </script>
 </html>
+
 
 
 
