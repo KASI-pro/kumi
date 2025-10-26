@@ -470,14 +470,6 @@ function keep(){
     alert('支所の変更を保存しました。');
 }
 
-// HTMLにid="branch2"が存在しないため、この関数は現状動作しません。
-// 必要であればHTMLを修正してください。
-// function rekeep(){
-    // var text = document.getElementById("branch2").value;
-    // localStorage.setItem('memo', text);
-    // alert('支所の変更を保存しました。');
-// }
-
 window.onload=function(){
     // リンク遷移の処理をDOMContentLoadedからこちらに移動
     document.getElementById("link-koe").onclick = function() {
@@ -495,8 +487,6 @@ window.onload=function(){
         location.href = voiceLinks.disappointing + query;
     };
 
-
-// ★★★ 修正箇所 ★★★
 	const params = getUrlParams(); // ★ 先にURLパラメータを取得
 
 	if (params.sibu) {
@@ -511,9 +501,6 @@ window.onload=function(){
 		var f=document.getElementById("content");
 		checkSelect(f.elements["branch"],txt);
 	}
-// ★★★ 修正箇所ココマデ ★★★
-
-
 
     for(var j = 1; j <= 12; j++) {
         const selectMonth = document.getElementById('kikaku-month');
@@ -531,36 +518,25 @@ window.onload=function(){
         selectYear.appendChild(option1)
     }
 
-    // 'sibu' の処理は上で完了しているため、このブロックは削除
-    // ★★★ URLパラメータ反映のコード ★★★
-    //const params = getUrlParams();
-    //if (params.sibu) {
-        //const branchSelect = document.getElementById('branch');
-        //if (branchSelect) {
-            //checkSelect(branchSelect, params.sibu);
-        //}
-    //}
-
-
     if (params.kumicd) {
         const kmcodeInput = document.getElementById('kmcode');
         if (kmcodeInput) {
             kmcodeInput.value = params.kumicd;
-  kmcodeInput.setAttribute('readonly', true);
+  			kmcodeInput.setAttribute('readonly', true);
         }
     }
     if (params.chuno) {
         const pcodeInput = document.getElementById('pcode');
         if (pcodeInput) {
             pcodeInput.value = params.chuno;
-pcodeInput.setAttribute('readonly', true);
+			pcodeInput.setAttribute('readonly', true);
         }
     }
     if (params.shinn) {
         const pnameInput = document.getElementById('pname');
         if (pnameInput) {
             pnameInput.value = params.shinn;
-pnameInput.setAttribute('readonly', true);
+			pnameInput.setAttribute('readonly', true);
         }
     }
     if (params.kikakukai) {
@@ -579,18 +555,17 @@ pnameInput.setAttribute('readonly', true);
             if (kaiSelect) checkSelect(kaiSelect, kai);
 
             // 表示上は有効にし、選択肢は操作不可にする（disabled）
-yearSelect.setAttribute("disabled", true);
-monthSelect.setAttribute("disabled", true);
-kaiSelect.setAttribute("disabled", true);
+			yearSelect.setAttribute("disabled", true);
+			monthSelect.setAttribute("disabled", true);
+			kaiSelect.setAttribute("disabled", true);
 
             const switchInput = document.querySelector(".switch3__input");
             if (switchInput) {
-  switchInput.checked = false;
-  switchInput.setAttribute('disabled', true);
+			  switchInput.checked = false;
+			  switchInput.setAttribute('disabled', true);
             }
         }
     }
-    // ★★★ コードここまで ★★★
 }
 
 function non(){
@@ -931,4 +906,3 @@ function reload() {
 	});
 </script>
 </html>
-
