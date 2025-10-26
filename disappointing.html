@@ -549,7 +549,7 @@ textarea {
 					<option value="3">食味（美味しくないなど）</option>
 					<option value="4">その他</option>
 				</select>
-				<p style="margin: 5px 0 0 0;">の事について</p>
+				<p style="margin: 5px 30px 0 0; text-align: right; width: 100%;"">の事について</p>
 			</div>
 
 			<div class="form-row">
@@ -753,9 +753,18 @@ function formSwitch(newColor) {
             document.getElementById('content').style.display = "";
             document.getElementById('area').style.display = "none";
 	    document.body.style.backgroundColor = newColor;
-	    var txt = localStorage.getItem('memo');
-            var f=document.getElementById("content");
-            checkSelect(f.elements["branch"],txt);
+
+
+	    // ★★★ 修正箇所 ★★★
+	    const params = getUrlParams(); // パラメータを取得
+	    if (!params.sibu) { // URLパラメータ 'sibu' が無い場合のみ実行
+	        var txt = localStorage.getItem('memo');
+	        var f=document.getElementById("content");
+	        checkSelect(f.elements["branch"],txt);
+	    }
+	    // ★★★ 修正箇所ココマデ ★★★
+
+
         } else if (decided[1].checked) {
         	startmei();
             document.getElementById('content').style.display = "none";
@@ -772,10 +781,20 @@ function formSwitch(newColor) {
 
 
  function startmeth(){
-	　　var txt = localStorage.getItem('memo');
+
+// ★★★ パラメータ処理修正箇所 ★★★
+	　　const params = getUrlParams(); // パラメータを取得
+	if (!params.sibu) { // URLパラメータ 'sibu' が無い場合のみ実行
+	    var txt = localStorage.getItem('memo');
 	    var f = document.getElementById("content");
 	　　checkSelect(f.elements["branch"],txt);
+	}
+// ★★★ 修正箇所ココマデ ★★★
+
 		for(var j = 1; j <= 12; j++) {
+
+
+
 			const selectMonth = document.getElementById('kikaku-month0');
 			const option2 = document.createElement('option');
 			option2.value = j;
