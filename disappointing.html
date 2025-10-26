@@ -154,7 +154,7 @@ body {
   display: inline-block;
   color: #fff;
   font-weight: bold;
-  /* ★★★ 変更点：デフォルト（非選択時）の色 ★★★ */
+  /* ★★★ 変更点:デフォルト(非選択時)の色 ★★★ */
   background: #005580; /* 濃い青 */
   letter-spacing: 0.1em;
   border-radius: 8px;
@@ -191,7 +191,7 @@ body {
 }
 
 .radio-btns2 input[type=radio]:checked + label {
-  /* ★★★ 変更点：選択時の色 ★★★ */
+  /* ★★★ 変更点:選択時の色 ★★★ */
   background: #48d1cc; /* 水色 */
 }
 
@@ -392,7 +392,7 @@ textarea {
   width: 100%;
 }
 
-/* 送信ボタン (kumikoeベース ＋ disappointing.txt の色) */
+/* 送信ボタン (kumikoeベース + disappointing.txt の色) */
 #sendFrom {
   width: 100%;
   height: 60px;
@@ -416,7 +416,7 @@ textarea {
   padding: 0;
 }
 
-/* 元のdisappointing.txtにあったスタイル（JSで使われていないものは削除） */
+/* 元のdisappointing.txtにあったスタイル(JSで使われていないものは削除) */
 .input-group__control {
     /* kumikoeの.kikaku-row select に移行 */
 }
@@ -447,7 +447,7 @@ textarea {
 		<form id="content" name="content">
 
 			<div class="form-row">
-				<label>① 回答：</label>
+				<label>① 回答:</label>
 				<div class="answer-group">
 					<select class="custom-select" id="answer">
 						<option value="0">要</option>
@@ -459,7 +459,7 @@ textarea {
 			</div>
 
 			<div class="form-row">
-				<label>② 支所：</label>
+				<label>② 支所:</label>
 				<select class="custom-select" id="branch" name="branch" onchange="keep()">
 					<option value="101">枚方支所</option>
 					<option value="102">南寝屋川支所</option>
@@ -468,7 +468,7 @@ textarea {
 					<option value="105">北枚方支所</option>
 					<option value="106">寝屋川支所</option>
 					<option value="107">門真支所</option>
-					<option value="108">樋之上支所</option>
+					<option value="108">樟之上支所</option>
 					<option value="301">港支所 第一</option>
 					<option value="303">港支所 第二</option>
 					<option value="304">生野支所</option>
@@ -482,12 +482,12 @@ textarea {
 			</div>
 
 			<div class="form-row">
-				<label class="required">③ 組合員コード：</label>
+				<label class="required">③ 組合員コード:</label>
 				<input type="tel" id="kmcode" class="form-control" maxlength='8' placeholder="組合員コード">
 			</div>
 
 			<div class="form-row">
-				<label>④ 企画回：</label>
+				<label>④ 企画回:</label>
 				<div class="kikaku-row">
 					<select id="kikaku-year0" name="kikaku-year" disabled><option value="" selected>年</option></select>
 					<select id="kikaku-month0" name="kikaku-month" disabled><option value="" selected>月</option></select>
@@ -510,21 +510,21 @@ textarea {
 			</div>
 
 			<div class="form-row">
-				<div style="font-weight: 500;"><label>⑤ 注文番号：</label></div>
+				<div style="font-weight: 500;"><label>⑤ 注文番号:</label></div>
 				<input type="tel" id="pcode" class="form-control" maxlength='6'	placeholder="注文番号">
 			</div>
 
 			<div class="form-row">
-				<label class="required">⑥ 商品名：</label>
+				<label class="required">⑥ 商品名:</label>
 				<input type="text" id="pname" class="form-control" placeholder="商品名">
 			</div>
 
 			<div class="form-row">
-				<label class="required">⑦ お申し出内容：</label>
+				<label class="required">⑦ お申し出内容:</label>
 				</div>
 
 			<div class="form-row" style="margin-top: -10px;">
-				<label style="margin-bottom: 8px;">現品：</label>
+				<label style="margin-bottom: 8px;">現品:</label>
 				<div class="radio-btns2" style="display: flex; gap: 0px; margin: 0;">
 				  <input type="radio" id="nashi" name="actual" value="1" checked><label for="nashi"><span>なし</span></label>
 				  <input type="radio" id="ari" name="actual" value="2" ><label for="ari">あり</label>
@@ -546,7 +546,7 @@ textarea {
 				<select class="custom-select" id="hidden1" name="hidden1" style="width: 100%;">
 					<option value="1">傷み・腐り</option>
 					<option value="2">量目・サイズ</option>
-					<option value="3">食味（美味しくないなど）</option>
+					<option value="3">食味(美味しくないなど)</option>
 					<option value="4">その他</option>
 				</select>
 				<p style="margin: 5px 30px 0 0; text-align: right; width: 100%;"">の事について</p>
@@ -557,17 +557,17 @@ textarea {
 			</div>
 
 			<div class="form-row">
-				<label>⑧ 補足：</label>
+				<label>⑧ 補足:</label>
 				<textarea id="comment" rows="4" placeholder="補足がある場合記入してください"></textarea>
 			</div>
 		</form>
 
 		<form id="area" name="area">
 			<div class="form-row">
-				<label class="required">① 組合員コード：</label>
+				<label class="required">① 組合員コード:</label>
 				<input type="tel" id="kmcodemei" class="form-control" maxlength='8' placeholder="組合員コード">
 			</div>
-				<div class="form-row2"><label class="required">② 企画回：</label></div>			
+				<div class="form-row2"><label class="required">② 企画回:</label></div>			
 			<div class="form-row">
 
 				<div class="kikaku-row">
@@ -583,7 +583,7 @@ textarea {
 					</select>
 					<input type="hidden" id="non-kikakunm">
 				</div>
-				<p style="padding: 10px 0 0 0;">　～</p>
+				<p style="padding: 10px 0 0 0;">  ~</p>
 			</div>
 
 			<div class="form-row">
@@ -606,15 +606,15 @@ textarea {
 						</label>
 					<input type="hidden" id="non-kikakunm2">
 				</div>
-				<p class="form-text text-muted" style="font-size: 14px; margin-top: 8px;">※配送回から過去3か月前までの<br>　明細を調べる事ができます。</p>
+				<p class="form-text text-muted" style="font-size: 14px; margin-top: 8px;">※配送回から過去3ヶ月前までの<br>  明細を調べる事ができます。</p>
 			</div>
-				<div class="form-row2"><label>③ 注文番号：</label></div>
+				<div class="form-row2"><label>③ 注文番号:</label></div>
 			<div class="form-row">
 				<input type="tel" id="pcodemei" class="form-control" maxlength='6'	placeholder="注文番号" style="width: 70%;">
 			</div>
 			
 			<div class="form-row">
-				<label>④ あいまい検索：</label>
+				<label>④ あいまい検索:</label>
 				<input type="text" id="pnamemei" class="form-control" placeholder="商品名" style="width: 70%;">
 				<p class="form-text text-muted" style="font-size: 14px; margin-top: 8px;">※商品名の一部から調べる事ができます。</p>
 			</div>
@@ -629,9 +629,9 @@ textarea {
 <script>
 
 function getUrlParams() {
-    const params = {};
-    window.location.search.substring(1).split('&').forEach(param => {
-        const parts = param.split('=');
+    var params = {};
+    window.location.search.substring(1).split('&').forEach(function(param) {
+        var parts = param.split('=');
         if (parts[0]) {
             params[parts[0]] = decodeURIComponent(parts[1] || '');
         }
@@ -641,67 +641,67 @@ function getUrlParams() {
 
 window.onload=function(){
 	startmeth(); // 元の処理
-    const params = getUrlParams();
+    var params = getUrlParams();
     
     // パラメータをフォームに自動入力
     if (params.sibu) {
         // 'branch' (contentフォーム) に反映
-        const branchSelect1 = document.getElementById('branch');
+        var branchSelect1 = document.getElementById('branch');
         if (branchSelect1) {
             checkSelect(branchSelect1, params.sibu);
         }
     }
     if (params.kumicd) {
         // 'kmcode' (contentフォーム) に反映
-        const kmcodeInput = document.getElementById('kmcode');
+        var kmcodeInput = document.getElementById('kmcode');
         if (kmcodeInput) {
             kmcodeInput.value = params.kumicd;
             kmcodeInput.setAttribute('readonly', true); // 入力不可に
         }
         // 'kmcodemei' (areaフォーム) にも反映
-        const kmcodeMeiInput = document.getElementById('kmcodemei');
+        var kmcodeMeiInput = document.getElementById('kmcodemei');
             if (kmcodeMeiInput) {
             kmcodeMeiInput.value = params.kumicd;
         }
     }
     if (params.chuno) {
         // 'pcode' (contentフォーム) に反映
-        const pcodeInput = document.getElementById('pcode');
+        var pcodeInput = document.getElementById('pcode');
         if (pcodeInput) {
             pcodeInput.value = params.chuno;
             pcodeInput.setAttribute('readonly', true); // 入力不可に
         }
             // 'pcodemei' (areaフォーム) にも反映
-        const pcodeMeiInput = document.getElementById('pcodemei');
+        var pcodeMeiInput = document.getElementById('pcodemei');
         if (pcodeMeiInput) {
             pcodeMeiInput.value = params.chuno;
         }
     }
     if (params.shinn) {
         // 'pname' (contentフォーム) に反映
-        const pnameInput = document.getElementById('pname');
+        var pnameInput = document.getElementById('pname');
         if (pnameInput) {
             pnameInput.value = params.shinn;
             pnameInput.setAttribute('readonly', true); // 入力不可に
         }
         // 'pnamemei' (areaフォーム) にも反映
-        const pnameMeiInput = document.getElementById('pnamemei');
+        var pnameMeiInput = document.getElementById('pnamemei');
         if (pnameMeiInput) {
             pnameMeiInput.value = params.shinn;
         }
     }
 
     if (params.kikakukai) {
-        const kikakukaiStr = params.kikakukai;
+        var kikakukaiStr = params.kikakukai;
         if (kikakukaiStr.length === 7) {
-            const year = kikakukaiStr.substring(0, 4);
-            const month = kikakukaiStr.substring(4, 6);
-            const kai = kikakukaiStr.substring(6);
+            var year = kikakukaiStr.substring(0, 4);
+            var month = kikakukaiStr.substring(4, 6);
+            var kai = kikakukaiStr.substring(6);
 
             // 各セレクトボックスに代入 (contentフォームのID *0 を使用)
-            const yearSelect = document.getElementById("kikaku-year0");
-            const monthSelect = document.getElementById("kikaku-month0");
-            const kaiSelect = document.getElementById("kai0");
+            var yearSelect = document.getElementById("kikaku-year0");
+            var monthSelect = document.getElementById("kikaku-month0");
+            var kaiSelect = document.getElementById("kai0");
 
             if (yearSelect) checkSelect(yearSelect, year);
             if (monthSelect) checkSelect(monthSelect, parseInt(month).toString());
@@ -712,13 +712,33 @@ window.onload=function(){
             monthSelect.setAttribute("disabled", true);
             kaiSelect.setAttribute("disabled", true);
 
-            const switchInput = document.querySelector("#content .switch3__input"); // #content内のスイッチを指定
+            var switchInput = document.querySelector("#content .switch3__input"); // #content内のスイッチを指定
             if (switchInput) {
                 switchInput.checked = false;
                 switchInput.setAttribute('disabled', true);
             }
         }
     }
+
+    // ★★★ ナビゲーションリンクへのパラメータ+ハッシュ維持機能を追加 ★★★
+    document.getElementById("link-koe").onclick = function(e) {
+        e.preventDefault();
+        var query = window.location.search + window.location.hash;
+        location.href = this.href + query;
+    };
+
+    document.getElementById("link-request").onclick = function(e) {
+        e.preventDefault();
+        var query = window.location.search + window.location.hash;
+        location.href = this.href + query;
+    };
+
+    document.getElementById("link-disappointing").onclick = function(e) {
+        e.preventDefault();
+        var query = window.location.search + window.location.hash;
+        location.href = this.href + query;
+    };
+    // ★★★ ナビゲーションリンク機能追加ここまで ★★★
 }
 
 document.getElementById("hidden2").style.display ="none";
@@ -756,7 +776,7 @@ function formSwitch(newColor) {
 
 
 	    // ★★★ 修正箇所 ★★★
-	    const params = getUrlParams(); // パラメータを取得
+	    var params = getUrlParams(); // パラメータを取得
 	    if (!params.sibu) { // URLパラメータ 'sibu' が無い場合のみ実行
 	        var txt = localStorage.getItem('memo');
 	        var f=document.getElementById("content");
@@ -769,7 +789,7 @@ function formSwitch(newColor) {
         	startmei();
             document.getElementById('content').style.display = "none";
             document.getElementById('area').style.display = "";
-	    document.body.style.backgroundColor = newColor;
+	    　　document.body.style.backgroundColor = newColor;
             var txt = localStorage.getItem('memo');
        	    var f=document.getElementById("area");
         } else {
@@ -783,7 +803,7 @@ function formSwitch(newColor) {
  function startmeth(){
 
 // ★★★ パラメータ処理修正箇所 ★★★
-	　　const params = getUrlParams(); // パラメータを取得
+	　　var params = getUrlParams(); // パラメータを取得
 	if (!params.sibu) { // URLパラメータ 'sibu' が無い場合のみ実行
 	    var txt = localStorage.getItem('memo');
 	    var f = document.getElementById("content");
@@ -795,16 +815,16 @@ function formSwitch(newColor) {
 
 
 
-			const selectMonth = document.getElementById('kikaku-month0');
-			const option2 = document.createElement('option');
+			var selectMonth = document.getElementById('kikaku-month0');
+			var option2 = document.createElement('option');
 			option2.value = j;
 			option2.textContent = j+"月";
 			selectMonth.appendChild(option2)
 		}
 
 		for(var i = 2000; i <= 2050; i++) {
-			const selectYear = document.getElementById('kikaku-year0');
-			const option1 = document.createElement('option');
+			var selectYear = document.getElementById('kikaku-year0');
+			var option1 = document.createElement('option');
 			option1.value = i;
 			option1.textContent = i+"年";
 			selectYear.appendChild(option1)
@@ -814,32 +834,32 @@ function formSwitch(newColor) {
 
  function startmei(){
 		for(var j = 1; j <= 12; j++) {
-			const selectMonth = document.getElementById('kikaku-month');
-			const option2 = document.createElement('option');
+			var selectMonth = document.getElementById('kikaku-month');
+			var option2 = document.createElement('option');
 			option2.value = j;
 			option2.textContent = j+"月";
 			selectMonth.appendChild(option2)
 		}
 
 		for(var i = 2000; i <= 2050; i++) {
-			const selectYear = document.getElementById('kikaku-year');
-			const option1 = document.createElement('option');
+			var selectYear = document.getElementById('kikaku-year');
+			var option1 = document.createElement('option');
 			option1.value = i;
 			option1.textContent = i+"年";
 			selectYear.appendChild(option1)
 		}
 
 		for(var k = 1; k <= 12; k++) {
-			const selectMonth = document.getElementById('kikaku-month2');
-			const option2 = document.createElement('option');
+			var selectMonth = document.getElementById('kikaku-month2');
+			var option2 = document.createElement('option');
 			option2.value = k;
 			option2.textContent = k+"月";
 			selectMonth.appendChild(option2)
 		}
 
 		for(var l = 2000; l <= 2050; l++) {
-			const selectYear = document.getElementById('kikaku-year2');
-			const option1 = document.createElement('option');
+			var selectYear = document.getElementById('kikaku-year2');
+			var option1 = document.createElement('option');
 			option1.value = l;
 			option1.textContent = l+"年";
 			selectYear.appendChild(option1)
@@ -849,13 +869,13 @@ function formSwitch(newColor) {
 
 
 function non(){
-	const button1 = document.getElementById("button1");
+	var button1 = document.getElementById("button1");
 
 	var p = new Date();
 	var monthL = p.getMonth() + 1;
 	  select = document.getElementById('kikaku-month0').options;
 
-	    for(let n = 0; n < select.length; n++ ){
+	    for(var n = 0; n < select.length; n++ ){
 	        if(select[n].value == monthL){
 	            select[n].selected = true;
 	            break;
@@ -864,7 +884,7 @@ function non(){
 
 	var yearL = p.getFullYear();
 	  select = document.getElementById('kikaku-year0').options;
-	    for(let m = 0; m < select.length; m++ ){
+	    for(var m = 0; m < select.length; m++ ){
 	        if(select[m].value == yearL){
 	            select[m].selected = true;
 	            break;
@@ -885,7 +905,7 @@ function non(){
 						var nowweek = Math.floor((refmon.getDate() - refmon.getDay() + 12 ) / 7);
 						var remonthL = refmon.getMonth() + 1;
 						select = document.getElementById('kikaku-month0').options;
-						    for(let n = 0; n < select.length; n++ ){
+						    for(var n = 0; n < select.length; n++ ){
 								if(select[n].value == remonthL){
 								    select[n].selected = true;
 								    break;
@@ -902,7 +922,7 @@ function non(){
 				if(endday2 < 3){
 					var remonthL = p.getMonth() + 2;
 					select = document.getElementById('kikaku-month0').options;
-					for(let n = 0; n < select.length; n++ ){
+					for(var n = 0; n < select.length; n++ ){
 						if(select[n].value == remonthL){
 						    select[n].selected = true;
 						    break;
@@ -916,7 +936,7 @@ function non(){
 							var nowweek = Math.floor((refmon.getDate() - refmon.getDay() + 12 ) / 7);
 							var remonthL = refmon.getMonth() + 1;
 							select = document.getElementById('kikaku-month0').options;
-							    for(let n = 0; n < select.length; n++ ){
+							    for(var n = 0; n < select.length; n++ ){
 									if(select[n].value == remonthL){
 									    select[n].selected = true;
 									    break;
@@ -932,7 +952,7 @@ function non(){
 				}
 			}
 		select = document.getElementById('kai0').options;
-		    for(let q = 0; q < select.length; q++ ){
+		    for(var q = 0; q < select.length; q++ ){
 		        if(select[q].value == nowweek){
 		            select[q].selected = true;
 		            break;
@@ -953,13 +973,13 @@ function non(){
 }
 
 function nonmei(){
-	const button1 = document.getElementById("button1");
+	var button1 = document.getElementById("button1");
 
 	var p = new Date();
 	var monthL = p.getMonth() + 1;
 	  select = document.getElementById('kikaku-month').options;
 
-	    for(let n = 0; n < select.length; n++ ){
+	    for(var n = 0; n < select.length; n++ ){
 	        if(select[n].value == monthL){
 	            select[n].selected = true;
 	            break;
@@ -968,7 +988,7 @@ function nonmei(){
 
 	var yearL = p.getFullYear();
 	  select = document.getElementById('kikaku-year').options;
-	    for(let m = 0; m < select.length; m++ ){
+	    for(var m = 0; m < select.length; m++ ){
 	        if(select[m].value == yearL){
 	            select[m].selected = true;
 	            break;
@@ -989,7 +1009,7 @@ function nonmei(){
 						var nowweek = Math.floor((refmon.getDate() - refmon.getDay() + 12 ) / 7);
 						var remonthL = refmon.getMonth() + 1;
 						select = document.getElementById('kikaku-month').options;
-						    for(let n = 0; n < select.length; n++ ){
+						    for(var n = 0; n < select.length; n++ ){
 								if(select[n].value == remonthL){
 								    select[n].selected = true;
 								    break;
@@ -1006,7 +1026,7 @@ function nonmei(){
 				if(endday2 < 3){
 					var remonthL = p.getMonth() + 2;
 					select = document.getElementById('kikaku-month').options;
-					for(let n = 0; n < select.length; n++ ){
+					for(var n = 0; n < select.length; n++ ){
 						if(select[n].value == remonthL){
 						    select[n].selected = true;
 						    break;
@@ -1020,7 +1040,7 @@ function nonmei(){
 							var nowweek = Math.floor((refmon.getDate() - refmon.getDay() + 12 ) / 7);
 							var remonthL = refmon.getMonth() + 1;
 							select = document.getElementById('kikaku-month').options;
-							    for(let n = 0; n < select.length; n++ ){
+							    for(var n = 0; n < select.length; n++ ){
 									if(select[n].value == remonthL){
 									    select[n].selected = true;
 									    break;
@@ -1036,7 +1056,7 @@ function nonmei(){
 				}
 			}
 		select = document.getElementById('kai').options;
-		    for(let q = 0; q < select.length; q++ ){
+		    for(var q = 0; q < select.length; q++ ){
 		        if(select[q].value == nowweek){
 		            select[q].selected = true;
 		            break;
@@ -1048,13 +1068,13 @@ function nonmei(){
 }
 
 function non2(){
-	const button1 = document.getElementById("button1");
+	var button1 = document.getElementById("button1");
 
 	var p = new Date();
 	var monthL = p.getMonth() + 1;
 	  select = document.getElementById('kikaku-month2').options;
 
-	    for(let n = 0; n < select.length; n++ ){
+	    for(var n = 0; n < select.length; n++ ){
 	        if(select[n].value == monthL){
 	            select[n].selected = true;
 	            break;
@@ -1063,7 +1083,7 @@ function non2(){
 
 	var yearL = p.getFullYear();
 	  select = document.getElementById('kikaku-year2').options;
-	    for(let m = 0; m < select.length; m++ ){
+	    for(var m = 0; m < select.length; m++ ){
 	        if(select[m].value == yearL){
 	            select[m].selected = true;
 	            break;
@@ -1084,7 +1104,7 @@ function non2(){
 						var nowweek = Math.floor((refmon.getDate() - refmon.getDay() + 12 ) / 7);
 						var remonthL = refmon.getMonth() + 1;
 						select = document.getElementById('kikaku-month2').options;
-						    for(let n = 0; n < select.length; n++ ){
+						    for(var n = 0; n < select.length; n++ ){
 								if(select[n].value == remonthL){
 								    select[n].selected = true;
 								    break;
@@ -1101,7 +1121,7 @@ function non2(){
 				if(endday2 < 3){
 					var remonthL = p.getMonth() + 2;
 					select = document.getElementById('kikaku-month2').options;
-					for(let n = 0; n < select.length; n++ ){
+					for(var n = 0; n < select.length; n++ ){
 						if(select[n].value == remonthL){
 						    select[n].selected = true;
 						    break;
@@ -1115,7 +1135,7 @@ function non2(){
 							var nowweek = Math.floor((refmon.getDate() - refmon.getDay() + 12 ) / 7);
 							var remonthL = refmon.getMonth() + 1;
 							select = document.getElementById('kikaku-month2').options;
-							    for(let n = 0; n < select.length; n++ ){
+							    for(var n = 0; n < select.length; n++ ){
 									if(select[n].value == remonthL){
 									    select[n].selected = true;
 									    break;
@@ -1131,7 +1151,7 @@ function non2(){
 				}
 			}
 		select = document.getElementById('kai2').options;
-		    for(let q = 0; q < select.length; q++ ){
+		    for(var q = 0; q < select.length; q++ ){
 		        if(select[q].value == nowweek){
 		            select[q].selected = true;
 		            break;
@@ -1163,47 +1183,47 @@ function checkSelect(obj,val){
 }
 
 function reload() {
-	var result = confirm('本当に入力内容を削除してもよろしいですか？');
+	var result = confirm('本当に入力内容を削除してもよろしいですか?');
 		if(result) {
 			location.reload();
 		}
 }
 
 var regex = /(?:[\u2700-\u27bf]|(?:\ud83c[\udde6-\uddff]){2}|[\ud800-\udbff][\udc00-\udfff]|[\u0023-\u0039]\ufe0f?\u20e3|\u3299|\u3297|\u303d|\u3030|\u24c2|\ud83c[\udd70-\udd71]|\ud83c[\udd7e-\udd7f]|\ud83c\udd8e|\ud83c[\udd91-\udd9a]|\ud83c[\udde6-\uddff]|[\ud83c[\ude01\uddff]|\ud83c[\ude01-\ude02]|\ud83c\ude1a|\ud83c\ude2f|[\ud83c[\ude32\ude02]|\ud83c\ude1a|\ud83c\ude2f|\ud83c[\ude32-\ude3a]|[\ud83c[\ude50\ude3a]|\ud83c[\ude50-\ude51]|\u203c|\u2049|[\u25aa-\u25ab]|\u25b6|\u25c0|[\u25fb-\u25fe]|\u00a9|\u00ae|\u2122|\u2139|\ud83c\udc04|[\u2600-\u26FF]|\u2b05|\u2b06|\u2b07|\u2b1b|\u2b1c|\u2b50|\u2b55|\u231a|\u231b|\u2328|\u23cf|[\u23e9-\u23f3]|[\u23f8-\u23fa]|\ud83c\udccf|\u2934|\u2935|[\u2190-\u21ff])/g;
-let count = 0;
-let timer;
-const ua = navigator.userAgent.toLowerCase();
-const isSP = /iphone|ipod|ipad|android/.test(ua);
-const b = document.getElementById('sendFrom');
-const eventStart = isSP ? 'touchstart' : 'mousedown';
-const eventEnd   = isSP ?
+var count = 0;
+var timer;
+var ua = navigator.userAgent.toLowerCase();
+var isSP = /iphone|ipod|ipad|android/.test(ua);
+var b = document.getElementById('sendFrom');
+var eventStart = isSP ? 'touchstart' : 'mousedown';
+var eventEnd   = isSP ?
 'touchend' : 'mouseup';
-const eventLeave = isSP ? 'touchmove' : 'mouseleave';
-b.addEventListener(eventStart, e => {
+var eventLeave = isSP ? 'touchmove' : 'mouseleave';
+b.addEventListener(eventStart, function(e) {
   e.preventDefault();
   b.classList.add('active');
-  timer = setInterval(() => {
+  timer = setInterval(function() {
     count++;
   }, 10);
 })
 
-b.addEventListener(eventEnd, e => {
+b.addEventListener(eventEnd, function(e) {
 	e.preventDefault();
 	if (count) {
 	    b.classList.remove('active');
 	    clearInterval(timer);
-	    let second = (count / 100);
+	    var second = (count / 100);
 		var elements = document.getElementsByName('corres');
 		var len = elements.length;
 		var radioValue = '';
-		for (let i = 0; i < len; i++){
+		for (var i = 0; i < len; i++){
 			if (elements.item(i).checked){
 				radioValue = elements.item(i).value;
 			}
 		}
 		if(second > 0.0 && second < 0.6){
 			if(radioValue === '1'){
-				let str2 = document.getElementById("kmcodemei").value; // 組合員コードチェック
+				var str2 = document.getElementById("kmcodemei").value; // 組合員コードチェック
 				if(str2.length === 0){
 					alert("組合員コードは必須です。入力してください。")
 				}else if(str2 === "00000000" || str2 === "99999999"){
@@ -1213,7 +1233,7 @@ b.addEventListener(eventEnd, e => {
 				}else if(str2.length !== 8){
 					alert("組合員コードは8文字必要です")
 				}else{
-					let str8= document.getElementById("pcodemei").value;
+					var str8= document.getElementById("pcodemei").value;
 // 注文番チェック
 					if(isNaN(str8)){
 						alert("注文番号の欄に数字以外の字が入力されています。")
@@ -1225,18 +1245,18 @@ b.addEventListener(eventEnd, e => {
 							}
 							return num;
 						};
-						let str11= document.getElementById("kikaku-year").value; // 年
-						let str12= toDoubleDigits(document.getElementById('kikaku-month').value); // 月
-						let str13= document.getElementById("kai").value; // 回
-						let kikanm = str11+str12+str13;
+						var str11= document.getElementById("kikaku-year").value; // 年
+						var str12= toDoubleDigits(document.getElementById('kikaku-month').value); // 月
+						var str13= document.getElementById("kai").value; // 回
+						var kikanm = str11+str12+str13;
 						if(kikanm.length === 0 || kikanm.length === 7){
-							let str14 = document.getElementById("kikaku-year2").value;
-							let str15 = toDoubleDigits(document.getElementById("kikaku-month2").value);
-							let str16 = document.getElementById("kai2").value;
-							let kikanm2 = str14+str15+str16;
+							var str14 = document.getElementById("kikaku-year2").value;
+							var str15 = toDoubleDigits(document.getElementById("kikaku-month2").value);
+							var str16 = document.getElementById("kai2").value;
+							var kikanm2 = str14+str15+str16;
 							if(kikanm2.length === 0 || kikanm2.length === 7){
 
-								var result = window.confirm("メールを作成しても宜しいですか？");
+								var result = window.confirm("メールを作成してもよろしいですか?");
 								if( result ) {
 									var toDoubleDigits = function(num) {
 									  num += "";
@@ -1306,7 +1326,7 @@ b.addEventListener(eventEnd, e => {
 					}
 				}
 			}else{
-				let str2 = document.getElementById("kmcode").value;
+				var str2 = document.getElementById("kmcode").value;
 // 組合員コードチェック
 				if(str2.length === 0){
 					alert("組合員コードは必須です。入力してください。")
@@ -1317,19 +1337,19 @@ b.addEventListener(eventEnd, e => {
 				}else if(str2.length !== 8){
 					alert("組合員コードは8文字です")
 				}else{
-					let str7 = document.getElementById("pname").value.replace(regex, '');
+					var str7 = document.getElementById("pname").value.replace(regex, '');
 // 商品名チェック
 					if(str7.length === 0){
 						alert("商品名は必須です\nお書きください")
 					}else{
-						let c1 = document.getElementById("category").value; // カテゴリーチェック
-						let c2 = document.getElementById("hidden1").value; // カテゴリーチェック
-						let cate = 0;
+						var c1 = document.getElementById("category").value; // カテゴリーチェック
+						var c2 = document.getElementById("hidden1").value; // カテゴリーチェック
+						var cate = 0;
 						if(c1 == 0){
-							alert("⑦お申し出内容の\n『～関して』の欄の選択を行って下さい")
+							alert("⑦お申し出内容の\n『〜関して』の欄の選択を行って下さい")
 						}else if(c1 == 1){
 							if(c2 == 0){
-								alert("⑦お申し出内容の\n 選択欄 2つ目『～の事について』の選択を行って下さい")
+								alert("⑦お申し出内容の\n 選択欄 2つ目『〜の事について』の選択を行って下さい")
 							}else{
 								cate = 1;
 							}
@@ -1338,11 +1358,11 @@ b.addEventListener(eventEnd, e => {
 						}
 						// カテゴリー欄チェック
 						if(cate == 1){
-							let str5 = document.getElementById("offer").value.replace(regex, ''); // 内容チェック
+							var str5 = document.getElementById("offer").value.replace(regex, ''); // 内容チェック
 							if(str5.length === 0){
 								alert("内容は必須です\nお書きください")
 							}else{
-								let str8= document.getElementById("pcode").value;
+								var str8= document.getElementById("pcode").value;
 // 注文番チェック
 								if(isNaN(str8)){
 											alert("注文番号の欄に数字以外の字が入力されています。")
@@ -1354,18 +1374,18 @@ b.addEventListener(eventEnd, e => {
 												}
 												return num;
 											};
-									let str11= document.getElementById("kikaku-year0").value; // 年
-									let str12= toDoubleDigits(document.getElementById('kikaku-month0').value); // 月
-									let str13= document.getElementById("kai0").value; // 回
-									let kikanm = str11+str12+str13;
+									var str11= document.getElementById("kikaku-year0").value; // 年
+									var str12= toDoubleDigits(document.getElementById('kikaku-month0').value); // 月
+									var str13= document.getElementById("kai0").value; // 回
+									var kikanm = str11+str12+str13;
 									if(kikanm.length === 0 || kikanm.length === 7){
 
 
-										let act =0;
-										let flg =0;
-										const f1 = document.getElementById("content");
-										const actual = f1.actual;
-										for (let i = 0; i < actual.length; i++) {
+										var act =0;
+										var flg =0;
+										var f1 = document.getElementById("content");
+										var actual = f1.actual;
+										for (var i = 0; i < actual.length; i++) {
 									      if (actual[i].checked) {
 									        act = actual[i].value;
 									        break;
@@ -1373,7 +1393,7 @@ b.addEventListener(eventEnd, e => {
 									    }
 
 										if(act == 1 && flg == 0){
-											alertify.confirm("現品:【 なし 】\nで、お間違いないでしょうか？", function (e) {
+											alertify.confirm("現品:『 なし 』\nで、お間違いないでしょうか?", function (e) {
 												if (e) {
 													sendmail();
 												}
@@ -1410,11 +1430,11 @@ b.addEventListener(eventEnd, e => {
 	}
 });
 function sendmail(){
-		let kaitou = document.getElementById("answer").value; // 回答チェック
+		var kaitou = document.getElementById("answer").value; // 回答チェック
 		if(kaitou == 1){
-			var success = window.confirm("回答:【 不要 】\nで、お間違いないでしょうか？");
+			var success = window.confirm("回答:『 不要 』\nで、お間違いないでしょうか?");
 			if(success){
-				var result = window.confirm("メールを作成しても宜しいですか？");
+				var result = window.confirm("メールを作成してもよろしいですか?");
 				if( result ) {
 						var toDoubleDigits = function(num) {
 						  num += "";
@@ -1431,13 +1451,13 @@ function sendmail(){
 						var len = elements.length;
 						var len2 = aelements.length;
 						var checkValue = '';
-						for (let i = 0; i < len; i++){
+						for (var i = 0; i < len; i++){
 								if (elements.item(i).checked){
 									checkValue = elements.item(i).value;
 								}
 							}
 						var actualValue = '';
-						for (let l = 0; l < len2; l++){
+						for (var l = 0; l < len2; l++){
 								if (aelements.item(l).checked){
 									actualValue = aelements.item(l).value;
 								}
@@ -1470,10 +1490,10 @@ function sendmail(){
 								'","simil":"'+ 0 +          // 類似品
 								'","genre":"'+ 0 +        // ジャンル
 								'","actual":"'+actualValue+      // 現品
-								'","cate1":"'+cate1+		// カテゴリ１
-								'","cate2":"'+cate2+		// カテゴリ２
+								'","cate1":"'+cate1+		// カテゴリ1
+								'","cate2":"'+cate2+		// カテゴリ2
 								'","offer":"'+offer+        // 内容
-								'","comment":"'+comment+    // 担当者のコメント（補足）
+								'","comment":"'+comment+    // 担当者のコメント(補足)
 								'","insday":"'+''+  
 				// インサート日
 								'","instime":"'+''+         // インサート時間
@@ -1485,7 +1505,7 @@ function sendmail(){
 					}
 				}
 			}else{
-				var result = window.confirm("メールを作成しても宜しいですか？");
+				var result = window.confirm("メールを作成してもよろしいですか?");
 				if( result ) {
 					var toDoubleDigits = function(num) {
 					  num += "";
@@ -1502,13 +1522,13 @@ function sendmail(){
 					var len = elements.length;
 					var len2 = aelements.length;
 					var checkValue = '';
-					for (let i = 0; i < len; i++){
+					for (var i = 0; i < len; i++){
 							if (elements.item(i).checked){
 								checkValue = elements.item(i).value;
 							}
 						}
 					var actualValue = '';
-					for (let l = 0; l < len2; l++){
+					for (var l = 0; l < len2; l++){
 							if (aelements.item(l).checked){
 								actualValue = aelements.item(l).value;
 							}
@@ -1541,10 +1561,10 @@ function sendmail(){
 							'","simil":"'+ 0 +          // 類似品
 							'","genre":"'+ 0 +	        // ジャンル
 							'","actual":"'+actualValue+      // 現品
-							'","cate1":"'+cate1+		// カテゴリ１
-							'","cate2":"'+cate2+		// カテゴリ２
+							'","cate1":"'+cate1+		// カテゴリ1
+							'","cate2":"'+cate2+		// カテゴリ2
 							'","offer":"'+offer+        // 内容
-							'","comment":"'+comment+    // 担当者のコメント（補足）
+							'","comment":"'+comment+    // 担当者のコメント(補足)
 							'","insday":"'+''+  
 				// インサート日
 							'","instime":"'+''+         // インサート時間
@@ -1557,9 +1577,9 @@ function sendmail(){
 			}
 	}
 
-b.addEventListener(eventLeave, e => {
+b.addEventListener(eventLeave, function(e) {
   e.preventDefault();
-  let el;
+  var el;
   el = isSP ? document.elementFromPoint(e.touches[0].clientX, e.touches[0].clientY) : b;
   if (!isSP || el !== b) {
     b.classList.remove('active');
