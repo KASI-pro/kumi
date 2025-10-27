@@ -153,7 +153,7 @@ body {
   display: inline-block;
   color: #fff;
   font-weight: bold;
-  background: #005580; /* 濃い青 */
+  background: #48d1cc; /* 水色 */
   letter-spacing: 0.1em;
   border-radius: 8px;
   font-size: 15px;
@@ -189,7 +189,7 @@ body {
 }
 
 .radio-btns2 input[type=radio]:checked + label {
-  background: #48d1cc; /* 水色 */
+  background: #005580; /* 濃い青 */
 }
 
 
@@ -421,9 +421,9 @@ textarea {
 			</div>
 
 		<div class="btn-group-mobile">
-			<a Class="btn_item btn_color1" id="link-koe" href="./kumikoe.html">よかった</a>
-			<a Class="btn_item btn_color2" id="link-request" href="./youbou.html">リクエスト</a>
-			<a Class="btn_item_a btn_color3" id="link-disappointing" href="./disappointing.html">がっかり</a>
+			<a Class="btn_item btn_color1" id="link-koe">よかった</a>
+			<a Class="btn_item btn_color2" id="link-request">リクエスト</a>
+			<a Class="btn_item_a btn_color3" id="link-disappointing">がっかり</a>
 		</div>
 
 		<div>
@@ -515,10 +515,10 @@ textarea {
 				</div>
 
 			<div class="form-row" style="margin-top: -10px;">
-				<label style="margin-bottom: 8px;">現品:</label>
+				<label style="margin-bottom: 8px; margin-right: 15px;">現品:</label>
 				<div class="radio-btns2" style="display: flex; gap: 0px; margin: 0;">
-				  <input type="radio" id="nashi" name="actual" value="1" checked><label for="nashi"><span>なし</span></label>
-				  <input type="radio" id="ari" name="actual" value="2" ><label for="ari">あり</label>
+				  <input type="radio" id="nashi" name="actual" value="1" checked><label for="nashi"><span style="color: #fff;">なし</span></label>
+				  <input type="radio" id="ari" name="actual" value="2" ><label for="ari"><span style="color: #fff;">あり</span></label>
 				</div>
 			</div>
 			
@@ -536,7 +536,7 @@ textarea {
 			<div class="form-row" id="hidden2">
 				<select class="custom-select" id="hidden1" name="hidden1" style="width: 100%;">
 					<option value="1">傷み・腐り</option>
-					<option value="2">量目・サイズ</option>
+					<option value="2">重目・サイズ</option>
 					<option value="3">食味(美味しくないなど)</option>
 					<option value="4">その他</option>
 				</select>
@@ -616,6 +616,7 @@ textarea {
 	</div>
 </body>
 
+<script src="./links.js"></script>
 <script src="https://cdn.rawgit.com/alertifyjs/alertify.js/v1.0.10/dist/js/alertify.js"></script>
 <script>
 
@@ -633,6 +634,22 @@ function getUrlParams() {
 window.onload=function(){
 	startmeth();
     var params = getUrlParams();
+    
+    // リンク遷移の処理
+    document.getElementById("link-koe").onclick = function() {
+        const query = window.location.search + window.location.hash;
+        location.href = voiceLinks.koe + query;
+    };
+
+    document.getElementById("link-request").onclick = function() {
+        const query = window.location.search + window.location.hash;
+        location.href = voiceLinks.request + query;
+    };
+
+    document.getElementById("link-disappointing").onclick = function() {
+        const query = window.location.search + window.location.hash;
+        location.href = voiceLinks.disappointing + query;
+    };
     
     // パラメータをフォームに自動入力
     if (params.sibu) {
@@ -656,7 +673,7 @@ window.onload=function(){
         }
     }
     if (params.chuno) {
-        // 'pcode' (contentフォーム) のみに反映（明細検索には反映させない）
+        // 'pcode' (contentフォーム) のみに反映(明細検索には反映させない)
         var pcodeInput = document.getElementById('pcode');
         if (pcodeInput) {
             pcodeInput.value = params.chuno;
@@ -665,7 +682,7 @@ window.onload=function(){
         // 'pcodemei' (areaフォーム) には反映しない
     }
     if (params.shinn) {
-        // 'pname' (contentフォーム) のみに反映（明細検索には反映させない）
+        // 'pname' (contentフォーム) のみに反映(明細検索には反映させない)
         var pnameInput = document.getElementById('pname');
         if (pnameInput) {
             pnameInput.value = params.shinn;
@@ -701,7 +718,7 @@ window.onload=function(){
                 switchInput.setAttribute('disabled', true);
             }
 
-            // areaフォームの企画回にも反映（明細検索の開始日）
+            // areaフォームの企画回にも反映(明細検索の開始日)
             var yearSelectArea = document.getElementById("kikaku-year");
             var monthSelectArea = document.getElementById("kikaku-month");
             var kaiSelectArea = document.getElementById("kai");
@@ -716,26 +733,6 @@ window.onload=function(){
             kaiSelectArea.setAttribute("disabled", true);
         }
     }
-
-    // ★★★ ナビゲーションリンクへのパラメータ維持機能　★★★
-    document.getElementById("link-koe").onclick = function(e) {
-        e.preventDefault();
-        var query = window.location.search + window.location.hash;
-        location.href = this.href + query;
-    };
-
-    document.getElementById("link-request").onclick = function(e) {
-        e.preventDefault();
-        var query = window.location.search + window.location.hash;
-        location.href = this.href + query;
-    };
-
-    document.getElementById("link-disappointing").onclick = function(e) {
-        e.preventDefault();
-        var query = window.location.search + window.location.hash;
-        location.href = this.href + query;
-    };
-    // ★★★ ナビゲーションリンク機能ここまで ★★★
 }
 
 document.getElementById("hidden2").style.display ="none";
@@ -1263,8 +1260,6 @@ b.addEventListener(eventEnd, function(e) {
 									kikakai = time1+time2+time3;
 									kikakai2 = time4+time5+time6;
 									pcode = cyumon;
-									// address = 'meisaiTest@palcoop.or.jp';
-									address = 'meisai@palcoop.or.jp';
 									subject = '明細 - 組声';
 									body = '{"body":{"kmcode":"'+kmcode+
 											'","kikakai":"'+kikakai+
@@ -1272,7 +1267,7 @@ b.addEventListener(eventEnd, function(e) {
 											'","pcode":"'+pcode+
 											'","syonm":"'+pname+
 											'","flg":"1"}}';
-									location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
+									location.href = 'mailto:' + meisaiadd + '?subject=' + subject + '&body=' + body;
 								}
 							}else{
 								var emsg2;
@@ -1463,7 +1458,6 @@ function sendmail(){
 						offer = txtData[17].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 						comment = txtData[18].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 
-						address = 'tos_oka2@palcoop.or.jp'
 						subject = 'がっかりの声';
 						body = '{"body":{"answer":"'+answer+ // 回答
 								'","branch":"'+branch+      // 支所
@@ -1533,7 +1527,6 @@ function sendmail(){
 					offer = txtData[17].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 					comment = txtData[18].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 
-	address = 'tos_oka2@palcoop.or.jp'
 					subject = 'がっかりの声';
 					body = '{"body":{"answer":"'+answer+ // 回答
 							'","branch":"'+branch+      // 支所
