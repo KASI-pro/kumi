@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>録音報告システム</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <style>
+        body { font-family: sans-serif; background-color: #f4f7f6; margin: 0; padding: 15px; }
+        #app { max-width: 500px; margin: 0 auto; }
+        .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 15px; }
+        h2 { font-size: 1.1rem; color: #333; margin-top: 0; margin-bottom: 12px; }
+        .input-field { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 1.1rem; appearance: none; background-color: #fff; }
+        .select-wrapper { position: relative; }
+        .select-wrapper::after { content: "▼"; font-size: 0.8rem; color: #999; position: absolute; right: 15px; top: 15px; pointer-events: none; }
+        .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .btn-option { padding: 12px; border: 2px solid #ddd; border-radius: 10px; background: #fff; font-weight: bold; cursor: pointer; }
+        .btn-option.active { background: #4caf50; color: white; border-color: #4caf50; }
+        .btn-open-modal { width: 100%; padding: 15px; background: #e53935; color: white; border: none; border-radius: 10px; font-size: 1.1rem; font-weight: bold; cursor: pointer; }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: flex; justify-content: center; align-items: center; z-index: 1000; }
+        .modal-content { background: white; width: 90%; max-width: 400px; padding: 30px; border-radius: 20px; text-align: center; position: relative; }
+        .btn-record { width: 140px; height: 140px; border-radius: 70px; border: none; background: #e53935; color: white; font-size: 1.1rem; font-weight: bold; box-shadow: 0 6px 0 #b71c1c; margin-top: 20px; outline: none; -webkit-tap-highlight-color: transparent; }
+        .btn-record.recording { background: #ff5252; box-shadow: 0 2px 0 #b71c1c; transform: translateY(4px); animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } }
+        .loading-spinner { text-align: center; color: #2196f3; font-weight: bold; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+<div id="app">
+    <div class="card">
+        <h2>1. 店舗・部署を選択</h2>
+        <div class="grid-2">
+            <div class="select-wrapper">
+                <select class="input-field" v-model="selectedStore" @change="saveStore">
+                    <option value="" disabled>店舗</option>
+                    <option v-for="(val, name) in stores" :key="val" :value="name">{{ name }}</option>
+                </select>
+            </div>
+            <div class="select-wrapper">
+                <select class="input-field" v-model="selectedCategory" @change="saveCategory">
+                    <option value="" disabled>部門</option>
+                    <option v-for="(val, name) in categories" :key="val" :value="name">{{ name }}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>2. 職員番号</h2>
+        <input type="tel" class="input-field" v-model="staffNumber" @input="limitStaffNumber" placeholder="職員番号">
+    </div>
+
+    <div class="card">
+        <h2>3. 組合員区分</h2>
+        <div class="grid-2">
+            <button @click="selectedMemberType = '組合員'" :class="['btn-option', { active: selectedMemberType === '組合員' }]">組合員</button>
+            <button @click="selectedMemberType = '未組'" :class="['btn-option', { active: selectedMemberType === '未組' }]">未組</button>
+        </div>
+        <div v-if="selectedMemberType === '組合員'" style="margin-top:15px;">
+            <input type="tel" class="input-field" v-model="memberNumber" @input="limitMemberNumber" placeholder="組合員番号（8桁）">
+        </div>
+    </div>
+
+    <div class="card">
+        <button class="btn-open-modal" :disabled="!isReadyToRecord" @click="showModal = true">録音画面を開く</button>
+        <div v-if="isUploading" class="loading-spinner">保存中... お待ちください</div>
+    </div>
+
+    <div class="modal-overlay" v-if="showModal" @click.self="showModal = false">
+        <div class="modal-content">
+            <button style="position:absolute; top:10px; right:15px; border:none; background:none; font-size:1.5rem;" @click="showModal = false">×</button>
+            <h3>長押しで録音開始</h3>
+            <button class="btn-record" :class="{ recording: isRecording }"
+                    @touchstart.prevent="startRecording" @touchend.prevent="stopRecording"
+                    @mousedown="startRecording" @mouseup="stopRecording">
+                {{ isRecording ? '録音中...' : '長押し' }}
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+new Vue({
+    el: '#app',
+    data: {
+        staffNumber: '',
+        stores: {
+            'ながお店': '151', '西くずは店': '152', '星ヶ丘店': '153', '枚方公園店': '154',
+            '忍ケ丘店': '155', '粉浜店': '351', '東都島店': '451', '東中浜店': '452', 'つるみ店': '453'
+        },
+        selectedStore: '',
+        categories: {
+            '青果': '01', '鮮魚': '02', '精肉': '03', '惣菜': '04', 'グロサリー': '05', 'その他': '06'
+        },
+        selectedCategory: '',
+        selectedMemberType: '',
+        memberNumber: '',
+        showModal: false,
+        isRecording: false,
+        isUploading: false,
+        audioChunks: [],
+        recorder: null,
+        // 【重要】デプロイ後に発行されたURLをここに貼り付けてください
+        gasUrl: "https://script.google.com/macros/s/AKfycbxAxRr2pnLOlo2VdwpvOaw4SM7Yiod8wn1Yn8GyQTWiyJs1oUc6PAgNpN5dbt1cAqrdjQ/exec" 
+    },
+    computed: {
+        isReadyToRecord() {
+            const isStoreOk = this.selectedStore !== '';
+            const isCategoryOk = this.selectedCategory !== '';
+            const isStaffOk = this.staffNumber.length >= 1;
+            let isMemberOk = (this.selectedMemberType === '未組') || (this.selectedMemberType === '組合員' && this.memberNumber.length === 8);
+            return isStoreOk && isCategoryOk && isStaffOk && isMemberOk;
+        }
+    },
+    mounted() {
+        // 前回の選択を復元
+        const savedStore = localStorage.getItem('selectedStore');
+        if (savedStore && this.stores[savedStore]) this.selectedStore = savedStore;
+        const savedCategory = localStorage.getItem('selectedCategory');
+        if (savedCategory && this.categories[savedCategory]) this.selectedCategory = savedCategory;
+    },
+    methods: {
+        limitStaffNumber() { this.staffNumber = this.staffNumber.replace(/\D/g, '').slice(0, 6); },
+        limitMemberNumber() { this.memberNumber = this.memberNumber.replace(/\D/g, '').slice(0, 8); },
+        saveStore() { localStorage.setItem('selectedStore', this.selectedStore); },
+        saveCategory() { localStorage.setItem('selectedCategory', this.selectedCategory); },
+
+        async startRecording() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                this.isRecording = true;
+                this.audioChunks = [];
+                this.recorder = new MediaRecorder(stream);
+                this.recorder.ondataavailable = e => this.audioChunks.push(e.data);
+                this.recorder.start();
+            } catch (err) {
+                alert("マイクの使用を許可してください");
+            }
+        },
+
+        async stopRecording() {
+            if (!this.isRecording) return;
+            this.isRecording = false;
+            this.recorder.stop();
+            this.recorder.onstop = async () => {
+                this.showModal = false;
+                await this.uploadToDrive();
+            };
+        },
+
+        async uploadToDrive() {
+            this.isUploading = true;
+            
+            // ファイル名の生成
+            const now = new Date();
+            const yyyymmdd = now.getFullYear() + ("0" + (now.getMonth() + 1)).slice(-2) + ("0" + now.getDate()).slice(-2);
+            const storeCode = this.stores[this.selectedStore];
+            const categoryCode = this.categories[this.selectedCategory];
+            const paddedStaff = ("000000" + this.staffNumber).slice(-6);
+            const memberCode = this.selectedMemberType === '未組' ? '00000000' : this.memberNumber;
+            const fileName = `${yyyymmdd}${storeCode}${categoryCode}${paddedStaff}${memberCode}.webm`;
+
+            // 録音データをBase64に変換して送信
+            const audioBlob = new Blob(this.audioChunks, { type: 'audio/webm' });
+            const reader = new FileReader();
+            reader.readAsDataURL(audioBlob);
+            reader.onloadend = async () => {
+                const base64Data = reader.result.split(',')[1];
+                
+                const payload = {
+                    fileName: fileName,
+                    audioData: base64Data
+                };
+
+                try {
+                    // GASへ送信
+                    const response = await fetch(this.gasUrl, {
+                        method: "POST",
+                        body: JSON.stringify(payload)
+                    });
+
+                    alert("保存完了しました\nファイル名: " + fileName);
+                    location.reload();
+                } catch (err) {
+                    alert("送信に失敗しました。ネット接続を確認してください。");
+                } finally {
+                    this.isUploading = false;
+                }
+            };
+        }
+    }
+});
+</script>
+</body>
+</html>
