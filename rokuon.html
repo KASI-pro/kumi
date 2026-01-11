@@ -216,16 +216,16 @@ new Vue({
             const min = ("0" + now.getMinutes()).slice(-2);
             const sec = ("0" + now.getSeconds()).slice(-2);
             
-            const timestamp = `${yyyy}${mm}${dd}${hh}${min}${sec}`; // 14桁 [cite: 59, 60]
+            const timestamp = `${yyyy}${mm}${dd}${hh}${min}${sec}`; // 14桁
 
             // 2. 各コードの取得（既存のまま）
             const storeCode = this.stores[this.selectedStore]; // 3桁 
-            const categoryCode = this.categories[this.selectedCategory]; // 2桁 [cite: 61]
-            const paddedStaff = ("000000" + this.staffNumber).slice(-6); // 6桁 [cite: 61]
-            const memberCode = this.selectedMemberType === '未組' ? '00000000' : this.memberNumber; // 8桁 [cite: 62]
+            const categoryCode = this.categories[this.selectedCategory]; // 2桁
+            const paddedStaff = ("000000" + this.staffNumber).slice(-6); // 6桁
+            const memberCode = this.selectedMemberType === '未組' ? '00000000' : this.memberNumber; // 8桁
 
             // 3. 全て連結して 33桁にする
-            const fileName = `${timestamp}${storeCode}${categoryCode}${paddedStaff}${memberCode}.webm`; // 計33桁 [cite: 62]
+            const fileName = `${timestamp}${storeCode}${categoryCode}${paddedStaff}${memberCode}.webm`; // 計33桁
 
             const audioBlob = new Blob(this.audioChunks, { type: 'audio/webm' });
             const reader = new FileReader();
@@ -257,5 +257,6 @@ new Vue({
 </script>
 </body>
 </html>
+
 
 
