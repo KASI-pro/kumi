@@ -21,7 +21,6 @@
         .btn-blue { background: #2196f3; }
         .btn-green { background: #4caf50; }
         
-        /* スピナーモーダルのスタイル */
         .spinner-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 2000; color: white; }
         .spinner { width: 50px; height: 50px; border: 5px solid rgba(255,255,255,0.3); border-top: 5px solid #fff; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 15px; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
@@ -133,7 +132,7 @@ new Vue({
         showModal: false,
         isRecording: false,
         isUploading: false,
-        loadingMessage: '処理中... 少々お待ちください',
+        loadingMessage: '処理中...',
         audioChunks: [],
         recorder: null,
         audioCtx: null,
@@ -161,11 +160,14 @@ new Vue({
         limitMemberNumber() { this.memberNumber = this.memberNumber.replace(/\D/g, '').slice(0, 8); },
         saveStore() { localStorage.setItem('selectedStore', this.selectedStore); },
         saveCategory() { localStorage.setItem('selectedCategory', this.selectedCategory); },
-        generateFileName() {
+        
+        // 33桁のベースファイル名を生成
+        generateBaseFileName() {
             const n = new Date();
             const ts = `${n.getFullYear()}${("0"+(n.getMonth()+1)).slice(-2)}${("0"+n.getDate()).slice(-2)}${("0"+n.getHours()).slice(-2)}${("0"+n.getMinutes()).slice(-2)}${("0"+n.getSeconds()).slice(-2)}`;
             return `${ts}${this.stores[this.selectedStore]}${this.categories[this.selectedCategory]}${("000000"+this.staffNumber).slice(-6)}${this.selectedMemberType==='未組'?'00000000':this.memberNumber}`;
         },
+
         triggerImageSelect() {
             this.inputMode = 'image';
             this.$refs.imageInput.click();
@@ -181,23 +183,34 @@ new Vue({
                 reader.readAsDataURL(file);
             });
         },
+
         async uploadText() {
             this.isUploading = true;
             this.loadingMessage = "テキスト送信中...";
-            await this.sendToGAS({ fileName: this.generateFileName() + ".txt", mode: 'text', manualText: this.manualText });
+            // テキストは単体なので末尾00
+            const fileName = this.generateBaseFileName() + "00.txt";
+            await this.sendToGAS({ fileName: fileName, mode: 'text', manualText: this.manualText });
         },
+
         async uploadImages() {
             this.isUploading = true;
-            const commonFileName = this.generateFileName();
+            const baseName = this.generateBaseFileName();
+            const isMultiple = this.selectedImages.length > 1;
+
             try {
                 for (let i = 0; i < this.selectedImages.length; i++) {
                     this.loadingMessage = `画像送信・解析中 (${i + 1}/${this.selectedImages.length})`;
                     const base64 = await this.convertToBase64(this.selectedImages[i]);
+                    
+                    // 【修正】連番ロジック: 単体なら00、複数なら01〜
+                    const seq = isMultiple ? ("0" + (i + 1)).slice(-2) : "00";
+                    const finalFileName = baseName + seq;
+
                     await fetch(this.gasUrl, { 
                         method: "POST", 
                         mode: "no-cors", 
                         body: JSON.stringify({
-                            fileName: commonFileName,
+                            fileName: finalFileName,
                             mode: 'image',
                             imageData: base64
                         })
@@ -210,7 +223,7 @@ new Vue({
                 this.isUploading = false;
             }
         },
-        // リサイズ機能付きBase64変換
+
         convertToBase64(file) {
             return new Promise((resolve) => {
                 const reader = new FileReader();
@@ -237,6 +250,7 @@ new Vue({
                 reader.readAsDataURL(file);
             });
         },
+
         async toggleRecording() {
             if (!this.isRecording) {
                 try {
@@ -259,11 +273,18 @@ new Vue({
                     const reader = new FileReader();
                     reader.readAsDataURL(blob);
                     reader.onloadend = async () => {
-                        await this.sendToGAS({ fileName: this.generateFileName() + ".webm", mode: 'audio', audioData: reader.result.split(',')[1] });
+                        // 音声は単体なので末尾00
+                        const fileName = this.generateBaseFileName() + "00.webm";
+                        await this.sendToGAS({ 
+                            fileName: fileName, 
+                            mode: 'audio', 
+                            audioData: reader.result.split(',')[1] 
+                        });
                     };
                 };
             }
         },
+
         setupVisualizer(stream) {
             this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             const src = this.audioCtx.createMediaStreamSource(stream);
@@ -283,6 +304,7 @@ new Vue({
             };
             draw();
         },
+
         async sendToGAS(payload) {
             try {
                 await fetch(this.gasUrl, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) });
@@ -290,6 +312,7 @@ new Vue({
                 location.reload();
             } catch (e) { alert("送信エラー"); this.isUploading = false; }
         },
+
         closeModal() {
             if (this.isRecording) this.toggleRecording();
             this.showModal = false;
