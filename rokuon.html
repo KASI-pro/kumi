@@ -1,324 +1,318 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang='ja'>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>録音・報告システム</title>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
-    <style>
-        body { font-family: sans-serif; background-color: #f4f7f6; margin: 0; padding: 15px; line-height: 1.4; }
-        #app { max-width: 500px; margin: 0 auto; }
-        .card { background: white; padding: 15px; border-radius: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 15px; }
-        h2 { font-size: 1rem; color: #333; margin-top: 0; margin-bottom: 10px; border-left: 4px solid #4caf50; padding-left: 8px; }
-        .input-field { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 1rem; margin-bottom: 5px; }
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 5px; }
-        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 5px; }
-        .btn-option { padding: 10px; border: 1px solid #ccc; border-radius: 6px; background: #fff; font-weight: bold; cursor: pointer; font-size: 0.9rem; }
-        .btn-option.active { background: #4caf50; color: white; border-color: #4caf50; }
-        .btn-main { width: 100%; padding: 12px; border: none; border-radius: 8px; font-size: 1rem; font-weight: bold; cursor: pointer; color: white; transition: opacity 0.2s; }
-        .btn-main:disabled { background: #ccc; cursor: not-allowed; }
-        .btn-red { background: #e53935; }
-        .btn-blue { background: #2196f3; }
-        .btn-green { background: #4caf50; }
-        
-        .spinner-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 2000; color: white; }
-        .spinner { width: 50px; height: 50px; border: 5px solid rgba(255,255,255,0.3); border-top: 5px solid #fff; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 15px; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); display: flex; justify-content: center; align-items: center; z-index: 1000; }
-        .modal-content { background: white; width: 85%; max-width: 350px; padding: 20px; border-radius: 15px; text-align: center; position: relative; }
-        .btn-record { width: 80px; height: 80px; border-radius: 50%; border: none; background: #e53935; color: white; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.3); margin-bottom: 15px; cursor: pointer; }
-        .btn-record.recording { background: #555; animation: pulse 1.5s infinite; }
-        #visualizer { width: 100%; height: 50px; background: #f9f9f9; border-radius: 4px; margin-bottom: 15px; }
-        textarea.input-field { min-height: 120px; resize: none; }
-        .preview-container { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
-        .preview-item { width: 50px; height: 50px; object-fit: cover; border-radius: 4px; border: 1px solid #ddd; }
-    </style>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
+  <title>録音・報告システム</title>
+  <script src='https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js'></script>
+  <style>
+    body { font-family: sans-serif; background-color: #f4f7f6; margin: 0; padding: 15px; line-height: 1.4; }
+    #app { max-width: 500px; margin: 0 auto; }
+    .card { background: white; padding: 15px; border-radius: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 15px; }
+    h2 { font-size: 1rem; color: #333; margin-top: 0; margin-bottom: 10px; border-left: 4px solid #4caf50; padding-left: 8px; }
+    .input-field { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 1rem; margin-bottom: 5px; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 5px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 5px; }
+    .btn-option { padding: 10px; border: 1px solid #ccc; border-radius: 6px; background: #fff; font-weight: bold; cursor: pointer; font-size: 0.9rem; }
+    .btn-option.active { background: #4caf50; color: white; border-color: #4caf50; }
+    .btn-main { width: 100%; padding: 12px; border: none; border-radius: 8px; font-size: 1rem; font-weight: bold; cursor: pointer; color: white; transition: opacity 0.2s; }
+    .btn-main:disabled { background: #ccc; cursor: not-allowed; }
+    .btn-red { background: #e53935; }
+    .btn-blue { background: #2196f3; }
+    .btn-green { background: #4caf50; }
+    .spinner-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 2000; color: white; }
+    .spinner { width: 50px; height: 50px; border: 5px solid rgba(255,255,255,0.3); border-top: 5px solid #fff; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 15px; }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); display: flex; justify-content: center; align-items: center; z-index: 1000; }
+    .modal-content { background: white; width: 85%; max-width: 350px; padding: 20px; border-radius: 15px; text-align: center; position: relative; }
+    .btn-record { width: 80px; height: 80px; border-radius: 50%; border: none; background: #e53935; color: white; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.3); margin-bottom: 15px; cursor: pointer; }
+    .btn-record.recording { background: #555; animation: pulse 1.5s infinite; }
+    #visualizer { width: 100%; height: 50px; background: #f9f9f9; border-radius: 4px; margin-bottom: 15px; }
+    textarea.input-field { min-height: 120px; resize: none; }
+    .preview-container { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+    .preview-item { width: 50px; height: 50px; object-fit: cover; border-radius: 4px; border: 1px solid #ddd; }
+  </style>
 </head>
 <body>
 
-<div id="app">
-    <div class="spinner-overlay" v-if="isUploading">
-        <div class="spinner"></div>
-        <p style="font-weight:bold;">{{ loadingMessage }}</p>
+<div id='app'>
+  <div class='spinner-overlay' v-if='isUploading'>
+    <div class='spinner'></div>
+    <p style='font-weight:bold;'>{{ loadingMessage }}</p>
+  </div>
+
+  <div class='card'>
+    <h2>1. 店舗・部署</h2>
+    <div class='grid-2'>
+      <select class='input-field' v-model='selectedStore' @change='saveStore'>
+        <option value='' disabled>店舗を選択</option>
+        <option v-for='(val, name) in stores' :key='val' :value='name'>{{ name }}</option>
+      </select>
+      <select class='input-field' v-model='selectedCategory' @change='saveCategory'>
+        <option value='' disabled>部門を選択</option>
+        <option v-for='(val, name) in categories' :key='val' :value='name'>{{ name }}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class='card'>
+    <h2>2. 職員番号</h2>
+    <input type='tel' class='input-field' v-model='staffNumber' @input='limitStaffNumber' placeholder='職員番号を入力'>
+  </div>
+
+  <div class='card'>
+    <h2>3. 組合員区分</h2>
+    <div class='grid-2'>
+      <button @click='selectedMemberType = "組合員"' :class='["btn-option", { active: selectedMemberType === "組合員" }]'>組合員</button>
+      <button @click='selectedMemberType = "未組"' :class='["btn-option", { active: selectedMemberType === "未組" }]'>未組</button>
+    </div>
+    <div v-if='selectedMemberType === "組合員"' style='margin-top:10px;'>
+      <input type='tel' class='input-field' v-model='memberNumber' @input='limitMemberNumber' placeholder='組合員番号（8桁）'>
+    </div>
+  </div>
+
+  <div class='card'>
+    <h2>4. 報告方法</h2>
+    <div class='grid-3'>
+      <button @click='inputMode = "audio"' :class='["btn-option", { active: inputMode === "audio" }]'>音声録音</button>
+      <button @click='inputMode = "text"' :class='["btn-option", { active: inputMode === "text" }]'>文字入力</button>
+      <button @click='triggerImageSelect' :class='["btn-option", { active: inputMode === "image" }]'>画像選択</button>
+    </div>
+    <input type='file' ref='imageInput' accept='image/*' multiple style='display: none' @change='onImagesSelected'>
+  </div>
+
+  <div class='card'>
+    <div v-if='inputMode === "audio"'>
+      <button class='btn-main btn-red' :disabled='!isReadyToRecord || isUploading' @click='showModal = true'>
+        録音画面を開く
+      </button>
+    </div>
+    
+    <div v-if='inputMode === "text"'>
+      <textarea class='input-field' v-model='manualText' placeholder='接客内容を入力してください...'></textarea>
+      <button class='btn-main btn-blue' :disabled='!isReadyToRecord || !manualText || isUploading' @click='uploadText'>
+        内容を送信する
+      </button>
     </div>
 
-    <div class="card">
-        <h2>1. 店舗・部署</h2>
-        <div class="grid-2">
-            <select class="input-field" v-model="selectedStore" @change="saveStore">
-                <option value="" disabled>店舗を選択</option>
-                <option v-for="(val, name) in stores" :key="val" :value="name">{{ name }}</option>
-            </select>
-            <select class="input-field" v-model="selectedCategory" @change="saveCategory">
-                <option value="" disabled>部門を選択</option>
-                <option v-for="(val, name) in categories" :key="val" :value="name">{{ name }}</option>
-            </select>
-        </div>
+    <div v-if='inputMode === "image"'>
+      <div v-if='previewUrls.length > 0' class='preview-container'>
+        <img v-for='(src, index) in previewUrls' :key='index' :src='src' class='preview-item'>
+      </div>
+      <p v-else style='font-size: 0.8rem; color: #666; text-align: center;'>画像を選択してください（複数可）</p>
+      <button class='btn-main btn-green' :disabled='!isReadyToRecord || selectedImages.length === 0 || isUploading' @click='uploadImages'>
+        {{ selectedImages.length }}枚の画像を送信
+      </button>
     </div>
+  </div>
 
-    <div class="card">
-        <h2>2. 職員番号</h2>
-        <input type="tel" class="input-field" v-model="staffNumber" @input="limitStaffNumber" placeholder="職員番号を入力">
+  <div class='modal-overlay' v-if='showModal' @click.self='closeModal'>
+    <div class='modal-content'>
+      <button style='position:absolute; top:10px; right:15px; border:none; background:none; font-size:1.5rem;' @click='closeModal'>×</button>
+      <p style='font-weight:bold; margin-bottom:15px;'>{{ isRecording ? '録音中...' : 'ボタンを押して開始' }}</p>
+      <canvas id='visualizer'></canvas>
+      <button class='btn-record' :class='{ recording: isRecording }' @click='toggleRecording'>
+        {{ isRecording ? '停止' : '開始' }}
+      </button>
     </div>
-
-    <div class="card">
-        <h2>3. 組合員区分</h2>
-        <div class="grid-2">
-            <button @click="selectedMemberType = '組合員'" :class="['btn-option', { active: selectedMemberType === '組合員' }]">組合員</button>
-            <button @click="selectedMemberType = '未組'" :class="['btn-option', { active: selectedMemberType === '未組' }]">未組</button>
-        </div>
-        <div v-if="selectedMemberType === '組合員'" style="margin-top:10px;">
-            <input type="tel" class="input-field" v-model="memberNumber" @input="limitMemberNumber" placeholder="組合員番号（8桁）">
-        </div>
-    </div>
-
-    <div class="card">
-        <h2>4. 報告方法</h2>
-        <div class="grid-3">
-            <button @click="inputMode = 'audio'" :class="['btn-option', { active: inputMode === 'audio' }]">音声録音</button>
-            <button @click="inputMode = 'text'" :class="['btn-option', { active: inputMode === 'text' }]">文字入力</button>
-            <button @click="triggerImageSelect" :class="['btn-option', { active: inputMode === 'image' }]">画像選択</button>
-        </div>
-        <input type="file" ref="imageInput" accept="image/*" multiple style="display: none" @change="onImagesSelected">
-    </div>
-
-    <div class="card">
-        <div v-if="inputMode === 'audio'">
-            <button class="btn-main btn-red" :disabled="!isReadyToRecord || isUploading" @click="showModal = true">
-                録音画面を開く
-            </button>
-        </div>
-        
-        <div v-if="inputMode === 'text'">
-            <textarea class="input-field" v-model="manualText" placeholder="接客内容を入力してください..."></textarea>
-            <button class="btn-main btn-blue" :disabled="!isReadyToRecord || !manualText || isUploading" @click="uploadText">
-                内容を送信する
-            </button>
-        </div>
-
-        <div v-if="inputMode === 'image'">
-            <div v-if="previewUrls.length > 0" class="preview-container">
-                <img v-for="(src, index) in previewUrls" :key="index" :src="src" class="preview-item">
-            </div>
-            <p v-else style="font-size: 0.8rem; color: #666; text-align: center;">画像を選択してください（複数可）</p>
-            <button class="btn-main btn-green" :disabled="!isReadyToRecord || selectedImages.length === 0 || isUploading" @click="uploadImages">
-                {{ selectedImages.length }}枚の画像を送信
-            </button>
-        </div>
-    </div>
-
-    <div class="modal-overlay" v-if="showModal" @click.self="closeModal">
-        <div class="modal-content">
-            <button style="position:absolute; top:10px; right:15px; border:none; background:none; font-size:1.5rem;" @click="closeModal">×</button>
-            <p style="font-weight:bold; margin-bottom:15px;">{{ isRecording ? '録音中...' : 'ボタンを押して開始' }}</p>
-            <canvas id="visualizer"></canvas>
-            <button class="btn-record" :class="{ recording: isRecording }" @click="toggleRecording">
-                {{ isRecording ? '停止' : '開始' }}
-            </button>
-        </div>
-    </div>
+  </div>
 </div>
 
 <script>
 new Vue({
-    el: '#app',
-    data: {
-        staffNumber: '',
-        selectedStore: '',
-        selectedCategory: '',
-        selectedMemberType: '',
-        memberNumber: '',
-        showModal: false,
-        isRecording: false,
-        isUploading: false,
-        loadingMessage: '処理中...',
-        audioChunks: [],
-        recorder: null,
-        audioCtx: null,
-        analyser: null,
-        animationId: null,
-        inputMode: 'audio',
-        manualText: '',
-        selectedImages: [],
-        previewUrls: [],
-        stores: { 'ながお店': '151', '西くずは店': '152', '星ヶ丘店': '153', '枚方公園店': '154', '忍ケ丘店': '155', '粉浜店': '351', '東都島店': '451', '東中浜店': '452', 'つるみ店': '453' },
-        categories: { '青果': '01', '鮮魚': '02', '精肉': '03', '惣菜': '04', 'グロサリー': '05', 'その他': '06' },
-        gasUrl: "https://script.google.com/macros/s/AKfycbxAxRr2pnLOlo2VdwpvOaw4SM7Yiod8wn1Yn8GyQTWiyJs1oUc6PAgNpN5dbt1cAqrdjQ/exec"
-    },
-    computed: {
-        isReadyToRecord() {
-            return this.selectedStore && this.selectedCategory && this.staffNumber && (this.selectedMemberType === '未組' || (this.selectedMemberType === '組合員' && this.memberNumber.length === 8));
-        }
-    },
-    mounted() {
-        this.selectedStore = localStorage.getItem('selectedStore') || '';
-        this.selectedCategory = localStorage.getItem('selectedCategory') || '';
-    },
-    methods: {
-        limitStaffNumber() { this.staffNumber = this.staffNumber.replace(/\D/g, '').slice(0, 6); },
-        limitMemberNumber() { this.memberNumber = this.memberNumber.replace(/\D/g, '').slice(0, 8); },
-        saveStore() { localStorage.setItem('selectedStore', this.selectedStore); },
-        saveCategory() { localStorage.setItem('selectedCategory', this.selectedCategory); },
-        
-        // 33桁のベースファイル名を生成
-        generateBaseFileName() {
-            const n = new Date();
-            const ts = `${n.getFullYear()}${("0"+(n.getMonth()+1)).slice(-2)}${("0"+n.getDate()).slice(-2)}${("0"+n.getHours()).slice(-2)}${("0"+n.getMinutes()).slice(-2)}${("0"+n.getSeconds()).slice(-2)}`;
-            return `${ts}${this.stores[this.selectedStore]}${this.categories[this.selectedCategory]}${("000000"+this.staffNumber).slice(-6)}${this.selectedMemberType==='未組'?'00000000':this.memberNumber}`;
-        },
-
-        triggerImageSelect() {
-            this.inputMode = 'image';
-            this.$refs.imageInput.click();
-        },
-        onImagesSelected(event) {
-            const files = Array.from(event.target.files);
-            if (!files.length) return;
-            this.selectedImages = files;
-            this.previewUrls = [];
-            files.forEach(file => {
-                const reader = new FileReader();
-                reader.onload = (e) => this.previewUrls.push(e.target.result);
-                reader.readAsDataURL(file);
-            });
-        },
-
-        async uploadText() {
-            this.isUploading = true;
-            this.loadingMessage = "テキスト送信中...";
-            // テキストは単体なので末尾00
-            const fileName = this.generateBaseFileName() + "00.txt";
-            await this.sendToGAS({ fileName: fileName, mode: 'text', manualText: this.manualText });
-        },
-
-        async uploadImages() {
-            this.isUploading = true;
-            const baseName = this.generateBaseFileName();
-            const isMultiple = this.selectedImages.length > 1;
-
-            try {
-                for (let i = 0; i < this.selectedImages.length; i++) {
-                    this.loadingMessage = `画像送信・解析中 (${i + 1}/${this.selectedImages.length})`;
-                    const base64 = await this.convertToBase64(this.selectedImages[i]);
-                    
-                    // 【修正】連番ロジック: 単体なら00、複数なら01〜
-                    const seq = isMultiple ? ("0" + (i + 1)).slice(-2) : "00";
-                    const finalFileName = baseName + seq;
-
-                    await fetch(this.gasUrl, { 
-                        method: "POST", 
-                        mode: "no-cors", 
-                        body: JSON.stringify({
-                            fileName: finalFileName,
-                            mode: 'image',
-                            imageData: base64
-                        })
-                    });
-                }
-                alert("送信完了しました");
-                location.reload();
-            } catch (e) {
-                alert("送信エラー");
-                this.isUploading = false;
-            }
-        },
-
-        convertToBase64(file) {
-            return new Promise((resolve) => {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    const img = new Image();
-                    img.onload = () => {
-                        const canvas = document.createElement('canvas');
-                        let width = img.width;
-                        let height = img.height;
-                        const max_size = 1200; 
-                        if (width > height) {
-                            if (width > max_size) { height *= max_size / width; width = max_size; }
-                        } else {
-                            if (height > max_size) { width *= max_size / height; height = max_size; }
-                        }
-                        canvas.width = width;
-                        canvas.height = height;
-                        const ctx = canvas.getContext('2d');
-                        ctx.drawImage(img, 0, 0, width, height);
-                        resolve(canvas.toDataURL('image/jpeg', 0.8).split(',')[1]);
-                    };
-                    img.src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            });
-        },
-
-        async toggleRecording() {
-            if (!this.isRecording) {
-                try {
-                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                    this.isRecording = true;
-                    this.audioChunks = [];
-                    this.recorder = new MediaRecorder(stream);
-                    this.recorder.ondataavailable = e => this.audioChunks.push(e.data);
-                    this.recorder.start();
-                    this.setupVisualizer(stream);
-                } catch (e) { alert("マイクを許可してください"); }
-            } else {
-                this.isRecording = false;
-                this.recorder.stop();
-                this.recorder.onstop = async () => {
-                    this.showModal = false;
-                    this.isUploading = true;
-                    this.loadingMessage = "音声解析中...";
-                    const blob = new Blob(this.audioChunks, { type: 'audio/webm' });
-                    const reader = new FileReader();
-                    reader.readAsDataURL(blob);
-                    reader.onloadend = async () => {
-                        // 音声は単体なので末尾00
-                        const fileName = this.generateBaseFileName() + "00.webm";
-                        await this.sendToGAS({ 
-                            fileName: fileName, 
-                            mode: 'audio', 
-                            audioData: reader.result.split(',')[1] 
-                        });
-                    };
-                };
-            }
-        },
-
-        setupVisualizer(stream) {
-            this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            const src = this.audioCtx.createMediaStreamSource(stream);
-            this.analyser = this.audioCtx.createAnalyser();
-            src.connect(this.analyser);
-            const canvas = document.getElementById('visualizer');
-            const ctx = canvas.getContext('2d');
-            const draw = () => {
-                this.animationId = requestAnimationFrame(draw);
-                const data = new Uint8Array(this.analyser.frequencyBinCount);
-                this.analyser.getByteFrequencyData(data);
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.fillStyle = '#e53935';
-                for (let i = 0; i < data.length; i++) {
-                    ctx.fillRect(i * 3, canvas.height - (data[i]/2), 2, data[i]/2);
-                }
-            };
-            draw();
-        },
-
-        async sendToGAS(payload) {
-            try {
-                await fetch(this.gasUrl, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) });
-                alert("送信完了しました");
-                location.reload();
-            } catch (e) { alert("送信エラー"); this.isUploading = false; }
-        },
-
-        closeModal() {
-            if (this.isRecording) this.toggleRecording();
-            this.showModal = false;
-        }
+  el: '#app',
+  data: {
+    staffNumber: '',
+    selectedStore: '',
+    selectedCategory: '',
+    selectedMemberType: '',
+    memberNumber: '',
+    showModal: false,
+    isRecording: false,
+    isUploading: false,
+    loadingMessage: '処理中... 少々お待ちください',
+    audioChunks: [],
+    recorder: null,
+    audioCtx: null,
+    analyser: null,
+    animationId: null,
+    inputMode: 'audio',
+    manualText: '',
+    selectedImages: [],
+    previewUrls: [],
+    stores: { 'ながお店': '151', '西くずは店': '152', '星ヶ丘店': '153', '枚方公園店': '154', '忍ケ丘店': '155', '粉浜店': '351', '東都島店': '451', '東中浜店': '452', 'つるみ店': '453' },
+    categories: { '青果': '01', '鮮魚': '02', '精肉': '03', '惣菜': '04', 'グロサリー': '05', 'その他': '06' },
+    gasUrl: 'https://script.google.com/macros/s/AKfycbxAxRr2pnLOlo2VdwpvOaw4SM7Yiod8wn1Yn8GyQTWiyJs1oUc6PAgNpN5dbt1cAqrdjQ/exec'
+  },
+  computed: {
+    isReadyToRecord () {
+      return this.selectedStore && this.selectedCategory && this.staffNumber && (this.selectedMemberType === '未組' || (this.selectedMemberType === '組合員' && this.memberNumber.length === 8))
     }
-});
+  },
+  mounted () {
+    this.selectedStore = localStorage.getItem('selectedStore') || ''
+    this.selectedCategory = localStorage.getItem('selectedCategory') || ''
+  },
+  methods: {
+    limitStaffNumber () {
+      this.staffNumber = this.staffNumber.replace(/\D/g, '').slice(0, 6)
+    },
+    limitMemberNumber () {
+      this.memberNumber = this.memberNumber.replace(/\D/g, '').slice(0, 8)
+    },
+    saveStore () {
+      localStorage.setItem('selectedStore', this.selectedStore)
+    },
+    saveCategory () {
+      localStorage.setItem('selectedCategory', this.selectedCategory)
+    },
+    generateFileName (suffix) {
+      const n = new Date()
+      const ts = `${n.getFullYear()}${('0' + (n.getMonth() + 1)).slice(-2)}${('0' + n.getDate()).slice(-2)}${('0' + n.getHours()).slice(-2)}${('0' + n.getMinutes()).slice(-2)}${('0' + n.getSeconds()).slice(-2)}`
+      const base33 = `${ts}${this.stores[this.selectedStore]}${this.categories[this.selectedCategory]}${('000000' + this.staffNumber).slice(-6)}${this.selectedMemberType === '未組' ? '00000000' : this.memberNumber}`
+      return base33 + suffix
+    },
+    triggerImageSelect () {
+      this.inputMode = 'image'
+      this.$refs.imageInput.click()
+    },
+    onImagesSelected (event) {
+      const files = Array.from(event.target.files)
+      if (!files.length) return
+      this.selectedImages = files
+      this.previewUrls = []
+      files.forEach(file => {
+        const reader = new FileReader()
+        reader.onload = (e) => this.previewUrls.push(e.target.result)
+        reader.readAsDataURL(file)
+      })
+    },
+    async uploadText () {
+      this.isUploading = true
+      this.loadingMessage = 'テキスト送信中...'
+      await this.sendToGAS({ fileName: this.generateFileName('00') + '.txt', mode: 'text', manualText: this.manualText })
+    },
+    async uploadImages () {
+      this.isUploading = true
+      try {
+        for (let i = 0; i < this.selectedImages.length; i++) {
+          this.loadingMessage = `画像送信・解析中 (${i + 1}/${this.selectedImages.length})`
+          const suffix = ('0' + (i + 1)).slice(-2)
+          const currentFileName = this.generateFileName(suffix)
+          const base64 = await this.convertToBase64(this.selectedImages[i])
+          await fetch(this.gasUrl, {
+            method: 'POST',
+            mode: 'no-cors',
+            body: JSON.stringify({
+              fileName: currentFileName,
+              mode: 'image',
+              imageData: base64
+            })
+          })
+        }
+        alert('送信完了しました')
+        location.reload()
+      } catch (e) {
+        alert('送信エラー')
+        this.isUploading = false
+      }
+    },
+    convertToBase64 (file) {
+      return new Promise((resolve) => {
+        const reader = new FileReader()
+        reader.onload = (e) => {
+          const img = new Image()
+          img.onload = () => {
+            const canvas = document.createElement('canvas')
+            let width = img.width
+            let height = img.height
+            const max_size = 1200
+            if (width > height) {
+              if (width > max_size) {
+                height *= max_size / width
+                width = max_size
+              }
+            } else {
+              if (height > max_size) {
+                width *= max_size / height
+                height = max_size
+              }
+            }
+            canvas.width = width
+            canvas.height = height
+            const ctx = canvas.getContext('2d')
+            ctx.drawImage(img, 0, 0, width, height)
+            resolve(canvas.toDataURL('image/jpeg', 0.8).split(',')[1])
+          }
+          img.src = e.target.result
+        }
+        reader.readAsDataURL(file)
+      })
+    },
+    async toggleRecording () {
+      if (!this.isRecording) {
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
+          this.isRecording = true
+          this.audioChunks = []
+          this.recorder = new MediaRecorder(stream)
+          this.recorder.ondataavailable = e => this.audioChunks.push(e.data)
+          this.recorder.start()
+          this.setupVisualizer(stream)
+        } catch (e) {
+          alert('マイクを許可してください')
+        }
+      } else {
+        this.isRecording = false
+        this.recorder.stop()
+        this.recorder.onstop = async () => {
+          this.showModal = false
+          this.isUploading = true
+          this.loadingMessage = '音声解析中...'
+          const blob = new Blob(this.audioChunks, { type: 'audio/webm' })
+          const reader = new FileReader()
+          reader.readAsDataURL(blob)
+          reader.onloadend = async () => {
+            await this.sendToGAS({ fileName: this.generateFileName('00') + '.webm', mode: 'audio', audioData: reader.result.split(',')[1] })
+          }
+        }
+      }
+    },
+    setupVisualizer (stream) {
+      this.audioCtx = new (window.AudioContext || window.webkitAudioContext)()
+      const src = this.audioCtx.createMediaStreamSource(stream)
+      this.analyser = this.audioCtx.createAnalyser()
+      src.connect(this.analyser)
+      const canvas = document.getElementById('visualizer')
+      const ctx = canvas.getContext('2d')
+      const draw = () => {
+        this.animationId = requestAnimationFrame(draw)
+        const data = new Uint8Array(this.analyser.frequencyBinCount)
+        this.analyser.getByteFrequencyData(data)
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        ctx.fillStyle = '#e53935'
+        for (let i = 0; i < data.length; i++) {
+          ctx.fillRect(i * 3, canvas.height - (data[i] / 2), 2, data[i] / 2)
+        }
+      }
+      draw()
+    },
+    async sendToGAS (payload) {
+      try {
+        await fetch(this.gasUrl, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) })
+        alert('送信完了しました')
+        location.reload()
+      } catch (e) {
+        alert('送信エラー')
+        this.isUploading = false
+      }
+    },
+    closeModal () {
+      if (this.isRecording) this.toggleRecording()
+      this.showModal = false
+    }
+  }
+})
 </script>
 </body>
 </html>
