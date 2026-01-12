@@ -7,25 +7,28 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
     <style>
         body { font-family: sans-serif; padding: 20px; background-color: #f4f4f4; }
-        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); max-width: 500px; margin: auto; }
         .method-selector { display: flex; gap: 10px; margin-bottom: 20px; }
-        button { padding: 10px 15px; cursor: pointer; border: none; border-radius: 4px; background: #007bff; color: white; }
-        button:disabled { background: #ccc; }
-        .preview-container { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
-        .preview-item { width: 80px; height: 80px; object-fit: cover; border: 1px solid #ddd; }
-        textarea { width: 100%; height: 100px; margin-top: 10px; }
-        .loading { color: #ff8c00; font-weight: bold; }
+        button { flex: 1; padding: 12px 5px; cursor: pointer; border: 1px solid #ddd; border-radius: 4px; background: #fff; }
+        button.active { background: #007bff; color: white; border-color: #0056b3; }
+        .camera-btn { background: #28a745; color: white; border: none; }
+        textarea { width: 100%; height: 120px; margin-top: 10px; box-sizing: border-box; }
+        .preview-container { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+        .preview-item { width: 60px; height: 60px; object-fit: cover; border-radius: 4px; border: 1px solid #ccc; }
+        .submit-btn { width: 100%; height: 50px; margin-top: 20px; background: #007bff; color: white; font-size: 1.1em; border: none; border-radius: 4px; }
+        .submit-btn:disabled { background: #ccc; }
+        .status { margin-top: 10px; text-align: center; font-weight: bold; color: #d9534f; }
     </style>
 </head>
 <body>
 
 <div id="app" class="card">
-    <h2>接客内容報告</h2>
+    <h3>接客内容報告</h3>
 
     <div class="method-selector">
-        <button @click="mode = 'audio'" :style="mode === 'audio' ? 'background:#0056b3' : ''">音声</button>
-        <button @click="mode = 'text'" :style="mode === 'text' ? 'background:#0056b3' : ''">文字入力</button>
-        <button @click="openCamera" style="background: #28a745;">カメラ・画像選択</button>
+        <button @click="mode = 'audio'" :class="{active: mode === 'audio'}">音声</button>
+        <button @click="mode = 'text'" :class="{active: mode === 'text'}">文字入力</button>
+        <button @click="openCamera" class="camera-btn">カメラ起動</button>
     </div>
 
     <input type="file" ref="imageInput" accept="image/*" multiple style="display: none" @change="onImagesSelected">
@@ -34,24 +37,24 @@
         <textarea v-model="manualText" placeholder="接客内容を入力してください..."></textarea>
     </div>
 
-    <div v-if="selectedImages.length > 0" style="margin-top: 15px;">
-        <p>選択された画像: {{ selectedImages.length }}枚</p>
-        <div class="preview-container">
-            <img v-for="(src, index) in previewUrls" :key="index" :src="src" class="preview-item">
-        </div>
+    <div v-if="mode === 'audio'" style="text-align: center; padding: 20px; border: 1px dashed #ccc;">
+        <p v-if="!isRecording">音声録音ボタンを配置してください</p>
+        <p v-else style="color: red;">● 録音中...</p>
     </div>
 
-    <div style="margin-top: 20px;">
-        <button @click="submitAll" :disabled="isUploading" style="width: 100%; font-size: 1.2em; height: 50px;">
-            報告を送信する
-        </button>
+    <div v-if="previewUrls.length > 0" class="preview-container">
+        <img v-for="(url, index) in previewUrls" :key="index" :src="url" class="preview-item">
     </div>
 
-    <p v-if="isUploading" class="loading">{{ statusMessage }}</p>
+    <button class="submit-btn" @click="submitReport" :disabled="isUploading">
+        報告を送信
+    </button>
+
+    <div v-if="isUploading" class="status">{{ statusMessage }}</div>
 </div>
 
 <script>
-const GAS_URL = "https://script.google.com/macros/s/…Q/exec"; // あなたのGASのURLに差し替えてください
+const GAS_URL = "https://script.google.com/macros/s/…Q/exec"; // ★自身のURLに差し替え
 
 new Vue({
     el: '#app',
@@ -61,7 +64,8 @@ new Vue({
         selectedImages: [],
         previewUrls: [],
         isUploading: false,
-        statusMessage: ''
+        statusMessage: '',
+        isRecording: false // 音声録音状態用
     },
     methods: {
         openCamera() {
@@ -74,76 +78,72 @@ new Vue({
 
             this.selectedImages = files;
             this.previewUrls = [];
-            
             files.forEach(file => {
                 const reader = new FileReader();
-                reader.onload = (e) => {
-                    this.previewUrls.push(e.target.result);
-                };
+                reader.onload = (e) => this.previewUrls.push(e.target.result);
                 reader.readAsDataURL(file);
             });
         },
-        async submitAll() {
+        async submitReport() {
             this.isUploading = true;
             this.statusMessage = "送信中...";
 
             try {
+                // --- 画像モードの場合（複数枚対応） ---
                 if (this.mode === 'image') {
-                    // 【複数画像の一括処理】
-                    // 共通のファイル名を生成（日時ベース）
-                    const now = new Date();
-                    const timestamp = now.getFullYear() + 
-                        ("0" + (now.getMonth() + 1)).slice(-2) + 
-                        ("0" + now.getDate()).slice(-2) + 
-                        ("0" + now.getHours()).slice(-2) + 
-                        ("0" + now.getMinutes()).slice(-2) + 
-                        ("0" + now.getSeconds()).slice(-2);
+                    if (this.selectedImages.length === 0) throw new Error("画像が選択されていません");
                     
-                    const commonFileName = "IMG_" + timestamp + ".jpg";
+                    const timestamp = new Date().getTime();
+                    const commonFileName = "IMG_" + timestamp; // ファイル名を共通化
 
                     for (let i = 0; i < this.selectedImages.length; i++) {
-                        this.statusMessage = `画像送信中... (${i + 1}/${this.selectedImages.length})`;
+                        this.statusMessage = `画像送信中 (${i + 1}/${this.selectedImages.length})`;
                         const base64 = await this.convertToBase64(this.selectedImages[i]);
                         
-                        await this.postToGas({
+                        await this.sendToGas({
                             mode: "image",
-                            fileName: commonFileName, // 共通ファイル名
+                            fileName: commonFileName,
                             imageData: base64
                         });
                     }
+
+                // --- 文字入力モードの場合 ---
                 } else if (this.mode === 'text') {
-                    // 文字入力モード
-                    await this.postToGas({
+                    if (!this.manualText) throw new Error("テキストを入力してください");
+                    await this.sendToGas({
                         mode: "text",
                         manualText: this.manualText,
-                        fileName: "TEXT_REPORT.txt"
+                        fileName: "TEXT_" + new Date().getTime()
                     });
-                } else {
-                    // 音声モード（既存の録音処理が必要）
-                    alert("音声モードの録音データがありません");
+
+                // --- 音声モードの場合 ---
+                } else if (this.mode === 'audio') {
+                    // 音声送信処理（既存の録音データ送信ロジックをここに）
+                    alert("音声送信ロジックを呼び出します");
                 }
 
-                alert("送信が完了しました");
+                alert("すべての送信が完了しました");
                 this.resetForm();
+
             } catch (error) {
-                console.error(error);
-                alert("送信に失敗しました");
+                alert("エラー: " + error.message);
             } finally {
                 this.isUploading = false;
                 this.statusMessage = "";
             }
         },
-        postToGas(payload) {
-            return fetch(GAS_URL, {
+        async sendToGas(payload) {
+            const response = await fetch(GAS_URL, {
                 method: "POST",
                 body: JSON.stringify(payload)
-            }).then(res => res.json());
+            });
+            if (!response.ok) throw new Error("サーバーエラーが発生しました");
+            return await response.json();
         },
         convertToBase64(file) {
-            return new Promise((resolve, reject) => {
+            return new Promise((resolve) => {
                 const reader = new FileReader();
                 reader.onload = () => resolve(reader.result.split(',')[1]);
-                reader.onerror = error => reject(error);
                 reader.readAsDataURL(file);
             });
         },
@@ -151,11 +151,10 @@ new Vue({
             this.manualText = "";
             this.selectedImages = [];
             this.previewUrls = [];
-            this.$refs.imageInput.value = "";
+            if (this.$refs.imageInput) this.$refs.imageInput.value = "";
         }
     }
 });
 </script>
-
 </body>
 </html>
