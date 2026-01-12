@@ -12,7 +12,6 @@
         h2 { font-size: 1rem; color: #333; margin-top: 0; margin-bottom: 10px; border-left: 4px solid #4caf50; padding-left: 8px; }
         .input-field { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 1rem; margin-bottom: 5px; }
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 5px; }
-        /* 3つのボタンを並べるためのスタイル */
         .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 5px; }
         .btn-option { padding: 10px; border: 1px solid #ccc; border-radius: 6px; background: #fff; font-weight: bold; cursor: pointer; font-size: 0.9rem; }
         .btn-option.active { background: #4caf50; color: white; border-color: #4caf50; }
@@ -21,14 +20,18 @@
         .btn-red { background: #e53935; }
         .btn-blue { background: #2196f3; }
         .btn-green { background: #4caf50; }
+        
+        /* スピナーモーダルのスタイル */
+        .spinner-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 2000; color: white; }
+        .spinner { width: 50px; height: 50px; border: 5px solid rgba(255,255,255,0.3); border-top: 5px solid #fff; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 15px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); display: flex; justify-content: center; align-items: center; z-index: 1000; }
         .modal-content { background: white; width: 85%; max-width: 350px; padding: 20px; border-radius: 15px; text-align: center; position: relative; }
         .btn-record { width: 80px; height: 80px; border-radius: 50%; border: none; background: #e53935; color: white; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.3); margin-bottom: 15px; cursor: pointer; }
         .btn-record.recording { background: #555; animation: pulse 1.5s infinite; }
         #visualizer { width: 100%; height: 50px; background: #f9f9f9; border-radius: 4px; margin-bottom: 15px; }
-        .loading { text-align: center; color: #2196f3; font-weight: bold; margin-top: 10px; }
         textarea.input-field { min-height: 120px; resize: none; }
-        /* 画像プレビュー用スタイル */
         .preview-container { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
         .preview-item { width: 50px; height: 50px; object-fit: cover; border-radius: 4px; border: 1px solid #ddd; }
     </style>
@@ -36,6 +39,11 @@
 <body>
 
 <div id="app">
+    <div class="spinner-overlay" v-if="isUploading">
+        <div class="spinner"></div>
+        <p style="font-weight:bold;">{{ loadingMessage }}</p>
+    </div>
+
     <div class="card">
         <h2>1. 店舗・部署</h2>
         <div class="grid-2">
@@ -94,13 +102,11 @@
             <div v-if="previewUrls.length > 0" class="preview-container">
                 <img v-for="(src, index) in previewUrls" :key="index" :src="src" class="preview-item">
             </div>
-            <p v-else style="font-size: 0.8rem; color: #666; text-align: center;">画像が選択されていません</p>
+            <p v-else style="font-size: 0.8rem; color: #666; text-align: center;">画像を選択してください（複数可）</p>
             <button class="btn-main btn-green" :disabled="!isReadyToRecord || selectedImages.length === 0 || isUploading" @click="uploadImages">
                 {{ selectedImages.length }}枚の画像を送信
             </button>
         </div>
-
-        <div v-if="isUploading" class="loading">{{ loadingMessage }}</div>
     </div>
 
     <div class="modal-overlay" v-if="showModal" @click.self="closeModal">
@@ -135,7 +141,6 @@ new Vue({
         animationId: null,
         inputMode: 'audio',
         manualText: '',
-        // 画像用の追加データ
         selectedImages: [],
         previewUrls: [],
         stores: { 'ながお店': '151', '西くずは店': '152', '星ヶ丘店': '153', '枚方公園店': '154', '忍ケ丘店': '155', '粉浜店': '351', '東都島店': '451', '東中浜店': '452', 'つるみ店': '453' },
@@ -161,12 +166,10 @@ new Vue({
             const ts = `${n.getFullYear()}${("0"+(n.getMonth()+1)).slice(-2)}${("0"+n.getDate()).slice(-2)}${("0"+n.getHours()).slice(-2)}${("0"+n.getMinutes()).slice(-2)}${("0"+n.getSeconds()).slice(-2)}`;
             return `${ts}${this.stores[this.selectedStore]}${this.categories[this.selectedCategory]}${("000000"+this.staffNumber).slice(-6)}${this.selectedMemberType==='未組'?'00000000':this.memberNumber}`;
         },
-        // 画像選択トリガー
         triggerImageSelect() {
             this.inputMode = 'image';
             this.$refs.imageInput.click();
         },
-        // 画像選択時の処理
         onImagesSelected(event) {
             const files = Array.from(event.target.files);
             if (!files.length) return;
@@ -178,40 +181,36 @@ new Vue({
                 reader.readAsDataURL(file);
             });
         },
-        // 文字送信（既存）
         async uploadText() {
             this.isUploading = true;
-            this.loadingMessage = "処理中...";
+            this.loadingMessage = "テキスト送信中...";
             await this.sendToGAS({ fileName: this.generateFileName() + ".txt", mode: 'text', manualText: this.manualText });
         },
-        // 画像を一枚ずつ送信する新メソッド
         async uploadImages() {
             this.isUploading = true;
-            const commonFileName = this.generateFileName(); // 共通のファイル名（拡張子なし）
-            
+            const commonFileName = this.generateFileName();
             try {
                 for (let i = 0; i < this.selectedImages.length; i++) {
-                    this.loadingMessage = `画像送信中 (${i + 1}/${this.selectedImages.length})...`;
+                    this.loadingMessage = `画像送信・解析中 (${i + 1}/${this.selectedImages.length})`;
                     const base64 = await this.convertToBase64(this.selectedImages[i]);
-                    
-                    // GASへ送信
                     await fetch(this.gasUrl, { 
                         method: "POST", 
                         mode: "no-cors", 
                         body: JSON.stringify({
-                            fileName: commonFileName, // 共通のファイル名
+                            fileName: commonFileName,
                             mode: 'image',
                             imageData: base64
                         })
                     });
                 }
-                alert("すべての画像を送信しました");
+                alert("送信完了しました");
                 location.reload();
             } catch (e) {
-                alert("送信エラーが発生しました");
+                alert("送信エラー");
                 this.isUploading = false;
             }
         },
+        // リサイズ機能付きBase64変換
         convertToBase64(file) {
             return new Promise((resolve) => {
                 const reader = new FileReader();
@@ -221,37 +220,23 @@ new Vue({
                         const canvas = document.createElement('canvas');
                         let width = img.width;
                         let height = img.height;
-        
-                        // --- リサイズ設定：最大幅（または高さ）を1200pxに制限 ---
                         const max_size = 1200; 
                         if (width > height) {
-                            if (width > max_size) {
-                                height *= max_size / width;
-                                width = max_size;
-                            }
+                            if (width > max_size) { height *= max_size / width; width = max_size; }
                         } else {
-                            if (height > max_size) {
-                                width *= max_size / height;
-                                height = max_size;
-                            }
+                            if (height > max_size) { width *= max_size / height; height = max_size; }
                         }
-        
                         canvas.width = width;
                         canvas.height = height;
                         const ctx = canvas.getContext('2d');
                         ctx.drawImage(img, 0, 0, width, height);
-        
-                        // --- 圧縮設定：JPEG形式で画質を0.7(70%)に指定 ---
-                        // 画質を下げすぎるとOCR精度が落ちるため0.7〜0.8が推奨です
-                        const dataUrl = canvas.toDataURL('image/jpeg', 0.7);
-                        resolve(dataUrl.split(',')[1]);
+                        resolve(canvas.toDataURL('image/jpeg', 0.8).split(',')[1]);
                     };
                     img.src = e.target.result;
                 };
                 reader.readAsDataURL(file);
             });
         },
-        // 録音処理（既存）
         async toggleRecording() {
             if (!this.isRecording) {
                 try {
@@ -269,7 +254,7 @@ new Vue({
                 this.recorder.onstop = async () => {
                     this.showModal = false;
                     this.isUploading = true;
-                    this.loadingMessage = "音声処理中...";
+                    this.loadingMessage = "音声解析中...";
                     const blob = new Blob(this.audioChunks, { type: 'audio/webm' });
                     const reader = new FileReader();
                     reader.readAsDataURL(blob);
@@ -314,4 +299,3 @@ new Vue({
 </script>
 </body>
 </html>
-
