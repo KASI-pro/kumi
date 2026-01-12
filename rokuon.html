@@ -3,64 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>録音・報告システム（ハイブリッド版）</title>
+    <title>録音・報告システム</title>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
     <style>
-        body { font-family: sans-serif; background-color: #f4f7f6; margin: 0; padding: 15px; [cite_start]} [cite: 16, 17]
-        #app { max-width: 500px; margin: 0 auto; [cite_start]} [cite: 17, 18]
-        .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 15px; [cite_start]} [cite: 18, 19]
-        h2 { font-size: 1.1rem; color: #333; margin-top: 0; margin-bottom: 12px; [cite_start]} [cite: 19, 20]
-        .input-field { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 1.1rem; [cite_start]} [cite: 20, 21]
-        .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; [cite_start]} [cite: 22]
-        .btn-option { padding: 12px; border: 2px solid #ddd; border-radius: 10px; background: #fff; font-weight: bold; cursor: pointer; [cite_start]} [cite: 23, 24]
-        .btn-option.active { background: #4caf50; color: white; border-color: #4caf50; [cite_start]} [cite: 24, 25]
-        .btn-open-modal { width: 100%; padding: 15px; background: #e53935; color: white; border: none; border-radius: 10px; font-size: 1.1rem; font-weight: bold; cursor: pointer; [cite_start]} [cite: 25, 26]
-        .btn-send-text { width: 100%; padding: 15px; background: #2196f3; color: white; border: none; border-radius: 10px; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-top: 10px; }
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: flex; justify-content: center; align-items: center; z-index: 1000; [cite_start]} [cite: 26, 27]
-        .modal-content { background: white; width: 90%; max-width: 400px; padding: 30px; border-radius: 20px; text-align: center; position: relative; [cite_start]} [cite: 28, 29]
-        .btn-record { width: 100px; height: 100px; border-radius: 50%; border: none; background: #e53935; color: white; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.3); outline: none; margin-bottom: 20px; cursor: pointer; transition: transform 0.2s; [cite_start]} [cite: 29, 30, 31]
-        .btn-record.recording { background: #555; animation: pulse 1.5s infinite; transform: scale(1.1); [cite_start]} [cite: 31, 32]
-        #visualizer { width: 100%; height: 60px; background: #f0f0f0; border-radius: 5px; margin-bottom: 20px; [cite_start]} [cite: 32, 33]
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(229, 57, 53, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(229, 57, 53, 0); } 100% { box-shadow: 0 0 0 0 rgba(229, 57, 53, 0); [cite_start]} } [cite: 33, 34, 35, 36]
-        .loading-spinner { text-align: center; color: #2196f3; font-weight: bold; margin-top: 10px; [cite_start]} [cite: 36, 37]
-        textarea.input-field { resize: vertical; min-height: 100px; font-family: sans-serif; }
+        body { font-family: sans-serif; background-color: #f4f7f6; margin: 0; padding: 15px; line-height: 1.4; }
+        #app { max-width: 500px; margin: 0 auto; }
+        .card { background: white; padding: 15px; border-radius: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 15px; }
+        h2 { font-size: 1rem; color: #333; margin-top: 0; margin-bottom: 10px; border-left: 4px solid #4caf50; padding-left: 8px; }
+        .input-field { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 1rem; margin-bottom: 5px; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 5px; }
+        .btn-option { padding: 10px; border: 1px solid #ccc; border-radius: 6px; background: #fff; font-weight: bold; cursor: pointer; font-size: 0.9rem; }
+        .btn-option.active { background: #4caf50; color: white; border-color: #4caf50; }
+        .btn-main { width: 100%; padding: 12px; border: none; border-radius: 8px; font-size: 1rem; font-weight: bold; cursor: pointer; color: white; transition: opacity 0.2s; }
+        .btn-main:disabled { background: #ccc; cursor: not-allowed; }
+        .btn-red { background: #e53935; }
+        .btn-blue { background: #2196f3; }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); display: flex; justify-content: center; align-items: center; z-index: 1000; }
+        .modal-content { background: white; width: 85%; max-width: 350px; padding: 20px; border-radius: 15px; text-align: center; position: relative; }
+        .btn-record { width: 80px; height: 80px; border-radius: 50%; border: none; background: #e53935; color: white; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.3); margin-bottom: 15px; cursor: pointer; }
+        .btn-record.recording { background: #555; animation: pulse 1.5s infinite; }
+        #visualizer { width: 100%; height: 50px; background: #f9f9f9; border-radius: 4px; margin-bottom: 15px; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(229, 57, 53, 0.7); } 70% { box-shadow: 0 0 0 12px rgba(229, 57, 53, 0); } 100% { box-shadow: 0 0 0 0 rgba(229, 57, 53, 0); } }
+        .loading { text-align: center; color: #2196f3; font-weight: bold; margin-top: 10px; }
+        textarea.input-field { min-height: 120px; resize: none; }
     </style>
 </head>
 <body>
 
 <div id="app">
     <div class="card">
-        <h2>1. [cite_start]店舗・部署を選択</h2> [cite: 37, 38]
+        <h2>1. 店舗・部署</h2>
         <div class="grid-2">
-            [cite_start]<select class="input-field" v-model="selectedStore" @change="saveStore"> [cite: 38]
-                <option value="" disabled>店舗</option>
+            <select class="input-field" v-model="selectedStore" @change="saveStore">
+                <option value="" disabled>店舗を選択</option>
                 <option v-for="(val, name) in stores" :key="val" :value="name">{{ name }}</option>
             </select>
-            [cite_start]<select class="input-field" v-model="selectedCategory" @change="saveCategory"> [cite: 38, 46]
-                [cite_start]<option value="" disabled>部門</option> [cite: 39]
+            <select class="input-field" v-model="selectedCategory" @change="saveCategory">
+                <option value="" disabled>部門を選択</option>
                 <option v-for="(val, name) in categories" :key="val" :value="name">{{ name }}</option>
             </select>
         </div>
     </div>
 
     <div class="card">
-        <h2>2. [cite_start]職員番号</h2> [cite: 40]
-        [cite_start]<input type="tel" class="input-field" v-model="staffNumber" @input="limitStaffNumber" placeholder="職員番号"> [cite: 40]
+        <h2>2. 職員番号</h2>
+        <input type="tel" class="input-field" v-model="staffNumber" @input="limitStaffNumber" placeholder="職員番号を入力">
     </div>
 
     <div class="card">
-        <h2>3. [cite_start]組合員区分</h2> [cite: 41]
+        <h2>3. 組合員区分</h2>
         <div class="grid-2">
-            [cite_start]<button @click="selectedMemberType = '組合員'" :class="['btn-option', { active: selectedMemberType === '組合員' }]">組合員</button> [cite: 41]
-            [cite_start]<button @click="selectedMemberType = '未組'" :class="['btn-option', { active: selectedMemberType === '未組' }]">未組</button> [cite: 41]
+            <button @click="selectedMemberType = '組合員'" :class="['btn-option', { active: selectedMemberType === '組合員' }]">組合員</button>
+            <button @click="selectedMemberType = '未組'" :class="['btn-option', { active: selectedMemberType === '未組' }]">未組</button>
         </div>
-        <div v-if="selectedMemberType === '組合員'" style="margin-top:15px;">
-            [cite_start]<input type="tel" class="input-field" v-model="memberNumber" @input="limitMemberNumber" placeholder="組合員番号（8桁）"> [cite: 41, 42]
+        <div v-if="selectedMemberType === '組合員'" style="margin-top:10px;">
+            <input type="tel" class="input-field" v-model="memberNumber" @input="limitMemberNumber" placeholder="組合員番号（8桁）">
         </div>
     </div>
 
     <div class="card">
-        <h2>4. 報告方法の選択</h2>
+        <h2>4. 報告方法</h2>
         <div class="grid-2">
             <button @click="inputMode = 'audio'" :class="['btn-option', { active: inputMode === 'audio' }]">音声録音</button>
             <button @click="inputMode = 'text'" :class="['btn-option', { active: inputMode === 'text' }]">文字入力</button>
@@ -69,26 +71,29 @@
 
     <div class="card">
         <div v-if="inputMode === 'audio'">
-            [cite_start]<button class="btn-open-modal" :disabled="!isReadyToRecord || isUploading" @click="showModal = true">録音画面を開く</button> [cite: 42]
+            <button class="btn-main btn-red" :disabled="!isReadyToRecord || isUploading" @click="showModal = true">
+                録音画面を開く
+            </button>
         </div>
         
         <div v-if="inputMode === 'text'">
-            <textarea class="input-field" v-model="manualText" placeholder="接客内容を入力してください"></textarea>
-            <button class="btn-send-text" :disabled="!isReadyToRecord || !manualText || isUploading" @click="uploadText">内容を送信</button>
+            <textarea class="input-field" v-model="manualText" placeholder="接客内容を入力してください..."></textarea>
+            <button class="btn-main btn-blue" :disabled="!isReadyToRecord || !manualText || isUploading" @click="uploadText">
+                内容を送信する
+            </button>
         </div>
 
-        [cite_start]<div v-if="isUploading" class="loading-spinner">送信中... しばらくお待ちください</div> [cite: 42]
+        <div v-if="isUploading" class="loading">処理中... 少々お待ちください</div>
     </div>
 
-    [cite_start]<div class="modal-overlay" v-if="showModal" @click.self="closeModal"> [cite: 42]
+    <div class="modal-overlay" v-if="showModal" @click.self="closeModal">
         <div class="modal-content">
-            <button style="position:absolute; top:10px; right:15px; border:none; background:none; font-size:1.5rem;" [cite_start]@click="closeModal">×</button> [cite: 42, 43]
-            <h3>{{ isRecording ? [cite_start]'録音中...' : 'ボタンを押して開始' }}</h3> [cite: 43]
-            [cite_start]<canvas id="visualizer"></canvas> [cite: 43]
-            [cite_start]<button class="btn-record" :class="{ recording: isRecording }" @click="toggleRecording"> [cite: 43]
-                {{ isRecording ? '停止' : '録音開始' }}
+            <button style="position:absolute; top:10px; right:15px; border:none; background:none; font-size:1.5rem;" @click="closeModal">×</button>
+            <p style="font-weight:bold; margin-bottom:15px;">{{ isRecording ? '録音中...' : 'ボタンを押して開始' }}</p>
+            <canvas id="visualizer"></canvas>
+            <button class="btn-record" :class="{ recording: isRecording }" @click="toggleRecording">
+                {{ isRecording ? '停止' : '開始' }}
             </button>
-            [cite_start]<p style="font-size: 0.8rem; color: #666;">声に反応して波形が動きます</p> [cite: 44, 45]
         </div>
     </div>
 </div>
@@ -97,163 +102,103 @@
 new Vue({
     el: '#app',
     data: {
-        [cite_start]staffNumber: '', [cite: 45]
-        [cite_start]stores: { 'ながお店': '151', '西くずは店': '152', '星ヶ丘店': '153', '枚方公園店': '154', '忍ケ丘店': '155', '粉浜店': '351', '東都島店': '451', '東中浜店': '452', 'つるみ店': '453' }, [cite: 45]
-        [cite_start]selectedStore: '', [cite: 45]
-        [cite_start]categories: { '青果': '01', '鮮魚': '02', '精肉': '03', '惣菜': '04', 'グロサリー': '05', 'その他': '06' }, [cite: 45]
-        [cite_start]selectedCategory: '', [cite: 46]
-        [cite_start]selectedMemberType: '', [cite: 46]
-        [cite_start]memberNumber: '', [cite: 46]
-        [cite_start]showModal: false, [cite: 46]
-        [cite_start]isRecording: false, [cite: 46]
-        [cite_start]isUploading: false, [cite: 46]
-        [cite_start]audioChunks: [], [cite: 46]
-        [cite_start]recorder: null, [cite: 46]
-        [cite_start]audioCtx: null, [cite: 46]
-        [cite_start]analyser: null, [cite: 46]
-        [cite_start]animationId: null, [cite: 46]
-        inputMode: 'audio', // 追加: audio or text
-        manualText: '',    // 追加: 手入力テキスト用
-        [cite_start]gasUrl: "https://script.google.com/macros/s/AKfycbxAxRr2pnLOlo2VdwpvOaw4SM7Yiod8wn1Yn8GyQTWiyJs1oUc6PAgNpN5dbt1cAqrdjQ/exec" [cite: 46, 47]
+        staffNumber: '',
+        selectedStore: '',
+        selectedCategory: '',
+        selectedMemberType: '',
+        memberNumber: '',
+        showModal: false,
+        isRecording: false,
+        isUploading: false,
+        audioChunks: [],
+        recorder: null,
+        audioCtx: null,
+        analyser: null,
+        animationId: null,
+        inputMode: 'audio',
+        manualText: '',
+        stores: { 'ながお店': '151', '西くずは店': '152', '星ヶ丘店': '153', '枚方公園店': '154', '忍ケ丘店': '155', '粉浜店': '351', '東都島店': '451', '東中浜店': '452', 'つるみ店': '453' },
+        categories: { '青果': '01', '鮮魚': '02', '精肉': '03', '惣菜': '04', 'グロサリー': '05', 'その他': '06' },
+        gasUrl: "https://script.google.com/macros/s/AKfycbxAxRr2pnLOlo2VdwpvOaw4SM7Yiod8wn1Yn8GyQTWiyJs1oUc6PAgNpN5dbt1cAqrdjQ/exec"
     },
     computed: {
         isReadyToRecord() {
-            [cite_start]const isStoreOk = this.selectedStore !== ''; [cite: 47]
-            [cite_start]const isCategoryOk = this.selectedCategory !== ''; [cite: 47]
-            [cite_start]const isStaffOk = this.staffNumber.length >= 1; [cite: 48]
-            let isMemberOk = (this.selectedMemberType === '未組') || (this.selectedMemberType === '組合員' && this.memberNumber.length === 8)[cite_start]; [cite: 48]
-            [cite_start]return isStoreOk && isCategoryOk && isStaffOk && isMemberOk; [cite: 49]
+            return this.selectedStore && this.selectedCategory && this.staffNumber && (this.selectedMemberType === '未組' || (this.selectedMemberType === '組合員' && this.memberNumber.length === 8));
         }
     },
     mounted() {
-        [cite_start]const savedStore = localStorage.getItem('selectedStore'); [cite: 49]
-        [cite_start]if (savedStore && this.stores[savedStore]) this.selectedStore = savedStore; [cite: 50]
-        [cite_start]const savedCategory = localStorage.getItem('selectedCategory'); [cite: 50]
-        [cite_start]if (savedCategory && this.categories[savedCategory]) this.selectedCategory = savedCategory; [cite: 50]
+        this.selectedStore = localStorage.getItem('selectedStore') || '';
+        this.selectedCategory = localStorage.getItem('selectedCategory') || '';
     },
     methods: {
-        limitStaffNumber() { this.staffNumber = this.staffNumber.replace(/\D/g, '').slice(0, 6); [cite_start]}, [cite: 51, 52]
-        limitMemberNumber() { this.memberNumber = this.memberNumber.replace(/\D/g, '').slice(0, 8); [cite_start]}, [cite: 52, 53]
-        saveStore() { localStorage.setItem('selectedStore', this.selectedStore); [cite_start]}, [cite: 53, 54]
-        saveCategory() { localStorage.setItem('selectedCategory', this.selectedCategory); [cite_start]}, [cite: 54, 55]
-
-        // ファイル名生成ロジックを共通化
+        limitStaffNumber() { this.staffNumber = this.staffNumber.replace(/\D/g, '').slice(0, 6); },
+        limitMemberNumber() { this.memberNumber = this.memberNumber.replace(/\D/g, '').slice(0, 8); },
+        saveStore() { localStorage.setItem('selectedStore', this.selectedStore); },
+        saveCategory() { localStorage.setItem('selectedCategory', this.selectedCategory); },
         generateFileName() {
-            [cite_start]const now = new Date(); [cite: 74]
-            [cite_start]const timestamp = `${now.getFullYear()}${("0" + (now.getMonth() + 1)).slice(-2)}${("0" + now.getDate()).slice(-2)}${("0" + now.getHours()).slice(-2)}${("0" + now.getMinutes()).slice(-2)}${("0" + now.getSeconds()).slice(-2)}`; [cite: 74, 75, 76, 77]
-            [cite_start]const storeCode = this.stores[this.selectedStore]; [cite: 77, 78]
-            [cite_start]const categoryCode = this.categories[this.selectedCategory]; [cite: 78, 79]
-            [cite_start]const paddedStaff = ("000000" + this.staffNumber).slice(-6); [cite: 79, 80]
-            const memberCode = this.selectedMemberType === '未組' ? [cite_start]'00000000' : this.memberNumber; [cite: 80, 81]
-            [cite_start]return `${timestamp}${storeCode}${categoryCode}${paddedStaff}${memberCode}.webm`; [cite: 81, 82]
+            const n = new Date();
+            const ts = `${n.getFullYear()}${("0"+(n.getMonth()+1)).slice(-2)}${("0"+n.getDate()).slice(-2)}${("0"+n.getHours()).slice(-2)}${("0"+n.getMinutes()).slice(-2)}${("0"+n.getSeconds()).slice(-2)}`;
+            return `${ts}${this.stores[this.selectedStore]}${this.categories[this.selectedCategory]}${("000000"+this.staffNumber).slice(-6)}${this.selectedMemberType==='未組'?'00000000':this.memberNumber}.webm`;
         },
-
         async uploadText() {
             this.isUploading = true;
-            const fileName = this.generateFileName();
-            const payload = {
-                fileName: fileName,
-                mode: 'text',
-                manualText: this.manualText
-            };
-            await this.sendToGAS(payload);
+            await this.sendToGAS({ fileName: this.generateFileName(), mode: 'text', manualText: this.manualText });
         },
-
         async toggleRecording() {
-            if (!this.isRecording) { await this.startRecording(); [cite_start]} [cite: 55]
-            else { this.stopRecording(); [cite_start]} [cite: 56, 57]
-        },
-
-        async startRecording() {
-            try {
-                [cite_start]const stream = await navigator.mediaDevices.getUserMedia({ audio: true }); [cite: 57]
-                [cite_start]this.isRecording = true; [cite: 58]
-                [cite_start]this.audioChunks = []; [cite: 58]
-                [cite_start]this.recorder = new MediaRecorder(stream); [cite: 58]
-                [cite_start]this.recorder.ondataavailable = e => this.audioChunks.push(e.data); [cite: 58]
-                [cite_start]this.recorder.start(); [cite: 58, 59]
-                [cite_start]this.setupVisualizer(stream); [cite: 59]
-            } catch (err) {
-                [cite_start]alert("マイクの使用が許可されていないか、接続に問題があります。"); [cite: 60]
+            if (!this.isRecording) {
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    this.isRecording = true;
+                    this.audioChunks = [];
+                    this.recorder = new MediaRecorder(stream);
+                    this.recorder.ondataavailable = e => this.audioChunks.push(e.data);
+                    this.recorder.start();
+                    this.setupVisualizer(stream);
+                } catch (e) { alert("マイクを許可してください"); }
+            } else {
+                this.isRecording = false;
+                this.recorder.stop();
+                this.recorder.onstop = async () => {
+                    this.showModal = false;
+                    this.isUploading = true;
+                    const blob = new Blob(this.audioChunks, { type: 'audio/webm' });
+                    const reader = new FileReader();
+                    reader.readAsDataURL(blob);
+                    reader.onloadend = async () => {
+                        await this.sendToGAS({ fileName: this.generateFileName(), mode: 'audio', audioData: reader.result.split(',')[1] });
+                    };
+                };
             }
         },
-
         setupVisualizer(stream) {
-            [cite_start]this.audioCtx = new (window.AudioContext || window.webkitAudioContext)(); [cite: 61]
-            [cite_start]const source = this.audioCtx.createMediaStreamSource(stream); [cite: 62]
-            [cite_start]this.analyser = this.audioCtx.createAnalyser(); [cite: 62]
-            [cite_start]this.analyser.fftSize = 256; [cite: 62]
-            [cite_start]source.connect(this.analyser); [cite: 62]
-            [cite_start]const canvas = document.getElementById('visualizer'); [cite: 62]
-            [cite_start]const canvasCtx = canvas.getContext('2d'); [cite: 62]
-            [cite_start]const bufferLength = this.analyser.frequencyBinCount; [cite: 63]
-            [cite_start]const dataArray = new Uint8Array(bufferLength); [cite: 63]
+            this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const src = this.audioCtx.createMediaStreamSource(stream);
+            this.analyser = this.audioCtx.createAnalyser();
+            src.connect(this.analyser);
+            const canvas = document.getElementById('visualizer');
+            const ctx = canvas.getContext('2d');
             const draw = () => {
-                [cite_start]this.animationId = requestAnimationFrame(draw); [cite: 63]
-                [cite_start]this.analyser.getByteFrequencyData(dataArray); [cite: 64]
-                [cite_start]canvasCtx.fillStyle = '#f0f0f0'; [cite: 64]
-                [cite_start]canvasCtx.fillRect(0, 0, canvas.width, canvas.height); [cite: 64]
-                [cite_start]const barWidth = (canvas.width / bufferLength) * 2.5; [cite: 64]
-                [cite_start]let barHeight; [cite: 64]
-                [cite_start]let x = 0; [cite: 65]
-                for (let i = 0; i < bufferLength; i++) {
-                    [cite_start]barHeight = dataArray[i] / 2; [cite: 65]
-                    [cite_start]canvasCtx.fillStyle = `rgb(229, 57, 53)`; [cite: 66]
-                    [cite_start]canvasCtx.fillRect(x, canvas.height - barHeight, barWidth, barHeight); [cite: 66]
-                    [cite_start]x += barWidth + 1; [cite: 66]
+                this.animationId = requestAnimationFrame(draw);
+                const data = new Uint8Array(this.analyser.frequencyBinCount);
+                this.analyser.getByteFrequencyData(data);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = '#e53935';
+                for (let i = 0; i < data.length; i++) {
+                    ctx.fillRect(i * 3, canvas.height - (data[i]/2), 2, data[i]/2);
                 }
             };
-            [cite_start]draw(); [cite: 67, 68]
+            draw();
         },
-
-        stopRecording() {
-            [cite_start]if (!this.isRecording) return; [cite: 68]
-            [cite_start]this.isRecording = false; [cite: 69]
-            [cite_start]this.recorder.stop(); [cite: 69]
-            [cite_start]cancelAnimationFrame(this.animationId); [cite: 69]
-            [cite_start]if (this.audioCtx) this.audioCtx.close(); [cite: 70]
-            this.recorder.onstop = async () => {
-                [cite_start]this.showModal = false; [cite: 70]
-                await this.uploadAudio();
-            };
-        },
-
-        async uploadAudio() {
-            [cite_start]this.isUploading = true; [cite: 73]
-            const fileName = this.generateFileName();
-            [cite_start]const audioBlob = new Blob(this.audioChunks, { type: 'audio/webm' }); [cite: 82]
-            [cite_start]const reader = new FileReader(); [cite: 83]
-            [cite_start]reader.readAsDataURL(audioBlob); [cite: 83]
-            reader.onloadend = async () => {
-                [cite_start]const base64Data = reader.result.split(',')[1]; [cite: 83]
-                const payload = {
-                    fileName: fileName,
-                    mode: 'audio',
-                    audioData: base64Data
-                [cite_start]}; [cite: 84]
-                await this.sendToGAS(payload);
-            };
-        },
-
         async sendToGAS(payload) {
             try {
-                await fetch(this.gasUrl, {
-                    method: "POST",
-                    [cite_start]mode: "no-cors", [cite: 85]
-                    [cite_start]body: JSON.stringify(payload) [cite: 86]
-                });
-                [cite_start]alert("送信しました。組声への反映には数秒かかります。"); [cite: 87]
-                [cite_start]location.reload(); [cite: 87]
-            } catch (err) {
-                [cite_start]alert("送信エラー: ネット接続を確認してください。"); [cite: 87]
-            } finally {
-                [cite_start]this.isUploading = false; [cite: 88, 89]
-            }
+                await fetch(this.gasUrl, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) });
+                alert("送信完了しました");
+                location.reload();
+            } catch (e) { alert("送信エラー"); this.isUploading = false; }
         },
-
         closeModal() {
-            if (this.isRecording) { this.stopRecording(); [cite_start]} [cite: 71, 72]
-            else { this.showModal = false; [cite_start]} [cite: 72, 73]
+            if (this.isRecording) this.toggleRecording();
+            this.showModal = false;
         }
     }
 });
