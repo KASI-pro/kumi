@@ -215,7 +215,39 @@ new Vue({
         convertToBase64(file) {
             return new Promise((resolve) => {
                 const reader = new FileReader();
-                reader.onload = () => resolve(reader.result.split(',')[1]);
+                reader.onload = (e) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        let width = img.width;
+                        let height = img.height;
+        
+                        // --- リサイズ設定：最大幅（または高さ）を1200pxに制限 ---
+                        const max_size = 1200; 
+                        if (width > height) {
+                            if (width > max_size) {
+                                height *= max_size / width;
+                                width = max_size;
+                            }
+                        } else {
+                            if (height > max_size) {
+                                width *= max_size / height;
+                                height = max_size;
+                            }
+                        }
+        
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+        
+                        // --- 圧縮設定：JPEG形式で画質を0.7(70%)に指定 ---
+                        // 画質を下げすぎるとOCR精度が落ちるため0.7〜0.8が推奨です
+                        const dataUrl = canvas.toDataURL('image/jpeg', 0.7);
+                        resolve(dataUrl.split(',')[1]);
+                    };
+                    img.src = e.target.result;
+                };
                 reader.readAsDataURL(file);
             });
         },
@@ -282,3 +314,4 @@ new Vue({
 </script>
 </body>
 </html>
+
