@@ -2,80 +2,174 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>接客報告システム</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>録音・報告システム</title>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
     <style>
-        body { font-family: sans-serif; padding: 20px; background-color: #f4f4f4; }
-        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); max-width: 500px; margin: auto; }
-        .method-selector { display: flex; gap: 10px; margin-bottom: 20px; }
-        button { flex: 1; padding: 12px 5px; cursor: pointer; border: 1px solid #ddd; border-radius: 4px; background: #fff; }
-        button.active { background: #007bff; color: white; border-color: #0056b3; }
-        .camera-btn { background: #28a745; color: white; border: none; }
-        textarea { width: 100%; height: 120px; margin-top: 10px; box-sizing: border-box; }
-        .preview-container { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
-        .preview-item { width: 60px; height: 60px; object-fit: cover; border-radius: 4px; border: 1px solid #ccc; }
-        .submit-btn { width: 100%; height: 50px; margin-top: 20px; background: #007bff; color: white; font-size: 1.1em; border: none; border-radius: 4px; }
-        .submit-btn:disabled { background: #ccc; }
-        .status { margin-top: 10px; text-align: center; font-weight: bold; color: #d9534f; }
+        body { font-family: sans-serif; background-color: #f4f7f6; margin: 0; padding: 15px; line-height: 1.4; }
+        #app { max-width: 500px; margin: 0 auto; }
+        .card { background: white; padding: 15px; border-radius: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 15px; }
+        h2 { font-size: 1rem; color: #333; margin-top: 0; margin-bottom: 10px; border-left: 4px solid #4caf50; padding-left: 8px; }
+        .input-field { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 1rem; margin-bottom: 5px; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 5px; }
+        /* 3つのボタンを並べるためのスタイル */
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 5px; }
+        .btn-option { padding: 10px; border: 1px solid #ccc; border-radius: 6px; background: #fff; font-weight: bold; cursor: pointer; font-size: 0.9rem; }
+        .btn-option.active { background: #4caf50; color: white; border-color: #4caf50; }
+        .btn-main { width: 100%; padding: 12px; border: none; border-radius: 8px; font-size: 1rem; font-weight: bold; cursor: pointer; color: white; transition: opacity 0.2s; }
+        .btn-main:disabled { background: #ccc; cursor: not-allowed; }
+        .btn-red { background: #e53935; }
+        .btn-blue { background: #2196f3; }
+        .btn-green { background: #4caf50; }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); display: flex; justify-content: center; align-items: center; z-index: 1000; }
+        .modal-content { background: white; width: 85%; max-width: 350px; padding: 20px; border-radius: 15px; text-align: center; position: relative; }
+        .btn-record { width: 80px; height: 80px; border-radius: 50%; border: none; background: #e53935; color: white; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.3); margin-bottom: 15px; cursor: pointer; }
+        .btn-record.recording { background: #555; animation: pulse 1.5s infinite; }
+        #visualizer { width: 100%; height: 50px; background: #f9f9f9; border-radius: 4px; margin-bottom: 15px; }
+        .loading { text-align: center; color: #2196f3; font-weight: bold; margin-top: 10px; }
+        textarea.input-field { min-height: 120px; resize: none; }
+        /* 画像プレビュー用スタイル */
+        .preview-container { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+        .preview-item { width: 50px; height: 50px; object-fit: cover; border-radius: 4px; border: 1px solid #ddd; }
     </style>
 </head>
 <body>
 
-<div id="app" class="card">
-    <h3>接客内容報告</h3>
-
-    <div class="method-selector">
-        <button @click="mode = 'audio'" :class="{active: mode === 'audio'}">音声</button>
-        <button @click="mode = 'text'" :class="{active: mode === 'text'}">文字入力</button>
-        <button @click="openCamera" class="camera-btn">カメラ起動</button>
+<div id="app">
+    <div class="card">
+        <h2>1. 店舗・部署</h2>
+        <div class="grid-2">
+            <select class="input-field" v-model="selectedStore" @change="saveStore">
+                <option value="" disabled>店舗を選択</option>
+                <option v-for="(val, name) in stores" :key="val" :value="name">{{ name }}</option>
+            </select>
+            <select class="input-field" v-model="selectedCategory" @change="saveCategory">
+                <option value="" disabled>部門を選択</option>
+                <option v-for="(val, name) in categories" :key="val" :value="name">{{ name }}</option>
+            </select>
+        </div>
     </div>
 
-    <input type="file" ref="imageInput" accept="image/*" multiple style="display: none" @change="onImagesSelected">
-
-    <div v-if="mode === 'text'">
-        <textarea v-model="manualText" placeholder="接客内容を入力してください..."></textarea>
+    <div class="card">
+        <h2>2. 職員番号</h2>
+        <input type="tel" class="input-field" v-model="staffNumber" @input="limitStaffNumber" placeholder="職員番号を入力">
     </div>
 
-    <div v-if="mode === 'audio'" style="text-align: center; padding: 20px; border: 1px dashed #ccc;">
-        <p v-if="!isRecording">音声録音ボタンを配置してください</p>
-        <p v-else style="color: red;">● 録音中...</p>
+    <div class="card">
+        <h2>3. 組合員区分</h2>
+        <div class="grid-2">
+            <button @click="selectedMemberType = '組合員'" :class="['btn-option', { active: selectedMemberType === '組合員' }]">組合員</button>
+            <button @click="selectedMemberType = '未組'" :class="['btn-option', { active: selectedMemberType === '未組' }]">未組</button>
+        </div>
+        <div v-if="selectedMemberType === '組合員'" style="margin-top:10px;">
+            <input type="tel" class="input-field" v-model="memberNumber" @input="limitMemberNumber" placeholder="組合員番号（8桁）">
+        </div>
     </div>
 
-    <div v-if="previewUrls.length > 0" class="preview-container">
-        <img v-for="(url, index) in previewUrls" :key="index" :src="url" class="preview-item">
+    <div class="card">
+        <h2>4. 報告方法</h2>
+        <div class="grid-3">
+            <button @click="inputMode = 'audio'" :class="['btn-option', { active: inputMode === 'audio' }]">音声録音</button>
+            <button @click="inputMode = 'text'" :class="['btn-option', { active: inputMode === 'text' }]">文字入力</button>
+            <button @click="triggerImageSelect" :class="['btn-option', { active: inputMode === 'image' }]">画像選択</button>
+        </div>
+        <input type="file" ref="imageInput" accept="image/*" multiple style="display: none" @change="onImagesSelected">
     </div>
 
-    <button class="submit-btn" @click="submitReport" :disabled="isUploading">
-        報告を送信
-    </button>
+    <div class="card">
+        <div v-if="inputMode === 'audio'">
+            <button class="btn-main btn-red" :disabled="!isReadyToRecord || isUploading" @click="showModal = true">
+                録音画面を開く
+            </button>
+        </div>
+        
+        <div v-if="inputMode === 'text'">
+            <textarea class="input-field" v-model="manualText" placeholder="接客内容を入力してください..."></textarea>
+            <button class="btn-main btn-blue" :disabled="!isReadyToRecord || !manualText || isUploading" @click="uploadText">
+                内容を送信する
+            </button>
+        </div>
 
-    <div v-if="isUploading" class="status">{{ statusMessage }}</div>
+        <div v-if="inputMode === 'image'">
+            <div v-if="previewUrls.length > 0" class="preview-container">
+                <img v-for="(src, index) in previewUrls" :key="index" :src="src" class="preview-item">
+            </div>
+            <p v-else style="font-size: 0.8rem; color: #666; text-align: center;">画像が選択されていません</p>
+            <button class="btn-main btn-green" :disabled="!isReadyToRecord || selectedImages.length === 0 || isUploading" @click="uploadImages">
+                {{ selectedImages.length }}枚の画像を送信
+            </button>
+        </div>
+
+        <div v-if="isUploading" class="loading">{{ loadingMessage }}</div>
+    </div>
+
+    <div class="modal-overlay" v-if="showModal" @click.self="closeModal">
+        <div class="modal-content">
+            <button style="position:absolute; top:10px; right:15px; border:none; background:none; font-size:1.5rem;" @click="closeModal">×</button>
+            <p style="font-weight:bold; margin-bottom:15px;">{{ isRecording ? '録音中...' : 'ボタンを押して開始' }}</p>
+            <canvas id="visualizer"></canvas>
+            <button class="btn-record" :class="{ recording: isRecording }" @click="toggleRecording">
+                {{ isRecording ? '停止' : '開始' }}
+            </button>
+        </div>
+    </div>
 </div>
 
 <script>
-const GAS_URL = "https://script.google.com/macros/s/…Q/exec"; // ★自身のURLに差し替え
-
 new Vue({
     el: '#app',
     data: {
-        mode: 'audio',
+        staffNumber: '',
+        selectedStore: '',
+        selectedCategory: '',
+        selectedMemberType: '',
+        memberNumber: '',
+        showModal: false,
+        isRecording: false,
+        isUploading: false,
+        loadingMessage: '処理中... 少々お待ちください',
+        audioChunks: [],
+        recorder: null,
+        audioCtx: null,
+        analyser: null,
+        animationId: null,
+        inputMode: 'audio',
         manualText: '',
+        // 画像用の追加データ
         selectedImages: [],
         previewUrls: [],
-        isUploading: false,
-        statusMessage: '',
-        isRecording: false // 音声録音状態用
+        stores: { 'ながお店': '151', '西くずは店': '152', '星ヶ丘店': '153', '枚方公園店': '154', '忍ケ丘店': '155', '粉浜店': '351', '東都島店': '451', '東中浜店': '452', 'つるみ店': '453' },
+        categories: { '青果': '01', '鮮魚': '02', '精肉': '03', '惣菜': '04', 'グロサリー': '05', 'その他': '06' },
+        gasUrl: "https://script.google.com/macros/s/AKfycbxAxRr2pnLOlo2VdwpvOaw4SM7Yiod8wn1Yn8GyQTWiyJs1oUc6PAgNpN5dbt1cAqrdjQ/exec"
+    },
+    computed: {
+        isReadyToRecord() {
+            return this.selectedStore && this.selectedCategory && this.staffNumber && (this.selectedMemberType === '未組' || (this.selectedMemberType === '組合員' && this.memberNumber.length === 8));
+        }
+    },
+    mounted() {
+        this.selectedStore = localStorage.getItem('selectedStore') || '';
+        this.selectedCategory = localStorage.getItem('selectedCategory') || '';
     },
     methods: {
-        openCamera() {
-            this.mode = 'image';
+        limitStaffNumber() { this.staffNumber = this.staffNumber.replace(/\D/g, '').slice(0, 6); },
+        limitMemberNumber() { this.memberNumber = this.memberNumber.replace(/\D/g, '').slice(0, 8); },
+        saveStore() { localStorage.setItem('selectedStore', this.selectedStore); },
+        saveCategory() { localStorage.setItem('selectedCategory', this.selectedCategory); },
+        generateFileName() {
+            const n = new Date();
+            const ts = `${n.getFullYear()}${("0"+(n.getMonth()+1)).slice(-2)}${("0"+n.getDate()).slice(-2)}${("0"+n.getHours()).slice(-2)}${("0"+n.getMinutes()).slice(-2)}${("0"+n.getSeconds()).slice(-2)}`;
+            return `${ts}${this.stores[this.selectedStore]}${this.categories[this.selectedCategory]}${("000000"+this.staffNumber).slice(-6)}${this.selectedMemberType==='未組'?'00000000':this.memberNumber}`;
+        },
+        // 画像選択トリガー
+        triggerImageSelect() {
+            this.inputMode = 'image';
             this.$refs.imageInput.click();
         },
+        // 画像選択時の処理
         onImagesSelected(event) {
             const files = Array.from(event.target.files);
             if (!files.length) return;
-
             this.selectedImages = files;
             this.previewUrls = [];
             files.forEach(file => {
@@ -84,61 +178,39 @@ new Vue({
                 reader.readAsDataURL(file);
             });
         },
-        async submitReport() {
+        // 文字送信（既存）
+        async uploadText() {
             this.isUploading = true;
-            this.statusMessage = "送信中...";
-
-            try {
-                // --- 画像モードの場合（複数枚対応） ---
-                if (this.mode === 'image') {
-                    if (this.selectedImages.length === 0) throw new Error("画像が選択されていません");
-                    
-                    const timestamp = new Date().getTime();
-                    const commonFileName = "IMG_" + timestamp; // ファイル名を共通化
-
-                    for (let i = 0; i < this.selectedImages.length; i++) {
-                        this.statusMessage = `画像送信中 (${i + 1}/${this.selectedImages.length})`;
-                        const base64 = await this.convertToBase64(this.selectedImages[i]);
-                        
-                        await this.sendToGas({
-                            mode: "image",
-                            fileName: commonFileName,
-                            imageData: base64
-                        });
-                    }
-
-                // --- 文字入力モードの場合 ---
-                } else if (this.mode === 'text') {
-                    if (!this.manualText) throw new Error("テキストを入力してください");
-                    await this.sendToGas({
-                        mode: "text",
-                        manualText: this.manualText,
-                        fileName: "TEXT_" + new Date().getTime()
-                    });
-
-                // --- 音声モードの場合 ---
-                } else if (this.mode === 'audio') {
-                    // 音声送信処理（既存の録音データ送信ロジックをここに）
-                    alert("音声送信ロジックを呼び出します");
-                }
-
-                alert("すべての送信が完了しました");
-                this.resetForm();
-
-            } catch (error) {
-                alert("エラー: " + error.message);
-            } finally {
-                this.isUploading = false;
-                this.statusMessage = "";
-            }
+            this.loadingMessage = "処理中...";
+            await this.sendToGAS({ fileName: this.generateFileName() + ".txt", mode: 'text', manualText: this.manualText });
         },
-        async sendToGas(payload) {
-            const response = await fetch(GAS_URL, {
-                method: "POST",
-                body: JSON.stringify(payload)
-            });
-            if (!response.ok) throw new Error("サーバーエラーが発生しました");
-            return await response.json();
+        // 画像を一枚ずつ送信する新メソッド
+        async uploadImages() {
+            this.isUploading = true;
+            const commonFileName = this.generateFileName(); // 共通のファイル名（拡張子なし）
+            
+            try {
+                for (let i = 0; i < this.selectedImages.length; i++) {
+                    this.loadingMessage = `画像送信中 (${i + 1}/${this.selectedImages.length})...`;
+                    const base64 = await this.convertToBase64(this.selectedImages[i]);
+                    
+                    // GASへ送信
+                    await fetch(this.gasUrl, { 
+                        method: "POST", 
+                        mode: "no-cors", 
+                        body: JSON.stringify({
+                            fileName: commonFileName, // 共通のファイル名
+                            mode: 'image',
+                            imageData: base64
+                        })
+                    });
+                }
+                alert("すべての画像を送信しました");
+                location.reload();
+            } catch (e) {
+                alert("送信エラーが発生しました");
+                this.isUploading = false;
+            }
         },
         convertToBase64(file) {
             return new Promise((resolve) => {
@@ -147,11 +219,63 @@ new Vue({
                 reader.readAsDataURL(file);
             });
         },
-        resetForm() {
-            this.manualText = "";
-            this.selectedImages = [];
-            this.previewUrls = [];
-            if (this.$refs.imageInput) this.$refs.imageInput.value = "";
+        // 録音処理（既存）
+        async toggleRecording() {
+            if (!this.isRecording) {
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    this.isRecording = true;
+                    this.audioChunks = [];
+                    this.recorder = new MediaRecorder(stream);
+                    this.recorder.ondataavailable = e => this.audioChunks.push(e.data);
+                    this.recorder.start();
+                    this.setupVisualizer(stream);
+                } catch (e) { alert("マイクを許可してください"); }
+            } else {
+                this.isRecording = false;
+                this.recorder.stop();
+                this.recorder.onstop = async () => {
+                    this.showModal = false;
+                    this.isUploading = true;
+                    this.loadingMessage = "音声処理中...";
+                    const blob = new Blob(this.audioChunks, { type: 'audio/webm' });
+                    const reader = new FileReader();
+                    reader.readAsDataURL(blob);
+                    reader.onloadend = async () => {
+                        await this.sendToGAS({ fileName: this.generateFileName() + ".webm", mode: 'audio', audioData: reader.result.split(',')[1] });
+                    };
+                };
+            }
+        },
+        setupVisualizer(stream) {
+            this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const src = this.audioCtx.createMediaStreamSource(stream);
+            this.analyser = this.audioCtx.createAnalyser();
+            src.connect(this.analyser);
+            const canvas = document.getElementById('visualizer');
+            const ctx = canvas.getContext('2d');
+            const draw = () => {
+                this.animationId = requestAnimationFrame(draw);
+                const data = new Uint8Array(this.analyser.frequencyBinCount);
+                this.analyser.getByteFrequencyData(data);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = '#e53935';
+                for (let i = 0; i < data.length; i++) {
+                    ctx.fillRect(i * 3, canvas.height - (data[i]/2), 2, data[i]/2);
+                }
+            };
+            draw();
+        },
+        async sendToGAS(payload) {
+            try {
+                await fetch(this.gasUrl, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) });
+                alert("送信完了しました");
+                location.reload();
+            } catch (e) { alert("送信エラー"); this.isUploading = false; }
+        },
+        closeModal() {
+            if (this.isRecording) this.toggleRecording();
+            this.showModal = false;
         }
     }
 });
