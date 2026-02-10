@@ -482,6 +482,9 @@ height:20px
 	</div>
 </body>
 <script>
+// グローバル変数として元の回答値を保持
+var originalAnswerValue = null;
+
 // 画面を開いた時は表示しない
 document.getElementById("hidden1").style.display ="none";
 document.getElementById("hidden2").style.display ="none";
@@ -529,6 +532,10 @@ window.onload=function(){
 		document.getElementById("answer").value = params.get('answer');
 		document.getElementById("simil").value = params.get('simil');
 		document.getElementById("genre").value = params.get('genre');
+		
+		// 元の回答値を保存
+		originalAnswerValue = params.get('answer');
+		
 		var reparam = params.get('branch');
 		checkSelect(f.elements["branch"],reparam);
 		var reparam2 = params.get('answer');
@@ -836,6 +843,22 @@ b.addEventListener(eventEnd, e => {
 									let kikanm = str11+str12+str13;
 									if(kikanm.length === 0 || kikanm.length === 7){
 										let str20 = document.getElementById("delete").value; // 添付削除
+										
+										// ★★★ 追加部分：①回答の変更確認 ★★★
+										var currentAnswer = document.getElementById("answer").value;
+										var answerChanged = false;
+										if(originalAnswerValue !== null && originalAnswerValue !== currentAnswer) {
+											answerChanged = true;
+											var originalText = (originalAnswerValue == "0") ? "要" : "不要";
+											var currentText = (currentAnswer == "0") ? "要" : "不要";
+											var confirmAnswer = window.confirm("【注意】\n「①回答」が変更されています。\n\n元の値: " + originalText + "\n現在の値: " + currentText + "\n\nこのまま送信してもよろしいですか？");
+											if(!confirmAnswer) {
+												count = 0;
+												return;
+											}
+										}
+										// ★★★ 追加部分ここまで ★★★
+										
 										var result;
 										if(str20 != 0){
 											result = window.confirm("添付画像全て削除に\nチェックされていますが\nメールを作成しても宜しいですか？");
@@ -878,7 +901,6 @@ b.addEventListener(eventEnd, e => {
 											offer = txtData[15].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 											comment = txtData[16].value.replace(regex, '').replace(/\W/g, function(m){return m.match(/[!-~]|\s/) ? "" : m});
 											delfox = txtData[17].value;
-											address = 'tos_oka2@palcoop.or.jp';
 											subject = '組合員の声（修正）';
 											body = '{"body":{"answer":"'+answer+
 														'","branch":"'+branch+
